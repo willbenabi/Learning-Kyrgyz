@@ -1,0 +1,43 @@
+Rails.application.routes.draw do
+  # Health check
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+
+  # Authentication routes
+  get '/login', to: 'sessions#new', as: :login
+  resource :session, only: [:create, :destroy] do
+    post :refresh, on: :collection
+  end
+
+  # Password reset routes
+  namespace :password do
+    post :forgot, to: 'reset#forgot'
+    get :reset, to: 'reset#show'
+    put :reset, to: 'reset#update'
+  end
+
+  # Profile routes (authenticated users)
+  resource :profile, only: [:show, :edit, :update]
+
+  # Settings routes (authenticated users)
+  get '/settings', to: 'settings#index', as: :settings
+  patch '/settings', to: 'settings#update'
+
+  # Admin routes (super_admin only)
+  namespace :admin do
+    resources :users
+    get :dashboard, to: 'dashboard#index'
+  end
+
+  # Dashboard (authenticated users)
+  get :dashboard, to: 'dashboard#index'
+
+  # Root path
+  root to: redirect('/login')
+
+  # Example Inertia route (can be removed later)
+  get 'inertia-example', to: 'inertia_example#index'
+end

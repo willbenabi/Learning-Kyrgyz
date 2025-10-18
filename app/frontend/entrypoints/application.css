@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(9% 0 0);
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(9% 0 0);
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(9% 0 0);
+  --color-primary: oklch(9% 0 0);
+  --color-primary-foreground: oklch(98% 0 0);
+  --color-secondary: oklch(96% 0 0);
+  --color-secondary-foreground: oklch(9% 0 0);
+  --color-muted: oklch(96% 0 0);
+  --color-muted-foreground: oklch(45% 0 0);
+  --color-accent: oklch(96% 0 0);
+  --color-accent-foreground: oklch(9% 0 0);
+  --color-destructive: oklch(60% 0.15 25);
+  --color-destructive-foreground: oklch(98% 0 0);
+  --color-border: oklch(90% 0 0);
+  --color-input: oklch(90% 0 0);
+  --color-ring: oklch(9% 0 0);
+  --radius: 0.5rem;
+}
+
+@theme {
+  --color-sidebar: oklch(98% 0 0);
+  --color-sidebar-foreground: oklch(26% 0.01 240);
+  --color-sidebar-primary: oklch(10% 0.01 240);
+  --color-sidebar-primary-foreground: oklch(98% 0 0);
+  --color-sidebar-accent: oklch(96% 0 240);
+  --color-sidebar-accent-foreground: oklch(10% 0.01 240);
+  --color-sidebar-border: oklch(91% 0.01 220);
+  --color-sidebar-ring: oklch(60% 0.15 217);
+}
+
+/* Dark mode colors */
+.dark {
+  --color-background: oklch(9% 0 0);
+  --color-foreground: oklch(98% 0 0);
+  --color-card: oklch(9% 0 0);
+  --color-card-foreground: oklch(98% 0 0);
+  --color-popover: oklch(9% 0 0);
+  --color-popover-foreground: oklch(98% 0 0);
+  --color-primary: oklch(98% 0 0);
+  --color-primary-foreground: oklch(9% 0 0);
+  --color-secondary: oklch(15% 0 0);
+  --color-secondary-foreground: oklch(98% 0 0);
+  --color-muted: oklch(15% 0 0);
+  --color-muted-foreground: oklch(64% 0 0);
+  --color-accent: oklch(15% 0 0);
+  --color-accent-foreground: oklch(98% 0 0);
+  --color-destructive: oklch(31% 0.12 25);
+  --color-destructive-foreground: oklch(98% 0 0);
+  --color-border: oklch(15% 0 0);
+  --color-input: oklch(15% 0 0);
+  --color-ring: oklch(83% 0 0);
+
+  --color-sidebar: oklch(10% 0.01 240);
+  --color-sidebar-foreground: oklch(96% 0 240);
+  --color-sidebar-primary: oklch(48% 0.15 224);
+  --color-sidebar-primary-foreground: oklch(100% 0 0);
+  --color-sidebar-accent: oklch(16% 0.01 240);
+  --color-sidebar-accent-foreground: oklch(96% 0 240);
+  --color-sidebar-border: oklch(16% 0.01 240);
+  --color-sidebar-ring: oklch(60% 0.15 217);
+}
+
+@layer base {
+  * {
+    border-color: theme(colors.border);
+  }
+
+  body {
+    background-color: theme(colors.background);
+    color: theme(colors.foreground);
+  }
+}
