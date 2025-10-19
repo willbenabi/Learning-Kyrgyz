@@ -262,19 +262,6 @@ CORS is configured in `config/initializers/cors.rb`:
 - ✅ Password validation (minimum 8 characters)
 - ✅ Bcrypt for password hashing
 
-## 🤝 Contributing
-
-This is a starter template. Feel free to:
-- Add features on top of this base
-- Customize the UI to your needs
-- Swap SQLite for PostgreSQL
-- Add email functionality for password reset
-- Implement Pundit policies for fine-grained authorization
-
-## 📄 License
-
-MIT License - feel free to use this template for any project!
-
 ## 🎯 What Makes This Template Different?
 
 1. **Iframe-Safe**: JWT-only approach works in iframes (no third-party cookie issues)
@@ -291,12 +278,3 @@ MIT License - feel free to use this template for any project!
 - [shadcn/ui Components](https://ui.shadcn.com)
 - [Rails Guides](https://guides.rubyonrails.org)
 - [Tailwind CSS](https://tailwindcss.com)
-
----
-
-**Built with ❤️ using Test-Driven Development**
-
-Total Test Coverage: 84 passing specs
-- Models: 33 specs
-- Services: 46 specs
-- Requests: 5 specs

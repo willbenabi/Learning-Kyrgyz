@@ -111,7 +111,7 @@
 
 @layer base {
   * {
-    border-color: theme(colors.border);
+    border-color: var(--border);
   }
 
   html,

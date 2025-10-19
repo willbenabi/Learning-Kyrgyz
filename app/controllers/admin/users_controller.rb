@@ -70,7 +70,18 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :super_admin)
+    # Separate sensitive attributes from basic attributes
+    basic_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
+
+    # Only allow role and super_admin for super admins (already enforced by before_action)
+    # But explicitly check again for defense in depth
+    if current_user.super_admin?
+      basic_params.merge(
+        params.require(:user).permit(:role, :super_admin)
+      )
+    else
+      basic_params
+    end
   end
 
   def require_super_admin
