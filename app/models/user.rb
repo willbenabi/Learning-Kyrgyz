@@ -7,6 +7,7 @@ class User < ApplicationRecord
   # Associations
   has_many :refresh_tokens, dependent: :destroy
   has_one :user_preference, dependent: :destroy
+  has_one_attached :avatar
 
   # Validations
   validates :email, presence: true,
@@ -15,6 +16,10 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
   validates :password, length: { minimum: 8 }, if: :password_digest_changed?
   validates :role, inclusion: { in: %w[user admin super_admin] }
+  validates :avatar, content_type: { in: %w[image/png image/jpg image/jpeg image/gif],
+                                     message: "must be a PNG, JPG, or GIF image" },
+                     size: { less_than: 5.megabytes, message: "must be less than 5MB" },
+                     if: -> { avatar.attached? }
 
   # Callbacks
   before_save :normalize_email

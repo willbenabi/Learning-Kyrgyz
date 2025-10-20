@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { router } from '@inertiajs/react'
+import { UploadIcon, UserIcon } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/app-sidebar'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -23,27 +24,47 @@ interface User {
   role: string
   super_admin: boolean
   created_at: string
+  avatar_url?: string | null
 }
 
 interface EditProfileProps {
   auth: {
     user: User
   }
-  preferences: {
-    sidebar_variant: 'sidebar' | 'floating' | 'inset'
-  }
   user: User
 }
 
-export default function EditProfile({ auth, preferences, user }: EditProfileProps) {
+export default function EditProfile({ auth, user }: EditProfileProps) {
   const [formData, setFormData] = useState({
     name: user.name,
     email: user.email,
     password: '',
     password_confirmation: '',
   })
+  const [avatar, setAvatar] = useState<File | null>(null)
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(user.avatar_url || null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const getUserInitials = (name: string): string => {
+    const parts = name.trim().split(/\s+/)
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    }
+    return name.substring(0, 2).toUpperCase()
+  }
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setAvatar(file)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -51,14 +72,24 @@ export default function EditProfile({ auth, preferences, user }: EditProfileProp
     setLoading(true)
 
     try {
+      const formDataToSend = new FormData()
+      formDataToSend.append('user[name]', formData.name)
+      formDataToSend.append('user[email]', formData.email)
+      if (formData.password) {
+        formDataToSend.append('user[password]', formData.password)
+        formDataToSend.append('user[password_confirmation]', formData.password_confirmation)
+      }
+      if (avatar) {
+        formDataToSend.append('user[avatar]', avatar)
+      }
+
       const response = await fetch('/profile', {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
         },
-        body: JSON.stringify({ user: formData }),
+        body: formDataToSend,
       })
 
       const data = await response.json()
@@ -76,17 +107,8 @@ export default function EditProfile({ auth, preferences, user }: EditProfileProp
   }
 
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar user={auth.user} variant={preferences.sidebar_variant} />
-      <SidebarInset>
-        <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <>
+      <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
           <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
@@ -114,12 +136,39 @@ export default function EditProfile({ auth, preferences, user }: EditProfileProp
               <CardDescription>Update your account information</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {error && (
                   <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
                     {error}
                   </div>
                 )}
+
+                <div className="flex items-center gap-6">
+                  <Avatar className="size-24">
+                    <AvatarImage src={avatarPreview || undefined} alt={user.name} />
+                    <AvatarFallback className="text-2xl">{getUserInitials(user.name)}</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-2">
+                    <Label htmlFor="avatar" className="cursor-pointer">
+                      <div className="flex items-center gap-2 rounded-md border border-input bg-background px-4 py-2 hover:bg-accent hover:text-accent-foreground">
+                        <UploadIcon className="size-4" />
+                        <span>Upload Avatar</span>
+                      </div>
+                      <Input
+                        id="avatar"
+                        type="file"
+                        accept="image/png,image/jpg,image/jpeg,image/gif"
+                        onChange={handleAvatarChange}
+                        className="hidden"
+                      />
+                    </Label>
+                    <p className="text-xs text-muted-foreground">
+                      PNG, JPG, or GIF. Max 5MB.
+                    </p>
+                  </div>
+                </div>
+
+                <Separator />
 
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
@@ -181,7 +230,6 @@ export default function EditProfile({ auth, preferences, user }: EditProfileProp
             </div>
           </div>
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+    </>
   )
 }

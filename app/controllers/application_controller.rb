@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  # Disable CSRF protection for JSON requests (JWT-based authentication)
+  protect_from_forgery with: :null_session, if: -> { request.format.json? }
+
   # Inertia configuration
   inertia_share do
     {
@@ -15,7 +18,8 @@ class ApplicationController < ActionController::Base
           name: current_user.name,
           email: current_user.email,
           role: current_user.role,
-          super_admin: current_user.super_admin?
+          super_admin: current_user.super_admin?,
+          avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil
         } : nil
       },
       preferences: current_user ? current_user_preferences : nil,

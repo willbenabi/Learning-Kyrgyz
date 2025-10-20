@@ -1,5 +1,10 @@
 class Password::ResetController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :set_current_user, only: [ :new, :show ]
+
+  # GET /password/forgot
+  def new
+    render inertia: "Auth/ForgotPassword"
+  end
 
   # POST /password/forgot
   def forgot

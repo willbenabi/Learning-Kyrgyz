@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [ :create, :refresh, :destroy ]
   skip_before_action :set_current_user, only: [ :new ]
 
   # GET /login

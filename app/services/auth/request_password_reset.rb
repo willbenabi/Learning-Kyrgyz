@@ -10,8 +10,7 @@ module Services
 
         if user
           user.generate_password_reset_token
-          # TODO: Send password reset email
-          # PasswordResetMailer.reset_instructions(user).deliver_later
+          UserMailer.reset_password_instructions(user).deliver_later
         end
 
         # Don't reveal if user exists for security

@@ -9,7 +9,6 @@ import {
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
@@ -35,7 +34,12 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarProps) {
-  const navMain = [
+  const navMain: Array<{
+    title: string
+    url: string
+    icon: typeof LayoutDashboardIcon
+    activePattern?: string
+  }> = [
     {
       title: "Dashboard",
       url: "/dashboard",
@@ -51,14 +55,10 @@ export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarPr
   // Add admin panel links for super admins
   if (user.super_admin) {
     navMain.push({
-      title: "Super Admin Panel",
-      url: "/admin/dashboard",
+      title: "Super Admin Console",
+      url: "/admin/console",
       icon: UsersIcon,
-    })
-    navMain.push({
-      title: "Audit Logs",
-      url: "/admin/audit_logs",
-      icon: FileTextIcon,
+      activePattern: "/admin",  // Highlight for all admin pages
     })
   }
 
@@ -89,7 +89,7 @@ export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarPr
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />
-        <NavSecondary items={navSecondary} className="mt-auto" />
+        <NavMain items={navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

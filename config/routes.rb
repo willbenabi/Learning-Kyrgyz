@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Letter Opener Web (development only)
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
 
   # Password reset routes
   namespace :password do
+    get :forgot, to: "reset#new"
     post :forgot, to: "reset#forgot"
     get :reset, to: "reset#show"
     put :reset, to: "reset#update"
@@ -30,7 +34,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :audit_logs, only: [ :index ]
-    get :dashboard, to: "dashboard#index"
+    get :console, to: "console#index"
   end
 
   # Dashboard (authenticated users)

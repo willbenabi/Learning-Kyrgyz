@@ -14,6 +14,9 @@ import { useEffect } from 'react'
 import { usePage } from '@inertiajs/react'
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
+import { AppSidebar } from '@/components/app-sidebar'
+import { getSidebarState } from '@/lib/sidebar-state'
 
 interface FlashMessages {
   success?: string
@@ -34,6 +37,8 @@ interface AppLayoutProps {
 export function AppLayout({ children }: AppLayoutProps) {
   const { props } = usePage<PageProps>()
   const flash = props.flash
+  const auth = (props as any).auth
+  const preferences = (props as any).preferences
 
   // Show toast notifications when flash messages change
   useEffect(() => {
@@ -77,10 +82,32 @@ export function AppLayout({ children }: AppLayoutProps) {
     }
   }, [flash])
 
+  // If user is not authenticated (login page, etc.), render without sidebar
+  if (!auth?.user || !preferences) {
+    return (
+      <>
+        <Toaster position="top-right" />
+        {children}
+      </>
+    )
+  }
+
+  // Authenticated pages with sidebar
   return (
     <>
       <Toaster position="top-right" />
-      {children}
+      <SidebarProvider
+        defaultOpen={getSidebarState()}
+        style={
+          {
+            '--sidebar-width': 'calc(var(--spacing) * 72)',
+            '--header-height': 'calc(var(--spacing) * 12)',
+          } as React.CSSProperties
+        }
+      >
+        <AppSidebar user={auth.user} variant={preferences.sidebar_variant} />
+        <SidebarInset>{children}</SidebarInset>
+      </SidebarProvider>
     </>
   )
 }

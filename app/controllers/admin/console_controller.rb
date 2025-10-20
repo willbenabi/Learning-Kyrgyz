@@ -1,9 +1,9 @@
-class Admin::DashboardController < Admin::BaseController
+class Admin::ConsoleController < Admin::BaseController
   after_action :verify_authorized
 
   def index
-    authorize :dashboard, :index?
-    render inertia: "Admin/Dashboard", props: {
+    authorize :console, :index?
+    render inertia: "Admin/Console", props: {
       stats: {
         total_users: User.count,
         super_admins: User.where(super_admin: true).count,

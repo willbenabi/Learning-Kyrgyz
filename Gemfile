@@ -54,6 +54,9 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
+# Active Storage validations
+gem "active_storage_validations", "~> 1.2"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -85,8 +88,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  # Opens emails in the browser
-  gem "letter_opener", "~> 1.10"
+  # Opens emails in a web interface (iframe compatible)
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do

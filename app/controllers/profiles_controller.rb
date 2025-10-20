@@ -1,5 +1,4 @@
 class ProfilesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [ :update ]
   before_action :authenticate_user!
 
   # GET /profile
@@ -28,17 +27,20 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
 
   def user_props(user)
+    avatar_url = user.avatar.attached? ? url_for(user.avatar) : nil
+
     {
       id: user.id,
       name: user.name,
       email: user.email,
       role: user.role,
       super_admin: user.super_admin?,
-      created_at: user.created_at
+      created_at: user.created_at,
+      avatar_url: avatar_url
     }
   end
 end

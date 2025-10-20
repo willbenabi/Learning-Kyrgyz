@@ -1,11 +1,11 @@
 import React from 'react'
 import { router } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/app-sidebar'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,31 +20,28 @@ interface User {
   role: string
   super_admin: boolean
   created_at: string
+  avatar_url?: string | null
 }
 
 interface ProfileShowProps {
   auth: {
     user: User
   }
-  preferences: {
-    sidebar_variant: 'sidebar' | 'floating' | 'inset'
-  }
   user: User
 }
 
-export default function ProfileShow({ auth, preferences, user }: ProfileShowProps) {
+export default function ProfileShow({ auth, user }: ProfileShowProps) {
+  const getUserInitials = (name: string): string => {
+    const parts = name.trim().split(/\s+/)
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    }
+    return name.substring(0, 2).toUpperCase()
+  }
+
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar user={auth.user} variant={preferences.sidebar_variant} />
-      <SidebarInset>
-        <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <>
+      <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
           <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
@@ -63,8 +60,16 @@ export default function ProfileShow({ auth, preferences, user }: ProfileShowProp
               <div className="px-4 lg:px-6">
                 <Card className="max-w-2xl from-primary/5 to-card bg-gradient-to-t shadow-xs">
                   <CardHeader>
-                    <CardTitle>{user.name}</CardTitle>
-                    <CardDescription>{user.email}</CardDescription>
+                    <div className="flex items-center gap-4">
+                      <Avatar className="size-20">
+                        <AvatarImage src={user.avatar_url || undefined} alt={user.name} />
+                        <AvatarFallback className="text-xl">{getUserInitials(user.name)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <CardTitle className="text-2xl">{user.name}</CardTitle>
+                        <CardDescription>{user.email}</CardDescription>
+                      </div>
+                    </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
@@ -84,7 +89,6 @@ export default function ProfileShow({ auth, preferences, user }: ProfileShowProp
             </div>
           </div>
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+    </>
   )
 }
