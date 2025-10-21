@@ -58,6 +58,5 @@ node_modules
 /coverage/
 
 # Claude AI assistant files
-CLAUDE.md
 .mcp.json
 
