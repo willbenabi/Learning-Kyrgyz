@@ -28,13 +28,12 @@ export function ThemeProvider({
   storageKey = 'ui-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme)
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Read from localStorage, default to 'system' if not set
+    const stored = localStorage.getItem(storageKey) as Theme | null
+    return stored || defaultTheme
+  })
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
-
-  // Update theme when defaultTheme prop changes (from server preferences)
-  useEffect(() => {
-    setTheme(defaultTheme)
-  }, [defaultTheme])
 
   useEffect(() => {
     const root = window.document.documentElement
@@ -82,7 +81,8 @@ export function ThemeProvider({
     theme,
     setTheme: (newTheme: Theme) => {
       setTheme(newTheme)
-      // No localStorage - preferences are auto-saved to database
+      // Save to localStorage for persistence
+      localStorage.setItem(storageKey, newTheme)
     },
     resolvedTheme,
   }

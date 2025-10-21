@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_20_181736) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_101417) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -72,14 +72,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_20_181736) do
     t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
-  create_table "user_preferences", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.json "preferences", default: {}, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_preferences_on_user_id", unique: true
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "name", null: false
@@ -96,5 +88,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_20_181736) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "refresh_tokens", "users"
-  add_foreign_key "user_preferences", "users"
 end

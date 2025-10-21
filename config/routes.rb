@@ -26,10 +26,6 @@ Rails.application.routes.draw do
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
 
-  # Settings routes (authenticated users)
-  get "/settings", to: "settings#index", as: :settings
-  patch "/settings", to: "settings#update"
-
   # Admin routes (super_admin only)
   namespace :admin do
     resources :users

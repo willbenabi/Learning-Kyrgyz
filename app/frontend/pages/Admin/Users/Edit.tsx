@@ -1,4 +1,7 @@
-import { router, useForm } from '@inertiajs/react'
+import { router } from '@inertiajs/react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -36,17 +39,52 @@ interface AdminUserEditProps {
   }
 }
 
+const userEditSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name must not exceed 100 characters'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().optional(),
+  password_confirmation: z.string().optional(),
+}).refine((data) => {
+  // If password is provided, it must be at least 8 characters
+  if (data.password && data.password.length > 0 && data.password.length < 8) {
+    return false
+  }
+  return true
+}, {
+  message: "Password must be at least 8 characters",
+  path: ['password'],
+}).refine((data) => {
+  // If password is provided, confirmation must match
+  if (data.password && data.password.length > 0) {
+    return data.password === data.password_confirmation
+  }
+  return true
+}, {
+  message: "Passwords don't match",
+  path: ['password_confirmation'],
+})
+
+type UserEditFormData = z.infer<typeof userEditSchema>
+
 export default function AdminUserEdit({ auth, user, errors }: AdminUserEditProps) {
-  const { data, setData, put, processing } = useForm({
-    name: user.name,
-    email: user.email,
-    password: '',
-    password_confirmation: '',
+  const { register, handleSubmit, formState: { errors: formErrors, isSubmitting } } = useForm<UserEditFormData>({
+    resolver: zodResolver(userEditSchema),
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+      password: '',
+      password_confirmation: '',
+    },
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    put(`/admin/users/${user.id}`)
+  const onSubmit = (data: UserEditFormData) => {
+    // Remove empty password fields
+    const submitData = { ...data }
+    if (!submitData.password || submitData.password.length === 0) {
+      delete submitData.password
+      delete submitData.password_confirmation
+    }
+    router.put(`/admin/users/${user.id}`, { user: submitData })
   }
 
   return (
@@ -83,16 +121,17 @@ export default function AdminUserEdit({ auth, user, errors }: AdminUserEditProps
                     <CardDescription>Update user information</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Name</Label>
                         <Input
                           id="name"
                           type="text"
-                          value={data.name}
-                          onChange={(e) => setData('name', e.target.value)}
-                          required
+                          {...register('name')}
                         />
+                        {formErrors.name && (
+                          <p className="text-sm text-destructive">{formErrors.name.message}</p>
+                        )}
                         {errors?.name && (
                           <p className="text-sm text-destructive">{errors.name[0]}</p>
                         )}
@@ -103,10 +142,11 @@ export default function AdminUserEdit({ auth, user, errors }: AdminUserEditProps
                         <Input
                           id="email"
                           type="email"
-                          value={data.email}
-                          onChange={(e) => setData('email', e.target.value)}
-                          required
+                          {...register('email')}
                         />
+                        {formErrors.email && (
+                          <p className="text-sm text-destructive">{formErrors.email.message}</p>
+                        )}
                         {errors?.email && (
                           <p className="text-sm text-destructive">{errors.email[0]}</p>
                         )}
@@ -117,9 +157,11 @@ export default function AdminUserEdit({ auth, user, errors }: AdminUserEditProps
                         <Input
                           id="password"
                           type="password"
-                          value={data.password}
-                          onChange={(e) => setData('password', e.target.value)}
+                          {...register('password')}
                         />
+                        {formErrors.password && (
+                          <p className="text-sm text-destructive">{formErrors.password.message}</p>
+                        )}
                         {errors?.password && (
                           <p className="text-sm text-destructive">{errors.password[0]}</p>
                         )}
@@ -130,9 +172,11 @@ export default function AdminUserEdit({ auth, user, errors }: AdminUserEditProps
                         <Input
                           id="password_confirmation"
                           type="password"
-                          value={data.password_confirmation}
-                          onChange={(e) => setData('password_confirmation', e.target.value)}
+                          {...register('password_confirmation')}
                         />
+                        {formErrors.password_confirmation && (
+                          <p className="text-sm text-destructive">{formErrors.password_confirmation.message}</p>
+                        )}
                         {errors?.password_confirmation && (
                           <p className="text-sm text-destructive">{errors.password_confirmation[0]}</p>
                         )}
@@ -146,8 +190,8 @@ export default function AdminUserEdit({ auth, user, errors }: AdminUserEditProps
                         >
                           Cancel
                         </Button>
-                        <Button type="submit" disabled={processing}>
-                          {processing ? 'Updating...' : 'Update User'}
+                        <Button type="submit" disabled={isSubmitting}>
+                          {isSubmitting ? 'Updating...' : 'Update User'}
                         </Button>
                       </div>
                     </form>

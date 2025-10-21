@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { router } from '@inertiajs/react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { UploadIcon, UserIcon } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -33,16 +36,46 @@ interface EditProfileProps {
   user: User
 }
 
+const profileEditSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name must not exceed 100 characters'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().optional(),
+  password_confirmation: z.string().optional(),
+}).refine((data) => {
+  // If password is provided, it must be at least 8 characters
+  if (data.password && data.password.length > 0 && data.password.length < 8) {
+    return false
+  }
+  return true
+}, {
+  message: "Password must be at least 8 characters",
+  path: ['password'],
+}).refine((data) => {
+  // If password is provided, confirmation must match
+  if (data.password && data.password.length > 0) {
+    return data.password === data.password_confirmation
+  }
+  return true
+}, {
+  message: "Passwords don't match",
+  path: ['password_confirmation'],
+})
+
+type ProfileEditFormData = z.infer<typeof profileEditSchema>
+
 export default function EditProfile({ auth, user }: EditProfileProps) {
-  const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
-    password: '',
-    password_confirmation: '',
+  const { register, handleSubmit, formState: { errors: formErrors, isSubmitting } } = useForm<ProfileEditFormData>({
+    resolver: zodResolver(profileEditSchema),
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+      password: '',
+      password_confirmation: '',
+    },
   })
+
   const [avatar, setAvatar] = useState<File | null>(null)
   const [avatarPreview, setAvatarPreview] = useState<string | null>(user.avatar_url || null)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const getUserInitials = (name: string): string => {
@@ -65,18 +98,16 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (data: ProfileEditFormData) => {
     setError('')
-    setLoading(true)
 
     try {
       const formDataToSend = new FormData()
-      formDataToSend.append('user[name]', formData.name)
-      formDataToSend.append('user[email]', formData.email)
-      if (formData.password) {
-        formDataToSend.append('user[password]', formData.password)
-        formDataToSend.append('user[password_confirmation]', formData.password_confirmation)
+      formDataToSend.append('user[name]', data.name)
+      formDataToSend.append('user[email]', data.email)
+      if (data.password && data.password.length > 0) {
+        formDataToSend.append('user[password]', data.password)
+        formDataToSend.append('user[password_confirmation]', data.password_confirmation || '')
       }
       if (avatar) {
         formDataToSend.append('user[avatar]', avatar)
@@ -91,17 +122,15 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
         body: formDataToSend,
       })
 
-      const data = await response.json()
+      const responseData = await response.json()
 
       if (response.ok) {
         router.visit('/profile')
       } else {
-        setError(data.errors?.join(', ') || 'Update failed')
+        setError(responseData.errors?.join(', ') || 'Update failed')
       }
     } catch (err) {
       setError('An error occurred')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -135,7 +164,7 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
               <CardDescription>Update your account information</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {error && (
                   <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
                     {error}
@@ -173,10 +202,12 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
                   <Label htmlFor="name">Name</Label>
                   <Input
                     id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
+                    type="text"
+                    {...register('name')}
                   />
+                  {formErrors.name && (
+                    <p className="text-sm text-destructive">{formErrors.name.message}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -184,10 +215,11 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
                   <Input
                     id="email"
                     type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
+                    {...register('email')}
                   />
+                  {formErrors.email && (
+                    <p className="text-sm text-destructive">{formErrors.email.message}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -195,9 +227,11 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
                   <Input
                     id="password"
                     type="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    {...register('password')}
                   />
+                  {formErrors.password && (
+                    <p className="text-sm text-destructive">{formErrors.password.message}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -205,14 +239,16 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
                   <Input
                     id="password_confirmation"
                     type="password"
-                    value={formData.password_confirmation}
-                    onChange={(e) => setFormData({ ...formData, password_confirmation: e.target.value })}
+                    {...register('password_confirmation')}
                   />
+                  {formErrors.password_confirmation && (
+                    <p className="text-sm text-destructive">{formErrors.password_confirmation.message}</p>
+                  )}
                 </div>
 
                 <div className="flex gap-4">
-                  <Button type="submit" disabled={loading}>
-                    {loading ? 'Saving...' : 'Save Changes'}
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Saving...' : 'Save Changes'}
                   </Button>
                   <Button
                     type="button"

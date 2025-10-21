@@ -24,10 +24,9 @@ interface User {
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   user: User
-  variant?: "sidebar" | "floating" | "inset"
 }
 
-export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarProps) {
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   const navMain: Array<{
     title: string
     url: string
@@ -42,7 +41,7 @@ export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarPr
   ]
 
   return (
-    <Sidebar collapsible="icon" variant={variant} {...props}>
+    <Sidebar collapsible="icon" variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

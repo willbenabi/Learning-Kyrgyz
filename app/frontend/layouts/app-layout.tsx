@@ -39,7 +39,6 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { props } = usePage<PageProps>()
   const flash = props.flash
   const auth = (props as any).auth
-  const preferences = (props as any).preferences
 
   // Show toast notifications when flash messages change
   useEffect(() => {
@@ -83,31 +82,10 @@ export function AppLayout({ children }: AppLayoutProps) {
     }
   }, [flash])
 
-  // Get theme from preferences or default to 'system'
-  const theme = preferences?.theme || 'system'
-
-  // Sync body background attribute based on sidebar variant
-  // Note: Using useEffect for body manipulation is the correct React pattern
-  // when styling elements outside of React's control (html/body tags)
-  useEffect(() => {
-    const body = document.body
-
-    if (preferences?.sidebar_variant === 'inset') {
-      body.setAttribute('data-sidebar-bg', 'true')
-    } else {
-      body.removeAttribute('data-sidebar-bg')
-    }
-
-    // Cleanup function (runs when component unmounts or dependency changes)
-    return () => {
-      body.removeAttribute('data-sidebar-bg')
-    }
-  }, [preferences?.sidebar_variant])
-
   // If user is not authenticated (login page, etc.), render without sidebar
-  if (!auth?.user || !preferences) {
+  if (!auth?.user) {
     return (
-      <ThemeProvider defaultTheme={theme as 'light' | 'dark' | 'system'}>
+      <ThemeProvider>
         <Toaster position="top-right" />
         {children}
       </ThemeProvider>
@@ -116,7 +94,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   // Authenticated pages with sidebar
   return (
-    <ThemeProvider defaultTheme={theme as 'light' | 'dark' | 'system'}>
+    <ThemeProvider>
       <Toaster position="top-right" />
       <SidebarProvider
         defaultOpen={getSidebarState()}
@@ -127,7 +105,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           } as React.CSSProperties
         }
       >
-        <AppSidebar user={auth.user} variant={preferences.sidebar_variant} />
+        <AppSidebar user={auth.user} />
         <SidebarInset>{children}</SidebarInset>
       </SidebarProvider>
     </ThemeProvider>

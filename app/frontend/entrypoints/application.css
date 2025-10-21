@@ -120,8 +120,9 @@
     color: var(--foreground);
   }
 
-  html:has(body[data-sidebar-bg]),
-  body[data-sidebar-bg] {
+  /* Sidebar is always inset variant, so apply background */
+  html,
+  body {
     background-color: var(--sidebar);
   }
 

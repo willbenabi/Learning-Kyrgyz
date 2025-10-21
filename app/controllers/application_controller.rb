@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
           avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil
         } : nil
       },
-      preferences: current_user ? current_user_preferences : nil,
       flash: {
         success: flash[:success],
         error: flash[:error],
@@ -31,14 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def current_user_preferences
-    preference = current_user.user_preference || current_user.build_user_preference
-    {
-      sidebar_variant: preference.sidebar_variant,
-      theme: preference.theme
-    }
-  end
 
   def pagination_props(pagy)
     {

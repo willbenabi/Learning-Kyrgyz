@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { router } from '@inertiajs/react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,24 +12,27 @@ interface ResetPasswordProps {
   token?: string
 }
 
+const resetPasswordSchema = z.object({
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password_confirmation: z.string().min(8, 'Password confirmation must be at least 8 characters'),
+}).refine((data) => data.password === data.password_confirmation, {
+  message: "Passwords don't match",
+  path: ['password_confirmation'],
+})
+
+type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>
+
 export default function ResetPassword({ token }: ResetPasswordProps) {
-  const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const { register, handleSubmit, formState: { errors: formErrors, isSubmitting }, reset } = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
+  })
+
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (data: ResetPasswordFormData) => {
     setError('')
     setSuccess('')
-    setLoading(true)
-
-    if (password !== passwordConfirmation) {
-      setError('Passwords do not match')
-      setLoading(false)
-      return
-    }
 
     try {
       const response = await fetch('/password/reset', {
@@ -37,29 +43,25 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
         },
         body: JSON.stringify({
           token,
-          password,
-          password_confirmation: passwordConfirmation,
+          ...data,
         }),
       })
 
-      const data = await response.json()
+      const responseData = await response.json()
 
       if (response.ok) {
-        setSuccess(data.message || 'Password has been reset successfully')
-        setPassword('')
-        setPasswordConfirmation('')
+        setSuccess(responseData.message || 'Password has been reset successfully')
+        reset()
 
         // Redirect to login after 2 seconds
         setTimeout(() => {
           router.visit('/login')
         }, 2000)
       } else {
-        setError(data.error || 'Failed to reset password')
+        setError(responseData.error || 'Failed to reset password')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -95,7 +97,7 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {error && (
               <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
                 {error}
@@ -115,12 +117,12 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
                 id="password"
                 type="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
+                {...register('password')}
                 disabled={!!success}
               />
+              {formErrors.password && (
+                <p className="text-sm text-destructive">{formErrors.password.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -129,16 +131,16 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
                 id="password_confirmation"
                 type="password"
                 placeholder="••••••••"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-                required
-                minLength={6}
+                {...register('password_confirmation')}
                 disabled={!!success}
               />
+              {formErrors.password_confirmation && (
+                <p className="text-sm text-destructive">{formErrors.password_confirmation.message}</p>
+              )}
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading || !!success}>
-              {loading ? 'Resetting...' : 'Reset Password'}
+            <Button type="submit" className="w-full" disabled={isSubmitting || !!success}>
+              {isSubmitting ? 'Resetting...' : 'Reset Password'}
             </Button>
 
             <div className="text-center text-sm">

@@ -1,8 +1,11 @@
 import { router } from "@inertiajs/react"
 import {
   LogOutIcon,
+  Monitor,
+  Moon,
   MoreVerticalIcon,
-  SettingsIcon,
+  Palette,
+  Sun,
   UserIcon,
   UsersIcon,
 } from "lucide-react"
@@ -19,6 +22,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -28,6 +34,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import authService from "@/lib/auth"
+import { useTheme } from "@/components/theme-provider"
 
 export function NavUser({
   user,
@@ -40,6 +47,7 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { setTheme } = useTheme()
 
   const handleLogout = async () => {
     await authService.logout()
@@ -63,7 +71,7 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground focus-visible:ring-ring"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar_url || undefined} alt={user.name} />
@@ -104,10 +112,26 @@ export function NavUser({
                 <UserIcon />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.visit('/settings')}>
-                <SettingsIcon />
-                Settings
-              </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <Palette />
+                  Theme
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem onClick={() => setTheme('light')}>
+                    <Sun className="mr-2 h-4 w-4" />
+                    Light
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('dark')}>
+                    <Moon className="mr-2 h-4 w-4" />
+                    Dark
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme('system')}>
+                    <Monitor className="mr-2 h-4 w-4" />
+                    System
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
               {user.owner && (
                 <DropdownMenuItem onClick={() => router.visit('/admin/console')}>
                   <UsersIcon />

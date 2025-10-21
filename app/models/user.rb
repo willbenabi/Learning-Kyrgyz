@@ -25,7 +25,6 @@ class User < ApplicationRecord
 
   # Associations
   has_many :refresh_tokens, dependent: :destroy
-  has_one :user_preference, dependent: :destroy
   has_one_attached :avatar
 
   # Validations
@@ -33,7 +32,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
-  validates :password, length: { minimum: 8 }, if: :password_digest_changed?
+  validates :password, presence: true, length: { minimum: 8 }, on: :create
+  validates :password, length: { minimum: 8 }, allow_blank: true, on: :update
   validates :avatar, content_type: { in: %w[image/png image/jpg image/jpeg image/gif],
                                      message: "must be a PNG, JPG, or GIF image" },
                      size: { less_than: 5.megabytes, message: "must be less than 5MB" },

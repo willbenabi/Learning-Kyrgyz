@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { router } from '@inertiajs/react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -10,12 +13,20 @@ interface LoginProps {
   return_to?: string
 }
 
+const loginSchema = z.object({
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(1, 'Password is required'),
+})
+
+type LoginFormData = z.infer<typeof loginSchema>
+
 export default function Login({ return_to }: LoginProps) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
+  const { register, handleSubmit, formState: { errors: formErrors, isSubmitting } } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  })
 
   // Check if user is already authenticated with existing token
   useEffect(() => {
@@ -45,10 +56,8 @@ export default function Login({ return_to }: LoginProps) {
     checkExistingAuth()
   }, [return_to])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (formData: LoginFormData) => {
     setError('')
-    setLoading(true)
 
     try {
       const response = await fetch('/session', {
@@ -57,7 +66,7 @@ export default function Login({ return_to }: LoginProps) {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(formData),
       })
 
       const data = await response.json()
@@ -72,8 +81,6 @@ export default function Login({ return_to }: LoginProps) {
       }
     } catch (err) {
       setError('An error occurred during login')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -94,7 +101,7 @@ export default function Login({ return_to }: LoginProps) {
           <CardDescription>Sign in to your account to continue</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {error && (
               <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
                 {error}
@@ -107,10 +114,11 @@ export default function Login({ return_to }: LoginProps) {
                 id="email"
                 type="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                {...register('email')}
               />
+              {formErrors.email && (
+                <p className="text-sm text-destructive">{formErrors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -119,14 +127,15 @@ export default function Login({ return_to }: LoginProps) {
                 id="password"
                 type="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                {...register('password')}
               />
+              {formErrors.password && (
+                <p className="text-sm text-destructive">{formErrors.password.message}</p>
+              )}
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Signing in...' : 'Sign In'}
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? 'Signing in...' : 'Sign In'}
             </Button>
 
             <div className="text-center text-sm">

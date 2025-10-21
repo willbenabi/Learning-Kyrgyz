@@ -17,9 +17,6 @@ interface DashboardProps {
       owner: boolean
     }
   }
-  preferences: {
-    sidebar_variant: 'sidebar' | 'floating' | 'inset'
-  }
 }
 
 export default function Dashboard({ auth }: DashboardProps) {

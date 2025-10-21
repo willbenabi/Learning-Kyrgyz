@@ -1,21 +1,30 @@
 import React, { useState } from 'react'
 import { router } from '@inertiajs/react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email('Please enter a valid email address'),
+})
+
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
+
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('')
+  const { register, handleSubmit, formState: { errors: formErrors, isSubmitting }, reset } = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
+  })
+
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (data: ForgotPasswordFormData) => {
     setError('')
     setSuccess('')
-    setLoading(true)
 
     try {
       const response = await fetch('/password/forgot', {
@@ -24,21 +33,19 @@ export default function ForgotPassword() {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify(data),
       })
 
-      const data = await response.json()
+      const responseData = await response.json()
 
       if (response.ok) {
-        setSuccess(data.message || 'If that email exists, password reset instructions have been sent')
-        setEmail('')
+        setSuccess(responseData.message || 'If that email exists, password reset instructions have been sent')
+        reset()
       } else {
-        setError(data.error || 'Failed to send reset instructions')
+        setError(responseData.error || 'Failed to send reset instructions')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -52,7 +59,7 @@ export default function ForgotPassword() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {error && (
               <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
                 {error}
@@ -71,14 +78,15 @@ export default function ForgotPassword() {
                 id="email"
                 type="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                {...register('email')}
               />
+              {formErrors.email && (
+                <p className="text-sm text-destructive">{formErrors.email.message}</p>
+              )}
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Sending...' : 'Send Reset Instructions'}
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Reset Instructions'}
             </Button>
 
             <div className="text-center text-sm">

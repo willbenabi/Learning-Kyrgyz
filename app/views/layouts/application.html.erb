@@ -12,10 +12,15 @@
       // Apply theme immediately to prevent flash - runs before CSS loads
       try {
         const theme = localStorage.getItem('ui-theme') || 'system';
-        if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        if (isDark) {
           document.documentElement.classList.add('dark');
+          // Set background color immediately to prevent white flash
+          document.documentElement.style.backgroundColor = 'oklch(0.04 0 0)'; // --sidebar in dark mode
         } else {
           document.documentElement.classList.remove('dark');
+          document.documentElement.style.backgroundColor = 'oklch(1 0 0)'; // --sidebar in light mode
         }
       } catch (e) {}
     </script>
