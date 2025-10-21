@@ -1,10 +1,10 @@
 import { router } from "@inertiajs/react"
 import {
-  BellIcon,
-  CreditCardIcon,
   LogOutIcon,
   MoreVerticalIcon,
-  UserCircleIcon,
+  SettingsIcon,
+  UserIcon,
+  UsersIcon,
 } from "lucide-react"
 
 import {
@@ -36,6 +36,7 @@ export function NavUser({
     name: string
     email: string
     avatar_url?: string | null
+    super_admin?: boolean
   }
 }) {
   const { isMobile } = useSidebar()
@@ -99,18 +100,20 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                Account
+              <DropdownMenuItem onClick={() => router.visit('/profile')}>
+                <UserIcon />
+                Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCardIcon />
-                Billing
+              <DropdownMenuItem onClick={() => router.visit('/settings')}>
+                <SettingsIcon />
+                Settings
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <BellIcon />
-                Notifications
-              </DropdownMenuItem>
+              {user.super_admin && (
+                <DropdownMenuItem onClick={() => router.visit('/admin/console')}>
+                  <UsersIcon />
+                  Super Admin Console
+                </DropdownMenuItem>
+              )}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>

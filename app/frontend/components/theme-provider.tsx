@@ -82,6 +82,7 @@ export function ThemeProvider({
     theme,
     setTheme: (newTheme: Theme) => {
       setTheme(newTheme)
+      // No localStorage - preferences are auto-saved to database
     },
     resolvedTheme,
   }

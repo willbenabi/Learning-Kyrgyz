@@ -1,11 +1,6 @@
 import * as React from "react"
 import {
   LayoutDashboardIcon,
-  UserIcon,
-  UsersIcon,
-  SettingsIcon,
-  LogOutIcon,
-  FileTextIcon,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -45,29 +40,6 @@ export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarPr
       url: "/dashboard",
       icon: LayoutDashboardIcon,
     },
-    {
-      title: "Profile",
-      url: "/profile",
-      icon: UserIcon,
-    },
-  ]
-
-  // Add admin panel links for super admins
-  if (user.super_admin) {
-    navMain.push({
-      title: "Super Admin Console",
-      url: "/admin/console",
-      icon: UsersIcon,
-      activePattern: "/admin",  // Highlight for all admin pages
-    })
-  }
-
-  const navSecondary = [
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: SettingsIcon,
-    },
   ]
 
   return (
@@ -89,7 +61,6 @@ export function AppSidebar({ user, variant = "sidebar", ...props }: AppSidebarPr
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />
-        <NavMain items={navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

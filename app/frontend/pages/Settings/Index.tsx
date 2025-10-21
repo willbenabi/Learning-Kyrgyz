@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
 import { router } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import {
   Breadcrumb,
@@ -43,25 +41,44 @@ interface SettingsIndexProps {
 }
 
 export default function SettingsIndex({ auth, preferences = { sidebar_variant: 'inset', theme: 'system' }, errors }: SettingsIndexProps) {
-  const [sidebarVariant, setSidebarVariant] = useState<string>(preferences.sidebar_variant)
-  const [selectedTheme, setSelectedTheme] = useState<string>(preferences.theme)
-  const [saving, setSaving] = useState(false)
   const { setTheme } = useTheme()
 
-  // Update theme provider when selectedTheme changes (for instant preview)
-  useEffect(() => {
-    setTheme(selectedTheme as 'light' | 'dark' | 'system')
-  }, [selectedTheme, setTheme])
+  // Auto-save theme when changed
+  const handleThemeChange = (newTheme: string) => {
+    // Update theme immediately for instant preview
+    setTheme(newTheme as 'light' | 'dark' | 'system')
 
-  // Update body background based on sidebar variant (for instant preview)
-  useEffect(() => {
+    // Auto-save to database
+    router.patch('/settings', {
+      user_preference: {
+        theme: newTheme
+      }
+    }, {
+      preserveScroll: true,
+      only: ['preferences', 'flash'],
+    })
+  }
+
+  // Auto-save sidebar variant when changed
+  const handleSidebarVariantChange = (newVariant: string) => {
+    // Update body background immediately for instant preview
     const body = document.body
-    if (sidebarVariant === 'inset') {
+    if (newVariant === 'inset') {
       body.setAttribute('data-sidebar-bg', 'true')
     } else {
       body.removeAttribute('data-sidebar-bg')
     }
-  }, [sidebarVariant])
+
+    // Auto-save to database
+    router.patch('/settings', {
+      user_preference: {
+        sidebar_variant: newVariant
+      }
+    }, {
+      preserveScroll: true,
+      only: ['preferences', 'flash'],
+    })
+  }
 
   // Get display name for sidebar variant
   const getSidebarVariantLabel = (value: string) => {
@@ -71,18 +88,6 @@ export default function SettingsIndex({ auth, preferences = { sidebar_variant: '
       inset: 'Inset'
     }
     return labels[value] || value
-  }
-
-  const handleSave = () => {
-    setSaving(true)
-    router.patch('/settings', {
-      user_preference: {
-        sidebar_variant: sidebarVariant,
-        theme: selectedTheme
-      }
-    }, {
-      onFinish: () => setSaving(false)
-    })
   }
 
   return (
@@ -121,7 +126,7 @@ export default function SettingsIndex({ auth, preferences = { sidebar_variant: '
 
                     <div className="space-y-2">
                       <Label htmlFor="theme">Theme</Label>
-                      <Select value={selectedTheme} onValueChange={setSelectedTheme}>
+                      <Select value={preferences.theme} onValueChange={handleThemeChange}>
                         <SelectTrigger id="theme">
                           <SelectValue placeholder="Select a theme" />
                         </SelectTrigger>
@@ -131,14 +136,17 @@ export default function SettingsIndex({ auth, preferences = { sidebar_variant: '
                           <SelectItem value="system">System</SelectItem>
                         </SelectContent>
                       </Select>
+                      <p className="text-xs text-muted-foreground">
+                        Changes are saved automatically
+                      </p>
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="sidebar-variant">Sidebar Variant</Label>
-                      <Select value={sidebarVariant} onValueChange={setSidebarVariant}>
+                      <Select value={preferences.sidebar_variant} onValueChange={handleSidebarVariantChange}>
                         <SelectTrigger id="sidebar-variant">
                           <SelectValue placeholder="Select a variant">
-                            {getSidebarVariantLabel(sidebarVariant)}
+                            {getSidebarVariantLabel(preferences.sidebar_variant)}
                           </SelectValue>
                         </SelectTrigger>
                         <SelectContent align="start">
@@ -168,12 +176,9 @@ export default function SettingsIndex({ auth, preferences = { sidebar_variant: '
                           </SelectItem>
                         </SelectContent>
                       </Select>
-                    </div>
-
-                    <div className="flex justify-end">
-                      <Button onClick={handleSave} disabled={saving}>
-                        {saving ? 'Saving...' : 'Save Changes'}
-                      </Button>
+                      <p className="text-xs text-muted-foreground">
+                        Changes are saved automatically
+                      </p>
                     </div>
                   </CardContent>
                 </Card>

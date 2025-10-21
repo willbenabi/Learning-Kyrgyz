@@ -17,6 +17,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { getSidebarState } from '@/lib/sidebar-state'
+import { ThemeProvider } from '@/components/theme-provider'
 
 interface FlashMessages {
   success?: string
@@ -82,19 +83,22 @@ export function AppLayout({ children }: AppLayoutProps) {
     }
   }, [flash])
 
+  // Get theme from preferences or default to 'system'
+  const theme = preferences?.theme || 'system'
+
   // If user is not authenticated (login page, etc.), render without sidebar
   if (!auth?.user || !preferences) {
     return (
-      <>
+      <ThemeProvider defaultTheme={theme as 'light' | 'dark' | 'system'}>
         <Toaster position="top-right" />
         {children}
-      </>
+      </ThemeProvider>
     )
   }
 
   // Authenticated pages with sidebar
   return (
-    <>
+    <ThemeProvider defaultTheme={theme as 'light' | 'dark' | 'system'}>
       <Toaster position="top-right" />
       <SidebarProvider
         defaultOpen={getSidebarState()}
@@ -108,6 +112,6 @@ export function AppLayout({ children }: AppLayoutProps) {
         <AppSidebar user={auth.user} variant={preferences.sidebar_variant} />
         <SidebarInset>{children}</SidebarInset>
       </SidebarProvider>
-    </>
+    </ThemeProvider>
   )
 }

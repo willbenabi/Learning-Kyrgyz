@@ -26,7 +26,6 @@
 
 import { createRoot } from 'react-dom/client'
 import { createInertiaApp, router } from '@inertiajs/react'
-import { ThemeProvider } from '@/components/theme-provider'
 import { AppLayout } from '@/layouts/app-layout'
 
 // Import CSS
@@ -90,27 +89,13 @@ if (appElement) {
 
     // Setup the app
     setup({ el, App, props }) {
-      // Get initial theme and preferences from props or localStorage cache
-      const preferences = props.initialPage.props.preferences as { theme?: string; sidebar_variant?: string } | undefined
-      const serverTheme = preferences?.theme
-      const cachedTheme = localStorage.getItem('ui-theme') as 'light' | 'dark' | 'system' | null
-      const initialTheme = serverTheme || cachedTheme || 'system'
-
-      // Cache theme to localStorage
-      if (serverTheme) {
-        localStorage.setItem('ui-theme', serverTheme)
-      }
-
       // Set sidebar variant on body (for background styling)
+      const preferences = props.initialPage.props.preferences as { theme?: string; sidebar_variant?: string } | undefined
       if (preferences?.sidebar_variant === 'inset') {
         document.body.setAttribute('data-sidebar-bg', 'true')
       }
 
-      createRoot(el).render(
-        <ThemeProvider defaultTheme={initialTheme as 'light' | 'dark' | 'system'}>
-          <App {...props} />
-        </ThemeProvider>
-      )
+      createRoot(el).render(<App {...props} />)
     },
 
     // Progress bar at top of page

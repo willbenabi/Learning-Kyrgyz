@@ -11,7 +11,8 @@ class SettingsController < ApplicationController
     preference = current_user.user_preference || current_user.build_user_preference
 
     if update_preference(preference)
-      redirect_to settings_path, notice: "Settings updated successfully"
+      # Return success response for Inertia partial reload
+      redirect_to settings_path, notice: "Settings saved"
     else
       render inertia: "Settings/Index", props: {
         errors: preference.errors.full_messages
