@@ -37,6 +37,10 @@ class UserPolicy < ApplicationPolicy
     user.owner? && record.id != user.id
   end
 
+  def resend_invitation?
+    user.owner?
+  end
+
   def permitted_attributes_for_create
     [ :name, :email, :password, :password_confirmation ]
   end

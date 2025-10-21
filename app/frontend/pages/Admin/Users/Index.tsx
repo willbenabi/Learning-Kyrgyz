@@ -7,6 +7,7 @@ import {
   ChevronUpIcon,
   CrownIcon,
   EyeIcon,
+  MailIcon,
   PencilLineIcon,
   SearchIcon,
   Trash2Icon,
@@ -30,6 +31,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import { DeleteConfirmationDialog } from '@/components/delete-confirmation-dialog'
 
 interface User {
@@ -38,6 +40,9 @@ interface User {
   email: string
   owner: boolean
   created_at: string
+  invitation_pending: boolean
+  invitation_accepted: boolean
+  active: boolean
 }
 
 interface Pagination {
@@ -131,6 +136,13 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
       router.delete(`/admin/users/${userToDelete.id}`)
       setUserToDelete(null)
     }
+  }
+
+  const handleResendInvitation = (userId: number) => {
+    router.post(`/admin/users/${userId}/resend_invitation`, {}, {
+      preserveState: true,
+      preserveScroll: true,
+    })
   }
 
   const getSortIcon = (column: string) => {
@@ -249,7 +261,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
             </Breadcrumb>
             <div className="ml-auto flex items-center gap-2">
               <Button size="sm" onClick={() => router.visit('/admin/users/new')}>
-                Create User
+                Invite User
               </Button>
             </div>
           </div>
@@ -313,6 +325,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
                                   {getSortIcon('email')}
                                 </button>
                               </TableHead>
+                              <TableHead className="text-muted-foreground">Status</TableHead>
                               <TableHead className="text-muted-foreground">
                                 <button
                                   onClick={() => handleSort('created_at')}
@@ -353,12 +366,31 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
                                       <span className="text-muted-foreground">{user.email}</span>
                                     </TableCell>
                                     <TableCell className="h-14">
+                                      {user.active ? (
+                                        <Badge variant="default" className="bg-green-600 hover:bg-green-700">Active</Badge>
+                                      ) : user.invitation_pending ? (
+                                        <Badge variant="secondary">Pending</Badge>
+                                      ) : (
+                                        <Badge variant="outline">Inactive</Badge>
+                                      )}
+                                    </TableCell>
+                                    <TableCell className="h-14">
                                       <span className="text-muted-foreground">
                                         {new Date(user.created_at).toLocaleDateString()}
                                       </span>
                                     </TableCell>
                                     <TableCell className="h-14 last:w-29 last:px-4">
                                       <div className="flex items-center justify-center gap-1">
+                                        {user.invitation_pending && (
+                                          <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            aria-label="Resend invitation"
+                                            onClick={() => handleResendInvitation(user.id)}
+                                          >
+                                            <MailIcon className="size-4.5" />
+                                          </Button>
+                                        )}
                                         <Button
                                           variant="ghost"
                                           size="icon"
@@ -391,7 +423,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
                               })
                             ) : (
                               <TableRow>
-                                <TableCell colSpan={4} className="h-24 text-center">
+                                <TableCell colSpan={5} className="h-24 text-center">
                                   No users found.
                                 </TableCell>
                               </TableRow>
