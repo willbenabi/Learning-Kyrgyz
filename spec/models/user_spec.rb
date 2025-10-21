@@ -111,4 +111,107 @@ RSpec.describe User, type: :model do
       expect(user.email).to eq('user@example.com')
     end
   end
+
+  describe 'invitation methods' do
+    let(:invited_user) { create(:user, :invited) }
+
+    describe '#generate_invitation_token' do
+      it 'generates an invitation token' do
+        user = create(:user)
+        token = user.generate_invitation_token
+
+        expect(token).to be_present
+        expect(user.invitation_token).to eq(token)
+      end
+
+      it 'sets invitation_sent_at to current time' do
+        user = create(:user)
+        user.generate_invitation_token
+
+        expect(user.invitation_sent_at).to be_within(1.second).of(Time.current)
+      end
+
+      it 'clears invitation_accepted_at' do
+        user = create(:user, :invitation_accepted)
+        user.generate_invitation_token
+
+        expect(user.invitation_accepted_at).to be_nil
+      end
+
+      it 'returns a unique token' do
+        user1 = create(:user)
+        user2 = create(:user)
+
+        token1 = user1.generate_invitation_token
+        token2 = user2.generate_invitation_token
+
+        expect(token1).not_to eq(token2)
+      end
+
+      it 'saves the user' do
+        user = create(:user)
+        expect(user).to receive(:save!).and_call_original
+        user.generate_invitation_token
+      end
+    end
+
+    describe '#invitation_pending?' do
+      it 'returns true when invitation is sent but not accepted' do
+        expect(invited_user.invitation_pending?).to be true
+      end
+
+      it 'returns false when invitation is accepted' do
+        accepted_user = create(:user, :invitation_accepted)
+        expect(accepted_user.invitation_pending?).to be false
+      end
+
+      it 'returns false when invitation was never sent' do
+        user = create(:user)
+        user.update_columns(invitation_sent_at: nil, invitation_accepted_at: nil)
+
+        expect(user.invitation_pending?).to be false
+      end
+    end
+
+    describe '#accept_invitation!' do
+      it 'sets the password' do
+        invited_user.accept_invitation!('newpassword123')
+
+        expect(invited_user.authenticate('newpassword123')).to eq(invited_user)
+      end
+
+      it 'sets invitation_accepted_at to current time' do
+        invited_user.accept_invitation!('newpassword123')
+
+        expect(invited_user.invitation_accepted_at).to be_within(1.second).of(Time.current)
+      end
+
+      it 'clears invitation_token' do
+        invited_user.accept_invitation!('newpassword123')
+
+        expect(invited_user.invitation_token).to be_nil
+      end
+
+      it 'saves the user' do
+        expect(invited_user).to receive(:save!).and_call_original
+        invited_user.accept_invitation!('newpassword123')
+      end
+    end
+
+    describe '#active?' do
+      it 'returns true when user has a password' do
+        user = create(:user)
+        expect(user.active?).to be true
+      end
+
+      it 'returns false when user has no password (invited but not accepted)' do
+        expect(invited_user.active?).to be false
+      end
+
+      it 'returns true when user accepted invitation' do
+        invited_user.accept_invitation!('password123')
+        expect(invited_user.active?).to be true
+      end
+    end
+  end
 end

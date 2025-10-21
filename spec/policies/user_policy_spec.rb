@@ -71,6 +71,16 @@ RSpec.describe UserPolicy, type: :policy do
     end
   end
 
+  describe "#resend_invitation?" do
+    it "grants access to owners" do
+      expect(UserPolicy.new(owner, other_user).resend_invitation?).to be true
+    end
+
+    it "denies access to regular users" do
+      expect(UserPolicy.new(regular_user, other_user).resend_invitation?).to be false
+    end
+  end
+
   describe "Scope" do
     it "returns all users for super admins" do
       user1 = create(:user)
