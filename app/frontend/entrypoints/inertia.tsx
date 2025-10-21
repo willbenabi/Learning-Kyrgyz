@@ -89,12 +89,6 @@ if (appElement) {
 
     // Setup the app
     setup({ el, App, props }) {
-      // Set sidebar variant on body (for background styling)
-      const preferences = props.initialPage.props.preferences as { theme?: string; sidebar_variant?: string } | undefined
-      if (preferences?.sidebar_variant === 'inset') {
-        document.body.setAttribute('data-sidebar-bg', 'true')
-      }
-
       createRoot(el).render(<App {...props} />)
     },
 

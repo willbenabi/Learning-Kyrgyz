@@ -61,15 +61,7 @@ export default function SettingsIndex({ auth, preferences = { sidebar_variant: '
 
   // Auto-save sidebar variant when changed
   const handleSidebarVariantChange = (newVariant: string) => {
-    // Update body background immediately for instant preview
-    const body = document.body
-    if (newVariant === 'inset') {
-      body.setAttribute('data-sidebar-bg', 'true')
-    } else {
-      body.removeAttribute('data-sidebar-bg')
-    }
-
-    // Auto-save to database
+    // Auto-save to database (AppLayout will update body background via useEffect)
     router.patch('/settings', {
       user_preference: {
         sidebar_variant: newVariant

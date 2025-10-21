@@ -86,6 +86,24 @@ export function AppLayout({ children }: AppLayoutProps) {
   // Get theme from preferences or default to 'system'
   const theme = preferences?.theme || 'system'
 
+  // Sync body background attribute based on sidebar variant
+  // Note: Using useEffect for body manipulation is the correct React pattern
+  // when styling elements outside of React's control (html/body tags)
+  useEffect(() => {
+    const body = document.body
+
+    if (preferences?.sidebar_variant === 'inset') {
+      body.setAttribute('data-sidebar-bg', 'true')
+    } else {
+      body.removeAttribute('data-sidebar-bg')
+    }
+
+    // Cleanup function (runs when component unmounts or dependency changes)
+    return () => {
+      body.removeAttribute('data-sidebar-bg')
+    }
+  }, [preferences?.sidebar_variant])
+
   // If user is not authenticated (login page, etc.), render without sidebar
   if (!auth?.user || !preferences) {
     return (
