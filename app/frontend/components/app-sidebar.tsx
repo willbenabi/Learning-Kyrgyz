@@ -1,6 +1,7 @@
 import * as React from "react"
 import {
   LayoutDashboardIcon,
+  AppWindowIcon,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -45,10 +46,14 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild className="hover:bg-transparent">
+            <SidebarMenuButton size="lg" asChild className="hover:bg-transparent active:bg-transparent data-[active=true]:bg-transparent">
               <a href="/dashboard">
-                <LayoutDashboardIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">Starter App</span>
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-black text-white dark:bg-white dark:text-black">
+                  <AppWindowIcon className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">My App</span>
+                </div>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

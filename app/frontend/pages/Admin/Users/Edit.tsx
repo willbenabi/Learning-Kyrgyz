@@ -82,7 +82,7 @@ export default function AdminUserEdit({ user, errors }: AdminUserEditProps) {
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs max-w-2xl">
+                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
                   <CardHeader>
                     <CardTitle>Edit User</CardTitle>
                     <CardDescription>Update user information</CardDescription>

@@ -4,6 +4,7 @@ import { Link, usePage } from "@inertiajs/react"
 
 import {
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
@@ -25,6 +26,7 @@ export function NavMain({
 
   return (
     <SidebarGroup {...props}>
+      <SidebarGroupLabel>Main Menu</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => {
