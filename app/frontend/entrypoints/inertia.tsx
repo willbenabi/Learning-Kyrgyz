@@ -84,7 +84,15 @@ if (appElement) {
     // which causes re-renders on every Inertia request, breaking input focus.
     // Theme/preferences are initialized once in setup() instead.
     resolve: (name) => {
-      const pages = import.meta.glob<{ default: any }>('../pages/**/*.tsx', { eager: true })
+      // Load all .tsx files EXCEPT test files using negative glob patterns
+      // CRITICAL: Must exclude test files at glob level, not after import,
+      // otherwise Vitest mocks get bundled causing runtime errors
+      const pages = import.meta.glob<{ default: any }>([
+        '../pages/**/*.tsx',
+        '!../pages/**/*.test.tsx',
+        '!../pages/**/*.spec.tsx',
+      ], { eager: true })
+
       const page = pages[`../pages/${name}.tsx`]
 
       if (!page) {
