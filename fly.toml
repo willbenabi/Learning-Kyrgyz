@@ -3,15 +3,12 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 # DEPLOYMENT:
-# Set your app name and deploy with:
-#   fly apps create your-app-name
-#   fly deploy --app your-app-name
-#
-# Or use an environment variable:
+# Set FLY_APP_NAME environment variable and deploy:
 #   export FLY_APP_NAME=your-app-name
+#   fly apps create $FLY_APP_NAME
 #   fly deploy --app $FLY_APP_NAME
 #
-# Leave this empty - pass app name via --app flag
+# Leave this empty - app name must be passed via --app flag
 
 app = ''
 primary_region = 'dfw'
