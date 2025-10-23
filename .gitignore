@@ -57,6 +57,10 @@ node_modules
 # Test coverage
 /coverage/
 
+# Playwright test artifacts
+/playwright-report/
+/test-results/
+
 # Claude AI assistant files
 .mcp.json
 

@@ -128,8 +128,58 @@ npm test              # Keep running, auto-reruns on changes
 
 **Before Marking Feature Complete:**
 ```bash
-npm test -- --run && bundle exec rspec    # Both must pass
+npm run test:all      # Vitest + RSpec + Playwright (recommended)
+# OR if skipping e2e:
+npm test -- --run && bundle exec rspec    # Vitest + RSpec only
 ```
+
+### E2E / Smoke Tests (Playwright)
+
+**CRITICAL - Port Separation:**
+- Dev server runs on port **3001** (development DB)
+- E2E tests run on port **3002** (test DB with RAILS_ENV=test)
+- This prevents e2e from interfering with dev DB
+- You can keep `bin/dev` running while running e2e tests
+
+**CRITICAL - Database State:**
+- RSpec needs CLEAN database (no seed data, uses factories)
+- E2E needs SEED data (admin@example.com, user1@example.com)
+- `npm run test:all` handles DB seeding and cleanup automatically
+
+**CRITICAL - Database Cleanup:**
+- All e2e commands (`test:e2e`, `test:e2e:ui`, etc.) automatically seed before and reset after
+- `npm run test:all` automatically cleans test DB before RSpec and after e2e
+- Test DB is always left in clean state - safe to run `bundle exec rspec` anytime
+- **IMPORTANT**: Rails tasks MUST be separate commands: `bundle exec rails db:drop && bundle exec rails db:create && bundle exec rails db:migrate` (NOT `db:drop db:create db:migrate` in single command)
+
+**CRITICAL - Test Stability:**
+- ❌ NEVER hardcode user names - use emails from seed data
+- ✅ Use `.first()` when selectors match multiple elements
+- ✅ Use regex for URLs (allows query params): `/\/login/` not `'/login'`
+
+**Reference:**
+- `e2e/smoke.spec.ts`, `e2e/fixtures/auth.ts`
+
+**Commands:**
+```bash
+npm test -- --run                    # Vitest only
+bundle exec rspec                    # RSpec only
+npm run test:e2e                     # E2E only (seeds before, resets after)
+npm run test:e2e:ui                  # E2E with Playwright UI (debugging)
+npm run test:all                     # All tests (recommended)
+BASE_URL=https://your-domain.com npm run test:e2e  # Test deployed app
+```
+
+**Summary - How It All Works:**
+1. Dev server: Port 3001 (development DB) - never touched by tests
+2. E2E server: Port 3002 (test DB with RAILS_ENV=test) - isolated from dev
+3. `npm run test:all` flow:
+   - Vitest runs (no DB)
+   - Test DB reset (drop/create/migrate) → clean slate
+   - RSpec runs with factories on clean DB
+   - Test DB reset + seeded → admin@example.com, user1-5@example.com
+   - Playwright runs e2e tests on seeded DB
+   - Test DB reset (drop/create/migrate) → clean for next RSpec run
 
 ---
 
@@ -195,7 +245,13 @@ spec/
 └── support/
     └── authentication_helpers.rb
 
+e2e/
+├── fixtures/
+│   └── auth.ts              # Auth helpers for e2e tests
+└── smoke.spec.ts            # Smoke tests
+
 vitest.config.ts             # Frontend test config
+playwright.config.ts         # E2E test config
 ```
 
 ---
@@ -215,7 +271,7 @@ vitest.config.ts             # Frontend test config
   * Frontend: Component and Page tests (run `npm test` in watch mode)
   * Inertia endpoints: Add `inertia: true` flag, use string keys for props
   * Pages with Sidebar: Use `render` from `@/test/utils`
-  * **Before marking complete**: `npm test -- --run && bundle exec rspec` (both must pass)
+  * **Before marking complete**: `npm run test:all` (Vitest + RSpec + Playwright)
 
 ---
 
