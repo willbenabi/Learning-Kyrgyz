@@ -1,4 +1,4 @@
-# Starter Base Inertia - Product Specification
+# Product Specs
 
 ## Product Overview
 
