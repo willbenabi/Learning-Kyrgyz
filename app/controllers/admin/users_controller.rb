@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::BaseController
       end
     end
 
-    # Use Ransack for search, date range, and sorting
+    # Use Ransack for search and date range only
     search_params = {}
 
     if params[:search].present?
@@ -37,13 +37,13 @@ class Admin::UsersController < Admin::BaseController
       search_params[:created_at_lteq] = Date.parse(params[:created_to]).end_of_day
     end
 
-    # Sorting - default to created_at desc
-    sort_column = params[:sort] || "created_at"
-    sort_direction = params[:direction] || "desc"
-    search_params[:s] = "#{sort_column} #{sort_direction}"
-
     @q = @users.ransack(search_params)
     @users = @q.result
+
+    # Apply sorting with ActiveRecord (supports NULLS LAST if needed in future)
+    sort_column = params[:sort] || "created_at"
+    sort_direction = params[:direction] || "desc"
+    @users = @users.order("#{sort_column} #{sort_direction}")
 
     @pagy, @users = pagy(@users, items: 20)
 

@@ -24,7 +24,7 @@ class Admin::AuditLogsController < Admin::BaseController
       audits = audits.where(action: params[:action_filter])
     end
 
-    # Use Ransack for date range and sorting
+    # Use Ransack for date range only
     search_params = {}
 
     if params[:created_from].present?
@@ -35,7 +35,10 @@ class Admin::AuditLogsController < Admin::BaseController
       search_params[:created_at_lteq] = Date.parse(params[:created_to]).end_of_day
     end
 
-    # Sorting - default to created_at desc
+    @q = audits.ransack(search_params)
+    audits = @q.result
+
+    # Apply sorting with ActiveRecord (supports NULLS LAST if needed in future)
     sort_column = params[:sort_column].presence || "created_at"
     sort_direction = params[:sort_direction].presence || "desc"
 
@@ -43,10 +46,7 @@ class Admin::AuditLogsController < Admin::BaseController
     sort_column = "created_at" unless allowed_columns.include?(sort_column)
     sort_direction = "desc" unless %w[asc desc].include?(sort_direction)
 
-    search_params[:s] = "#{sort_column} #{sort_direction}"
-
-    @q = audits.ransack(search_params)
-    audits = @q.result
+    audits = audits.order("#{sort_column} #{sort_direction}")
 
     @pagy, @audits = pagy(audits, items: 20)
 
