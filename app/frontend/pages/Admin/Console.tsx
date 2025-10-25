@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { router } from '@inertiajs/react'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -25,7 +25,7 @@ interface AdminConsoleProps {
 export default function AdminConsole({ auth, stats }: AdminConsoleProps) {
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[{ label: 'Admin Panel' }]}
         actions={
           <>

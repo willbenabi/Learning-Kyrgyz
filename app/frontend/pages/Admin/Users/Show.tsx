@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -55,7 +55,7 @@ export default function AdminUserShow({ auth, user }: AdminUserShowProps) {
 
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[
           { label: 'Admin Panel', href: '/admin/console' },
           { label: 'Manage Users', href: '/admin/users' },

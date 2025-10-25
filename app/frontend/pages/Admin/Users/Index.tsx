@@ -24,7 +24,7 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } fro
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { DeleteConfirmationDialog } from '@/components/delete-confirmation-dialog'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 import { DateRangePicker } from '@/components/date-range-picker'
 
 interface User {
@@ -281,7 +281,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
 
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[
           { label: 'Admin Panel', href: '/admin/console' },
           { label: 'Manage Users' },

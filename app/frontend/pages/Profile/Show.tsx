@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -32,7 +32,7 @@ export default function ProfileShow({ auth, user }: ProfileShowProps) {
 
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[{ label: 'Profile' }]}
         actions={
           <Button size="sm" onClick={() => router.visit('/profile/edit')}>

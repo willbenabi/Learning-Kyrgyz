@@ -19,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 import { DateRangePicker } from '@/components/date-range-picker'
 
 import { cn } from '@/lib/utils'
@@ -311,7 +311,7 @@ export default function AdminAuditLogsIndex({
 
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[
           { label: 'Admin Panel', href: '/admin/console' },
           { label: 'Audit Logs' },

@@ -1,17 +1,17 @@
 import { describe, it, expect } from 'vitest'
 import { render } from '@/test/utils'
 import { screen } from '@testing-library/react'
-import { PageHeader } from './page-header'
+import { AppHeader } from './app-header'
 
-describe('PageHeader', () => {
+describe('AppHeader', () => {
   it('renders single breadcrumb', () => {
-    render(<PageHeader breadcrumbs={[{ label: 'Dashboard' }]} />)
+    render(<AppHeader breadcrumbs={[{ label: 'Dashboard' }]} />)
     expect(screen.getByText('Dashboard')).toBeInTheDocument()
   })
 
   it('renders multiple breadcrumbs with links', () => {
     render(
-      <PageHeader
+      <AppHeader
         breadcrumbs={[
           { label: 'Admin Panel', href: '/admin/console' },
           { label: 'Manage Users' },
@@ -26,7 +26,7 @@ describe('PageHeader', () => {
 
   it('renders actions when provided', () => {
     render(
-      <PageHeader
+      <AppHeader
         breadcrumbs={[{ label: 'Users' }]}
         actions={<button>Invite User</button>}
       />
@@ -36,7 +36,7 @@ describe('PageHeader', () => {
   })
 
   it('does not render actions div when no actions provided', () => {
-    const { container } = render(<PageHeader breadcrumbs={[{ label: 'Dashboard' }]} />)
+    const { container } = render(<AppHeader breadcrumbs={[{ label: 'Dashboard' }]} />)
 
     // Check that ml-auto div doesn't exist when no actions
     const actionsDiv = container.querySelector('.ml-auto')
@@ -44,7 +44,7 @@ describe('PageHeader', () => {
   })
 
   it('renders sidebar trigger', () => {
-    render(<PageHeader breadcrumbs={[{ label: 'Dashboard' }]} />)
+    render(<AppHeader breadcrumbs={[{ label: 'Dashboard' }]} />)
 
     // SidebarTrigger renders a button
     const trigger = screen.getByRole('button')

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 
 interface DashboardProps {
   auth: {
@@ -15,7 +15,7 @@ interface DashboardProps {
 export default function Dashboard({ auth }: DashboardProps) {
   return (
     <>
-      <PageHeader breadcrumbs={[{ label: 'Dashboard' }]} />
+      <AppHeader breadcrumbs={[{ label: 'Dashboard' }]} />
 
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">

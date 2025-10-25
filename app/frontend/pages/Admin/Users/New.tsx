@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -44,7 +44,7 @@ export default function AdminUserNew({ auth, errors }: AdminUserNewProps) {
 
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[
           { label: 'Admin Panel', href: '/admin/console' },
           { label: 'Manage Users', href: '/admin/users' },

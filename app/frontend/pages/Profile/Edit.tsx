@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import { PageHeader } from '@/components/page-header'
+import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -128,7 +128,7 @@ export default function EditProfile({ auth, user }: EditProfileProps) {
 
   return (
     <>
-      <PageHeader
+      <AppHeader
         breadcrumbs={[
           { label: 'Profile', href: '/profile' },
           { label: 'Edit' },
