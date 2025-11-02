@@ -29,11 +29,6 @@ class AuthService {
     this.token = this.getToken()
     this.refreshToken = this.getRefreshToken()
 
-    // Start auto-refresh if authenticated
-    if (this.isAuthenticated() && !this.isTokenExpired()) {
-      this.startTokenRefresh()
-    }
-
     // Set up cross-tab sync via storage events
     this.setupStorageEventListener()
   }
@@ -70,7 +65,6 @@ class AuthService {
     this.refreshToken = null
     localStorage.removeItem('auth_token')
     localStorage.removeItem('refresh_token')
-    this.stopTokenRefresh()
   }
 
   /**
@@ -92,6 +86,28 @@ class AuthService {
 
       if (payload.exp) {
         return Date.now() >= payload.exp * 1000
+      }
+
+      return true
+    } catch (error) {
+      console.error('Error parsing JWT token:', error)
+      return true
+    }
+  }
+
+  /**
+   * Check if the JWT token will expire soon (within 5 minutes)
+   */
+  willExpireSoon(): boolean {
+    if (!this.token) return true
+
+    try {
+      const base64Payload = this.token.split('.')[1]
+      const payload: JWTPayload = JSON.parse(atob(base64Payload))
+
+      if (payload.exp) {
+        const fiveMinutesFromNow = Date.now() + (5 * 60 * 1000)
+        return fiveMinutesFromNow >= payload.exp * 1000
       }
 
       return true
@@ -135,7 +151,6 @@ class AuthService {
   handleLoginResponse(data: LoginResponse): boolean {
     if (data.jwt_token && data.refresh_token) {
       this.setTokens(data.jwt_token, data.refresh_token)
-      this.startTokenRefresh()
       return true
     }
     return false
@@ -169,32 +184,6 @@ class AuthService {
     }
 
     return false
-  }
-
-  /**
-   * Start automatic token refresh
-   * Refreshes every 20 hours (24-hour expiration with 4-hour buffer)
-   */
-  private startTokenRefresh(): void {
-    // Clear any existing interval
-    if ((window as any).__authRefreshInterval) {
-      clearInterval((window as any).__authRefreshInterval)
-    }
-
-    // Refresh every 20 hours
-    (window as any).__authRefreshInterval = setInterval(() => {
-      this.refreshJwtToken()
-    }, 20 * 60 * 60 * 1000)
-  }
-
-  /**
-   * Stop automatic token refresh
-   */
-  private stopTokenRefresh(): void {
-    if ((window as any).__authRefreshInterval) {
-      clearInterval((window as any).__authRefreshInterval)
-      delete (window as any).__authRefreshInterval
-    }
   }
 
   /**
@@ -258,7 +247,6 @@ class AuthService {
     // Clear local state
     this.token = null
     this.refreshToken = null
-    this.stopTokenRefresh()
 
     // Dispatch custom event so application can respond (e.g., redirect to login)
     if (typeof window !== 'undefined') {
@@ -275,11 +263,6 @@ class AuthService {
     // Update local token
     this.token = newToken
     this.refreshToken = this.getRefreshToken()
-
-    // Restart token refresh with new token
-    if (!this.isTokenExpired()) {
-      this.startTokenRefresh()
-    }
 
     // Dispatch custom event so application can respond (e.g., refresh page data)
     if (typeof window !== 'undefined') {

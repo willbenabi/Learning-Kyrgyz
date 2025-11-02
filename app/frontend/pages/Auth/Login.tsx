@@ -30,25 +30,53 @@ export default function Login({ return_to }: LoginProps) {
 
   // Check if user is already authenticated with existing token
   useEffect(() => {
-    const checkExistingAuth = () => {
+    const checkExistingAuth = async () => {
       const token = authService.getToken()
+      const refreshToken = authService.getRefreshToken()
 
-      if (token && !authService.isTokenExpired()) {
-        // User has a valid token, redirect to intended destination
+      // No token at all - show login form immediately
+      if (!token) {
+        setIsCheckingAuth(false)
+        return
+      }
+
+      // Token expired but refresh token exists - try to refresh
+      if (authService.isTokenExpired() && refreshToken) {
+        const refreshed = await authService.refreshJwtToken()
+
+        if (refreshed) {
+          // Refresh succeeded, redirect to intended destination
+          const redirectUrl = return_to || '/dashboard'
+          router.visit(redirectUrl, {
+            replace: true,
+            onError: () => {
+              // If the visit fails (e.g., 401), clear the invalid token
+              authService.clearTokens()
+              setIsCheckingAuth(false)
+            },
+          })
+          return
+        } else {
+          // Refresh failed, clear tokens and show login form
+          authService.clearTokens()
+          setIsCheckingAuth(false)
+          return
+        }
+      }
+
+      // Token exists and is not expired - redirect immediately
+      if (!authService.isTokenExpired()) {
         const redirectUrl = return_to || '/dashboard'
         router.visit(redirectUrl, {
           replace: true,
           onError: () => {
-            // If the visit fails (e.g., 401), clear the invalid token
             authService.clearTokens()
             setIsCheckingAuth(false)
           },
         })
       } else {
-        // No token or expired token
-        if (token) {
-          authService.clearTokens()
-        }
+        // Token expired and no refresh token - show login form
+        authService.clearTokens()
         setIsCheckingAuth(false)
       }
     }

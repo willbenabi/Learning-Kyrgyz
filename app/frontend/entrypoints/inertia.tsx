@@ -27,6 +27,7 @@
 import { createRoot } from 'react-dom/client'
 import { createInertiaApp, router } from '@inertiajs/react'
 import { AppLayout } from '@/layouts/app-layout'
+import authService from '@/lib/auth'
 
 // Import CSS
 import './application.css'
@@ -47,9 +48,59 @@ if (appElement) {
     console.log('Auth tokens cleared due to version update')
   }
 
+  // Track if we're currently refreshing to prevent infinite loops
+  let isRefreshing = false
+
   // Configure Inertia to include JWT token in all requests
+  // and refresh token if expired/expiring soon
   router.on('before', (event) => {
     const token = localStorage.getItem('auth_token')
+
+    // Check if token is expired or will expire soon (within 5 minutes)
+    if (token && !isRefreshing && (authService.isTokenExpired() || authService.willExpireSoon())) {
+      // Prevent the current request
+      event.preventDefault()
+      isRefreshing = true
+
+      // Try to refresh the token asynchronously
+      authService.refreshJwtToken().then((refreshed) => {
+        isRefreshing = false
+
+        if (refreshed) {
+          // Token refreshed successfully, retry the original request
+          const newToken = localStorage.getItem('auth_token')
+          const visitOptions = event.detail.visit
+
+          router.visit(visitOptions.url.pathname + visitOptions.url.search, {
+            method: visitOptions.method,
+            data: visitOptions.data,
+            headers: {
+              ...visitOptions.headers,
+              'Authorization': `Bearer ${newToken}`,
+            },
+            replace: visitOptions.replace,
+            preserveScroll: visitOptions.preserveScroll,
+            preserveState: visitOptions.preserveState,
+            only: visitOptions.only,
+            except: visitOptions.except,
+          })
+        } else {
+          // Refresh failed, redirect to login
+          localStorage.removeItem('auth_token')
+          localStorage.removeItem('refresh_token')
+
+          const currentPath = window.location.pathname
+          const returnTo = currentPath !== '/login' ? currentPath : null
+
+          router.visit('/login' + (returnTo ? `?return_to=${encodeURIComponent(returnTo)}` : ''), {
+            replace: true,
+          })
+        }
+      })
+
+      return
+    }
+
     if (token) {
       // Add Authorization header to all Inertia requests
       event.detail.visit.headers = {
