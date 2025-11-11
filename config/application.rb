@@ -31,5 +31,18 @@ module StarterBaseInertia
       DateTime, TrueClass, BigDecimal, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone,
       ActiveSupport::HashWithIndifferentAccess, Symbol
     ]
+
+    # Enable DNS rebinding protection - allow all cayu.ai, cayu.app, and cayu.dev subdomains
+    config.hosts = [
+      "localhost",
+      /.*\.cayu\.ai/,      # Allow all cayu.ai subdomains
+      /.*\.cayu\.app/,     # Allow all cayu.app subdomains (AWS EC2 instances)
+      /.*\.cayu\.dev/,     # Allow all cayu.dev subdomains (DO instances)
+      /.*\.fly\.dev/,      # Allow Fly.io domains
+      /.*\.nip\.io/        # Allow nip.io for backwards compatibility
+    ]
+
+    # Skip DNS rebinding protection for the default health check endpoint
+    config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   end
 end
