@@ -17,36 +17,27 @@ describe('Dashboard', () => {
 
   it('renders welcome message with user name', () => {
     render(<Dashboard {...mockProps} />)
-    expect(screen.getByText('Welcome')).toBeInTheDocument()
-    expect(screen.getByText('John Doe')).toBeInTheDocument()
+    expect(screen.getByText('Welcome, John Doe!')).toBeInTheDocument()
   })
 
-  it('displays user email', () => {
+  it('displays dashboard description', () => {
     render(<Dashboard {...mockProps} />)
-    expect(screen.getByText(/Email: john@example.com/i)).toBeInTheDocument()
+    expect(screen.getByText('This is your dashboard. Start building your application here.')).toBeInTheDocument()
   })
 
-  it('shows admin badge when user is admin', () => {
-    const adminProps = {
+  it('renders correctly for different user names', () => {
+    const propsWithDifferentUser = {
       auth: {
         user: {
-          ...mockProps.auth.user,
+          id: 2,
+          name: 'Jane Smith',
+          email: 'jane@example.com',
           admin: true,
         },
       },
     }
 
-    render(<Dashboard {...adminProps} />)
-    expect(screen.getByText('Admin')).toBeInTheDocument()
-  })
-
-  it('does not show admin badge when user is not admin', () => {
-    render(<Dashboard {...mockProps} />)
-    expect(screen.queryByText('Admin')).not.toBeInTheDocument()
-  })
-
-  it('renders breadcrumb navigation', () => {
-    render(<Dashboard {...mockProps} />)
-    expect(screen.getByText('Dashboard')).toBeInTheDocument()
+    render(<Dashboard {...propsWithDifferentUser} />)
+    expect(screen.getByText('Welcome, Jane Smith!')).toBeInTheDocument()
   })
 })

@@ -109,7 +109,7 @@ This runs `e2e/health-check.spec.ts` which verifies:
 <critical_rules>
 - Be consistent with the codebase and implement items as detailed as existing ones
 - Study reference files before implementing similar features
-- Keep the new feature's UI consistent with the existing UI: no horizontal overflows from components, tables, etc. Set gradient background in components if necessary
+- Keep the new feature's UI consistent with the existing UI: no horizontal overflows from components, tables, etc.
 </critical_rules>
 
 ---
@@ -184,13 +184,6 @@ end
 **NEVER assume component props - ALWAYS verify interface first:**
 
 **Process:** (1) Read component file → (2) Check interface/props → (3) Grep for usage examples → (4) Use exact prop names
-
-**Example** (see `app/frontend/components/app-header.tsx` for interface, `app/frontend/pages/Admin/Users/Index.tsx:17-21` for usage):
-```tsx
-// ❌ <AppHeader title="Tasks" actions={...} /> → Runtime Error
-// ✅ <AppHeader heading="Tasks" rightContent={...} /> → Works
-// Common mistakes: title→heading, actions→rightContent, onSubmit→handleSubmit, data→items
-```
 
 ### Testing Patterns
 
@@ -323,24 +316,31 @@ Reference: `e2e/health-check.spec.ts`, `e2e/smoke.spec.ts`, `e2e/fixtures/auth.t
 
 **Form/Detail views** (see `app/frontend/pages/Admin/Users/New.tsx`, `app/frontend/pages/Profile/Edit.tsx`):
 ```tsx
-// ✅ flex-1 overflow-auto → container mx-auto p-6 max-w-4xl → AppHeader → mt-6 → Card → CardContent p-6
+// ✅ space-y-6 → Card → CardHeader + CardContent
 ```
+
+### Horizontal Overflow Fix (CRITICAL)
+
+**Problem:** Tables overflow horizontally under sidebar
+**Root Cause:** Flex/grid containers have implicit `min-width: auto` - won't shrink below content width
+**Solution:** Add `min-w-0` to ALL containers in the chain (layout → main → page → card → table wrapper)
+
+Reference: `app/frontend/layouts/app-layout.tsx:110,142`, `app/frontend/pages/Admin/Users/Index.tsx:283-295`
 
 ### Key Classes
 
-- `@container/main` - Enables container queries for sidebar-aware responsive design
+- `min-w-0` - **CRITICAL** on all flex/grid containers to prevent overflow
+- `grid gap-6` - Page wrapper (cleaner than `space-y-6` flex)
+- `@container/main` - Container queries for sidebar-aware responsive design
 - `flex-1` - Takes remaining height after header/nav
-- `overflow-auto` - Allows scrolling if content exceeds viewport
 - `px-4 lg:px-6` - Responsive padding that adapts to sidebar state
-- `w-full` - Tables use full container width (instead of overflow-x-auto)
 
 ### Common Mistakes
 
+- ❌ Missing `min-w-0` on ANY container in the chain → Overflow breaks
 - ❌ `container mx-auto` for list views → ✅ Use `@container/main` flex layout
 - ❌ Fixed padding `p-6` → ✅ Use responsive `px-4 lg:px-6` for list views
-- ❌ `overflow-x-auto` on tables → ✅ Use `w-full` with proper container
 - ❌ `<div className="w-[1200px]">` → ✅ Use responsive layout patterns
-- ❌ Nested `overflow-auto` → Double scroll bars, confusing UX
 
 ### Process
 
@@ -388,9 +388,10 @@ Adapt premium components, don't build from scratch.
 - `app/controllers/profiles_controller.rb` - ActiveStorage
 
 ### Components
-- `app/frontend/components/app-header.tsx` - Top navigation bar with breadcrumbs
+- `app/frontend/layouts/app-layout.tsx` - Main layout with breadcrumbs and header
 - `app/frontend/components/delete-confirmation-dialog.tsx` - AlertDialog pattern
 - `app/frontend/components/app-sidebar.tsx` - Sidebar layout
+- `app/frontend/components/shadcn-studio/blocks/dropdown-profile.tsx` - User profile dropdown
 
 ### Tests (with line numbers)
 - `spec/requests/admin/users_spec.rb:38-94` - Pagination/search

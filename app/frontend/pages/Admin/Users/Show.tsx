@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -54,30 +53,16 @@ export default function AdminUserShow({ user }: AdminUserShowProps) {
   const roleInfo = getRoleInfo()
 
   return (
-    <>
-      <AppHeader
-        breadcrumbs={[
-          { label: 'Admin Panel', href: '/admin/console' },
-          { label: 'Manage Users', href: '/admin/users' },
-          { label: user.name },
-        ]}
-        actions={
-          <>
-            <Button size="sm" variant="outline" onClick={() => router.visit('/admin/users')}>
-              Back to Users
-            </Button>
-            <Button size="sm" onClick={() => router.visit(`/admin/users/${user.id}/edit`)}>
-              Edit User
-            </Button>
-          </>
-        }
-      />
-
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
+    <div className="space-y-6">
+      <div className="flex justify-end gap-2">
+        <Button size="sm" variant="outline" onClick={() => router.visit('/admin/users')}>
+          Back to Users
+        </Button>
+        <Button size="sm" onClick={() => router.visit(`/admin/users/${user.id}/edit`)}>
+          Edit User
+        </Button>
+      </div>
+      <Card>
                   <CardHeader>
                     <div className="flex items-center gap-4">
                       <Avatar className="size-20">
@@ -134,10 +119,6 @@ export default function AdminUserShow({ user }: AdminUserShowProps) {
                     )}
                   </CardContent>
                 </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
+    </div>
   )
 }

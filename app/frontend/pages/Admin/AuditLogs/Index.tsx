@@ -19,7 +19,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
-import { AppHeader } from '@/components/app-header'
 import { DateRangePicker } from '@/components/date-range-picker'
 
 import { cn } from '@/lib/utils'
@@ -309,25 +308,14 @@ export default function AdminAuditLogsIndex({
   }
 
   return (
-    <>
-      <AppHeader
-        breadcrumbs={[
-          { label: 'Admin Panel', href: '/admin/console' },
-          { label: 'Audit Logs' },
-        ]}
-      />
-
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
+    <div className="grid gap-6 min-w-0">
+      <Card className="w-full min-w-0">
                   <CardHeader>
                     <CardTitle>Audit Logs ({pagination.count})</CardTitle>
                   </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="w-full">
-                      <div className="border-b">
+                  <CardContent className="p-0 min-w-0">
+                    <div className="w-full min-w-0">
+                      <div className="border-b min-w-0">
                         <div className="flex flex-col gap-4 p-6">
                           <span className="text-xl font-semibold">Filter Logs</span>
                           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
@@ -384,88 +372,88 @@ export default function AdminAuditLogsIndex({
                           </div>
                         </div>
                         <Table>
-                          <TableHeader>
-                            <TableRow className="h-14 border-t">
-                              <TableHead className="text-muted-foreground first:pl-4">
-                                <div
-                                  className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
-                                  onClick={() => handleSort('created_at')}
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                      e.preventDefault()
-                                      handleSort('created_at')
-                                    }
-                                  }}
-                                  tabIndex={0}
-                                >
-                                  Timestamp
-                                  {getSortIcon('created_at')}
-                                </div>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground">
-                                <div
-                                  className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
-                                  onClick={() => handleSort('action')}
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                      e.preventDefault()
-                                      handleSort('action')
-                                    }
-                                  }}
-                                  tabIndex={0}
-                                >
-                                  Action
-                                  {getSortIcon('action')}
-                                </div>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground">User</TableHead>
-                              <TableHead className="text-muted-foreground">Resource</TableHead>
-                              <TableHead className="text-muted-foreground">Changes</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {audits.length > 0 ? (
-                              audits.map((audit) => (
-                                <TableRow key={audit.id} className="hover:bg-transparent">
-                                  <TableCell className="h-14 first:pl-4">
-                                    <div className="flex flex-col">
-                                      <span className="font-medium">
-                                        {new Date(audit.created_at).toLocaleDateString()}
-                                      </span>
-                                      <span className="text-muted-foreground text-xs">
-                                        {new Date(audit.created_at).toLocaleTimeString()}
-                                      </span>
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="h-14">{getActionBadge(audit.action)}</TableCell>
-                                  <TableCell className="h-14">
-                                    <div className="flex flex-col">
-                                      <span className="font-medium">{audit.user_name}</span>
-                                      {audit.user_email && (
-                                        <span className="text-muted-foreground text-xs">{audit.user_email}</span>
-                                      )}
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="h-14">
-                                    <div className="flex items-center gap-2">
-                                      <FileTextIcon className="size-4 text-muted-foreground" />
-                                      <span className="text-muted-foreground">
-                                        {audit.auditable_type} #{audit.auditable_id}
-                                      </span>
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="h-14">{renderChanges(audit.audited_changes)}</TableCell>
-                                </TableRow>
-                              ))
-                            ) : (
-                              <TableRow>
-                                <TableCell colSpan={5} className="h-24 text-center">
-                                  No audit logs found.
-                                </TableCell>
+                            <TableHeader>
+                              <TableRow className="h-14 border-t">
+                                <TableHead className="text-muted-foreground first:pl-4">
+                                  <div
+                                    className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
+                                    onClick={() => handleSort('created_at')}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault()
+                                        handleSort('created_at')
+                                      }
+                                    }}
+                                    tabIndex={0}
+                                  >
+                                    Timestamp
+                                    {getSortIcon('created_at')}
+                                  </div>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground">
+                                  <div
+                                    className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
+                                    onClick={() => handleSort('action')}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault()
+                                        handleSort('action')
+                                      }
+                                    }}
+                                    tabIndex={0}
+                                  >
+                                    Action
+                                    {getSortIcon('action')}
+                                  </div>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground">User</TableHead>
+                                <TableHead className="text-muted-foreground">Resource</TableHead>
+                                <TableHead className="text-muted-foreground">Changes</TableHead>
                               </TableRow>
-                            )}
-                          </TableBody>
-                        </Table>
+                            </TableHeader>
+                            <TableBody>
+                              {audits.length > 0 ? (
+                                audits.map((audit) => (
+                                  <TableRow key={audit.id} className="hover:bg-transparent">
+                                    <TableCell className="h-14 first:pl-4">
+                                      <div className="flex flex-col">
+                                        <span className="font-medium">
+                                          {new Date(audit.created_at).toLocaleDateString()}
+                                        </span>
+                                        <span className="text-muted-foreground text-xs">
+                                          {new Date(audit.created_at).toLocaleTimeString()}
+                                        </span>
+                                      </div>
+                                    </TableCell>
+                                    <TableCell className="h-14">{getActionBadge(audit.action)}</TableCell>
+                                    <TableCell className="h-14">
+                                      <div className="flex flex-col">
+                                        <span className="font-medium">{audit.user_name}</span>
+                                        {audit.user_email && (
+                                          <span className="text-muted-foreground text-xs">{audit.user_email}</span>
+                                        )}
+                                      </div>
+                                    </TableCell>
+                                    <TableCell className="h-14">
+                                      <div className="flex items-center gap-2">
+                                        <FileTextIcon className="size-4 text-muted-foreground" />
+                                        <span className="text-muted-foreground">
+                                          {audit.auditable_type} #{audit.auditable_id}
+                                        </span>
+                                      </div>
+                                    </TableCell>
+                                    <TableCell className="h-14">{renderChanges(audit.audited_changes)}</TableCell>
+                                  </TableRow>
+                                ))
+                              ) : (
+                                <TableRow>
+                                  <TableCell colSpan={5} className="h-24 text-center">
+                                    No audit logs found.
+                                  </TableCell>
+                                </TableRow>
+                              )}
+                            </TableBody>
+                          </Table>
                       </div>
 
                       <div className="flex items-center justify-between gap-3 px-6 py-4 max-sm:flex-col md:max-lg:flex-col">
@@ -479,10 +467,6 @@ export default function AdminAuditLogsIndex({
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
+    </div>
   )
 }

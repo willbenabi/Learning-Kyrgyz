@@ -12,7 +12,10 @@ class Admin::ConsoleController < Admin::BaseController
         admins: admins,
         regular_users: total_users - admins,
         active_sessions: RefreshToken.active.count
-      }
+      },
+      breadcrumbs: [
+        { label: 'Admin' }
+      ]
     }
   end
 end

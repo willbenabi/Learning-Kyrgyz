@@ -35,6 +35,28 @@ export function ThemeProvider({
   })
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
 
+  // Helper to apply theme
+  const applyTheme = (actualTheme: 'light' | 'dark') => {
+    const root = window.document.documentElement
+
+    // Update resolved theme state
+    setResolvedTheme(actualTheme)
+
+    // Set background for overscroll
+    const bgColor = actualTheme === 'dark' ? 'oklch(0.26 0.03 262.67)' : 'oklch(0.98 0 0)'
+    root.style.backgroundColor = bgColor
+
+    // Update meta theme-color for browser chrome
+    const metaColor = actualTheme === 'dark' ? '#2a2d3e' : '#fafafa'
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]')
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement('meta')
+      metaThemeColor.setAttribute('name', 'theme-color')
+      document.head.appendChild(metaThemeColor)
+    }
+    metaThemeColor.setAttribute('content', metaColor)
+  }
+
   useEffect(() => {
     const root = window.document.documentElement
 
@@ -55,7 +77,7 @@ export function ThemeProvider({
 
     // Apply the theme
     root.classList.add(actualTheme)
-    setResolvedTheme(actualTheme)
+    applyTheme(actualTheme)
   }, [theme])
 
   // Listen for system theme changes
@@ -69,7 +91,7 @@ export function ThemeProvider({
 
         root.classList.remove('light', 'dark')
         root.classList.add(systemTheme)
-        setResolvedTheme(systemTheme)
+        applyTheme(systemTheme)
       }
 
       mediaQuery.addEventListener('change', handleChange)
