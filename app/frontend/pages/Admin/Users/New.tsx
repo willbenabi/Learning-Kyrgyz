@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { AppHeader } from '@/components/app-header'
 
 interface User {
   id: number
@@ -43,20 +42,8 @@ export default function AdminUserNew({ errors }: AdminUserNewProps) {
   }
 
   return (
-    <>
-      <AppHeader
-        breadcrumbs={[
-          { label: 'Admin Panel', href: '/admin/console' },
-          { label: 'Manage Users', href: '/admin/users' },
-          { label: 'Invite User' },
-        ]}
-      />
-
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
+    <div className="space-y-6">
+      <Card>
                   <CardHeader>
                     <CardTitle>Invite New User</CardTitle>
                     <CardDescription>Send an invitation email to a new user. They will set their own password.</CardDescription>
@@ -108,10 +95,6 @@ export default function AdminUserNew({ errors }: AdminUserNewProps) {
                     </form>
                   </CardContent>
                 </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
+    </div>
   )
 }

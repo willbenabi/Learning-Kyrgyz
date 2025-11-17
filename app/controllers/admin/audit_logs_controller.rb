@@ -60,7 +60,11 @@ class Admin::AuditLogsController < Admin::BaseController
         created_to: params[:created_to],
         sort_column: sort_column,
         sort_direction: sort_direction
-      }
+      },
+      breadcrumbs: [
+        { label: 'Admin', href: '/admin/console' },
+        { label: 'Audit Logs' }
+      ]
     }
   end
 

@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 
 import {
   ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   ChevronUpIcon,
   FileTextIcon,
   SearchIcon,
@@ -17,9 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
-import { AppHeader } from '@/components/app-header'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from '@/components/ui/pagination'
 import { DateRangePicker } from '@/components/date-range-picker'
 
 import { cn } from '@/lib/utils'
@@ -105,6 +101,7 @@ export default function AdminAuditLogsIndex({
       created_to: filters.created_to,
       sort_column: filters.sort_column,
       sort_direction: filters.sort_direction,
+      page: 1,  // Reset to page 1 when searching
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -120,6 +117,7 @@ export default function AdminAuditLogsIndex({
       created_to: filters.created_to,
       sort_column: filters.sort_column,
       sort_direction: filters.sort_direction,
+      page: 1,  // Reset to page 1 when filtering
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -135,6 +133,7 @@ export default function AdminAuditLogsIndex({
       created_to: range?.to || undefined,
       sort_column: filters.sort_column,
       sort_direction: filters.sort_direction,
+      page: 1,  // Reset to page 1 when changing date range
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -153,6 +152,7 @@ export default function AdminAuditLogsIndex({
       created_to: filters.created_to,
       sort_column: column,
       sort_direction: newDirection,
+      page: 1,  // Reset to page 1 when sorting
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -160,20 +160,19 @@ export default function AdminAuditLogsIndex({
     })
   }
 
-  const handlePageChange = (page: number) => {
-    router.get('/admin/audit_logs', {
-      search: searchTerm || undefined,
-      action_filter: filters.action_filter,
-      created_from: filters.created_from,
-      created_to: filters.created_to,
-      sort_column: filters.sort_column,
-      sort_direction: filters.sort_direction,
-      page,
-    }, {
-      preserveState: true,
-      preserveScroll: true,
-      only: ['audits', 'pagination', 'filters'],
-    })
+  const buildPageUrl = (page: number) => {
+    const params = new URLSearchParams()
+
+    // Use filters from props (server state), not local state
+    if (filters.search) params.set('search', filters.search)
+    if (filters.action_filter) params.set('action_filter', filters.action_filter)
+    if (filters.created_from) params.set('created_from', filters.created_from)
+    if (filters.created_to) params.set('created_to', filters.created_to)
+    if (filters.sort_column) params.set('sort_column', filters.sort_column)
+    if (filters.sort_direction) params.set('sort_direction', filters.sort_direction)
+    params.set('page', page.toString())
+
+    return `/admin/audit_logs?${params.toString()}`
   }
 
   const getSortIcon = (column: string) => {
@@ -250,16 +249,14 @@ export default function AdminAuditLogsIndex({
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <Button
-              className="disabled:pointer-events-none disabled:opacity-50"
-              variant="ghost"
-              onClick={() => handlePageChange(pagination.page - 1)}
-              disabled={!pagination.prev}
-              aria-label="Go to previous page"
-            >
-              <ChevronLeftIcon size={16} aria-hidden="true" />
-              Previous
-            </Button>
+            {pagination.prev ? (
+              <PaginationPrevious href={buildPageUrl(pagination.page - 1)} />
+            ) : (
+              <PaginationPrevious
+                className="pointer-events-none opacity-50"
+                aria-disabled="true"
+              />
+            )}
           </PaginationItem>
 
           {startPage > 1 && (
@@ -273,14 +270,13 @@ export default function AdminAuditLogsIndex({
 
             return (
               <PaginationItem key={page}>
-                <Button
-                  size="icon"
-                  className={`${!isActive && 'bg-primary/10 text-primary hover:bg-primary/20 focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40'}`}
-                  onClick={() => handlePageChange(page)}
-                  aria-current={isActive ? 'page' : undefined}
+                <PaginationLink
+                  href={buildPageUrl(page)}
+                  isActive={isActive}
+                  className={isActive ? 'bg-primary/10 text-primary hover:bg-primary/20' : ''}
                 >
                   {page}
-                </Button>
+                </PaginationLink>
               </PaginationItem>
             )
           })}
@@ -292,16 +288,14 @@ export default function AdminAuditLogsIndex({
           )}
 
           <PaginationItem>
-            <Button
-              className="disabled:pointer-events-none disabled:opacity-50"
-              variant="ghost"
-              onClick={() => handlePageChange(pagination.page + 1)}
-              disabled={!pagination.next}
-              aria-label="Go to next page"
-            >
-              Next
-              <ChevronRightIcon size={16} aria-hidden="true" />
-            </Button>
+            {pagination.next ? (
+              <PaginationNext href={buildPageUrl(pagination.page + 1)} />
+            ) : (
+              <PaginationNext
+                className="pointer-events-none opacity-50"
+                aria-disabled="true"
+              />
+            )}
           </PaginationItem>
         </PaginationContent>
       </Pagination>
@@ -309,25 +303,14 @@ export default function AdminAuditLogsIndex({
   }
 
   return (
-    <>
-      <AppHeader
-        breadcrumbs={[
-          { label: 'Admin Panel', href: '/admin/console' },
-          { label: 'Audit Logs' },
-        ]}
-      />
-
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
+    <div className="grid gap-6 min-w-0">
+      <Card className="w-full min-w-0">
                   <CardHeader>
                     <CardTitle>Audit Logs ({pagination.count})</CardTitle>
                   </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="w-full">
-                      <div className="border-b">
+                  <CardContent className="p-0 min-w-0">
+                    <div className="w-full min-w-0">
+                      <div className="border-b min-w-0">
                         <div className="flex flex-col gap-4 p-6">
                           <span className="text-xl font-semibold">Filter Logs</span>
                           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
@@ -384,88 +367,88 @@ export default function AdminAuditLogsIndex({
                           </div>
                         </div>
                         <Table>
-                          <TableHeader>
-                            <TableRow className="h-14 border-t">
-                              <TableHead className="text-muted-foreground first:pl-4">
-                                <div
-                                  className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
-                                  onClick={() => handleSort('created_at')}
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                      e.preventDefault()
-                                      handleSort('created_at')
-                                    }
-                                  }}
-                                  tabIndex={0}
-                                >
-                                  Timestamp
-                                  {getSortIcon('created_at')}
-                                </div>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground">
-                                <div
-                                  className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
-                                  onClick={() => handleSort('action')}
-                                  onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                      e.preventDefault()
-                                      handleSort('action')
-                                    }
-                                  }}
-                                  tabIndex={0}
-                                >
-                                  Action
-                                  {getSortIcon('action')}
-                                </div>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground">User</TableHead>
-                              <TableHead className="text-muted-foreground">Resource</TableHead>
-                              <TableHead className="text-muted-foreground">Changes</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {audits.length > 0 ? (
-                              audits.map((audit) => (
-                                <TableRow key={audit.id} className="hover:bg-transparent">
-                                  <TableCell className="h-14 first:pl-4">
-                                    <div className="flex flex-col">
-                                      <span className="font-medium">
-                                        {new Date(audit.created_at).toLocaleDateString()}
-                                      </span>
-                                      <span className="text-muted-foreground text-xs">
-                                        {new Date(audit.created_at).toLocaleTimeString()}
-                                      </span>
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="h-14">{getActionBadge(audit.action)}</TableCell>
-                                  <TableCell className="h-14">
-                                    <div className="flex flex-col">
-                                      <span className="font-medium">{audit.user_name}</span>
-                                      {audit.user_email && (
-                                        <span className="text-muted-foreground text-xs">{audit.user_email}</span>
-                                      )}
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="h-14">
-                                    <div className="flex items-center gap-2">
-                                      <FileTextIcon className="size-4 text-muted-foreground" />
-                                      <span className="text-muted-foreground">
-                                        {audit.auditable_type} #{audit.auditable_id}
-                                      </span>
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="h-14">{renderChanges(audit.audited_changes)}</TableCell>
-                                </TableRow>
-                              ))
-                            ) : (
-                              <TableRow>
-                                <TableCell colSpan={5} className="h-24 text-center">
-                                  No audit logs found.
-                                </TableCell>
+                            <TableHeader>
+                              <TableRow className="h-14 border-t">
+                                <TableHead className="text-muted-foreground first:pl-4">
+                                  <div
+                                    className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
+                                    onClick={() => handleSort('created_at')}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault()
+                                        handleSort('created_at')
+                                      }
+                                    }}
+                                    tabIndex={0}
+                                  >
+                                    Timestamp
+                                    {getSortIcon('created_at')}
+                                  </div>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground">
+                                  <div
+                                    className="flex h-full cursor-pointer items-center justify-between gap-2 select-none"
+                                    onClick={() => handleSort('action')}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault()
+                                        handleSort('action')
+                                      }
+                                    }}
+                                    tabIndex={0}
+                                  >
+                                    Action
+                                    {getSortIcon('action')}
+                                  </div>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground">User</TableHead>
+                                <TableHead className="text-muted-foreground">Resource</TableHead>
+                                <TableHead className="text-muted-foreground">Changes</TableHead>
                               </TableRow>
-                            )}
-                          </TableBody>
-                        </Table>
+                            </TableHeader>
+                            <TableBody>
+                              {audits.length > 0 ? (
+                                audits.map((audit) => (
+                                  <TableRow key={audit.id} className="hover:bg-transparent">
+                                    <TableCell className="h-14 first:pl-4">
+                                      <div className="flex flex-col">
+                                        <span className="font-medium">
+                                          {new Date(audit.created_at).toLocaleDateString()}
+                                        </span>
+                                        <span className="text-muted-foreground text-xs">
+                                          {new Date(audit.created_at).toLocaleTimeString()}
+                                        </span>
+                                      </div>
+                                    </TableCell>
+                                    <TableCell className="h-14">{getActionBadge(audit.action)}</TableCell>
+                                    <TableCell className="h-14">
+                                      <div className="flex flex-col">
+                                        <span className="font-medium">{audit.user_name}</span>
+                                        {audit.user_email && (
+                                          <span className="text-muted-foreground text-xs">{audit.user_email}</span>
+                                        )}
+                                      </div>
+                                    </TableCell>
+                                    <TableCell className="h-14">
+                                      <div className="flex items-center gap-2">
+                                        <FileTextIcon className="size-4 text-muted-foreground" />
+                                        <span className="text-muted-foreground">
+                                          {audit.auditable_type} #{audit.auditable_id}
+                                        </span>
+                                      </div>
+                                    </TableCell>
+                                    <TableCell className="h-14">{renderChanges(audit.audited_changes)}</TableCell>
+                                  </TableRow>
+                                ))
+                              ) : (
+                                <TableRow>
+                                  <TableCell colSpan={5} className="h-24 text-center">
+                                    No audit logs found.
+                                  </TableCell>
+                                </TableRow>
+                              )}
+                            </TableBody>
+                          </Table>
                       </div>
 
                       <div className="flex items-center justify-between gap-3 px-6 py-4 max-sm:flex-col md:max-lg:flex-col">
@@ -479,10 +462,6 @@ export default function AdminAuditLogsIndex({
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
+    </div>
   )
 }

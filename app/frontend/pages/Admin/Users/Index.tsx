@@ -2,8 +2,6 @@ import { router } from '@inertiajs/react'
 import { useState, useEffect } from 'react'
 import {
   ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   ChevronUpIcon,
   CrownIcon,
   EyeIcon,
@@ -20,11 +18,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext } from '@/components/ui/pagination'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { DeleteConfirmationDialog } from '@/components/delete-confirmation-dialog'
-import { AppHeader } from '@/components/app-header'
 import { DateRangePicker } from '@/components/date-range-picker'
 
 interface User {
@@ -94,6 +91,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
       status_filter: filters.status_filter,
       created_from: filters.created_from,
       created_to: filters.created_to,
+      page: 1,  // Reset to page 1 when searching
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -109,6 +107,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
       status_filter: value === 'all' ? undefined : value,
       created_from: filters.created_from,
       created_to: filters.created_to,
+      page: 1,  // Reset to page 1 when filtering
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -124,6 +123,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
       status_filter: filters.status_filter,
       created_from: range?.from,
       created_to: range?.to,
+      page: 1,  // Reset to page 1 when changing date range
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -140,6 +140,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
       status_filter: filters.status_filter,
       created_from: filters.created_from,
       created_to: filters.created_to,
+      page: 1,  // Reset to page 1 when sorting
     }, {
       preserveState: true,
       preserveScroll: true,
@@ -147,20 +148,19 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
     })
   }
 
-  const handlePageChange = (page: number) => {
-    router.get('/admin/users', {
-      search: filters.search,
-      sort: filters.sort,
-      direction: filters.direction,
-      status_filter: filters.status_filter,
-      created_from: filters.created_from,
-      created_to: filters.created_to,
-      page,
-    }, {
-      preserveState: true,
-      preserveScroll: true,
-      only: ['users', 'pagination', 'filters'],
-    })
+  const buildPageUrl = (page: number) => {
+    const params = new URLSearchParams()
+
+    // Use filters from props (server state)
+    if (filters.search) params.set('search', filters.search)
+    if (filters.sort) params.set('sort', filters.sort)
+    if (filters.direction) params.set('direction', filters.direction)
+    if (filters.status_filter) params.set('status_filter', filters.status_filter)
+    if (filters.created_from) params.set('created_from', filters.created_from)
+    if (filters.created_to) params.set('created_to', filters.created_to)
+    params.set('page', page.toString())
+
+    return `/admin/users?${params.toString()}`
   }
 
   const handleDeleteClick = (user: User) => {
@@ -221,16 +221,14 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <Button
-              className="disabled:pointer-events-none disabled:opacity-50"
-              variant="ghost"
-              onClick={() => handlePageChange(pagination.page - 1)}
-              disabled={!pagination.prev}
-              aria-label="Go to previous page"
-            >
-              <ChevronLeftIcon size={16} aria-hidden="true" />
-              Previous
-            </Button>
+            {pagination.prev ? (
+              <PaginationPrevious href={buildPageUrl(pagination.page - 1)} />
+            ) : (
+              <PaginationPrevious
+                className="pointer-events-none opacity-50"
+                aria-disabled="true"
+              />
+            )}
           </PaginationItem>
 
           {startPage > 1 && (
@@ -244,14 +242,13 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
 
             return (
               <PaginationItem key={page}>
-                <Button
-                  size="icon"
-                  className={`${!isActive && 'bg-primary/10 text-primary hover:bg-primary/20'}`}
-                  onClick={() => handlePageChange(page)}
-                  aria-current={isActive ? 'page' : undefined}
+                <PaginationLink
+                  href={buildPageUrl(page)}
+                  isActive={isActive}
+                  className={isActive ? 'bg-primary/10 text-primary hover:bg-primary/20' : ''}
                 >
                   {page}
-                </Button>
+                </PaginationLink>
               </PaginationItem>
             )
           })}
@@ -263,16 +260,14 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
           )}
 
           <PaginationItem>
-            <Button
-              className="disabled:pointer-events-none disabled:opacity-50"
-              variant="ghost"
-              onClick={() => handlePageChange(pagination.page + 1)}
-              disabled={!pagination.next}
-              aria-label="Go to next page"
-            >
-              Next
-              <ChevronRightIcon size={16} aria-hidden="true" />
-            </Button>
+            {pagination.next ? (
+              <PaginationNext href={buildPageUrl(pagination.page + 1)} />
+            ) : (
+              <PaginationNext
+                className="pointer-events-none opacity-50"
+                aria-disabled="true"
+              />
+            )}
           </PaginationItem>
         </PaginationContent>
       </Pagination>
@@ -281,29 +276,19 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
 
   return (
     <>
-      <AppHeader
-        breadcrumbs={[
-          { label: 'Admin Panel', href: '/admin/console' },
-          { label: 'Manage Users' },
-        ]}
-        actions={
+      <div className="grid gap-6 min-w-0">
+        <div className="flex justify-end">
           <Button size="sm" onClick={() => router.visit('/admin/users/new')}>
             Invite User
           </Button>
-        }
-      />
-
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
+        </div>
+        <Card className="w-full min-w-0">
                   <CardHeader>
                     <CardTitle>All Users ({pagination.count})</CardTitle>
                   </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="w-full">
-                      <div className="border-b">
+                  <CardContent className="p-0 min-w-0">
+                    <div className="w-full min-w-0">
+                      <div className="border-b min-w-0">
                         <div className="flex flex-col gap-4 p-6">
                           <span className="text-xl font-semibold">Filter Users</span>
                           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
@@ -360,131 +345,131 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
                           </div>
                         </div>
                         <Table>
-                          <TableHeader>
-                            <TableRow className="h-14 border-t">
-                              <TableHead className="text-muted-foreground first:pl-4">
-                                <button
-                                  onClick={() => handleSort('name')}
-                                  className="flex items-center gap-1 hover:text-foreground"
-                                >
-                                  User
-                                  {getSortIcon('name')}
-                                </button>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground">
-                                <button
-                                  onClick={() => handleSort('email')}
-                                  className="flex items-center gap-1 hover:text-foreground"
-                                >
-                                  Email
-                                  {getSortIcon('email')}
-                                </button>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground">Status</TableHead>
-                              <TableHead className="text-muted-foreground">
-                                <button
-                                  onClick={() => handleSort('created_at')}
-                                  className="flex items-center gap-1 hover:text-foreground"
-                                >
-                                  Created
-                                  {getSortIcon('created_at')}
-                                </button>
-                              </TableHead>
-                              <TableHead className="text-muted-foreground last:px-4 last:text-center">Actions</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {users.length > 0 ? (
-                              users.map((user) => {
-                                const isCurrentUser = user.id === auth.user.id
+                            <TableHeader>
+                              <TableRow className="h-14 border-t">
+                                <TableHead className="text-muted-foreground first:pl-4">
+                                  <button
+                                    onClick={() => handleSort('name')}
+                                    className="flex items-center gap-1 hover:text-foreground"
+                                  >
+                                    User
+                                    {getSortIcon('name')}
+                                  </button>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground">
+                                  <button
+                                    onClick={() => handleSort('email')}
+                                    className="flex items-center gap-1 hover:text-foreground"
+                                  >
+                                    Email
+                                    {getSortIcon('email')}
+                                  </button>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground">Status</TableHead>
+                                <TableHead className="text-muted-foreground">
+                                  <button
+                                    onClick={() => handleSort('created_at')}
+                                    className="flex items-center gap-1 hover:text-foreground"
+                                  >
+                                    Created
+                                    {getSortIcon('created_at')}
+                                  </button>
+                                </TableHead>
+                                <TableHead className="text-muted-foreground last:px-4 last:text-center">Actions</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {users.length > 0 ? (
+                                users.map((user) => {
+                                  const isCurrentUser = user.id === auth.user.id
 
-                                return (
-                                  <TableRow key={user.id} className="hover:bg-transparent">
-                                    <TableCell className="h-14 first:pl-4">
-                                      <div className="flex items-center gap-2">
-                                        <Avatar className="size-9">
-                                          <AvatarImage src="" alt={user.name} />
-                                          <AvatarFallback className="text-xs">{getUserInitials(user.name)}</AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex flex-col">
-                                          <div className="flex items-center gap-2">
-                                            <span className="font-medium">{user.name}</span>
-                                            {user.admin && (
-                                              <CrownIcon className="size-3.5 text-amber-600 dark:text-amber-400" />
-                                            )}
+                                  return (
+                                    <TableRow key={user.id} className="hover:bg-transparent">
+                                      <TableCell className="h-14 first:pl-4">
+                                        <div className="flex items-center gap-2">
+                                          <Avatar className="size-9">
+                                            <AvatarImage src="" alt={user.name} />
+                                            <AvatarFallback className="text-xs">{getUserInitials(user.name)}</AvatarFallback>
+                                          </Avatar>
+                                          <div className="flex flex-col">
+                                            <div className="flex items-center gap-2">
+                                              <span className="font-medium">{user.name}</span>
+                                              {user.admin && (
+                                                <CrownIcon className="size-3.5 text-amber-600 dark:text-amber-400" />
+                                              )}
+                                            </div>
+                                            <span className="text-muted-foreground text-xs">{user.email}</span>
                                           </div>
-                                          <span className="text-muted-foreground text-xs">{user.email}</span>
                                         </div>
-                                      </div>
-                                    </TableCell>
-                                    <TableCell className="h-14">
-                                      <span className="text-muted-foreground">{user.email}</span>
-                                    </TableCell>
-                                    <TableCell className="h-14">
-                                      {user.active ? (
-                                        <Badge variant="default" className="bg-green-600 hover:bg-green-700">Active</Badge>
-                                      ) : user.invitation_pending ? (
-                                        <Badge variant="secondary">Pending</Badge>
-                                      ) : (
-                                        <Badge variant="outline">Inactive</Badge>
-                                      )}
-                                    </TableCell>
-                                    <TableCell className="h-14">
-                                      <span className="text-muted-foreground">
-                                        {new Date(user.created_at).toLocaleDateString()}
-                                      </span>
-                                    </TableCell>
-                                    <TableCell className="h-14 last:w-29 last:px-4">
-                                      <div className="flex items-center justify-center gap-1">
-                                        {user.invitation_pending && (
+                                      </TableCell>
+                                      <TableCell className="h-14">
+                                        <span className="text-muted-foreground">{user.email}</span>
+                                      </TableCell>
+                                      <TableCell className="h-14">
+                                        {user.active ? (
+                                          <Badge variant="default" className="bg-green-600 hover:bg-green-700">Active</Badge>
+                                        ) : user.invitation_pending ? (
+                                          <Badge variant="secondary">Pending</Badge>
+                                        ) : (
+                                          <Badge variant="outline">Inactive</Badge>
+                                        )}
+                                      </TableCell>
+                                      <TableCell className="h-14">
+                                        <span className="text-muted-foreground">
+                                          {new Date(user.created_at).toLocaleDateString()}
+                                        </span>
+                                      </TableCell>
+                                      <TableCell className="h-14 last:w-29 last:px-4">
+                                        <div className="flex items-center justify-center gap-1">
+                                          {user.invitation_pending && (
+                                            <Button
+                                              variant="ghost"
+                                              size="icon"
+                                              aria-label="Resend invitation"
+                                              onClick={() => handleResendInvitation(user.id)}
+                                            >
+                                              <MailIcon className="size-4.5" />
+                                            </Button>
+                                          )}
                                           <Button
                                             variant="ghost"
                                             size="icon"
-                                            aria-label="Resend invitation"
-                                            onClick={() => handleResendInvitation(user.id)}
+                                            aria-label="View user"
+                                            onClick={() => router.visit(`/admin/users/${user.id}`)}
                                           >
-                                            <MailIcon className="size-4.5" />
+                                            <EyeIcon className="size-4.5" />
                                           </Button>
-                                        )}
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          aria-label="View user"
-                                          onClick={() => router.visit(`/admin/users/${user.id}`)}
-                                        >
-                                          <EyeIcon className="size-4.5" />
-                                        </Button>
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          aria-label="Edit user"
-                                          onClick={() => router.visit(`/admin/users/${user.id}/edit`)}
-                                        >
-                                          <PencilLineIcon className="size-4.5" />
-                                        </Button>
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          aria-label="Delete user"
-                                          disabled={isCurrentUser}
-                                          onClick={() => !isCurrentUser && handleDeleteClick(user)}
-                                        >
-                                          <Trash2Icon className="size-4.5" />
-                                        </Button>
-                                      </div>
-                                    </TableCell>
-                                  </TableRow>
-                                )
-                              })
-                            ) : (
-                              <TableRow>
-                                <TableCell colSpan={5} className="h-24 text-center">
-                                  No users found.
-                                </TableCell>
-                              </TableRow>
-                            )}
-                          </TableBody>
-                        </Table>
+                                          <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            aria-label="Edit user"
+                                            onClick={() => router.visit(`/admin/users/${user.id}/edit`)}
+                                          >
+                                            <PencilLineIcon className="size-4.5" />
+                                          </Button>
+                                          <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            aria-label="Delete user"
+                                            disabled={isCurrentUser}
+                                            onClick={() => !isCurrentUser && handleDeleteClick(user)}
+                                          >
+                                            <Trash2Icon className="size-4.5" />
+                                          </Button>
+                                        </div>
+                                      </TableCell>
+                                    </TableRow>
+                                  )
+                                })
+                              ) : (
+                                <TableRow>
+                                  <TableCell colSpan={5} className="h-24 text-center">
+                                    No users found.
+                                  </TableCell>
+                                </TableRow>
+                              )}
+                            </TableBody>
+                          </Table>
                       </div>
 
                       <div className="flex items-center justify-between gap-3 px-6 py-4 max-sm:flex-col md:max-lg:flex-col">
@@ -498,10 +483,7 @@ export default function AdminUsersIndex({ auth, users, pagination, filters }: Ad
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
 
       <DeleteConfirmationDialog
         open={deleteDialogOpen}

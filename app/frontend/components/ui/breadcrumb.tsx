@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import { Link } from "@inertiajs/react"
 import { cn } from "@/lib/utils"
 import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 
@@ -35,16 +34,16 @@ function BreadcrumbLink({
   asChild,
   className,
   ...props
-}: (React.ComponentProps<typeof Link> | React.ComponentProps<typeof Slot>) & {
+}: React.ComponentProps<"a"> & {
   asChild?: boolean
 }) {
-  const Comp = asChild ? Slot : Link
+  const Comp = asChild ? Slot : "a"
 
   return (
     <Comp
       data-slot="breadcrumb-link"
       className={cn("hover:text-foreground transition-colors", className)}
-      {...(props as any)}
+      {...props}
     />
   )
 }

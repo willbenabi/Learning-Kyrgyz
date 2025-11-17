@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -26,6 +24,7 @@ import {
 } from "@/components/ui/tooltip"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
+const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
@@ -81,10 +80,8 @@ function SidebarProvider({
         _setOpen(openState)
       }
 
-      // Store sidebar state in localStorage (no cookies for iframe compatibility)
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(SIDEBAR_COOKIE_NAME, openState.toString())
-      }
+      // This sets the cookie to keep the sidebar state.
+      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
     },
     [setOpenProp, open]
   )

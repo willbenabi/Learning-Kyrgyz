@@ -1,6 +1,3 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { AppHeader } from '@/components/app-header'
-
 interface DashboardProps {
   auth: {
     user: {
@@ -14,35 +11,13 @@ interface DashboardProps {
 
 export default function Dashboard({ auth }: DashboardProps) {
   return (
-    <>
-      <AppHeader breadcrumbs={[{ label: 'Dashboard' }]} />
-
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="px-4 lg:px-6">
-                <Card className="from-primary/5 to-card bg-gradient-to-t shadow-xs">
-                  <CardHeader>
-                    <CardDescription>Welcome</CardDescription>
-                    <CardTitle className="text-2xl font-semibold">
-                      {auth.user.name}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-col items-start gap-1.5 text-sm">
-                    <div className="text-muted-foreground">
-                      Email: {auth.user.email}
-                    </div>
-                    {auth.user.admin && (
-                      <div className="text-muted-foreground">
-                        Admin
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-2">Welcome, {auth.user.name}!</h1>
+        <p className="text-muted-foreground text-lg">
+          This is your dashboard. Start building your application here.
+        </p>
+      </div>
+    </div>
   )
 }

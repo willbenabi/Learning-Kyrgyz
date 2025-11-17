@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { router } from '@inertiajs/react'
+import { router, Link } from '@inertiajs/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -77,9 +77,9 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
           </CardHeader>
           <CardContent>
             <div className="text-center">
-              <a href="/password/forgot" className="text-primary hover:underline">
+              <Link href="/password/forgot" className="text-primary hover:underline">
                 Request a new reset link
-              </a>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -144,9 +144,9 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
             </Button>
 
             <div className="text-center text-sm">
-              <a href="/login" className="text-muted-foreground hover:text-primary">
+              <Link href="/login" className="text-muted-foreground hover:text-primary">
                 Back to login
-              </a>
+              </Link>
             </div>
           </form>
         </CardContent>

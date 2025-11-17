@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { router } from '@inertiajs/react'
+import { router, Link } from '@inertiajs/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -167,9 +167,9 @@ export default function Login({ return_to }: LoginProps) {
             </Button>
 
             <div className="text-center text-sm">
-              <a href="/password/forgot" className="text-muted-foreground hover:text-primary">
+              <Link href="/password/forgot" className="text-muted-foreground hover:text-primary">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </form>
         </CardContent>

@@ -57,21 +57,36 @@ class Admin::UsersController < Admin::BaseController
         status_filter: params[:status_filter].presence,
         created_from: params[:created_from].presence,
         created_to: params[:created_to].presence
-      }
+      },
+      breadcrumbs: [
+        { label: 'Admin', href: '/admin/console' },
+        { label: 'Users' }
+      ]
     }
   end
 
   def show
     authorize @user
     render inertia: "Admin/Users/Show", props: {
-      user: user_props(@user)
+      user: user_props(@user),
+      breadcrumbs: [
+        { label: 'Admin', href: '/admin/console' },
+        { label: 'Users', href: '/admin/users' },
+        { label: @user.name }
+      ]
     }
   end
 
   def new
     @user = User.new
     authorize @user
-    render inertia: "Admin/Users/New"
+    render inertia: "Admin/Users/New", props: {
+      breadcrumbs: [
+        { label: 'Admin', href: '/admin/console' },
+        { label: 'Users', href: '/admin/users' },
+        { label: 'New' }
+      ]
+    }
   end
 
   def create
@@ -87,7 +102,12 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_users_path, notice: "Invitation sent successfully to #{outcome.result.email}"
     else
       render inertia: "Admin/Users/New", props: {
-        errors: outcome.errors.messages
+        errors: outcome.errors.messages,
+        breadcrumbs: [
+          { label: 'Admin', href: '/admin/console' },
+          { label: 'Users', href: '/admin/users' },
+          { label: 'New' }
+        ]
       }
     end
   end
@@ -95,7 +115,13 @@ class Admin::UsersController < Admin::BaseController
   def edit
     authorize @user
     render inertia: "Admin/Users/Edit", props: {
-      user: user_props(@user)
+      user: user_props(@user),
+      breadcrumbs: [
+        { label: 'Admin', href: '/admin/console' },
+        { label: 'Users', href: '/admin/users' },
+        { label: @user.name, href: "/admin/users/#{@user.id}" },
+        { label: 'Edit' }
+      ]
     }
   end
 
@@ -110,7 +136,13 @@ class Admin::UsersController < Admin::BaseController
     else
       render inertia: "Admin/Users/Edit", props: {
         errors: @user.errors.messages,
-        user: user_props(@user)
+        user: user_props(@user),
+        breadcrumbs: [
+          { label: 'Admin', href: '/admin/console' },
+          { label: 'Users', href: '/admin/users' },
+          { label: @user.name, href: "/admin/users/#{@user.id}" },
+          { label: 'Edit' }
+        ]
       }
     end
   end

@@ -3,13 +3,12 @@ import {
   LayoutDashboardIcon,
   AppWindowIcon,
 } from "lucide-react"
+import { Link } from "@inertiajs/react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -42,19 +41,19 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
   ]
 
   return (
-    <Sidebar collapsible="icon" variant="inset" {...props}>
+    <Sidebar {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild className="hover:bg-transparent active:bg-transparent data-[active=true]:bg-transparent">
-              <a href="/dashboard">
+              <Link href="/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-black text-white dark:bg-white dark:text-black">
                   <AppWindowIcon className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">My App</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -62,9 +61,6 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
       <SidebarContent>
         <NavMain items={navMain} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={user} />
-      </SidebarFooter>
     </Sidebar>
   )
 }

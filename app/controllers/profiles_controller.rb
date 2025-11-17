@@ -4,14 +4,21 @@ class ProfilesController < ApplicationController
   # GET /profile
   def show
     render inertia: "Profile/Show", props: {
-      user: user_props(current_user)
+      user: user_props(current_user),
+      breadcrumbs: [
+        { label: 'Profile' }
+      ]
     }
   end
 
   # GET /profile/edit
   def edit
     render inertia: "Profile/Edit", props: {
-      user: user_props(current_user)
+      user: user_props(current_user),
+      breadcrumbs: [
+        { label: 'Profile', href: '/profile' },
+        { label: 'Edit' }
+      ]
     }
   end
 
