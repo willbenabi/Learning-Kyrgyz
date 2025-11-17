@@ -44,7 +44,7 @@ const ProfileDropdown = ({ trigger, user, defaultOpen, align = 'end' }: Props) =
 
   const handleLogout = async () => {
     await authService.logout()
-    router.visit('/login', { replace: true })
+    router.visit('/', { replace: true })
   }
 
   const getUserInitials = (name: string): string => {

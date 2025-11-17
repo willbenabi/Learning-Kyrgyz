@@ -19,7 +19,7 @@ export default function Landing() {
             <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
               <Sparkles className="size-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold">Starter Base</span>
+            <span className="text-xl font-bold">My App</span>
           </div>
           <Link href="/login">
             <Button variant="outline">Log In</Button>
@@ -37,8 +37,8 @@ export default function Landing() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="mb-6 max-w-4xl text-5xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl">
-            Ship Your SaaS{' '}
+          <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+            Build Full-Stack Apps{' '}
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
               Faster
             </span>
@@ -47,7 +47,7 @@ export default function Landing() {
           {/* Subheadline */}
           <p className="mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
             Start with authentication, admin dashboard, and modern UI components.
-            Add features using AI-powered development and ship in record time.
+            Add features using AI-powered development and ship your application in record time.
           </p>
 
           {/* CTA Buttons */}
