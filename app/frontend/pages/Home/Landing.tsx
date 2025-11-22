@@ -102,7 +102,7 @@ export default function Landing() {
                   description: 'JWT-based auth with login, password reset, and user invitations built-in.',
                 },
                 {
-                  icon: Layout,
+                  icon: UserCog,
                   title: 'Admin Dashboard',
                   description: 'Complete admin panel with user management, audit logs, and permissions.',
                 },
