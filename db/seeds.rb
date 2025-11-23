@@ -8,8 +8,8 @@ puts "Creating admin..."
 admin = User.create!(
   email: "admin@example.com",
   name: "Admin",
-  password: "password123",
-  password_confirmation: "password123",
+  password: "lsPhBr5tvOdR1ijG",
+  password_confirmation: "lsPhBr5tvOdR1ijG",
   admin: true
 )
 
@@ -19,8 +19,8 @@ puts "Creating regular users..."
   User.create!(
     email: "user#{i + 1}@example.com",
     name: "User #{i + 1}",
-    password: "password123",
-    password_confirmation: "password123",
+    password: "lsPhBr5tvOdR1ijG",
+    password_confirmation: "lsPhBr5tvOdR1ijG",
     admin: false
   )
 end
