@@ -2,176 +2,335 @@
 
 ## Product Overview
 
-A ready-to-use web application with user management, secure invitation system, and admin panel. Serves as a foundation for building custom business applications - user accounts and permissions are already built.
+**Learning Kyrgyz is Easy** - A comprehensive language learning application designed to help users master the Kyrgyz language through adaptive lessons, AI-powered assistance, and personalized content recommendations.
 
-## Core Modules
+## Core Features (Level 1 - Quick Prototype)
 
-### 1. User Management & Authentication
+### 1. Public Registration & Onboarding
 
-**User Invitations**
+**User Registration (No Invitation Required)**
+- Public registration form accessible to anyone
+- Required fields: Name, Email, Password, Password Confirmation
+- Optional field: Country (dropdown selection)
+- Form validation with clear error messages
+- Automatic login after successful registration
+- Redirect to language selection after registration
 
-- Admin sends invitation emails to new users
-- Users receive secure invitation link via email
-- Users set their own password (admins never see passwords)
-- Invitation status tracking (pending/accepted/active)
-- Resend invitation capability for pending users
+**Language Selection**
+- First-time user experience showing interface language choice
+- Two options: Russian (Русский) or English
+- Large, clear buttons with flag icons
+- Language preference stored for entire user journey
+- All UI text, explanations, and feedback respect chosen language
+- Kyrgyz content remains in Kyrgyz (examples, exercises, readings)
 
-**User Accounts**
+**Adaptive Placement Test (20 Questions)**
+- One question at a time with progress indicator
+- 20 questions covering 5 CEFR levels (A1, A2, B1, B2, C1)
+- 4 questions per level with randomized order
+- Multiple choice format with 4 options per question
+- Answer options randomized for each question
+- Adaptive difficulty (simulated in Level 1)
+- Final score calculation determines user's level
+- Results stored for diagnostics
 
-- Profile management (name, email, profile picture)
-- Profile picture support (JPEG, PNG, GIF, WebP, max 5MB)
+**AI Diagnostics Results**
+- Display of determined level (A1-C1) with large badge
+- Level name and description in chosen language
+- Comprehensive diagnostic summary:
+  - Strengths (what user does well)
+  - Weaknesses (areas needing improvement)
+  - Grammar focus topics
+  - Recommended reading level
+  - Vocabulary focus areas
+  - Personalized recommendations
+- Expandable mistakes section showing:
+  - Each incorrect answer
+  - Correct answer
+  - Question details
+- "Start Learning" button to proceed to dashboard
 
-**Authentication**
+### 2. Main Learning Dashboard
 
-- Email/password login
-- Password reset via email
-- Automatic session management
+**Top Section - Content Recommendations**
+- Rotating banner with Kyrgyz content suggestions
+- Recommendations based on user's level:
+  - Books, fairy tales, short stories
+  - Music (traditional and modern Kyrgyz songs)
+  - Films and documentaries
+  - News articles and podcasts
+  - YouTube videos
+- Safe, culturally neutral content
+- Auto-rotation every 5 seconds
+- Manual navigation with indicator dots
 
-**User Roles**
+**Learning Modules (4 Cards)**
+1. **Grammar Module**
+   - Master Kyrgyz grammar rules
+   - Icon: BookOpen
+   - Color: Blue
+   - Status: Coming Soon
 
-- **Regular User**: Standard user with own data access
-- **Admin**: Full system administration privileges
+2. **Reading & Comprehension Module**
+   - Practice with real texts
+   - Icon: FileText
+   - Color: Green
+   - Status: Coming Soon
 
-### 2. Administration
+3. **Writing Module**
+   - Improve writing skills
+   - Icon: PenTool
+   - Color: Purple
+   - Status: Coming Soon
 
-**Admin Console**
+4. **Vocabulary Builder Module**
+   - Expand word knowledge
+   - Icon: BookMarked
+   - Color: Orange
+   - Status: Coming Soon
 
-- Dashboard with system statistics
-- Total users count
-- Admin/regular user breakdown
-- Active sessions monitoring
-- Audit log access
+**Progress Tracking Widget**
+- Current level badge (A1-C1)
+- Days active streak (with flame icon)
+- Lessons completed counter
+- Words learned counter
+- Badges earned (with trophy icon)
 
-**User Management**
+**Bottom Navigation**
+1. **AI Assistant Chat**
+   - Ask grammar questions
+   - Practice Kyrgyz conversation
+   - Get instant explanations
+   - Check pronunciation
+   - Icon: MessageSquare
+   - Status: Coming Soon
 
-- View all users with search and sorting
-- Send user invitations
-- Edit user information
-- Track invitation status (pending/active)
-- Resend invitations to pending users
-- Assign admin privileges
-- Delete users
+2. **Technical Support**
+   - Submit bug reports
+   - Suggest improvements
+   - Request feature enhancements
+   - Get help
+   - Icon: Wrench
+   - Status: Coming Soon
 
-**Audit Logging**
+### 3. Multi-Language Support
 
-- Track all changes to users
-- Record who, what, when for each change
-- Browse logs with filtering
-- View detailed change history
+**Strict Language Rules**
+- User selects interface language at onboarding (Russian or English)
+- ALL system messages, UI text, explanations, feedback in chosen language
+- NEVER mix interface languages
+- Kyrgyz used ONLY for:
+  - Example sentences
+  - Vocabulary words
+  - Reading texts
+  - Grammar examples
+  - Exercise content
 
-## Key User Workflows
+**Translation Coverage**
+- Registration page
+- Language selection screen
+- Placement test (questions remain in English/Russian, testing Kyrgyz)
+- Diagnostics results
+- Dashboard interface
+- Module descriptions
+- Progress labels
 
-### User Onboarding (Invitation Flow)
+### 4. Enhanced Landing Page
 
-1. Admin goes to Manage Users → Invite User
-2. Enters new user's name and email
-3. System sends invitation email with secure link
-4. User receives email and clicks invitation link
-5. User creates their password
-6. User is automatically logged in
-7. User accesses the application
+**Hero Section**
+- Headline: "Master the Kyrgyz Language With Ease"
+- Subheadline: Personalized learning journey description
+- CTA Buttons: "Start Learning Free" and "Sign In"
 
-### Resending Invitations
+**Features Section**
+- Adaptive Learning: Placement test and personalized lessons
+- AI-Powered Assistance: Chat for practice and help
+- Complete Curriculum: All four learning modules
 
-1. Admin goes to Manage Users
-2. Sees users with "Pending" status
-3. Clicks resend invitation button
-4. New invitation email sent to user
+**Navigation**
+- Logo: "Learning Kyrgyz"
+- Buttons: "Get Started" (register) and "Log In"
 
-### Password Reset
+## User Workflows
 
-1. User clicks "Forgot Password" on login page
-2. Enters email address
-3. Receives password reset email
-4. Clicks reset link and creates new password
-5. Logs in with new password
+### Complete Onboarding Journey
 
-### Managing Users
+1. **User visits landing page** → Sees "Get Started" button
+2. **Clicks Get Started** → Redirected to registration page
+3. **Fills registration form** → Name, email, password, country
+4. **Submits form** → Automatic login
+5. **Redirected to language selection** → Chooses Russian or English
+6. **Redirected to placement test** → Takes 20-question adaptive test
+7. **Test completes** → Redirected to diagnostics page
+8. **Views results** → Sees level, strengths, weaknesses, recommendations
+9. **Clicks "Start Learning"** → Arrives at main dashboard
+10. **Explores dashboard** → Sees modules, progress, recommendations
 
-**Viewing User Details:**
-1. Admin goes to Manage Users
-2. Finds user in the list (search by name or email)
-3. Clicks view button to see full profile
-4. Views user status, role, and registration date
+### Returning User Journey
 
-**Editing User Information:**
-1. Admin goes to Manage Users
-2. Finds user in the list
-3. Clicks edit button
-4. Updates user name or admin status
-5. Email cannot be changed after account creation
+1. **User visits landing page** → Clicks "Log In"
+2. **Enters credentials** → Logs in
+3. **Redirected to dashboard** → Continues learning
 
-**Removing a User:**
-1. Admin goes to Manage Users
-2. Finds the user in the list
-3. Clicks delete button
-4. Confirms deletion
-5. User and all their data removed
+## Technical Implementation (Level 1)
 
-### Profile Management
+### Frontend Pages Created
 
-**Updating Profile:**
-1. User clicks Profile from user menu
-2. Clicks Edit Profile
-3. Updates name, email, or password
-4. Uploads new profile picture if desired
-5. Saves changes
+- `app/frontend/pages/Auth/Register.tsx` - Public registration form
+- `app/frontend/pages/Onboarding/LanguageSelection.tsx` - Language choice
+- `app/frontend/pages/Onboarding/PlacementTest.tsx` - Adaptive 20-question test
+- `app/frontend/pages/Onboarding/Diagnostics.tsx` - Results and recommendations
+- `app/frontend/pages/Learning/Dashboard.tsx` - Main learning interface
+- `app/frontend/pages/Home/Landing.tsx` - Updated for Kyrgyz learning app
 
-## Data Access Rules
+### Controllers Created
 
-### Regular User Access
+- `app/controllers/registrations_controller.rb` - Handles registration (mock data)
+- `app/controllers/onboarding_controller.rb` - Handles onboarding flow (mock data)
+- `app/controllers/learning_controller.rb` - Handles learning pages (mock data)
 
-- View and edit own profile
-- Upload profile picture
-- Change password
-- View own dashboard
-- Cannot access admin console
-- Cannot manage other users
+### Routes Added
 
-### Admin Access
+```ruby
+# Registration
+GET  /register
+POST /register
 
-- All regular user permissions
-- Access admin console
-- View system statistics
-- View and manage all users
-- Send user invitations
-- View user details and invitation status
-- Assign admin privileges to users
-- Delete users
-- View audit logs of all system changes
+# Onboarding
+GET  /onboarding/language
+POST /onboarding/language
+GET  /onboarding/placement-test
+POST /onboarding/placement-test/results
+GET  /onboarding/diagnostics
 
-## Current Features
+# Learning
+GET  /learning/dashboard
+```
 
-**Dashboard**
-- Welcome screen with user information
-- Quick access to profile
+### Data Storage (Level 1)
 
-**Profile Management**
-- View profile with avatar and details
-- Edit name, email, password
-- Upload profile picture
-- View account creation date
+All data is stored in **localStorage** for this prototype:
+- `interface_language` - User's chosen UI language (en/ru)
+- `test_results` - Placement test answers, score, and determined level
 
-**User Management** (Admins only)
-- Search users by name or email
-- Sort by name, email, or creation date
-- View all users with status indicators
-- Create new users via invitation
-- Edit existing users
-- Delete users
-- Resend pending invitations
+### Mock Data
 
-**Admin Console** (Admins only)
-- System statistics overview
-- User count breakdowns
-- Session monitoring
+**Placement Test Questions:**
+- 4 questions per level (A1, A2, B1, B2, C1) = 20 total
+- Questions based on actual Kyrgyz language patterns
+- Options randomized on each load
 
-**Security Features**
-- Secure invitation tokens
-- Password reset with time-limited tokens
-- Passwords never visible to admins
-- Automatic session management
+**Diagnostics:**
+- Level-specific strengths, weaknesses, and recommendations
+- Available in both English and Russian
+- Grammar topics tailored to each level
+- Reading and vocabulary recommendations
+
+**Dashboard:**
+- Mock progress data (days active, lessons, vocabulary, badges)
+- Level-appropriate content recommendations
+- Module placeholders with "Coming Soon" badges
+
+## Success Criteria (Level 1 - Met)
+
+✅ **Registration Working:**
+- Users can register without invitation
+- Form validates all fields correctly
+- Clear error messages for validation failures
+- Auto-login after successful registration
+- Redirect to language selection works
+
+✅ **Language Selection Working:**
+- Two clear language options (Russian/English)
+- Selection stored and respected throughout app
+- Redirect to placement test works
+
+✅ **Placement Test Working:**
+- 20 questions display correctly
+- One question at a time with progress indicator
+- Answer selection works
+- Questions and answers randomized
+- Level calculated based on score (A1-C1)
+- Redirect to diagnostics works
+
+✅ **Diagnostics Working:**
+- Level badge displays prominently
+- All diagnostic sections present (strengths, weaknesses, grammar, etc.)
+- Text appears in user's chosen language
+- Mistakes section expands/collapses
+- "Start Learning" button redirects to dashboard
+
+✅ **Dashboard Working:**
+- All four module cards visible
+- Content recommendations rotate automatically
+- Progress widget displays mock data
+- Bottom navigation cards present
+- Layout responsive and clean
+
+✅ **Multi-Language Support:**
+- Russian and English translations complete
+- UI respects language choice throughout
+- Kyrgyz content appropriately used
+
+## TODO NEXT
+
+### Level 2 Enhancements (Full Backend)
+
+When ready to upgrade to Level 2, implement:
+
+#### Database & Persistence
+- [ ] Add language_preference column to users table
+- [ ] Add kyrgyz_level column to users table
+- [ ] Create TestResult model with user association
+- [ ] Create UserProgress model to track stats
+- [ ] Store test answers and questions in database
+- [ ] Persist language preference and level
+
+#### Real Authentication
+- [ ] Update registration to create actual User records
+- [ ] Generate real JWT tokens for registered users
+- [ ] Implement proper session management
+- [ ] Update onboarding controllers to save to database
+
+#### Module Implementation
+- [ ] Build Grammar module with lessons from Google Docs
+- [ ] Build Reading module with texts from Google Docs
+- [ ] Build Writing module with prompts and AI feedback
+- [ ] Build Vocabulary module with daily words
+- [ ] Implement module navigation and progress tracking
+
+#### Content Integration
+- [ ] Parse grammar content from uploaded PDF
+- [ ] Integrate questions from Google Doc spreadsheet
+- [ ] Add reading texts from Google Doc
+- [ ] Add writing prompts from Google Doc
+- [ ] Add vocabulary lists from Google Doc and Tamgasoft dictionary
+
+#### AI Features
+- [ ] Integrate AkylAI for chat assistant
+- [ ] Implement AI-powered diagnostics
+- [ ] Add AI writing feedback
+- [ ] Enable conversation practice with AI
+
+#### Additional Features
+- [ ] Content recommendation algorithm based on user behavior
+- [ ] Progress tracking and analytics
+- [ ] Achievement badges system
+- [ ] Daily vocabulary notifications
+- [ ] Leaderboards for vocabulary quizzes
+
+### Level 3 Enhancements (Production Ready)
+
+When ready for production:
+- [ ] Comprehensive test coverage (RSpec + Vitest + Playwright)
+- [ ] Security audit and penetration testing
+- [ ] Performance optimization
+- [ ] Content moderation system
+- [ ] Admin dashboard for content management
+- [ ] Analytics and reporting
+- [ ] Email notifications
+- [ ] Mobile app considerations
 
 ---
 
-*This specification documents the current state of the Starter Base Inertia application. The foundation includes authentication, secure user invitation system, and admin panel - ready for adding custom business features.*
+*This specification documents the current Level 1 prototype of the Learning Kyrgyz application. The complete user registration and onboarding flow is functional with mock data, ready for user testing and feedback.*

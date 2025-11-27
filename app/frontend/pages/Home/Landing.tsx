@@ -22,11 +22,16 @@ export default function Landing() {
             <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
               <Sparkles className="size-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold">My App</span>
+            <span className="text-xl font-bold">Learning Kyrgyz</span>
           </div>
-          <Link href="/login">
-            <Button variant="outline">Log In</Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link href="/register">
+              <Button>Get Started</Button>
+            </Link>
+            <Link href="/login">
+              <Button variant="outline">Log In</Button>
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -41,29 +46,31 @@ export default function Landing() {
 
           {/* Main Headline */}
           <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-            Build Full-Stack Apps{' '}
+            Master the Kyrgyz Language{' '}
             <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
-              Faster
+              With Ease
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Start with authentication, admin dashboard, and modern UI components.
-            Add features using AI-powered development and ship your application in record time.
+            Your personalized journey to learning Kyrgyz. Adaptive lessons, AI-powered assistance,
+            and cultural immersion - all in one place.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Link href="/login">
+            <Link href="/register">
               <Button size="lg" className="group bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/50 transition-all">
-                Get Started
+                Start Learning Free
                 <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline">
-              View Features
-            </Button>
+            <Link href="/login">
+              <Button size="lg" variant="outline">
+                Sign In
+              </Button>
+            </Link>
           </div>
 
           {/* Tech Stack */}
@@ -100,18 +107,18 @@ export default function Landing() {
               {[
                 {
                   icon: Shield,
-                  title: 'Authentication Ready',
-                  description: 'JWT-based auth with login, password reset, and user invitations built-in.',
+                  title: 'Adaptive Learning',
+                  description: 'Take a placement test and get personalized lessons based on your level (A1-C1).',
                 },
                 {
                   icon: UserCog,
-                  title: 'Admin Dashboard',
-                  description: 'Complete admin panel with user management, audit logs, and permissions.',
+                  title: 'AI-Powered Assistance',
+                  description: 'Chat with AI to practice conversation, get grammar help, and instant feedback.',
                 },
                 {
                   icon: Sparkles,
-                  title: 'Modern UI Components',
-                  description: 'shadcn/ui components with Tailwind CSS v4 and dark mode support.',
+                  title: 'Complete Curriculum',
+                  description: 'Grammar, reading, writing, and vocabulary - everything you need to master Kyrgyz.',
                 },
               ].map((feature) => (
                 <div
@@ -130,13 +137,13 @@ export default function Landing() {
 
           {/* Final CTA */}
           <div className="mt-24 w-full max-w-4xl rounded-2xl border bg-gradient-to-br from-primary/10 via-background to-accent/10 p-12">
-            <h2 className="mb-4 text-3xl font-bold">Ready to build something amazing?</h2>
+            <h2 className="mb-4 text-3xl font-bold">Ready to start your Kyrgyz journey?</h2>
             <p className="mb-8 text-lg text-muted-foreground">
-              Start with a solid foundation and add features as you need them.
+              Join thousands of learners and discover the beauty of the Kyrgyz language.
             </p>
-            <Link href="/login">
+            <Link href="/register">
               <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/50 transition-all">
-                Get Started Now
+                Create Free Account
               </Button>
             </Link>
           </div>

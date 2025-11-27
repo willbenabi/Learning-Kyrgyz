@@ -166,10 +166,18 @@ export default function Login({ return_to }: LoginProps) {
               {isSubmitting ? 'Signing in...' : 'Sign In'}
             </Button>
 
-            <div className="text-center text-sm">
-              <Link href="/password/forgot" className="text-muted-foreground hover:text-primary">
-                Forgot your password?
-              </Link>
+            <div className="text-center text-sm space-y-2">
+              <div>
+                <Link href="/password/forgot" className="text-muted-foreground hover:text-primary">
+                  Forgot your password?
+                </Link>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Don't have an account? </span>
+                <Link href="/register" className="text-primary hover:underline">
+                  Register here
+                </Link>
+              </div>
             </div>
           </form>
         </CardContent>

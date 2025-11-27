@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   # Authentication routes
   get "/login", to: "sessions#new", as: :login
+  get "/register", to: "registrations#new", as: :register
+  post "/register", to: "registrations#create"
   resource :session, only: [ :create, :destroy ] do
     post :refresh, on: :collection
   end
@@ -26,6 +28,16 @@ Rails.application.routes.draw do
   # Invitation routes (public)
   get "/invitations/:token", to: "invitations#show", as: :accept_invitation
   post "/invitations/:token/accept", to: "invitations#accept"
+
+  # Onboarding routes (public)
+  get "/onboarding/language", to: "onboarding#language"
+  post "/onboarding/language", to: "onboarding#set_language"
+  get "/onboarding/placement-test", to: "onboarding#placement_test"
+  post "/onboarding/placement-test/results", to: "onboarding#submit_test"
+  get "/onboarding/diagnostics", to: "onboarding#diagnostics"
+
+  # Learning routes (public for Level 1)
+  get "/learning/dashboard", to: "learning#dashboard"
 
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
