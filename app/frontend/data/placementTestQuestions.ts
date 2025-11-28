@@ -31,7 +31,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен он жаштамын.', 'Менин атым Айда.', 'Мен Бишкектен.', 'Мен окуучумун.'],
       ru: ['Мен он жаштамын.', 'Менин атым Айда.', 'Мен Бишкектен.', 'Мен окуучумун.']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'a1_2',
@@ -57,7 +57,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Жок, жок.', 'Болот.', 'Суу кайнатылат.', 'Ооба, бар.'],
       ru: ['Жок, жок.', 'Болот.', 'Суу кайнатылат.', 'Ооба, бар.']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'a1_4',
@@ -70,7 +70,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен үйдөмүн.', 'Мен он бештем.', 'Мен окуучумун.', 'Мен Бишкектемин.'],
       ru: ['Мен үйдөмүн.', 'Мен он бештем.', 'Мен окуучумун.', 'Мен Бишкектемин.']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'a1_5',
@@ -83,7 +83,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен Кыргызстандан келем.', 'Мен кече келдим.', 'Мен баарын билем.', 'Мен үйгө барам.'],
       ru: ['Мен Кыргызстандан келем.', 'Мен кече келдим.', 'Мен баарын билем.', 'Мен үйгө барам.']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'a1_6',
@@ -96,7 +96,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['барышат', 'барат', 'барушат', 'бардым'],
       ru: ['барышат', 'барат', 'барушат', 'бардым']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'a1_7',
@@ -109,7 +109,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['таза', 'кооз', 'даамдуу', 'ысык'],
       ru: ['таза', 'кооз', 'даамдуу', 'ысык']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'a1_8',
@@ -122,7 +122,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['кичинекей', 'узун', 'жаман', 'кооз'],
       ru: ['кичинекей', 'узун', 'жаман', 'кооз']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'a1_9',
@@ -135,7 +135,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['суук', 'жаңы', 'ак', 'кара'],
       ru: ['суук', 'жаңы', 'ак', 'кара']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'a1_10',
@@ -161,7 +161,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Always hot', 'Always cold', 'Kept changing', 'No rain'],
       ru: ['Дайыма ысык', 'Дайыма суук', 'Улам-улам өзгөрдү', 'Жааган жок']
     },
-    correct: 3
+    correct: 2
   },
   {
     id: 'a1_12',
@@ -174,7 +174,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Менин үй-бүлөм чоң.', 'Менин досторум көп.', 'Сенин үй-бүлөң кандай?', 'Мен чоңмун.'],
       ru: ['Менин үй-бүлөм чоң.', 'Менин досторум көп.', 'Сенин үй-бүлөң кандай?', 'Мен чоңмун.']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'a1_13',
@@ -187,7 +187,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['китеп', 'тамак', 'суу', 'үй'],
       ru: ['китеп', 'тамак', 'суу', 'үй']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'a1_14',
@@ -213,7 +213,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Ооба, кофе ичем.', 'Жок, мен тамак жебейм.', 'Ооба, мен сууга барам.', 'Мен үйдөмүн.'],
       ru: ['Ооба, кофе ичем.', 'Жок, мен тамак жебейм.', 'Ооба, мен сууга барам.', 'Мен үйдөмүн.']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'a1_16',
@@ -226,7 +226,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Ал 80 сом.', 'Ал даамдуу.', 'Ал сары.', 'Ал чоң.'],
       ru: ['Ал 80 сом.', 'Ал даамдуу.', 'Ал сары.', 'Ал чоң.']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'a1_17',
@@ -239,7 +239,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен', 'кече', 'барам (should be: бардым)', 'кино'],
       ru: ['Мен', 'кече', 'барам (правильно: бардым)', 'кино']
     },
-    correct: 1
+    correct: 2
   },
   {
     id: 'a1_18',
@@ -265,7 +265,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Рахмат', 'Кош', 'Жакшы', 'Ооба'],
       ru: ['Рахмат', 'Кош', 'Жакшы', 'Ооба']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'a1_20',
@@ -278,7 +278,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Тамак', 'Суу', 'Чай', 'Сүт'],
       ru: ['Тамак', 'Суу', 'Чай', 'Сүт']
     },
-    correct: 0
+    correct: 1
   },
 
   // ===== A2 LEVEL (Pre-Intermediate) =====
@@ -293,7 +293,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен кече дүкөнгө бардым.', 'Мен эртең киного барам.', 'Мен дайыма эс алам.', 'Мен иштедим.'],
       ru: ['Мен кече дүкөнгө бардым.', 'Мен эртең киного барам.', 'Мен дайыма эс алам.', 'Мен иштедим.']
     },
-    correct: 0
+    correct: 1
   },
   {
     id: 'a2_2',
@@ -306,7 +306,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен бир жыл мурун келдим.', 'Мен бир жылдан бери жашайм.', 'Мен бир жылга каламын.', 'Мен эртең келем.'],
       ru: ['Мен бир жыл мурун келдим.', 'Мен бир жылдан бери жашайм.', 'Мен бир жылга каламын.', 'Мен эртең келем.']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'a2_3',
@@ -332,7 +332,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['кедей', 'бактылуу', 'байкуш', 'кедейге'],
       ru: ['кедей', 'бактылуу', 'байкуш', 'кедейге']
     },
-    correct: 0
+    correct: 1
   },
   {
     id: 'a2_5',
@@ -345,7 +345,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['оңой', 'татаал', 'сулуу', 'жеңил'],
       ru: ['оңой', 'татаал', 'сулуу', 'жеңил']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'a2_6',
@@ -358,7 +358,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['мен дүйнөнү аралап чыгар элем.', 'мен убактым жок.', 'мен иштейм.', 'мен үйдөмүн.'],
       ru: ['мен дүйнөнү аралап чыгар элем.', 'мен убактым жок.', 'мен иштейм.', 'мен үйдөмүн.']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'a2_7',
@@ -371,7 +371,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Try your best', 'Do nothing', 'Wait for help from others', 'Give up'],
       ru: ['Стараться изо всех сил', 'Ничего не делать', 'Ждать помощи от других', 'Сдаться']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'a2_8',
@@ -384,7 +384,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['бардым', 'барам', 'баражатам', 'барчумун'],
       ru: ['бардым', 'барам', 'баражатам', 'барчумун']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'a2_9',
@@ -423,7 +423,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['мугалим', 'врач', 'дарыгер', 'бейтапкана (not a profession)'],
       ru: ['мугалим', 'врач', 'дарыгер', 'бейтапкана (не профессия)']
     },
-    correct: 1
+    correct: 3
   },
   {
     id: 'a2_12',
@@ -449,7 +449,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['School', 'House', 'Street', 'City'],
       ru: ['Школа', 'Дом', 'Улица', 'Город']
     },
-    correct: 0
+    correct: 1
   },
   {
     id: 'a2_14',
@@ -462,7 +462,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['I will work today', 'I work today', 'I am working today', 'I worked today'],
       ru: ['Я буду работать сегодня', 'Я работаю сегодня', 'Я работаю сейчас', 'Я работал сегодня']
     },
-    correct: 0
+    correct: 3
   },
   {
     id: 'a2_15',
@@ -475,7 +475,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['адабият', 'тарых', 'математика', 'физика'],
       ru: ['адабият', 'тарых', 'математика', 'физика']
     },
-    correct: 3
+    correct: 1
   },
 
   // ===== B1 LEVEL (Threshold) =====
@@ -490,7 +490,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Аракет, бекем иш жана убакыт.', 'Бай ата-эне.', 'Жакшы тамак.', 'Ырыскы.'],
       ru: ['Аракет, бекем иш жана убакыт.', 'Бай ата-эне.', 'Жакшы тамак.', 'Ырыскы.']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'b1_2',
@@ -503,7 +503,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['анткени', 'бирок', 'же', 'андыктан'],
       ru: ['анткени', 'бирок', 'же', 'андыктан']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'b1_3',
@@ -516,7 +516,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['андыктан', 'себеби', 'бирок', 'анткени'],
       ru: ['андыктан', 'себеби', 'бирок', 'анткени']
     },
-    correct: 3
+    correct: 2
   },
   {
     id: 'b1_4',
@@ -542,7 +542,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['буйрук', 'сунуш', 'суроо', 'жооп'],
       ru: ['буйрук', 'сунуш', 'суроо', 'жооп']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b1_6',
@@ -568,7 +568,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['бактылуу', 'жалган', 'так', 'туура'],
       ru: ['бактылуу', 'жалган', 'так', 'туура']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b1_8',
@@ -581,7 +581,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Labor is valuable', 'There is no life without work', 'Work is difficult', 'Work is easy'],
       ru: ['Эмгек баалуу', 'Ишсиз турмуш жок', 'Иш кыйын', 'Иш оңой']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'b1_9',
@@ -594,7 +594,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['бардык', 'барабыз', 'баражатабыз', 'баратабыз'],
       ru: ['бардык', 'барабыз', 'баражатабыз', 'баратабыз']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b1_10',
@@ -607,7 +607,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['турган', 'турат', 'туруп', 'турду'],
       ru: ['турган', 'турат', 'туруп', 'турду']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b1_11',
@@ -633,7 +633,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Мен китеп окуп бүткөндөн кийин киного барам.', 'Мен киного барам китеп окуп бүткөндөн кийин.', 'Киного барам мен китеп окуп бүткөндөн кийин.', 'Китеп окуп мен барам.'],
       ru: ['Мен китеп окуп бүткөндөн кийин киного барам.', 'Мен киного барам китеп окуп бүткөндөн кийин.', 'Киного барам мен китеп окуп бүткөндөн кийин.', 'Китеп окуп мен барам.']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'b1_13',
@@ -659,7 +659,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['тарыхый окуя', 'салттуу майрам', 'улуттуу кийим', 'китеп'],
       ru: ['тарыхый окуя', 'салттуу майрам', 'улуттуу кийим', 'китеп']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b1_15',
@@ -687,7 +687,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Билим, экономика, саясат жана маданият.', 'Аба ырайы.', 'Адамдар жакшы болсо.', 'Жогорку тоолор.'],
       ru: ['Билим, экономика, саясат жана маданият.', 'Аба ырайы.', 'Адамдар жакшы болсо.', 'Жогорку тоолор.']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'b2_2',
@@ -700,7 +700,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['жаңы', 'татаал', 'жөнөкөй', 'оңой'],
       ru: ['жаңы', 'татаал', 'жөнөкөй', 'оңой']
     },
-    correct: 0
+    correct: 1
   },
   {
     id: 'b2_3',
@@ -713,7 +713,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['ойноо', 'иштоо', 'изилдөө', 'күлүү'],
       ru: ['ойноо', 'иштоо', 'изилдөө', 'күлүү']
     },
-    correct: 0
+    correct: 2
   },
   {
     id: 'b2_4',
@@ -726,7 +726,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['диктатура', 'эл бийлиги', 'монархия', 'империя'],
       ru: ['диктатура', 'эл бийлиги', 'монархия', 'империя']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'b2_5',
@@ -739,7 +739,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['экономика', 'табият коргоо', 'саясат', 'география'],
       ru: ['экономика', 'табият коргоо', 'саясат', 'география']
     },
-    correct: 0
+    correct: 1
   },
   {
     id: 'b2_6',
@@ -752,7 +752,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['өнүгүү', 'регресс', 'ыракат', 'жылышуу'],
       ru: ['өнүгүү', 'регресс', 'ыракат', 'жылышуу']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b2_7',
@@ -765,7 +765,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['объективдүү', 'кызыктуу', 'татаал', 'оңой'],
       ru: ['объективдүү', 'кызыктуу', 'татаал', 'оңой']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'b2_8',
@@ -778,7 +778,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Active', 'Unemployed, doing nothing', 'Works well', 'Happy'],
       ru: ['Аракеттүү', 'Жумушсуз, эч нерсе кылбай', 'Жакшы иштейт', 'Бактылуу']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'b2_9',
@@ -791,7 +791,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['чечим тапкам', 'чечим тапкам элем', 'чечим табам', 'чечим таптым'],
       ru: ['чечим тапкам', 'чечим тапкам элем', 'чечим табам', 'чечим таптым']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'b2_10',
@@ -804,7 +804,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['күттүк', 'күтөбүз', 'күтө турганбыз', 'күттүм'],
       ru: ['күттүк', 'күтөбүз', 'күтө турганбыз', 'күттүм']
     },
-    correct: 2
+    correct: 1
   },
   {
     id: 'b2_11',
@@ -843,7 +843,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Past perfect vs present continuous', 'Simple past vs past continuous', 'Present perfect vs present continuous', 'Past vs future'],
       ru: ['Прошедшее совершенное и настоящее продолженное', 'Простое прошедшее и прошедшее продолженное', 'Настоящее совершенное и настоящее продолженное', 'Прошедшее и будущее']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'b2_14',
@@ -856,7 +856,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['-ган/-ген + экен', '-ып/-ип + жатат', '-мак/-мек + чы', '-са/-се + болот'],
       ru: ['-ган/-ген + экен', '-ып/-ип + жатат', '-мак/-мек + чы', '-са/-се + болот']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'b2_15',
@@ -869,7 +869,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Otherwise', 'Therefore', 'However', 'Moreover'],
       ru: ['Иначе', 'Поэтому', 'Однако', 'Более того']
     },
-    correct: 3
+    correct: 0
   },
 
   // ===== C1 LEVEL (Proficient) =====
@@ -897,7 +897,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['ой', 'изилдөө', 'божомол', 'кеңеш'],
       ru: ['ой', 'изилдөө', 'божомол', 'кеңеш']
     },
-    correct: 3
+    correct: 1
   },
   {
     id: 'c1_3',
@@ -923,7 +923,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['чыдамкайлык', 'ач көздүк', 'катуу мамиле', 'катаалдык'],
       ru: ['чыдамкайлык', 'ач көздүк', 'катуу мамиле', 'катаалдык']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'c1_5',
@@ -936,7 +936,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['жобо', 'суроо', 'жооп', 'китеп'],
       ru: ['жобо', 'суроо', 'жооп', 'китеп']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'c1_6',
@@ -949,7 +949,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['либералдык', 'сак', 'байыркы', 'эски'],
       ru: ['либералдык', 'сак', 'байыркы', 'эски']
     },
-    correct: 1
+    correct: 0
   },
   {
     id: 'c1_7',
@@ -962,7 +962,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['тоскоол', 'жардам', 'өсүм', 'жетишүү'],
       ru: ['тоскоол', 'жардам', 'өсүм', 'жетишүү']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'c1_8',
@@ -975,7 +975,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Going to study', 'Doing hard work', 'Accomplishing something difficult but possible', 'Giving up'],
       ru: ['Окууга баруу', 'Оор иштерди аткаруу', 'Кыйын, бирок мүмкүн болгон нерсени ишке ашыруу', 'Баш тартуу']
     },
-    correct: 1
+    correct: 2
   },
   {
     id: 'c1_9',
@@ -988,7 +988,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['баштаган болот', 'баштадык', 'баштайбыз', 'башташат'],
       ru: ['баштаган болот', 'баштадык', 'баштайбыз', 'башташат']
     },
-    correct: 3
+    correct: 0
   },
   {
     id: 'c1_10',
@@ -1001,7 +1001,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['жооп бердим', 'жооп берем', 'жооп берчумун', 'жооп бердик'],
       ru: ['жооп бердим', 'жооп берем', 'жооп берчумун', 'жооп бердик']
     },
-    correct: 0
+    correct: 1
   },
   {
     id: 'c1_11',
@@ -1014,7 +1014,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Has a profound impact on all spheres', 'Only the economy grows', 'Only affects the environment', 'No impact'],
       ru: ['Бардык тармактарга терең таасир тийгизет', 'Экономика гана өсөт', 'Экологияга гана таасир тийгизет', 'Таасири жок']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'c1_12',
@@ -1053,7 +1053,7 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['"Туура, бирок..."', '"Жок, ал туура эмес"', '"Макул эмесмин"', '"Ойлойм дейсизби"'],
       ru: ['"Туура, бирок..."', '"Жок, ал туура эмес"', '"Макул эмесмин"', '"Ойлойм дейсизби"']
     },
-    correct: 2
+    correct: 0
   },
   {
     id: 'c1_15',
@@ -1066,6 +1066,6 @@ export const PLACEMENT_TEST_QUESTIONS: Question[] = [
       en: ['Ongoing process/development', 'Future intention', 'Past completed action', 'Conditional statement'],
       ru: ['Текущий процесс/развитие', 'Будущее намерение', 'Завершенное прошедшее действие', 'Условное заявление']
     },
-    correct: 3
+    correct: 0
   }
 ]
