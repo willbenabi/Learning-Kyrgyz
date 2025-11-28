@@ -6,8 +6,12 @@ class LearningController < ApplicationController
     render inertia: "Learning/Dashboard"
   end
 
-  # Additional module pages will be added in Level 2
   # GET /learning/grammar
+  def grammar
+    render inertia: "Learning/Grammar"
+  end
+
+  # Additional module pages will be added in Level 2
   # GET /learning/reading
   # GET /learning/writing
   # GET /learning/vocabulary

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   # Learning routes (public for Level 1)
   get "/learning/dashboard", to: "learning#dashboard"
+  get "/learning/grammar", to: "learning#grammar"
 
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
