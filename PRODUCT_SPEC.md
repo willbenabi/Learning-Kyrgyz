@@ -89,11 +89,22 @@
    - Icon: FileText
    - Color: Green
 
-3. **Writing Module**
-   - Improve writing skills
+3. **Writing Module** ✅ **ACTIVE**
+   - Improve Kyrgyz writing skills through structured prompts
+   - Writing prompts for all levels (A1-C1) with support materials
+   - A1: Simple sentences about family, food, daily routine (3 prompts)
+   - A2: Short notes and descriptions (2 prompts)
+   - B1: Connected text on familiar topics (2 prompts)
+   - B2: Essays and analytical writing (2 prompts)
+   - C1: Complex analytical essays (2 prompts)
+   - Word banks for A1-A2 levels to support vocabulary
+   - Writing templates for beginner levels
+   - Guidelines and evaluation criteria for each prompt
+   - Auto-save functionality to localStorage
+   - Word count tracking with progress indicator
+   - Bilingual interface (Russian/English)
    - Icon: PenTool
    - Color: Purple
-   - Status: Coming Soon
 
 4. **Vocabulary Builder Module**
    - Expand word knowledge
@@ -177,8 +188,8 @@
 8. **Views results** → Sees level, strengths, weaknesses, recommendations
 9. **Clicks "Start Learning"** → Arrives at main dashboard
 10. **Explores dashboard** → Sees modules, progress, recommendations
-11. **Clicks Grammar or Reading Module** → Views lessons based on level
-12. **Selects a lesson** → Studies content and completes exercises with instant feedback
+11. **Clicks Grammar, Reading, or Writing Module** → Views lessons/prompts based on level
+12. **Selects content** → Studies lessons, reads texts, or practices writing with support materials
 
 ### Returning User Journey
 
@@ -197,6 +208,7 @@
 - `app/frontend/pages/Learning/Dashboard.tsx` - Main learning interface
 - `app/frontend/pages/Learning/Grammar.tsx` - Grammar lessons viewer with exercises
 - `app/frontend/pages/Learning/Reading.tsx` - Reading comprehension module with texts
+- `app/frontend/pages/Learning/Writing.tsx` - Writing practice module with prompts
 - `app/frontend/pages/Home/Landing.tsx` - Updated for Kyrgyz learning app
 
 ### Controllers Created
@@ -223,6 +235,7 @@ GET  /onboarding/diagnostics
 GET  /learning/dashboard
 GET  /learning/grammar
 GET  /learning/reading
+GET  /learning/writing
 ```
 
 ### Data Storage (Level 1)
