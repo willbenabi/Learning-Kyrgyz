@@ -1,5 +1,5 @@
 class LearningController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:dashboard]
+  # Public controller for Level 1 - no authentication required
 
   # GET /learning/dashboard
   def dashboard

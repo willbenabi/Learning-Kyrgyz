@@ -1,5 +1,5 @@
 class OnboardingController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:language, :set_language, :placement_test, :submit_test, :diagnostics]
+  # Public controller - no authentication required
 
   # GET /onboarding/language
   def language
