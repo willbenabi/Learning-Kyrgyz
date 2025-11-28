@@ -75,11 +75,19 @@
    - Icon: BookOpen
    - Color: Blue
 
-2. **Reading & Comprehension Module**
-   - Practice with real texts
+2. **Reading & Comprehension Module** ✅ **ACTIVE**
+   - Practice reading Kyrgyz texts and improve comprehension
+   - Reading texts for all levels (A1-C1) with comprehension questions
+   - A1: Simple descriptions and personal information
+   - A2: Folk tales and simple narratives
+   - B1: News articles and cultural content
+   - B2: Analytical articles on complex topics
+   - C1: Literary essays and advanced texts
+   - Multiple choice questions (A1-B1) and open-ended questions (B2-C1)
+   - Instant feedback with scoring for multiple choice questions
+   - Bilingual interface (Russian/English)
    - Icon: FileText
    - Color: Green
-   - Status: Coming Soon
 
 3. **Writing Module**
    - Improve writing skills
@@ -169,8 +177,8 @@
 8. **Views results** → Sees level, strengths, weaknesses, recommendations
 9. **Clicks "Start Learning"** → Arrives at main dashboard
 10. **Explores dashboard** → Sees modules, progress, recommendations
-11. **Clicks Grammar Module** → Views A1 grammar lessons
-12. **Selects a lesson** → Studies theory, examples, completes exercises
+11. **Clicks Grammar or Reading Module** → Views lessons based on level
+12. **Selects a lesson** → Studies content and completes exercises with instant feedback
 
 ### Returning User Journey
 
@@ -188,6 +196,7 @@
 - `app/frontend/pages/Onboarding/Diagnostics.tsx` - Results and recommendations
 - `app/frontend/pages/Learning/Dashboard.tsx` - Main learning interface
 - `app/frontend/pages/Learning/Grammar.tsx` - Grammar lessons viewer with exercises
+- `app/frontend/pages/Learning/Reading.tsx` - Reading comprehension module with texts
 - `app/frontend/pages/Home/Landing.tsx` - Updated for Kyrgyz learning app
 
 ### Controllers Created
@@ -212,6 +221,8 @@ GET  /onboarding/diagnostics
 
 # Learning
 GET  /learning/dashboard
+GET  /learning/grammar
+GET  /learning/reading
 ```
 
 ### Data Storage (Level 1)

@@ -312,30 +312,35 @@ export default function LearningDashboard() {
         <div>
           <h2 className="text-2xl font-bold mb-4">{t.modules}</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {modules.map((module, index) => (
-              <Card
-                key={index}
-                className="hover:shadow-lg transition-all cursor-pointer group"
-                onClick={() => {
-                  // Module pages will be created in Level 2
-                  console.log('Navigate to', module.path)
-                }}
-                data-testid={`module-${module.title.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className={`${module.color} w-16 h-16 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <module.icon className="w-8 h-8 text-white" />
+            {modules.map((module, index) => {
+              const isActive = module.path === '/learning/grammar' || module.path === '/learning/reading'
+              return (
+                <Card
+                  key={index}
+                  className="hover:shadow-lg transition-all cursor-pointer group"
+                  onClick={() => {
+                    if (isActive) {
+                      router.visit(module.path)
+                    }
+                  }}
+                  data-testid={`module-${module.title.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className={`${module.color} w-16 h-16 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                        <module.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl mb-2">{module.title}</CardTitle>
+                        <CardDescription>{module.description}</CardDescription>
+                        {!isActive && <Badge variant="secondary" className="mt-2">{t.comingSoon}</Badge>}
+                        {isActive && <Badge variant="default" className="mt-2 bg-green-600">Active</Badge>}
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-xl mb-2">{module.title}</CardTitle>
-                      <CardDescription>{module.description}</CardDescription>
-                      <Badge variant="secondary" className="mt-2">{t.comingSoon}</Badge>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
+                  </CardHeader>
+                </Card>
+              )
+            })}
           </div>
         </div>
 
