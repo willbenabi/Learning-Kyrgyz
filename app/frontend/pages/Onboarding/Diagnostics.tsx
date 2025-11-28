@@ -402,20 +402,29 @@ export default function Diagnostics() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <CardContent className="space-y-4">
-                  {incorrectAnswers.map((item, index) => (
-                    <div key={index} className="border-l-4 border-red-500 pl-4 py-2">
-                      <p className="font-semibold mb-2">{t.question} {index + 1}:</p>
-                      <p className="mb-2">{item.question.question}</p>
-                      <div className="space-y-1 text-sm">
-                        <p className="text-red-600">
-                          {t.yourAnswer}: {item.question.options[item.answer.selectedOption]}
-                        </p>
-                        <p className="text-green-600">
-                          {t.correctAnswer}: {item.question.options[item.question.correct]}
-                        </p>
+                  {incorrectAnswers.map((item, index) => {
+                    // Handle both old and new question format
+                    const questionText = item.question.question?.[language] || item.question.question || ''
+                    const userAnswer = item.question.shuffledOptions?.[item.answer.selectedOption] ||
+                                      item.question.options?.[item.answer.selectedOption] || ''
+                    const correctAnswer = item.question.shuffledOptions?.[item.question.shuffledCorrect] ||
+                                         item.question.options?.[item.question.correct] || ''
+
+                    return (
+                      <div key={index} className="border-l-4 border-red-500 pl-4 py-2">
+                        <p className="font-semibold mb-2">{t.question} {index + 1}:</p>
+                        <p className="mb-2">{questionText}</p>
+                        <div className="space-y-1 text-sm">
+                          <p className="text-red-600">
+                            {t.yourAnswer}: {userAnswer}
+                          </p>
+                          <p className="text-green-600">
+                            {t.correctAnswer}: {correctAnswer}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </CardContent>
               </CollapsibleContent>
             </Card>
