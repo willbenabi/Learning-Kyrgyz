@@ -313,7 +313,7 @@ export default function LearningDashboard() {
           <h2 className="text-2xl font-bold mb-4">{t.modules}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {modules.map((module, index) => {
-              const isActive = module.path === '/learning/grammar' || module.path === '/learning/reading' || module.path === '/learning/writing'
+              const isActive = module.path === '/learning/grammar' || module.path === '/learning/reading' || module.path === '/learning/writing' || module.path === '/learning/vocabulary'
               return (
                 <Card
                   key={index}

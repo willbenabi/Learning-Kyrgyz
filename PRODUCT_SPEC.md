@@ -106,11 +106,23 @@
    - Icon: PenTool
    - Color: Purple
 
-4. **Vocabulary Builder Module**
-   - Expand word knowledge
+4. **Vocabulary Builder Module** ✅ **ACTIVE**
+   - Expand Kyrgyz vocabulary through thematic word sets
+   - Vocabulary topics organized by level with target word counts
+   - A1: 500-600 words (Greetings, Family, Numbers, Food - 4 topics)
+   - A2: 1000-1200 words (Health, Weather - 2 topics)
+   - B1: 2000-2200 words (Education, Work - 2 topics)
+   - B2: 4000-4500 words (Politics & Society - 1 topic)
+   - C1: 6000-8000+ words (Academic & Literary Language - 1 topic)
+   - Two learning modes: Flashcards and Quiz
+   - Flashcard mode with show/hide translation and examples
+   - Quiz mode with multiple choice questions and instant feedback
+   - Progress tracking through vocabulary sets
+   - Score tracking in quiz mode
+   - Audio pronunciation support (UI ready)
+   - Bilingual interface (Russian/English)
    - Icon: BookMarked
    - Color: Orange
-   - Status: Coming Soon
 
 **Progress Tracking Widget**
 - Current level badge (A1-C1)
@@ -188,8 +200,8 @@
 8. **Views results** → Sees level, strengths, weaknesses, recommendations
 9. **Clicks "Start Learning"** → Arrives at main dashboard
 10. **Explores dashboard** → Sees modules, progress, recommendations
-11. **Clicks Grammar, Reading, or Writing Module** → Views lessons/prompts based on level
-12. **Selects content** → Studies lessons, reads texts, or practices writing with support materials
+11. **Clicks any Learning Module** → Views content based on level (Grammar, Reading, Writing, or Vocabulary)
+12. **Selects content** → Studies lessons, reads texts, practices writing, or learns vocabulary
 
 ### Returning User Journey
 
@@ -209,6 +221,7 @@
 - `app/frontend/pages/Learning/Grammar.tsx` - Grammar lessons viewer with exercises
 - `app/frontend/pages/Learning/Reading.tsx` - Reading comprehension module with texts
 - `app/frontend/pages/Learning/Writing.tsx` - Writing practice module with prompts
+- `app/frontend/pages/Learning/Vocabulary.tsx` - Vocabulary builder with flashcards and quizzes
 - `app/frontend/pages/Home/Landing.tsx` - Updated for Kyrgyz learning app
 
 ### Controllers Created
@@ -236,6 +249,7 @@ GET  /learning/dashboard
 GET  /learning/grammar
 GET  /learning/reading
 GET  /learning/writing
+GET  /learning/vocabulary
 ```
 
 ### Data Storage (Level 1)

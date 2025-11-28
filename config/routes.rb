@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get "/learning/grammar", to: "learning#grammar"
   get "/learning/reading", to: "learning#reading"
   get "/learning/writing", to: "learning#writing"
+  get "/learning/vocabulary", to: "learning#vocabulary"
 
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
