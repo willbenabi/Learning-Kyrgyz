@@ -27,9 +27,11 @@
 **Adaptive Placement Test (20 Questions)**
 - One question at a time with progress indicator
 - 20 questions covering 5 CEFR levels (A1, A2, B1, B2, C1)
-- 4 questions per level with randomized order
+- Questions randomly selected from pool of 75 comprehensive questions
+- Diverse question types: grammar, vocabulary, comprehension, error identification
 - Multiple choice format with 4 options per question
 - Answer options randomized for each question
+- All questions and answers available in both Russian and English
 - Adaptive difficulty (simulated in Level 1)
 - Final score calculation determines user's level
 - Results stored for diagnostics
@@ -216,8 +218,11 @@ All data is stored in **localStorage** for this prototype:
 ### Mock Data
 
 **Placement Test Questions:**
-- 4 questions per level (A1, A2, B1, B2, C1) = 20 total
-- Questions based on actual Kyrgyz language patterns
+- 75 comprehensive questions total (20 A1, 15 A2, 15 B1, 15 B2, 15 C1)
+- Diverse question types: multiple choice grammar, synonym/antonym, sentence completion, error identification, reading comprehension
+- Questions based on authentic Kyrgyz language patterns and real-world usage
+- Full bilingual support (Russian and English for both questions and answers)
+- Test randomly selects 20 questions from the pool for each user
 - Options randomized on each load
 
 **Diagnostics:**
