@@ -6,191 +6,9 @@ import { Progress } from '@/components/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { BookOpen, CheckCircle2 } from 'lucide-react'
+import { PLACEMENT_TEST_QUESTIONS, type Question, type Level } from '@/data/placementTestQuestions'
 
-// Mock questions organized by level (based on Google Doc structure)
-const QUESTIONS_BY_LEVEL = {
-  A1: [
-    {
-      id: 'a1_1',
-      question: 'What does "Салам" mean?',
-      options: ['Hello', 'Goodbye', 'Thank you', 'Please'],
-      correct: 0,
-      level: 'A1'
-    },
-    {
-      id: 'a1_2',
-      question: 'How do you say "Thank you" in Kyrgyz?',
-      options: ['Рахмат', 'Кош', 'Жакшы', 'Ооба'],
-      correct: 0,
-      level: 'A1'
-    },
-    {
-      id: 'a1_3',
-      question: 'What is the Kyrgyz word for "water"?',
-      options: ['Тамак', 'Суу', 'Чай', 'Сүт'],
-      correct: 1,
-      level: 'A1'
-    },
-    {
-      id: 'a1_4',
-      question: '"Кандайсың?" means:',
-      options: ['How are you?', 'What is your name?', 'Where are you?', 'Who are you?'],
-      correct: 0,
-      level: 'A1'
-    }
-  ],
-  A2: [
-    {
-      id: 'a2_1',
-      question: 'Complete: "Мен ___ барам" (I am going to school)',
-      options: ['мектепке', 'мектеп', 'мектептен', 'мектепти'],
-      correct: 0,
-      level: 'A2'
-    },
-    {
-      id: 'a2_2',
-      question: 'What is the plural form of "китеп" (book)?',
-      options: ['китептер', 'китеп', 'китептен', 'китепке'],
-      correct: 0,
-      level: 'A2'
-    },
-    {
-      id: 'a2_3',
-      question: '"Мен бүгүн иштедим" means:',
-      options: ['I work today', 'I worked today', 'I will work today', 'I am working today'],
-      correct: 1,
-      level: 'A2'
-    },
-    {
-      id: 'a2_4',
-      question: 'How do you say "I want to eat"?',
-      options: ['Мен тамак жегим келет', 'Мен тамак жедим', 'Мен тамак жейм', 'Мен тамак жеймин'],
-      correct: 0,
-      level: 'A2'
-    }
-  ],
-  B1: [
-    {
-      id: 'b1_1',
-      question: 'Which suffix indicates direction towards something?',
-      options: ['-ке/-ге', '-ден/-дан', '-да/-де', '-ны/-ну'],
-      correct: 0,
-      level: 'B1'
-    },
-    {
-      id: 'b1_2',
-      question: 'Complete: "Эгер мен бай ___, үй алмакмын" (If I were rich, I would buy a house)',
-      options: ['болсом', 'болмок', 'болуп', 'болот'],
-      correct: 0,
-      level: 'B1'
-    },
-    {
-      id: 'b1_3',
-      question: 'What is the passive form of "жаз" (write)?',
-      options: ['жазыл', 'жазды', 'жазат', 'жазган'],
-      correct: 0,
-      level: 'B1'
-    },
-    {
-      id: 'b1_4',
-      question: '"Окулган китеп" means:',
-      options: ['The book being read', 'The book that was read', 'The book to read', 'The reading book'],
-      correct: 1,
-      level: 'B1'
-    }
-  ],
-  B2: [
-    {
-      id: 'b2_1',
-      question: 'Which form expresses "having done something"?',
-      options: ['-ып/-ип/-уп', '-ар/-ер/-ор', '-са/-се', '-ган/-ген'],
-      correct: 0,
-      level: 'B2'
-    },
-    {
-      id: 'b2_2',
-      question: 'Complete the idiomatic expression: "Тилин ___ билбейт" (He doesn\'t know what to say)',
-      options: ['кайдан', 'качан', 'кантип', 'ким'],
-      correct: 0,
-      level: 'B2'
-    },
-    {
-      id: 'b2_3',
-      question: 'What is the difference between "көргөн" and "көрүп жаткан"?',
-      options: [
-        'Past perfect vs present continuous',
-        'Simple past vs past continuous',
-        'Present perfect vs present continuous',
-        'Past vs future'
-      ],
-      correct: 0,
-      level: 'B2'
-    },
-    {
-      id: 'b2_4',
-      question: 'Which suffix combination creates "supposedly/apparently"?',
-      options: ['-ган/-ген + экен', '-ып/-ип + жатат', '-мак/-мек + чы', '-са/-се + болот'],
-      correct: 0,
-      level: 'B2'
-    }
-  ],
-  C1: [
-    {
-      id: 'c1_1',
-      question: 'Identify the correct usage of archaic/literary Kyrgyz:',
-      options: [
-        '"Келгинчи" instead of "Кел"',
-        '"Барганчы" instead of "Барган"',
-        '"Келе жаткан" instead of "Келген"',
-        '"Баратканда" instead of "Барганда"'
-      ],
-      correct: 0,
-      level: 'C1'
-    },
-    {
-      id: 'c1_2',
-      question: 'Complete the proverb: "Тилден ___, элден тайма"',
-      options: ['тайма', 'качма', 'кайтпа', 'чыкпа'],
-      correct: 0,
-      level: 'C1'
-    },
-    {
-      id: 'c1_3',
-      question: 'Which phrase indicates subtle disagreement in formal speech?',
-      options: [
-        '"Туура, бирок..."',
-        '"Жок, ал туура эмес"',
-        '"Макул эмесмин"',
-        '"Ойлойм дейсизби"'
-      ],
-      correct: 0,
-      level: 'C1'
-    },
-    {
-      id: 'c1_4',
-      question: 'What does "алып барууда" express in formal contexts?',
-      options: [
-        'Ongoing process/development',
-        'Future intention',
-        'Past completed action',
-        'Conditional statement'
-      ],
-      correct: 0,
-      level: 'C1'
-    }
-  ]
-}
-
-type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
 const LEVEL_ORDER: Level[] = ['A1', 'A2', 'B1', 'B2', 'C1']
-
-interface Question {
-  id: string
-  question: string
-  options: string[]
-  correct: number
-  level: Level
-}
 
 interface Answer {
   questionId: string
@@ -199,15 +17,21 @@ interface Answer {
   level: Level
 }
 
+interface ShuffledQuestion extends Question {
+  shuffledOptions: string[]
+  shuffledCorrect: number
+}
+
 export default function PlacementTest() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
-  const [questions, setQuestions] = useState<Question[]>([])
+  const [questions, setQuestions] = useState<ShuffledQuestion[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Get interface language
-  const language = localStorage.getItem('interface_language') || 'en'
+  const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
+
   const translations = {
     en: {
       title: 'Placement Test',
@@ -228,14 +52,10 @@ export default function PlacementTest() {
       select: 'Пожалуйста, выберите ответ'
     }
   }
-  const t = translations[language as keyof typeof translations]
+  const t = translations[language]
 
   // Initialize test with adaptive questions
   useEffect(() => {
-    const selectedQuestions: Question[] = []
-    let currentLevel: Level = 'A2' // Start at A2
-
-    // Shuffle questions within each level
     const shuffleArray = <T,>(array: T[]): T[] => {
       const shuffled = [...array]
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -245,57 +65,74 @@ export default function PlacementTest() {
       return shuffled
     }
 
-    // Shuffle options for each question
-    const shuffleQuestion = (q: Question): Question => {
+    // Shuffle options for each question based on language
+    const shuffleQuestion = (q: Question): ShuffledQuestion => {
       const indices = [0, 1, 2, 3]
       const shuffledIndices = shuffleArray(indices)
       const newCorrect = shuffledIndices.indexOf(q.correct)
+      const optionsInLanguage = q.options[language]
+
       return {
         ...q,
-        options: shuffledIndices.map(i => q.options[i]),
-        correct: newCorrect
+        shuffledOptions: shuffledIndices.map(i => optionsInLanguage[i]),
+        shuffledCorrect: newCorrect
       }
     }
 
-    // Get all questions shuffled
-    const allQuestions = {
-      A1: shuffleArray(QUESTIONS_BY_LEVEL.A1.map(shuffleQuestion)),
-      A2: shuffleArray(QUESTIONS_BY_LEVEL.A2.map(shuffleQuestion)),
-      B1: shuffleArray(QUESTIONS_BY_LEVEL.B1.map(shuffleQuestion)),
-      B2: shuffleArray(QUESTIONS_BY_LEVEL.B2.map(shuffleQuestion)),
-      C1: shuffleArray(QUESTIONS_BY_LEVEL.C1.map(shuffleQuestion))
+    // Group questions by level
+    const questionsByLevel: Record<Level, Question[]> = {
+      A1: [],
+      A2: [],
+      B1: [],
+      B2: [],
+      C1: []
     }
 
+    PLACEMENT_TEST_QUESTIONS.forEach(q => {
+      questionsByLevel[q.level].push(q)
+    })
+
+    // Shuffle questions within each level
+    const shuffledByLevel: Record<Level, Question[]> = {
+      A1: shuffleArray(questionsByLevel.A1),
+      A2: shuffleArray(questionsByLevel.A2),
+      B1: shuffleArray(questionsByLevel.B1),
+      B2: shuffleArray(questionsByLevel.B2),
+      C1: shuffleArray(questionsByLevel.C1)
+    }
+
+    // Adaptive selection: Start easy (A1), progress based on performance
+    const selectedQuestions: ShuffledQuestion[] = []
+    let currentLevel: Level = 'A1' // Start at A1 (easiest)
     const levelCounts: Record<Level, number> = { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0 }
 
-    // Simulate adaptive selection (in real implementation, this would be dynamic)
-    // For Level 1, we pre-select 20 questions with a balanced distribution
+    // Select 20 questions with adaptive difficulty simulation
     for (let i = 0; i < 20; i++) {
-      const availableLevels = LEVEL_ORDER.filter(level => levelCounts[level] < allQuestions[level].length)
-      if (availableLevels.length === 0) break
+      const availableInLevel = shuffledByLevel[currentLevel][levelCounts[currentLevel]]
 
-      const question = allQuestions[currentLevel][levelCounts[currentLevel]]
-      if (question) {
-        selectedQuestions.push(question)
+      if (availableInLevel) {
+        selectedQuestions.push(shuffleQuestion(availableInLevel))
         levelCounts[currentLevel]++
 
-        // Simulate adaptive logic for next question selection
-        // Alternate between levels to create a balanced test
-        const currentLevelIndex = LEVEL_ORDER.indexOf(currentLevel)
-        if (i % 4 === 0 && currentLevelIndex < LEVEL_ORDER.length - 1) {
-          currentLevel = LEVEL_ORDER[currentLevelIndex + 1]
+        // Simulate adaptive progression
+        // Every 4 questions, increase difficulty if possible
+        if ((i + 1) % 4 === 0) {
+          const currentLevelIndex = LEVEL_ORDER.indexOf(currentLevel)
+          if (currentLevelIndex < LEVEL_ORDER.length - 1) {
+            currentLevel = LEVEL_ORDER[currentLevelIndex + 1]
+          }
         }
       }
     }
 
     setQuestions(selectedQuestions)
-  }, [])
+  }, [language])
 
   const handleNext = () => {
     if (selectedOption === null) return
 
     const currentQuestion = questions[currentQuestionIndex]
-    const isCorrect = selectedOption === currentQuestion.correct
+    const isCorrect = selectedOption === currentQuestion.shuffledCorrect
 
     // Record answer
     setAnswers([
@@ -327,7 +164,7 @@ export default function PlacementTest() {
       finalAnswers.push({
         questionId: currentQuestion.id,
         selectedOption,
-        correct: selectedOption === currentQuestion.correct,
+        correct: selectedOption === currentQuestion.shuffledCorrect,
         level: currentQuestion.level
       })
     }
@@ -414,14 +251,14 @@ export default function PlacementTest() {
 
         <CardContent className="space-y-6">
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">{currentQuestion.question}</h3>
+            <h3 className="text-xl font-semibold">{currentQuestion.question[language]}</h3>
 
             <RadioGroup
               value={selectedOption !== null ? selectedOption.toString() : undefined}
               onValueChange={(value) => setSelectedOption(parseInt(value))}
             >
               <div className="space-y-3">
-                {currentQuestion.options.map((option, index) => (
+                {currentQuestion.shuffledOptions.map((option, index) => (
                   <div
                     key={index}
                     className="flex items-center space-x-3 border rounded-lg p-4 hover:bg-muted/50 transition-colors cursor-pointer"
