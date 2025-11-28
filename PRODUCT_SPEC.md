@@ -67,11 +67,13 @@
 - Manual navigation with indicator dots
 
 **Learning Modules (4 Cards)**
-1. **Grammar Module**
-   - Master Kyrgyz grammar rules
+1. **Grammar Module** ✅ **ACTIVE**
+   - Master Kyrgyz grammar rules through structured lessons
+   - 6 A1-level lessons available (4 Syntax + 2 Morphology)
+   - Each lesson includes theory, examples, and interactive exercises
+   - Bilingual content (Russian/English)
    - Icon: BookOpen
    - Color: Blue
-   - Status: Coming Soon
 
 2. **Reading & Comprehension Module**
    - Practice with real texts
@@ -167,6 +169,8 @@
 8. **Views results** → Sees level, strengths, weaknesses, recommendations
 9. **Clicks "Start Learning"** → Arrives at main dashboard
 10. **Explores dashboard** → Sees modules, progress, recommendations
+11. **Clicks Grammar Module** → Views A1 grammar lessons
+12. **Selects a lesson** → Studies theory, examples, completes exercises
 
 ### Returning User Journey
 
@@ -183,6 +187,7 @@
 - `app/frontend/pages/Onboarding/PlacementTest.tsx` - Adaptive 20-question test
 - `app/frontend/pages/Onboarding/Diagnostics.tsx` - Results and recommendations
 - `app/frontend/pages/Learning/Dashboard.tsx` - Main learning interface
+- `app/frontend/pages/Learning/Grammar.tsx` - Grammar lessons viewer with exercises
 - `app/frontend/pages/Home/Landing.tsx` - Updated for Kyrgyz learning app
 
 ### Controllers Created
