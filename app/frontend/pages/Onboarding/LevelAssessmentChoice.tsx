@@ -49,8 +49,10 @@ export default function LevelAssessmentChoice() {
         localStorage.setItem('test_results', JSON.stringify({
           level: 'A1',
           score: 0,
-          total: 0,
+          total: 20, // Set to 20 to avoid division by zero
           skipped: true,
+          answers: [], // Empty array for skipped test
+          questions: [], // Empty array for skipped test
           timestamp: new Date().toISOString()
         }))
 

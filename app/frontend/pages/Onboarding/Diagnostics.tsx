@@ -250,14 +250,17 @@ export default function Diagnostics() {
 
   const levelInfo = LEVEL_INFO[language][results.level]
   const diagnostics = DIAGNOSTICS[language][results.level]
-  const percentage = Math.round((results.score / results.total) * 100)
+  const percentage = results.total > 0 ? Math.round((results.score / results.total) * 100) : 0
+  const isSkipped = (results as any).skipped === true
 
-  const incorrectAnswers = results.answers
-    .map((answer, index) => ({
-      answer,
-      question: results.questions[index]
-    }))
-    .filter(item => !item.answer.correct)
+  const incorrectAnswers = results.answers && results.questions
+    ? results.answers
+        .map((answer, index) => ({
+          answer,
+          question: results.questions[index]
+        }))
+        .filter(item => !item.answer.correct)
+    : []
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 px-4">
@@ -273,11 +276,13 @@ export default function Diagnostics() {
               <p className="text-2xl text-muted-foreground mb-2">{levelInfo.name}</p>
               <p className="text-muted-foreground">{levelInfo.description}</p>
             </div>
-            <div>
-              <Badge variant="secondary" className="text-lg px-4 py-2">
-                {t.score}: {results.score}/{results.total} ({percentage}%)
-              </Badge>
-            </div>
+            {!isSkipped && (
+              <div>
+                <Badge variant="secondary" className="text-lg px-4 py-2">
+                  {t.score}: {results.score}/{results.total} ({percentage}%)
+                </Badge>
+              </div>
+            )}
           </CardHeader>
         </Card>
 
