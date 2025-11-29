@@ -2525,9 +2525,154 @@ Complete all 35 questions to demonstrate your A1 level mastery of Kyrgyz grammar
         }
       }
     ]
+  },
+
+  // ===== A2 LEVEL - SYNTAX LESSONS =====
+  {
+    id: 'a2_syntax_01',
+    level: 'A2',
+    category: 'syntax',
+    order: 1,
+    title: {
+      en: 'Complex Sentences with Conjunctions',
+      ru: 'Сложные предложения с союзами'
+    },
+    description: {
+      en: 'Learn to connect simple sentences using Kyrgyz conjunctions',
+      ru: 'Научитесь соединять простые предложения с помощью кыргызских союзов'
+    },
+    theory: {
+      en: `In Kyrgyz, complex sentences are formed by joining simple sentences with conjunctions (союздар - soyzdar).
+
+**Common Coordinating Conjunctions:**
+- **жана** (jana) - and
+- **бирок** (birok) - but
+- **же** (je) - or
+- **анан** (anan) - then, and then
+
+**Subordinating Conjunctions:**
+- **анткени** (antkeni) - because
+- **эгерде** (egerde) - if
+- **ошондуктан** (oshonduktan) - therefore
+
+**Word Order in Complex Sentences:**
+The verb still comes at the end of each clause. When using conjunctions, the pattern is:
+Subject → Object → Verb + Conjunction + Subject → Object → Verb
+
+**Example:**
+Мен китеп окудум **жана** досум келди.
+(I read a book **and** my friend came.)`,
+      ru: `В кыргызском языке сложные предложения образуются путём соединения простых предложений союзами (союздар - soyzdar).
+
+**Основные сочинительные союзы:**
+- **жана** (jana) - и
+- **бирок** (birok) - но
+- **же** (je) - или
+- **анан** (anan) - затем, и затем
+
+**Подчинительные союзы:**
+- **анткени** (antkeni) - потому что
+- **эгерде** (egerde) - если
+- **ошондуктан** (oshonduktan) - поэтому
+
+**Порядок слов в сложных предложениях:**
+Глагол всё ещё стоит в конце каждого придаточного.При использовании союзов схема:
+Подлежащее → Дополнение → Глагол + Союз + Подлежащее → Дополнение → Глагол
+
+**Пример:**
+Мен китеп окудум **жана** досум келди.
+(Я прочитал книгу **и** мой друг пришёл.)`
+    },
+    examples: [
+      {
+        kyrgyz: 'Ал мектепке барды жана окуду.',
+        translation: {
+          en: 'He went to school and studied.',
+          ru: 'Он пошёл в школу и учился.'
+        },
+        explanation: {
+          en: 'Two independent clauses joined by "жана" (and)',
+          ru: 'Два независимых предложения, соединённых союзом "жана" (и)'
+        }
+      },
+      {
+        kyrgyz: 'Мен барамын, бирок сен калгын.',
+        translation: {
+          en: 'I will go, but you stay.',
+          ru: 'Я пойду, но ты оставайся.'
+        },
+        explanation: {
+          en: 'Contrasting clauses with "бирок" (but)',
+          ru: 'Противопоставление с союзом "бирок" (но)'
+        }
+      },
+      {
+        kyrgyz: 'Биз үйдө калдык, анткени жамгыр жаады.',
+        translation: {
+          en: 'We stayed at home because it rained.',
+          ru: 'Мы остались дома, потому что шёл дождь.'
+        },
+        explanation: {
+          en: 'Subordinate clause showing reason with "анткени" (because)',
+          ru: 'Придаточное предложение причины с союзом "анткени" (потому что)'
+        }
+      }
+    ],
+    vocabulary: ['жана', 'бирок', 'же', 'анан', 'анткени', 'эгерде', 'ошондуктан'],
+    quiz: [
+      {
+        id: 'q1',
+        question: {
+          en: 'Which conjunction means "but" in Kyrgyz?',
+          ru: 'Какой союз означает "но" в кыргызском языке?'
+        },
+        options: {
+          en: ['жана', 'бирок', 'же', 'анан'],
+          ru: ['жана', 'бирок', 'же', 'анан']
+        },
+        correct: 1,
+        explanation: {
+          en: 'бирок means "but" - used for contrast',
+          ru: 'бирок означает "но" - используется для противопоставления'
+        }
+      },
+      {
+        id: 'q2',
+        question: {
+          en: 'Connect the sentences: "Мен барам" + "Сен кал"',
+          ru: 'Соедините предложения: "Мен барам" + "Сен кал"'
+        },
+        options: {
+          en: ['Мен барам жана сен кал', 'Мен барам, бирок сен кал', 'Мен барам же сен кал', 'Мен барам анткени сен кал'],
+          ru: ['Мен барам жана сен кал', 'Мен барам, бирок сен кал', 'Мен барам же сен кал', 'Мен барам анткени сен кал']
+        },
+        correct: 1,
+        explanation: {
+          en: 'Use "бирок" (but) for contrast: I go, but you stay',
+          ru: 'Используйте "бирок" (но) для противопоставления: Я иду, но ты оставайся'
+        }
+      },
+      {
+        id: 'q3',
+        question: {
+          en: 'What does "анткени" mean?',
+          ru: 'Что означает "анткени"?'
+        },
+        options: {
+          en: ['and', 'but', 'because', 'or'],
+          ru: ['и', 'но', 'потому что', 'или']
+        },
+        correct: 2,
+        explanation: {
+          en: 'анткени means "because" - introduces reason',
+          ru: 'анткени означает "потому что" - вводит причину'
+        }
+      }
+    ]
   }
 
-  // Total A1 content: 14 lessons + 1 final test (35 questions) ✓
+  // Total: A1 (14 lessons + 1 final test), A2 (in progress)
+  // Note: Due to context limits, additional A2-C1 lessons will be added incrementally
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
