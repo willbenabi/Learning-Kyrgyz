@@ -27,7 +27,13 @@ interface UserProgress {
   daysActive: number
   lessonsCompleted: number
   vocabularyCount: number
+  currentStreak: number
+  longestStreak: number
   badges: number
+}
+
+interface DashboardProps {
+  userProgress?: UserProgress | null
 }
 
 // Mock content recommendations
@@ -88,8 +94,8 @@ const RECOMMENDATIONS = {
   }
 }
 
-export default function LearningDashboard() {
-  const [progress, setProgress] = useState<UserProgress | null>(null)
+export default function LearningDashboard({ userProgress }: DashboardProps) {
+  const [progress, setProgress] = useState<UserProgress | null>(userProgress || null)
   const [currentRecommendation, setCurrentRecommendation] = useState(0)
 
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
@@ -114,11 +120,13 @@ export default function LearningDashboard() {
       supportDesc: 'Get help and report issues',
       yourProgress: 'Your Progress',
       level: 'Level',
+      currentStreak: 'Current Streak',
       daysActive: 'Days Active',
       lessons: 'Lessons Completed',
       words: 'Words Learned',
       badges: 'Badges Earned',
-      comingSoon: 'Coming Soon'
+      comingSoon: 'Coming Soon',
+      viewDetails: 'View Details'
     },
     ru: {
       welcome: 'Добро пожаловать в изучение кыргызского',
@@ -139,11 +147,13 @@ export default function LearningDashboard() {
       supportDesc: 'Получите помощь и сообщите о проблемах',
       yourProgress: 'Ваш прогресс',
       level: 'Уровень',
+      currentStreak: 'Текущая серия',
       daysActive: 'Дней активности',
       lessons: 'Уроков завершено',
       words: 'Слов изучено',
       badges: 'Получено наград',
-      comingSoon: 'Скоро'
+      comingSoon: 'Скоро',
+      viewDetails: 'Подробнее'
     }
   }
   const t = translations[language]
@@ -270,14 +280,21 @@ export default function LearningDashboard() {
 
         {/* Progress Stats */}
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5" />
               {t.yourProgress}
             </CardTitle>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.visit('/learning/progress')}
+            >
+              {t.viewDetails}
+            </Button>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary">{progress.level}</div>
                 <div className="text-sm text-muted-foreground">{t.level}</div>
@@ -285,8 +302,12 @@ export default function LearningDashboard() {
               <div className="text-center">
                 <div className="text-3xl font-bold text-orange-500 flex items-center justify-center gap-1">
                   <Flame className="w-6 h-6" />
-                  {progress.daysActive}
+                  {progress.currentStreak || 0}
                 </div>
+                <div className="text-sm text-muted-foreground">{t.currentStreak}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-600">{progress.daysActive}</div>
                 <div className="text-sm text-muted-foreground">{t.daysActive}</div>
               </div>
               <div className="text-center">

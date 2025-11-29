@@ -30,6 +30,12 @@ class User < ApplicationRecord
   # Associations
   has_many :refresh_tokens, dependent: :destroy
   has_one_attached :avatar
+  has_one :user_progress, dependent: :destroy
+  has_many :lesson_completions, dependent: :destroy
+  has_many :achievements, dependent: :destroy
+
+  # Initialize progress after user creation
+  after_create :initialize_progress
 
   # Validations
   validates :email, presence: true,
@@ -110,6 +116,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def initialize_progress
+    create_user_progress!(level: 'A1') unless user_progress
+  end
 
   def normalize_email
     self.email = email.downcase.strip if email.present?

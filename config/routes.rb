@@ -44,6 +44,16 @@ Rails.application.routes.draw do
   get "/learning/writing", to: "learning#writing"
   get "/learning/vocabulary", to: "learning#vocabulary"
 
+  # Progress tracking routes
+  get "/learning/progress", to: "learning/progress#index"
+  namespace :learning do
+    resource :progress, only: [:show] do
+      post :complete_lesson, on: :collection
+      post :add_vocabulary, on: :collection
+      post :update_level, on: :collection
+    end
+  end
+
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
 

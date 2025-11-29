@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_03_223203) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_29_204714) do
+  create_table "achievements", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "achievement_type", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "earned_at", null: false
+    t.json "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["earned_at"], name: "index_achievements_on_earned_at"
+    t.index ["user_id", "achievement_type"], name: "index_achievements_on_user_id_and_achievement_type", unique: true
+    t.index ["user_id"], name: "index_achievements_on_user_id"
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,6 +73,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_223203) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "lesson_completions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "module_type", null: false
+    t.string "lesson_id", null: false
+    t.datetime "completed_at", null: false
+    t.integer "score"
+    t.integer "time_spent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["completed_at"], name: "index_lesson_completions_on_completed_at"
+    t.index ["user_id", "module_type", "lesson_id"], name: "index_lesson_completions_unique", unique: true
+    t.index ["user_id"], name: "index_lesson_completions_on_user_id"
   end
 
   create_table "refresh_tokens", force: :cascade do |t|
@@ -204,6 +232,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_223203) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "user_progresses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "level", default: "A1", null: false
+    t.integer "days_active", default: 0, null: false
+    t.integer "lessons_completed", default: 0, null: false
+    t.integer "vocabulary_count", default: 0, null: false
+    t.integer "current_streak", default: 0, null: false
+    t.integer "longest_streak", default: 0, null: false
+    t.date "last_activity_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_progresses_on_user_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "name", null: false
@@ -222,8 +264,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_223203) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
   end
 
+  add_foreign_key "achievements", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "lesson_completions", "users"
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
@@ -231,4 +275,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_223203) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "user_progresses", "users"
 end
