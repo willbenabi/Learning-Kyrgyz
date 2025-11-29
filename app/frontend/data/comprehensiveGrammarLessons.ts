@@ -3684,9 +3684,73 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
       { id: 'q1', question: { en: 'What does "башы катуу" mean?', ru: 'Что означает "башы катуу"?' }, options: { en: ['stubborn', 'intelligent', 'tall', 'sick'], ru: ['упрямый', 'умный', 'высокий', 'больной'] }, correct: 0 },
       { id: 'q2', question: { en: 'What is "көз салуу"?', ru: 'Что такое "көз салуу"?' }, options: { en: ['glance at/pay attention', 'close eyes', 'open eyes', 'lose sight'], ru: ['взглянуть/обратить внимание', 'закрыть глаза', 'открыть глаза', 'потерять зрение'] }, correct: 0 }
     ]
+  },
+
+  // ===== C1 LEVEL - FINAL TEST =====
+  {
+    id: 'c1_final_test',
+    level: 'C1',
+    category: 'final_test',
+    order: 9,
+    title: { en: 'C1 Level Final Test', ru: 'Финальный тест уровня C1' },
+    description: { en: 'Comprehensive test covering all C1 advanced grammar topics', ru: 'Комплексный тест по всем продвинутым темам грамматики C1' },
+    theory: {
+      en: `This final test covers all C1 advanced topics: literary constructions, participial forms, complex causals, diminutives, discourse markers, aspectual constructions, ellipsis/inversion, and idiomatic expressions.`,
+      ru: `Этот финальный тест охватывает все продвинутые темы C1: литературные конструкции, причастные формы, сложные причинные обороты, уменьшительные формы, дискурсивные маркеры, аспектуальные конструкции, эллипсис/инверсию и идиоматические выражения.`
+    },
+    examples: [],
+    quiz: [
+      // Literary Constructions (4 questions)
+      { id: 'q1', question: { en: 'What does "-макчы/-мекчи" express?', ru: 'Что выражает "-макчы/-мекчи"?' }, options: { en: ['was about to/intention', 'completed action', 'possibility', 'command'], ru: ['собирался/намерение', 'завершённое действие', 'возможность', 'команда'] }, correct: 0, explanation: { en: '-макчы = was about to (intention)', ru: '-макчы = собирался (намерение)' } },
+      { id: 'q2', question: { en: 'Say "I was about to go"', ru: 'Скажите "Я собирался идти"' }, options: { en: ['Мен бармакчы болдум', 'Мен бардым', 'Мен барам', 'Мен барганмын'], ru: ['Мен бармакчы болдум', 'Мен бардым', 'Мен барам', 'Мен барганмын'] }, correct: 0, explanation: { en: 'бармакчы болдум = was about to go', ru: 'бармакчы болдум = собирался идти' } },
+      { id: 'q3', question: { en: 'What does "-гысы/-гиси келет" mean?', ru: 'Что означает "-гысы/-гиси келет"?' }, options: { en: ['feel like doing', 'must do', 'can do', 'did'], ru: ['хочется делать', 'должен делать', 'можно делать', 'сделал'] }, correct: 0, explanation: { en: '-гысы келет = feel like doing', ru: '-гысы келет = хочется делать' } },
+      { id: 'q4', question: { en: 'Literary mood for intention?', ru: 'Литературное наклонение для намерения?' }, options: { en: ['-макчы/-мекчи', '-ды/-ди', '-ат/-эт', '-ган/-ген'], ru: ['-макчы/-мекчи', '-ды/-ди', '-ат/-эт', '-ган/-ген'] }, correct: 0, explanation: { en: '-макчы expresses intention', ru: '-макчы выражает намерение' } },
+
+      // Participial Constructions (3 questions)
+      { id: 'q5', question: { en: 'What does "-аар/-ээр" participle show?', ru: 'Что показывает причастие "-аар/-ээр"?' }, options: { en: ['habitual/characteristic action', 'past completed', 'future definite', 'passive voice'], ru: ['обычное/характерное действие', 'прошедшее завершённое', 'определённое будущее', 'страдательный залог'] }, correct: 0, explanation: { en: '-аар/-ээр = habitual/characteristic', ru: '-аар/-ээр = обычное/характерное' } },
+      { id: 'q6', question: { en: 'Say "a person who doesn\'t study"', ru: 'Скажите "человек, который не учится"' }, options: { en: ['окубас адам', 'окуган адам', 'окуп жаткан адам', 'окуй турган адам'], ru: ['окубас адам', 'окуган адам', 'окуп жаткан адам', 'окуй турган адам'] }, correct: 0, explanation: { en: 'окубас = doesn\'t study (characteristic)', ru: 'окубас = не учится (характеристика)' } },
+      { id: 'q7', question: { en: 'Negative participle suffix?', ru: 'Суффикс отрицательного причастия?' }, options: { en: ['-ма/-ме/-ба/-бе', '-ган/-ген', '-аар/-ээр', '-ды/-ди'], ru: ['-ма/-ме/-ба/-бе', '-ган/-ген', '-аар/-ээр', '-ды/-ди'] }, correct: 0, explanation: { en: '-ма/-бе = negative participle', ru: '-ма/-бе = отрицательное причастие' } },
+
+      // Complex Causal Clauses (4 questions)
+      { id: 'q8', question: { en: 'What does "-гандыктан" mean?', ru: 'Что означает "-гандыктан"?' }, options: { en: ['because (formal)', 'although', 'when', 'if'], ru: ['потому что (формально)', 'хотя', 'когда', 'если'] }, correct: 0, explanation: { en: '-гандыктан = because (formal)', ru: '-гандыктан = потому что (формально)' } },
+      { id: 'q9', question: { en: 'Say "because he left"', ru: 'Скажите "потому что он ушёл"' }, options: { en: ['ал кеткендиктен', 'ал кетсе', 'ал кеткенде', 'ал кеткен экен'], ru: ['ал кеткендиктен', 'ал кетсе', 'ал кеткенде', 'ал кеткен экен'] }, correct: 0, explanation: { en: 'кеткендиктен = because he left', ru: 'кеткендиктен = потому что ушёл' } },
+      { id: 'q10', question: { en: 'What does "ошондуктан" mean?', ru: 'Что означает "ошондуктан"?' }, options: { en: ['therefore', 'because', 'although', 'when'], ru: ['поэтому', 'потому что', 'хотя', 'когда'] }, correct: 0, explanation: { en: 'ошондуктан = therefore', ru: 'ошондуктан = поэтому' } },
+      { id: 'q11', question: { en: 'Formal causal marker?', ru: 'Формальный причинный маркер?' }, options: { en: ['-гандыктан/-гендиктен', '-са/-се', '-ганда/-генде', '-ганча/-генче'], ru: ['-гандыктан/-гендиктен', '-са/-се', '-ганда/-генде', '-ганча/-генче'] }, correct: 0, explanation: { en: '-гандыктан is formal "because"', ru: '-гандыктан - формальное "потому что"' } },
+
+      // Diminutive Forms (3 questions)
+      { id: 'q12', question: { en: 'What does reduplication express?', ru: 'Что выражает редупликация?' }, options: { en: ['intensity/emphasis', 'past tense', 'negation', 'question'], ru: ['интенсивность/ударение', 'прошедшее время', 'отрицание', 'вопрос'] }, correct: 0, explanation: { en: 'Reduplication = intensity/emphasis', ru: 'Редупликация = интенсивность/ударение' } },
+      { id: 'q13', question: { en: 'What does "-чык/-чик" create?', ru: 'Что создаёт "-чык/-чик"?' }, options: { en: ['diminutive form', 'plural', 'past tense', 'passive voice'], ru: ['уменьшительную форму', 'множественное число', 'прошедшее время', 'страдательный залог'] }, correct: 0, explanation: { en: '-чык/-чик = diminutive suffix', ru: '-чык/-чик = уменьшительный суффикс' } },
+      { id: 'q14', question: { en: 'Say "very small"', ru: 'Скажите "очень маленький"' }, options: { en: ['кичине-кичине', 'кичине', 'эң кичине', 'кичинекей'], ru: ['кичине-кичине', 'кичине', 'эң кичине', 'кичинекей'] }, correct: 0, explanation: { en: 'кичине-кичине = very small', ru: 'кичине-кичине = очень маленький' } },
+
+      // Discourse Markers (4 questions)
+      { id: 'q15', question: { en: 'What does "айтмакчы" mean?', ru: 'Что означает "айтмакчы"?' }, options: { en: ['by the way', 'because', 'although', 'when'], ru: ['кстати', 'потому что', 'хотя', 'когда'] }, correct: 0, explanation: { en: 'айтмакчы = by the way', ru: 'айтмакчы = кстати' } },
+      { id: 'q16', question: { en: 'What does "буга карабастан" express?', ru: 'Что выражает "буга карабастан"?' }, options: { en: ['despite/nevertheless', 'therefore', 'for example', 'in addition'], ru: ['несмотря/тем не менее', 'поэтому', 'например', 'в дополнение'] }, correct: 0, explanation: { en: 'буга карабастан = despite/nevertheless', ru: 'буга карабастан = несмотря/тем не менее' } },
+      { id: 'q17', question: { en: 'What does "ошентсе" mean?', ru: 'Что означает "ошентсе"?' }, options: { en: ['in that case/then', 'because', 'although', 'by the way'], ru: ['в таком случае/тогда', 'потому что', 'хотя', 'кстати'] }, correct: 0, explanation: { en: 'ошентсе = in that case', ru: 'ошентсе = в таком случае' } },
+      { id: 'q18', question: { en: 'Discourse marker for "at least"?', ru: 'Дискурсивный маркер для "по крайней мере"?' }, options: { en: ['дегенде', 'айтмакчы', 'ошентсе', 'ошондуктан'], ru: ['дегенде', 'айтмакчы', 'ошентсе', 'ошондуктан'] }, correct: 0, explanation: { en: 'дегенде = at least', ru: 'дегенде = по крайней мере' } },
+
+      // Aspectual Constructions (4 questions)
+      { id: 'q19', question: { en: 'What does "-п чык-" express?', ru: 'Что выражает "-п чык-"?' }, options: { en: ['completive aspect', 'passive voice', 'future tense', 'question'], ru: ['завершительный аспект', 'страдательный залог', 'будущее время', 'вопрос'] }, correct: 0, explanation: { en: '-п чык = do completely', ru: '-п чык = сделать полностью' } },
+      { id: 'q20', question: { en: 'Say "I finished reading"', ru: 'Скажите "Я дочитал"' }, options: { en: ['Окуп чыктым', 'Окудум', 'Окуйм', 'Окуган'], ru: ['Окуп чыктым', 'Окудум', 'Окуйм', 'Окуган'] }, correct: 0, explanation: { en: 'окуп чыктым = finished reading', ru: 'окуп чыктым = дочитал' } },
+      { id: 'q21', question: { en: 'What does "-п кой-" mean?', ru: 'Что означает "-п кой-"?' }, options: { en: ['do in advance', 'do completely', 'do accidentally', 'do suddenly'], ru: ['сделать заранее', 'сделать полностью', 'случайно сделать', 'внезапно сделать'] }, correct: 0, explanation: { en: '-п кой = do in advance', ru: '-п кой = сделать заранее' } },
+      { id: 'q22', question: { en: 'Auxiliary for "accidentally do"?', ru: 'Вспомогательный для "случайно сделать"?' }, options: { en: ['-п кал-', '-п чык-', '-п кой-', '-п жибер-'], ru: ['-п кал-', '-п чык-', '-п кой-', '-п жибер-'] }, correct: 0, explanation: { en: '-п кал = accidentally do', ru: '-п кал = случайно сделать' } },
+
+      // Ellipsis & Inversion (3 questions)
+      { id: 'q23', question: { en: 'What is ellipsis?', ru: 'Что такое эллипсис?' }, options: { en: ['omitting understood words', 'adding extra words', 'changing word order', 'using passive voice'], ru: ['пропуск понятных слов', 'добавление лишних слов', 'изменение порядка слов', 'использование страдательного залога'] }, correct: 0, explanation: { en: 'Ellipsis = omitting understood elements', ru: 'Эллипсис = пропуск понятных элементов' } },
+      { id: 'q24', question: { en: 'Why use inversion?', ru: 'Зачем использовать инверсию?' }, options: { en: ['emphasis/style', 'grammar requirement', 'negation', 'question formation'], ru: ['ударение/стиль', 'грамматическое требование', 'отрицание', 'образование вопроса'] }, correct: 0, explanation: { en: 'Inversion for emphasis/style', ru: 'Инверсия для ударения/стиля' } },
+      { id: 'q25', question: { en: 'Example of inversion?', ru: 'Пример инверсии?' }, options: { en: ['Окудум китепти (emphasis)', 'Китепти окудум (neutral)', 'Мен китепти окудум', 'Окуп жатам'], ru: ['Окудум китепти (ударение)', 'Китепти окудум (нейтрально)', 'Мен китепти окудум', 'Окуп жатам'] }, correct: 0, explanation: { en: 'Verb-first = emphatic inversion', ru: 'Глагол вперёд = эмфатическая инверсия' } },
+
+      // Idiomatic Expressions (3 questions)
+      { id: 'q26', question: { en: 'What does "башы катуу" mean?', ru: 'Что означает "башы катуу"?' }, options: { en: ['stubborn', 'intelligent', 'tall', 'sick'], ru: ['упрямый', 'умный', 'высокий', 'больной'] }, correct: 0, explanation: { en: 'башы катуу = stubborn (lit. hard head)', ru: 'башы катуу = упрямый (букв. твёрдая голова)' } },
+      { id: 'q27', question: { en: 'What is "көз салуу"?', ru: 'Что такое "көз салуу"?' }, options: { en: ['glance at/pay attention', 'close eyes', 'open eyes', 'lose sight'], ru: ['взглянуть/обратить внимание', 'закрыть глаза', 'открыть глаза', 'потерять зрение'] }, correct: 0, explanation: { en: 'көз салуу = glance at/pay attention', ru: 'көз салуу = взглянуть/обратить внимание' } },
+      { id: 'q28', question: { en: 'What does "-ып жат-" show?', ru: 'Что показывает "-ып жат-"?' }, options: { en: ['continuous action', 'completed action', 'future action', 'passive voice'], ru: ['длительное действие', 'завершённое действие', 'будущее действие', 'страдательный залог'] }, correct: 0, explanation: { en: '-ып жат = continuous/sitting doing', ru: '-ып жат = длительное/сидеть делая' } },
+
+      // Mixed Review (2 questions)
+      { id: 'q29', question: { en: 'Which is literary intention marker?', ru: 'Какой является литературным маркером намерения?' }, options: { en: ['-макчы/-мекчи', '-ды/-ди', '-ган/-ген', '-ат/-эт'], ru: ['-макчы/-мекчи', '-ды/-ди', '-ган/-ген', '-ат/-эт'] }, correct: 0, explanation: { en: '-макчы = was about to (literary)', ru: '-макчы = собирался (литературное)' } },
+      { id: 'q30', question: { en: 'Say "I prepared food in advance"', ru: 'Скажите "Я приготовил еду заранее"' }, options: { en: ['Тамакты жасап койдум', 'Тамакты жасадым', 'Тамакты жасап чыктым', 'Тамакты жасап жиберем'], ru: ['Тамакты жасап койдум', 'Тамакты жасадым', 'Тамакты жасап чыктым', 'Тамакты жасап жиберем'] }, correct: 0, explanation: { en: 'жасап койдум = prepared in advance', ru: 'жасап койдум = приготовил заранее' } }
+    ]
   }
 
-  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 + 1 test) ✓, C1 (8 lessons, test pending)
+  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 + 1 test) ✓, C1 (8 + 1 test) ✓ ALL COMPLETE
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
