@@ -3266,9 +3266,186 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
       { id: 'q34', question: { en: 'Perfect tense marker?', ru: 'Маркер перфектного времени?' }, options: { en: ['-ды/-ди (past)', '-ган/-ген (perfect)', '-ат/-эт (future)', '-п жатам (continuous)'], ru: ['-ды/-ди (прошедшее)', '-ган/-ген (перфект)', '-ат/-эт (будущее)', '-п жатам (длительное)'] }, correct: 1, explanation: { en: '-ган/-ген = perfect/experience', ru: '-ган/-ген = перфект/опыт' } },
       { id: 'q35', question: { en: 'Say "We saw each other"', ru: 'Скажите "Мы виделись"' }, options: { en: ['Биз көрүштүк', 'Биз көрдүк', 'Биз көрбөдүк', 'Биз көрсөттүк'], ru: ['Биз көрүштүк', 'Биз көрдүк', 'Биз көрбөдүк', 'Биз көрсөттүк'] }, correct: 0, explanation: { en: 'Reciprocal: көрүш + past', ru: 'Взаимный: көрүш + прошедшее' } }
     ]
+  },
+
+  // ===== B2 LEVEL - SYNTAX & MORPHOLOGY LESSONS =====
+  {
+    id: 'b2_lesson_01',
+    level: 'B2',
+    category: 'syntax',
+    order: 1,
+    title: { en: 'Complex Conditional Sentences (Unreal Conditions)', ru: 'Сложные условные предложения (нереальные условия)' },
+    description: { en: 'Express hypothetical and contrary-to-fact conditions', ru: 'Выражение гипотетических и противоречащих фактам условий' },
+    theory: {
+      en: `Unreal/hypothetical conditionals express situations contrary to reality.\\n\\n**Pattern:** Эгер + [past/perfect] + болсо, [would/could result]\\n\\n**Example:** Эгер акчам болсо, үй сатып алмакмын. (If I had money, I would buy a house.)\\n\\nUse past tense in condition clause even though referring to present/future unreal situation.`,
+      ru: `Нереальные/гипотетические условные предложения выражают ситуации, противоречащие реальности.\\n\\n**Схема:** Эгер + [прошедшее/перфект] + болсо, [результат с бы]\\n\\n**Пример:** Эгер акчам болсо, үй сатып алмакмын. (Если бы у меня были деньги, я бы купил дом.)\\n\\nИспользуйте прошедшее время в условии, даже если речь о настоящем/будущем нереальном.`
+    },
+    examples: [
+      { kyrgyz: 'Эгер сен келген болсоң, мен сага жардам бермекмин.', translation: { en: 'If you had come, I would have helped you.', ru: 'Если бы ты пришёл, я бы тебе помог.' } },
+      { kyrgyz: 'Эгер убакыт болсо, саякат кылмакпын.', translation: { en: 'If I had time, I would travel.', ru: 'Если бы было время, я бы путешествовал.' } }
+    ],
+    vocabulary: ['болсо', 'болгон болсо', 'макмын', 'мекмин'],
+    quiz: [
+      { id: 'q1', question: { en: 'How to express "would" in Kyrgyz?', ru: 'Как выразить "бы" в кыргызском?' }, options: { en: ['Use -макмын/-мекмин', 'Use -ат/-эт', 'Use -ды/-ди', 'Use -ган/-ген'], ru: ['Используйте -макмын/-мекмин', 'Используйте -ат/-эт', 'Используйте -ды/-ди', 'Используйте -ган/-ген'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Which tense in unreal condition?', ru: 'Какое время в нереальном условии?' }, options: { en: ['future', 'present', 'past', 'imperative'], ru: ['будущее', 'настоящее', 'прошедшее', 'повелительное'] }, correct: 2 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_02',
+    level: 'B2',
+    category: 'morphology',
+    order: 2,
+    title: { en: 'Evidentiality (-птыр/-пт��р)', ru: 'Пересказывательность (-птыр/-птир)' },
+    description: { en: 'Report information from secondhand sources', ru: 'Передача информации из вторичных источников' },
+    theory: {
+      en: `Evidential mood marks information the speaker learned from others (hearsay).\\n\\n**Suffix:** -птыр/-птир (or -пт��р after vowels)\\n\\n**Example:** Ал келиптир. (He came, they say / I heard he came.)\\n\\nThis is different from direct past (-ды/-ди) which implies firsthand knowledge.`,
+      ru: `Пересказывательное наклонение обозначает информацию, которую говорящий узнал от других (слухи).\\n\\n**Суффикс:** -птыр/-птир (или -птир после гласных)\\n\\n**Пример:** Ал келиптир. (Он пришёл, говорят / Я слышал, что он пришёл.)\\n\\nЭто отличается от прямого прошедшего (-ды/-ди), которое подразумевает личное знание.`
+    },
+    examples: [
+      { kyrgyz: 'Жамгыр жаап жатыптыр.', translation: { en: 'It is raining, I heard.', ru: 'Дождь идёт, говорят.' } },
+      { kyrgyz: 'Ал бай болуптур.', translation: { en: 'He became rich, they say.', ru: 'Он стал богатым, говорят.' } }
+    ],
+    vocabulary: ['келиптир', 'барыптыр', 'жаап жатыптыр', 'болуптур'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does -птыр/-птир mark?', ru: 'Что обозначает -птыр/-птир?' }, options: { en: ['firsthand knowledge', 'secondhand information', 'future action', 'command'], ru: ['личное знание', 'информация из вторых рук', 'будущее действие', 'команда'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "He left, I heard"', ru: 'Скажите "Он ушёл, говорят"' }, options: { en: ['Ал кетти', 'Ал кетиптир', 'Ал кетет', 'Ал кетсин'], ru: ['Ал кетти', 'Ал кетиптир', 'Ал кетет', 'Ал кетсин'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_03',
+    level: 'B2',
+    category: 'morphology',
+    order: 3,
+    title: { en: 'Presumptive Mood (-ар/-ер экен)', ru: 'Предположительное наклонение (-ар/-ер экен)' },
+    description: { en: 'Express assumptions and inferences', ru: 'Выражение предположений и выводов' },
+    theory: {
+      en: `Presumptive mood expresses speaker's inference or assumption based on evidence.\\n\\n**Pattern:** Verb + ар/ер экен\\n\\n**Example:** Ал келер экен. (He will probably come / It seems he'll come.)\\n\\nUse when you conclude something from signs/evidence but didn't witness it directly.`,
+      ru: `Предположительное наклонение выражает вывод или предположение говорящего на основе свидетельств.\\n\\n**Схема:** Глагол + ар/ер экен\\n\\n**Пример:** Ал келер экен. (Он, вероятно, придёт / Похоже, он придёт.)\\n\\nИспользуется, когда вы делаете вывод из признаков/свидетельств, но не наблюдали напрямую.`
+    },
+    examples: [
+      { kyrgyz: 'Ал ооруп калган экен.', translation: { en: 'He seems to have gotten sick.', ru: 'Он, похоже, заболел.' } },
+      { kyrgyz: 'Жамгыр жааган экен.', translation: { en: 'It appears it rained.', ru: 'Похоже, дождь прошёл.' } }
+    ],
+    vocabulary: ['экен', 'калган экен', 'жааган экен', 'болгон экен'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "экен" express?', ru: 'Что выражает "экен"?' }, options: { en: ['certainty', 'inference/assumption', 'command', 'desire'], ru: ['уверенность', 'вывод/предположение', 'команда', 'желание'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "It seems he left"', ru: 'Скажите "Похоже, он ушёл"' }, options: { en: ['Ал кетти', 'Ал кеткен экен', 'Ал кетсин', 'Ал кетет'], ru: ['Ал кетти', 'Ал кеткен экен', 'Ал кетсин', 'Ал кетет'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_04',
+    level: 'B2',
+    category: 'syntax',
+    order: 4,
+    title: { en: 'Complex Temporal Clauses', ru: 'Сложные временные придаточные' },
+    description: { en: 'Express complex time relationships between actions', ru: 'Выражение сложных временных отношений между действиями' },
+    theory: {
+      en: `Beyond simple "after" (-гандан кийин), Kyrgyz has multiple temporal constructions:\\n\\n**-ганча / -генче** = while, during\\n**-ганда / -генде** = when (at the moment)\\n**-ганга чейин** = until, before\\n\\n**Example:** Мен иштеп жатканда, ал келди. (While I was working, he came.)`,
+      ru: `Кроме простого "после" (-гандан кийин), в кыргызском есть множество временных конструкций:\\n\\n**-ганча / -генче** = пока, в течение\\n**-ганда / -генде** = когда (в момент)\\n**-ганга чейин** = до, прежде чем\\n\\n**Пример:** Мен иштеп жатканда, ал келди. (Пока я работал, он пришёл.)`
+    },
+    examples: [
+      { kyrgyz: 'Мен үйгө келгенче, тамак жасап койдум.', translation: { en: 'Before coming home, I prepared food.', ru: 'Перед тем как прийти домой, я приготовил еду.' } },
+      { kyrgyz: 'Окуп жатканда, үн чыкпа.', translation: { en: 'Don\'t make noise while studying.', ru: 'Не шуми, пока учишься.' } }
+    ],
+    vocabulary: ['жатканда', 'келгенче', 'чейин', 'учурунда'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-ганда/-генде" mean?', ru: 'Что означает "-ганда/-генде"?' }, options: { en: ['after', 'when/while', 'because', 'if'], ru: ['после', 'когда/пока', 'потому что', 'если'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "while working"', ru: 'Скажите "пока работаю"' }, options: { en: ['иштеп жатканда', 'иштегенден кийин', 'иштөө үчүн', 'иштеген экен'], ru: ['иштеп жатканда', 'иштегенден кийин', 'иштөө үчүн', 'иштеген экен'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_05',
+    level: 'B2',
+    category: 'morphology',
+    order: 5,
+    title: { en: 'Optative Mood (-гай/-гей/-кай/-кей)', ru: 'Желательное наклонение (-гай/-гей/-кай/-кей)' },
+    description: { en: 'Express wishes and hopes', ru: 'Выражение пожеланий и надежд' },
+    theory: {
+      en: `Optative mood expresses wishes, hopes, or prayers (may/let).\\n\\n**Suffixes:** -гай/-гей/-кай/-кей (vowel harmony)\\n\\n**Example:** Ал келгей! (May he come! / Let him come!)\\n\\nUsed for blessings, wishes, and polite commands about third person.`,
+      ru: `Желательное наклонение выражает желания, надежды или молитвы (пусть/да).\\n\\n**Суффиксы:** -гай/-гей/-кай/-кей (гармония гласных)\\n\\n**Пример:** Ал келгей! (Пусть он придёт! / Да придёт он!)\\n\\nИспользуется для благословений, пожеланий и вежливых команд о третьем лице.`
+    },
+    examples: [
+      { kyrgyz: 'Кудай жардам бергей!', translation: { en: 'May God help!', ru: 'Да поможет Бог!' } },
+      { kyrgyz: 'Бардыгы жакшы болгой.', translation: { en: 'May everything be well.', ru: 'Пусть всё будет хорошо.' } }
+    ],
+    vocabulary: ['келгей', 'болгой', 'жакшылыкты каалагай', 'бергей'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does optative mood express?', ru: 'Что выражает желательное наклонение?' }, options: { en: ['facts', 'wishes/hopes', 'assumptions', 'commands'], ru: ['факты', 'желания/надежды', 'предположения', 'команды'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "May he succeed"', ru: 'Скажите "Пусть он добьётся успеха"' }, options: { en: ['Ал ийгиликтүү болот', 'Ал ийгиликтүү болгой', 'Ал ийгиликтүү болду', 'Ал ийгиликтүү болсун'], ru: ['Ал ийгиликтүү болот', 'Ал ийгиликтүү болгой', 'Ал ийгиликтүү болду', 'Ал ийгиликтүү болсун'] },correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_06',
+    level: 'B2',
+    category: 'syntax',
+    order: 6,
+    title: { en: 'Correlative Conjunctions', ru: 'Парные союзы' },
+    description: { en: 'Use paired conjunctions for complex relationships', ru: 'Использование парных союзов для сложных отношений' },
+    theory: {
+      en: `Correlative conjunctions work in pairs to show relationships:\\n\\n**бирок...ошого карабастан** = but...nevertheless\\n**же...же** = either...or\\n**да...да** = both...and\\n\\n**Example:** Мен да, сен да барабыз. (Both you and I will go.)`,
+      ru: `Парные союзы работают в паре для выражения отношений:\\n\\n**бирок...ошого карабастан** = но...тем не менее\\n**же...же** = либо...либо\\n**да...да** = и...и (оба)\\n\\n**Пример:** Мен да, сен да барабыз. (И ты, и я пойдём.)`
+    },
+    examples: [
+      { kyrgyz: 'Же бүгүн, же эртең барабыз.', translation: { en: 'We\'ll go either today or tomorrow.', ru: 'Мы пойдём либо сегодня, либо завтра.' } },
+      { kyrgyz: 'Ал да, мен да окуйбуз.', translation: { en: 'Both he and I study.', ru: 'И он, и я учимся.' } }
+    ],
+    vocabulary: ['же...же', 'да...да', 'карабастан', 'ошого'],
+    quiz: [
+      { id: 'q1', question: { en: 'Which means "both...and"?', ru: 'Что означает "и...и"?' }, options: { en: ['же...же', 'да...да', 'эмес...эмес', 'же...болбосо'], ru: ['же...же', 'да...да', 'эмес...эмес', 'же...болбосо'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "either this or that"', ru: 'Скажите "либо это, либо то"' }, options: { en: ['Бул да, ал да', 'Же бул, же ал', 'Бул жана ал', 'Бул бирок ал'], ru: ['Бул да, ал да', 'Же бул, же ал', 'Бул жана ал', 'Бул бирок ал'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_07',
+    level: 'B2',
+    category: 'morphology',
+    order: 7,
+    title: { en: 'Verbal Adverbs (Converbs)', ru: 'Деепричастия (Конвербы)' },
+    description: { en: 'Form adverbial clauses with converb constructions', ru: 'Образование обстоятельственных оборотов с конвербами' },
+    theory: {
+      en: `Converbs (verbal adverbs) connect actions showing manner, time, or cause:\\n\\n**-п/-ип/-уп/-үп** = and (simultaneous)\\n**-а/-е/-й (while)** = continuous action\\n**-ып/-ип + auxiliary** = various aspects\\n\\n**Example:** Күлүп сүйлөдү. (He spoke laughing / while laughing.)`,
+      ru: `Конвербы (деепричастия) связывают действия, показывая способ, время или причину:\\n\\n**-п/-ип/-уп/-үп** = и (одновременно)\\n**-а/-е/-й (пока)** = длительное действие\\n**-ып/-ип + вспомогательный** = различные аспекты\\n\\n**Пример:** Күлүп сүйлөдү. (Он говорил смеясь / пока смеялся.)`
+    },
+    examples: [
+      { kyrgyz: 'Үйгө келип, эс алдым.', translation: { en: 'Having come home, I rested.', ru: 'Придя домой, я отдохнул.' } },
+      { kyrgyz: 'Жүгүрө келди.', translation: { en: 'He came running.', ru: 'Он прибежал (пришёл бегом).' } }
+    ],
+    vocabulary: ['келип', 'барып', 'жүгүрө', 'күлүп'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does -п/-ип converb show?', ru: 'Что показывает конверб -п/-ип?' }, options: { en: ['simultaneous action', 'future action', 'passive voice', 'question'], ru: ['одновременное действие', 'будущее действие', 'страдательный залог', 'вопрос'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Say "reading, I learned"', ru: 'Скажите "читая, я узнал"' }, options: { en: ['Окуп билдим', 'Окуйм билдим', 'Окуду билдим', 'Окуган билдим'], ru: ['Окуп билдим', 'Окуйм билдим', 'Окуду билдим', 'Окуган билдим'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'b2_lesson_08',
+    level: 'B2',
+    category: 'syntax',
+    order: 8,
+    title: { en: 'Nominalized Clauses', ru: 'Субстантивированные придаточные' },
+    description: { en: 'Turn clauses into noun phrases', ru: 'Превращение придаточных в именные обороты' },
+    theory: {
+      en: `Nominalization turns verb phrases into noun phrases that can take case markers:\\n\\n**-уу/-үү** = infinitive/gerund form\\n**-ган/-ген + case** = completed action as noun\\n\\n**Example:** Окуу мага жагат. (Studying pleases me / I like studying.)\\n\\nСен келгениңе кубандым. (I'm happy at your coming / that you came.)`,
+      ru: `Субстантивация превращает глагольные обороты в именные, которые могут принимать падежные окончания:\\n\\n**-уу/-үү** = инфинитив/герундий\\n**-ган/-ген + падеж** = завершённое действие как существительное\\n\\n**Пример:** Окуу мага жагат. (Учёба мне нравится / Я люблю учиться.)\\n\\nСен келгениңе кубандым. (Я рад твоему приходу / что ты пришёл.)`
+    },
+    examples: [
+      { kyrgyz: 'Жүрүү пайдалуу.', translation: { en: 'Walking is useful.', ru: 'Ходьба полезна.' } },
+      { kyrgyz: 'Анын баргандыгын угдум.', translation: { en: 'I heard (the fact) that he left.', ru: 'Я слышал (о том), что он ушёл.' } }
+    ],
+    vocabulary: ['окуу', 'жүрүү', 'келгениңе', 'баргандыгын'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does -уу/-үү create?', ru: 'Что создаёт -уу/-үү?' }, options: { en: ['past tense', 'noun from verb', 'question', 'passive voice'], ru: ['прошедшее время', 'существительное из глагола', 'вопрос', 'страдательный залог'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "I like reading"', ru: 'Скажите "Мне нравится читать"' }, options: { en: ['Окуу мага жагат', 'Окуйм мага жагат', 'Окудум мага жагат', 'Окуган мага жагат'], ru: ['Окуу мага жагат', 'Окуйм мага жагат', 'Окудум мага жагат', 'Окуган мага жагат'] }, correct: 0 }
+    ]
   }
 
-  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓
+  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 lessons, test pending)
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
