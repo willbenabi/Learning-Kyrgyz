@@ -76,15 +76,43 @@
 - Manual navigation with indicator dots
 
 **Learning Modules (4 Cards)**
-1. **Grammar Module** ✅ **ACTIVE**
-   - Master Kyrgyz grammar rules through comprehensive structured lessons
-   - 14 complete A1-level lessons (6 Syntax + 8 Morphology)
-   - **Syntax lessons**: Sentence structure, subjects, predicates, word order (SOV), sentence types, secondary parts
-   - **Morphology lessons**: Parts of speech, plural formation, 5 noun cases (nominative, accusative, dative, locative, ablative), personal pronouns
-   - Each lesson includes detailed bilingual theory, multiple examples with explanations, vocabulary word banks, and 3-5 quiz questions
-   - Quiz questions provide immediate feedback with answer explanations
-   - **A1 Final Test**: Comprehensive 35-question test covering all 14 A1 lessons (15 syntax + 20 morphology questions)
-   - Bilingual content (Russian/English)
+1. **Grammar Module** ✅ **FULLY IMPLEMENTED**
+   - Master Kyrgyz grammar rules through comprehensive structured lessons across all CEFR levels
+
+   **Complete Curriculum Structure:**
+   - **A1 Level**: 14 lessons + final test (35 questions)
+     - 6 Syntax lessons: Sentence structure, subjects, predicates, word order (SOV), sentence types, secondary parts
+     - 8 Morphology lessons: Parts of speech, plural formation, 5 noun cases, personal pronouns
+
+   - **A2 Level**: 11 lessons + final test (35 questions)
+     - Complex sentences, subordinate clauses, purpose/comparative clauses
+     - Past/future tense, possessive suffixes, genitive/instrumental cases
+     - Present continuous, verb negation
+
+   - **B1 Level**: 11 lessons + final test (35 questions)
+     - Conditional sentences, modal verbs, perfect tense, relative clauses
+- Passive/causative/reciprocal/reflexive voices
+     - Reported speech, concessive clauses, desiderative mood
+
+   - **B2 Level**: 8 lessons + final test (30 questions)
+     - Unreal conditionals, evidentiality (-птыр/-птир), presumptive mood (экен)
+     - Complex temporal clauses, optative mood, correlative conjunctions
+     - Converbs (verbal adverbs), nominalization
+
+   - **C1 Level**: 8 lessons + final test (30 questions)
+     - Literary/archaic constructions, participial constructions
+     - Complex causal clauses, diminutive/augmentative forms
+     - Discourse markers, aspectual verb constructions
+     - Elliptical/inverted constructions, idiomatic expressions
+
+   **Lesson Features:**
+   - Each lesson includes detailed bilingual theory (English/Russian)
+   - Multiple examples with Kyrgyz text, translations, and explanations
+   - Vocabulary word banks for each lesson
+   - 2-5 quiz questions per lesson with instant feedback
+   - Final tests include comprehensive review with detailed explanations
+
+   **Total Content**: 52 lessons + 5 comprehensive final tests (165 total questions)
    - Icon: BookOpen
    - Color: Blue
 
