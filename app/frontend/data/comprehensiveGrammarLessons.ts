@@ -3507,9 +3507,186 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
       { id: 'q29', question: { en: 'Which is presumptive?', ru: 'Какой является предположительным?' }, options: { en: ['барды (went)', 'барат (goes)', 'барган экен (seems went)', 'барсын (let go)'], ru: ['барды (пошёл)', 'барат (идёт)', 'барган экен (похоже, пошёл)', 'барсын (пусть идёт)'] }, correct: 2, explanation: { en: 'экен = presumptive/inference', ru: 'экен = предположительный/вывод' } },
       { id: 'q30', question: { en: 'Complete unreal condition: "If I were rich..."', ru: 'Завершите нереальное условие: "Если бы я был богатым..."' }, options: { en: ['Эгер бай болсом...', 'Эгер бай болом...', 'Эгер бай болдум...', 'Эгер бай болгом...'], ru: ['Эгер бай болсом...', 'Эгер бай болом...', 'Эгер бай болдум...', 'Эгер бай болгом...'] }, correct: 0, explanation: { en: 'Unreal: эгер + past (-сом)', ru: 'Нереальное: эгер + прошедшее (-сом)' } }
     ]
+  },
+
+  // ===== C1 LEVEL - ADVANCED SYNTAX & MORPHOLOGY =====
+  {
+    id: 'c1_lesson_01',
+    level: 'C1',
+    category: 'syntax',
+    order: 1,
+    title: { en: 'Literary and Archaic Constructions', ru: 'Литературные и архаичные конструкции' },
+    description: { en: 'Master formal and literary language structures', ru: 'Овладение формальными и литературными языковыми структурами' },
+    theory: {
+      en: `Literary Kyrgyz uses archaic forms and complex constructions found in poetry and formal prose.\\n\\n**-макчы/-мекчи** = was about to (intention)\\n**-гысы/-гиси келет** = feel like doing\\n**болуш-** prefix = co-/mutual prefix (literary)\\n\\n**Example:** Ал кетмекчи болду. (He was about to leave.)`,
+      ru: `Литературный кыргызский использует архаичные формы и сложные конструкции, встречающиеся в поэзии и формальной прозе.\\n\\n**-макчы/-мекчи** = собирался (намерение)\\n**-гысы/-гиси келет** = хочется делать\\n**болуш-** префикс = со-/взаимный префикс (литературный)\\n\\n**Пример:** Ал кетмекчи болду. (Он собирался уходить.)`
+    },
+    examples: [
+      { kyrgyz: 'Мен сүйлөмөкчү болдум.', translation: { en: 'I was about to speak.', ru: 'Я собирался говорить.' } },
+      { kyrgyz: 'Ага жардам бергиси келди.', translation: { en: 'He felt like helping him.', ru: 'Ему захотелось помочь ему.' } }
+    ],
+    vocabulary: ['кетмекчи', 'бергиси келет', 'болушкан', 'сүйлөмөкчү'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-макчы/-мекчи" express?', ru: 'Что выражает "-макчы/-мекчи"?' }, options: { en: ['was about to/intention', 'completed action', 'possibility', 'command'], ru: ['собирался/намерение', 'завершённое действие', 'возможность', 'команда'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Say "I was about to go"', ru: 'Скажите "Я собирался идти"' }, options: { en: ['Мен бармакчы болдум', 'Мен бардым', 'Мен барам', 'Мен барганмын'], ru: ['Мен бармакчы болдум', 'Мен бардым', 'Мен барам', 'Мен барганмын'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_02',
+    level: 'C1',
+    category: 'morphology',
+    order: 2,
+    title: { en: 'Participial Constructions', ru: 'Причастные обороты' },
+    description: { en: 'Complex participial phrases in literary style', ru: 'Сложные причастные обороты в литературном стиле' },
+    theory: {
+      en: `Advanced participles create complex attributive constructions:\\n\\n**-аар/-ээр/-оор/-өөр** = habitual/characteristic participle\\n**-ма/-ме/-ба/-бе** = negative participle\\n\\n**Example:** Окубас адам (a person who doesn't read - characteristic)\\n\\nThese forms are common in proverbs and literary texts.`,
+      ru: `Продвинутые причастия создают сложные атрибутивные конструкции:\\n\\n**-аар/-ээр/-оор/-өөр** = обычное/характерное причастие\\n**-ма/-ме/-ба/-бе** = отрицательное причастие\\n\\n**Пример:** Окубас адам (человек, который не читает - характеристика)\\n\\nЭти формы распространены в пословицах и литературных текстах.`
+    },
+    examples: [
+      { kyrgyz: 'Иштебес адам жебес.', translation: { en: 'A person who doesn\'t work won\'t eat. (proverb)', ru: 'Кто не работает, тот не ест. (пословица)' } },
+      { kyrgyz: 'Ал келээр күн белгисиз.', translation: { en: 'The day he will come is unknown.', ru: 'День, когда он придёт, неизвестен.' } }
+    ],
+    vocabulary: ['келээр', 'барбас', 'окубас', 'иштебес'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-аар/-ээр" participle show?', ru: 'Что показывает причастие "-аар/-ээр"?' }, options: { en: ['habitual/characteristic action', 'past completed', 'future definite', 'passive voice'], ru: ['обычное/характерное действие', 'прошедшее завершённое', 'определённое будущее', 'страдательный залог'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Say "a person who doesn\'t study"', ru: 'Скажите "человек, который не учится"' }, options: { en: ['окубас адам', 'окуган адам', 'окуп жаткан адам', 'окуй турган адам'], ru: ['окубас адам', 'окуган адам', 'окуп жаткан адам', 'окуй турган адам'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_03',
+    level: 'C1',
+    category: 'syntax',
+    order: 3,
+    title: { en: 'Complex Causal and Result Clauses', ru: 'Сложные причинно-следственные придаточные' },
+    description: { en: 'Express sophisticated cause-effect relationships', ru: 'Выражение сложных причинно-следственных отношений' },
+    theory: {
+      en: `Advanced causal constructions:\\n\\n**-гандыктан/-гендиктен** = because (formal)\\n**ошондуктан** = therefore, for that reason\\n**ушундан улам** = due to this, consequently\\n\\n**Example:** Ал келгендиктен, биз башталабыз. (Because he came, we'll start.)`,
+      ru: `Продвинутые причинные конструкции:\\n\\n**-гандыктан/-гендиктен** = потому что (формально)\\n**ошондуктан** = поэтому, по этой причине\\n**ушундан улам** = вследствие этого, следовательно\\n\\n**Пример:** Ал келгендиктен, биз башталабыз. (Потому что он пришёл, мы начнём.)`
+    },
+    examples: [
+      { kyrgyz: 'Жамгыр жаагандыктан, үйдө калдык.', translation: { en: 'Because it rained, we stayed home.', ru: 'Так как шёл дождь, мы остались дома.' } },
+      { kyrgyz: 'Ал ооруган, ошондуктан келбеди.', translation: { en: 'He was sick, therefore he didn\'t come.', ru: 'Он был болен, поэтому не пришёл.' } }
+    ],
+    vocabulary: ['гандыктан', 'ошондуктан', 'ушундан улам', 'ошону үчүн'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-гандыктан" mean?', ru: 'Что означает "-гандыктан"?' }, options: { en: ['because (formal)', 'although', 'when', 'if'], ru: ['потому что (формально)', 'хотя', 'когда', 'если'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Say "because he left"', ru: 'Скажите "потому что он ушёл"' }, options: { en: ['ал кеткендиктен', 'ал кетсе', 'ал кеткенде', 'ал кеткен экен'], ru: ['ал кеткендиктен', 'ал кетсе', 'ал кеткенде', 'ал кеткен экен'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_04',
+    level: 'C1',
+    category: 'morphology',
+    order: 4,
+    title: { en: 'Diminutive and Augmentative Forms', ru: 'Уменьшительные и увеличительные формы' },
+    description: { en: 'Express size, affection, and intensity nuances', ru: 'Выражение нюансов размера, ласки и интенсивности' },
+    theory: {
+      en: `Kyrgyz uses reduplication and suffixes for nuance:\\n\\n**Reduplication**: кичине-кичине (very small), көп-көп (very many)\\n**-чык/-чик/-чук/-чүк**: diminutive suffix (бала → балачык, little child)\\n**эң + adjective + ы**: superlative (эң чоңу - the biggest)\\n\\n**Example:** Кичинекей үйчүк. (A tiny little house.)`,
+      ru: `Кыргызский использует редупликацию и суффиксы для нюансов:\\n\\n**Редупликация**: кичине-кичине (очень маленький), көп-көп (очень много)\\n**-чык/-чик/-чук/-чүк**: уменьшительный суффикс (бала → балачык, малыш)\\n**эң + прилагательное + ы**: превосходная степень (эң чоңу - самый большой)\\n\\n**Пример:** Кичинекей үйчүк. (Крошечный домик.)`
+    },
+    examples: [
+      { kyrgyz: 'Балачык жылап жатат.', translation: { en: 'The little child is crying.', ru: 'Малыш плачет.' } },
+      { kyrgyz: 'Ак-ак кар жааган.', translation: { en: 'Very white snow fell.', ru: 'Выпал белый-белый снег.' } }
+    ],
+    vocabulary: ['балачык', 'үйчүк', 'кичинекей', 'ак-ак'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does reduplication express?', ru: 'Что выражает редупликация?' }, options: { en: ['intensity/emphasis', 'past tense', 'negation', 'question'], ru: ['интенсивность/ударение', 'прошедшее время', 'отрицание', 'вопрос'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "-чык/-чик" create?', ru: 'Что создаёт "-чык/-чик"?' }, options: { en: ['diminutive form', 'plural', 'past tense', 'passive voice'], ru: ['уменьшительную форму', 'множественное число', 'прошедшее время', 'страдательный залог'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_05',
+    level: 'C1',
+    category: 'syntax',
+    order: 5,
+    title: { en: 'Discourse Markers and Cohesion', ru: 'Дискурсивные маркеры и связность' },
+    description: { en: 'Use advanced connectors for text cohesion', ru: 'Использование продвинутых связок для связности текста' },
+    theory: {
+      en: `Sophisticated discourse markers create cohesive texts:\\n\\n**айтмакчы** = by the way, speaking of which\\n**ошентсе** = in that case, then\\n**дегенде** = at least, in any case\\n**буга карабастан** = despite this, nevertheless\\n\\n**Example:** Айтмакчы, сен эмне кылдың? (By the way, what did you do?)`,
+      ru: `Сложные дискурсивные маркеры создают связные тексты:\\n\\n**айтмакчы** = кстати, к слову\\n**ошентсе** = в таком случае, тогда\\n**дегенде** = по крайней мере, в любом случае\\n**буга карабастан** = несмотря на это, тем не менее\\n\\n**Пример:** Айтмакчы, сен эмне кылдың? (Кстати, что ты сделал?)`
+    },
+    examples: [
+      { kyrgyz: 'Жамгыр жаады. Ошентсе, үйдө калабыз.', translation: { en: 'It rained. In that case, we\'ll stay home.', ru: 'Пошёл дождь. В таком случае, мы останемся дома.' } },
+      { kyrgyz: 'Буга карабастан, ал келди.', translation: { en: 'Despite this, he came.', ru: 'Несмотря на это, он пришёл.' } }
+    ],
+    vocabulary: ['айтмакчы', 'ошентсе', 'дегенде', 'буга карабастан'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "айтмакчы" mean?', ru: 'Что означает "айтмакчы"?' }, options: { en: ['by the way', 'because', 'although', 'when'], ru: ['кстати', 'потому что', 'хотя', 'когда'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "буга карабастан" express?', ru: 'Что выражает "буга карабастан"?' }, options: { en: ['despite/nevertheless', 'therefore', 'for example', 'in addition'], ru: ['несмотря/тем не менее', 'поэтому', 'например', 'в дополнение'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_06',
+    level: 'C1',
+    category: 'morphology',
+    order: 6,
+    title: { en: 'Aspectual Verb Constructions', ru: 'Аспектуальные глагольные конструкции' },
+    description: { en: 'Express aspectual nuances with auxiliary verbs', ru: 'Выражение аспектуальных нюансов вспомогательными глаголами' },
+    theory: {
+      en: `Complex aspectual constructions with auxiliaries:\\n\\n**-п жибер-** = do completely/suddenly\\n**-п кой-** = do in advance/for future benefit\\n**-п чык-** = do completely/finish doing\\n**-п кал-** = accidentally do/end up doing\\n\\n**Example:** Окуп чыктым. (I finished reading [completely].)`,
+      ru: `Сложные аспектуальные конструкции со вспомогательными глаголами:\\n\\n**-п жибер-** = сделать полностью/внезапно\\n**-п кой-** = сделать заранее/на будущее\\n**-п чык-** = сделать полностью/закончить делать\\n**-п кал-** = случайно сделать/оказаться сделавшим\\n\\n**Пример:** Окуп чыктым. (Я дочитал [до конца].)`
+    },
+    examples: [
+      { kyrgyz: 'Ал китепти окуп чыкты.', translation: { en: 'He finished reading the book [completely].', ru: 'Он дочитал книгу [до конца].' } },
+      { kyrgyz: 'Тамакты жасап койдум.', translation: { en: 'I prepared food [in advance].', ru: 'Я приготовил еду [заранее].' } }
+    ],
+    vocabulary: ['жиберүү', 'коюу', 'чыгуу', 'калуу'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-п чык-" express?', ru: 'Что выражает "-п чык-"?' }, options: { en: ['completive aspect', 'passive voice', 'future tense', 'question'], ru: ['завершительный аспект', 'страдательный залог', 'будущее время', 'вопрос'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Say "I finished reading"', ru: 'Скажите "Я дочитал"' }, options: { en: ['Окуп чыктым', 'Окудум', 'Окуйм', 'Окуган'], ru: ['Окуп чыктым', 'Окудум', 'Окуйм', 'Окуган'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_07',
+    level: 'C1',
+    category: 'syntax',
+    order: 7,
+    title: { en: 'Elliptical and Inverted Constructions', ru: 'Эллиптические и инверсированные конструкции' },
+    description: { en: 'Master stylistic variations and omissions', ru: 'Овладение стилистическими вариациями и пропусками' },
+    theory: {
+      en: `Literary Kyrgyz uses ellipsis and inversion for emphasis:\\n\\n**Ellipsis**: Omitting understood elements\\n- Барам. (I'm going.) vs Мен барам.\\n\\n**Inversion**: Fronting for emphasis\\n- Китепти окудум. (neutral) vs Окудум китепти. (emphasis on action)\\n\\nThese are common in poetry and emotional speech.`,
+      ru: `Литературный кыргызский использует эллипсис и инверсию для ударения:\\n\\n**Эллипсис**: Пропуск понятных элементов\\n- Барам. (Иду.) vs Мен барам.\\n\\n**Инверсия**: Вынесение вперёд для ударения\\n- Китепти окудум. (нейтрально) vs Окудум китепти. (ударение на действии)\\n\\nЭто распространено в поэзии и эмоциональной речи.`
+    },
+    examples: [
+      { kyrgyz: 'Келдиби? - Келди.', translation: { en: 'Did he come? - He did. [ellipsis]', ru: 'Пришёл? - Пришёл. [эллипсис]' } },
+      { kyrgyz: 'Сүйөм мен сени!', translation: { en: 'I love you! [emphatic inversion]', ru: 'Люблю я тебя! [эмфатическая инверсия]' } }
+    ],
+    vocabulary: ['келди', 'барам', 'окудум', 'сүйөм'],
+    quiz: [
+      { id: 'q1', question: { en: 'What is ellipsis?', ru: 'Что такое эллипсис?' }, options: { en: ['omitting understood words', 'adding extra words', 'changing word order', 'using passive voice'], ru: ['пропуск понятных слов', 'добавление лишних слов', 'изменение порядка слов', 'использование страдательного залога'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Why use inversion?', ru: 'Зачем использовать инверсию?' }, options: { en: ['emphasis/style', 'grammar requirement', 'negation', 'question formation'], ru: ['ударение/стиль', 'грамматическое требование', 'отрицание', 'образование вопроса'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'c1_lesson_08',
+    level: 'C1',
+    category: 'morphology',
+    order: 8,
+    title: { en: 'Idiomatic Expressions and Fixed Phrases', ru: 'Идиоматические выражения и устойчивые фразы' },
+    description: { en: 'Master native-like expressions and collocations', ru: 'Овладение естественными выражениями и коллокациями' },
+    theory: {
+      en: `Idiomatic expressions use fixed grammatical patterns:\\n\\n**-ып жат-** = sit doing (continuous)\\n**-ып кет-** = go away doing (departure aspect)\\n**башы катуу** = stubborn (lit. "hard head")\\n**көз салуу** = glance at, pay attention to\\n\\n**Example:** Ал китеп окуп жатат. (He's sitting reading [now].)`,
+      ru: `Идиоматические выражения используют фиксированные грамматические паттерны:\\n\\n**-ып жат-** = сидеть делая (длительное)\\n**-ып кет-** = уйти делая (аспект ухода)\\n**башы катуу** = упрямый (букв. "твёрдая голова")\\n**көз салуу** = взглянуть на, обратить внимание\\n\\n**Пример:** Ал китеп окуп жатат. (Он сидит читает [сейчас].)`
+    },
+    examples: [
+      { kyrgyz: 'Анын башы катуу.', translation: { en: 'He\'s stubborn.', ru: 'Он упрямый.' } },
+      { kyrgyz: 'Мага көз сал!', translation: { en: 'Pay attention to me! / Look at me!', ru: 'Обрати на меня внимание! / Посмотри на меня!' } }
+    ],
+    vocabulary: ['башы катуу', 'көз салуу', 'жүрөгү тунуп', 'колу жетти'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "башы катуу" mean?', ru: 'Что означает "башы катуу"?' }, options: { en: ['stubborn', 'intelligent', 'tall', 'sick'], ru: ['упрямый', 'умный', 'высокий', 'больной'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What is "көз салуу"?', ru: 'Что такое "көз салуу"?' }, options: { en: ['glance at/pay attention', 'close eyes', 'open eyes', 'lose sight'], ru: ['взглянуть/обратить внимание', 'закрыть глаза', 'открыть глаза', 'потерять зрение'] }, correct: 0 }
+    ]
   }
 
-  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 + 1 test) ✓
+  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 + 1 test) ✓, C1 (8 lessons, test pending)
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
