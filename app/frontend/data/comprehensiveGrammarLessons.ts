@@ -2947,9 +2947,253 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
       { id: 'q34', question: { en: 'Say "our book"', ru: 'Скажите "наша книга"' }, options: { en: ['китебим', 'китебиң', 'китебибиз', 'китебиңер'], ru: ['китебим', 'китебиң', 'китебибиз', 'китебиңер'] }, correct: 2, explanation: { en: 'Possessive 1st pl: -быз/-биз', ru: 'Притяжательное 1-е мн.: -быз/-биз' } },
       { id: 'q35', question: { en: 'Complete: кел + negative + I', ru: 'Завершите: кел + отрицание + я' }, options: { en: ['келбеймин', 'келемин', 'келдим', 'келип'], ru: ['келбеймин', 'келемин', 'келдим', 'келип'] }, correct: 0, explanation: { en: 'Negative: кел + бе + ймин', ru: 'Отрицание: кел + бе + ймин' } }
     ]
+  },
+
+  // ===== B1 LEVEL - SYNTAX & MORPHOLOGY LESSONS =====
+  {
+    id: 'b1_lesson_01',
+    level: 'B1',
+    category: 'syntax',
+    order: 1,
+    title: { en: 'Conditional Sentences (Real Conditions)', ru: 'Условные предложения (реальные условия)' },
+    description: { en: 'Express real conditions with эгер...болсо', ru: 'Выражение реальных условий с эгер...болсо' },
+    theory: {
+      en: `Real conditional sentences use **эгер** (if) + condition + **болсо** (if it is).\n\n**Pattern:** Эгер + [condition] + болсо, [result].\n\n**Example:** Эгер жамгыр жааса, мен үйдө калам. (If it rains, I will stay home.)`,
+      ru: `Реальные условные предложения используют **эгер** (если) + условие + **болсо** (если будет).\n\n**Схема:** Эгер + [условие] + болсо, [результат].\n\n**Пример:** Эгер жамгыр жааса, мен үйдө калам. (Если пойдёт дождь, я останусь дома.)`
+    },
+    examples: [
+      { kyrgyz: 'Эгер убакыт болсо, мен келем.', translation: { en: 'If I have time, I will come.', ru: 'Если будет время, я приду.' } },
+      { kyrgyz: 'Эгер сен окусаң, сен билесиң.', translation: { en: 'If you study, you will know.', ru: 'Если ты будешь учиться, ты будешь знать.' } }
+    ],
+    vocabulary: ['эгер', 'болсо', 'жааса', 'убакыт'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "эгер...болсо" mean?', ru: 'Что означает "эгер...болсо"?' }, options: { en: ['because...therefore', 'if...then', 'when...then', 'although...but'], ru: ['потому что...поэтому', 'если...то', 'когда...то', 'хотя...но'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Complete: "If it rains, I stay home"', ru: 'Завершите: "Если дождь, я дома"' }, options: { en: ['Жамгыр жааса, үйдө калам', 'Эгер жамгыр жааса, үйдө калам', 'Жамгыр жаады, үйдө калдым', 'Жамгыр жап жатса, үйдө калам'], ru: ['Жамгыр жааса, үйдө калам', 'Эгер жамгыр жааса, үйдө калам', 'Жамгыр жаады, үйдө калдым', 'Жамгыр жап жатса, үйдө калам'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_02',
+    level: 'B1',
+    category: 'morphology',
+    order: 2,
+    title: { en: 'Modal Verbs (керек, мүмкүн, тийиш)', ru: 'Модальные глаголы (керек, мүмкүн, тийиш)' },
+    description: { en: 'Express necessity, possibility, and obligation', ru: 'Выражение необходимости, возможности и обязательства' },
+    theory: {
+      en: `Modal constructions express necessity, possibility, and obligation.\n\n**керек** = need to, must\n**мүмкүн** = possible, can\n**тийиш** = should, ought to\n\n**Pattern:** Verb-уу/үү + modal word\n\n**Examples:**\n- Мен баруу керек. (I need to go.)\n- Сен окуу мүмкүн. (You can study.)\n- Биз иштөө тийиш. (We should work.)`,
+      ru: `Модальные конструкции выражают необходимость, возможность и обязательство.\n\n**керек** = нужно, должен\n**мүмкүн** = возможно, можно\n**тийиш** = следует, должен\n\n**Схема:** Глагол-уу/үү + модальное слово\n\n**Примеры:**\n- Мен баруу керек. (Мне нужно идти.)\n- Сен окуу мүмкүн. (Ты можешь учиться.)\n- Биз иштөө тийиш. (Нам следует работать.)`
+    },
+    examples: [
+      { kyrgyz: 'Мага келүү керек.', translation: { en: 'I must come.', ru: 'Мне нужно прийти.' } },
+      { kyrgyz: 'Бул иштөө мүмкүн.', translation: { en: 'This can work.', ru: 'Это может работать.' } },
+      { kyrgyz: 'Силер аракет кылуу тийиш.', translation: { en: 'You should try.', ru: 'Вам следует попробовать.' } }
+    ],
+    vocabulary: ['керек', 'мүмкүн', 'тийиш', 'аракет'],
+    quiz: [
+      { id: 'q1', question: { en: 'Which modal means "must/need to"?', ru: 'Какое модальное слово означает "должен/нужно"?' }, options: { en: ['керек', 'мүмкүн', 'тийиш', 'болот'], ru: ['керек', 'мүмкүн', 'тийиш', 'болот'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Say "I can go"', ru: 'Скажите "я могу пойти"' }, options: { en: ['Мен баруу керек', 'Мен баруу мүмкүн', 'Мен баруу тийиш', 'Мен барам'], ru: ['Мен баруу керек', 'Мен баруу мүмкүн', 'Мен баруу тийиш', 'Мен барам'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_03',
+    level: 'B1',
+    category: 'morphology',
+    order: 3,
+    title: { en: 'Perfect Tense (-ган/-ген)', ru: 'Перфектное время (-ган/-ген)' },
+    description: { en: 'Express completed actions and experiences', ru: 'Выражение завершённых действий и опыта' },
+    theory: {
+      en: `Perfect tense uses **-ган/-ген/-кан/-кен** to express completed actions.\n\n**Formation:** Verb stem + ган/ген/кан/кен + personal endings\n\n**Example:** Мен барганмын. (I have been/gone.)`,
+      ru: `Перфектное время использует **-ган/-ген/-кан/-кен** для выражения завершённых действий.\n\n**Образование:** Основа глагола + ган/ген/кан/кен + личные окончания\n\n**Пример:** Мен барганмын. (Я ходил/был.)`
+    },
+    examples: [
+      { kyrgyz: 'Мен бул китепти окуганмын.', translation: { en: 'I have read this book.', ru: 'Я читал эту книгу.' } },
+      { kyrgyz: 'Сен Бишкекте болгонсуңбу?', translation: { en: 'Have you been to Bishkek?', ru: 'Ты был в Бишкеке?' } }
+    ],
+    vocabulary: ['барганмын', 'окуганмын', 'болгонсуң', 'көргөнмүн'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form perfect: бар + I', ru: 'Образуйте перфект: бар + я' }, options: { en: ['барганмын', 'бардым', 'барам', 'барат'], ru: ['барганмын', 'бардым', 'барам', 'барат'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "-ган/-ген" express?', ru: 'Что выражает "-ган/-ген"?' }, options: { en: ['future action', 'completed action/experience', 'continuous action', 'habitual action'], ru: ['будущее действие', 'завершённое действие/опыт', 'длительное действие', 'обычное действие'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_04',
+    level: 'B1',
+    category: 'syntax',
+    order: 4,
+    title: { en: 'Relative Clauses with -ган/-ген', ru: 'Относительные придаточные с -ган/-ген' },
+    description: { en: 'Describe nouns with participial clauses', ru: 'Описание существительных с помощью причастных оборотов' },
+    theory: {
+      en: `Relative clauses use participial forms to modify nouns.\n\n**Pattern:** [Subject + Object + Verb-ган/ген] + Noun\n\n**Example:** Мен окуган китеп. (The book that I read.)`,
+      ru: `Относительные придаточные используют причастные формы для определения существительных.\n\n**Схема:** [Подлежащее + Дополнение + Глагол-ган/ген] + Существительное\n\n**Пример:** Мен окуган китеп. (Книга, которую я прочитал.)`
+    },
+    examples: [
+      { kyrgyz: 'Мен көргөн адам', translation: { en: 'The person whom I saw', ru: 'Человек, которого я видел' } },
+      { kyrgyz: 'Ал жазган макала', translation: { en: 'The article that he wrote', ru: 'Статья, которую он написал' } }
+    ],
+    vocabulary: ['көргөн', 'жазган', 'айткан', 'келген'],
+    quiz: [
+      { id: 'q1', question: { en: 'Say "the book that I bought"', ru: 'Скажите "книга, которую я купил"' }, options: { en: ['Мен сатып алган китеп', 'Китепти сатып алдым', 'Сатып алам китеп', 'Китеп сатып алам'], ru: ['Мен сатып алган китеп', 'Китепти сатып алдым', 'Сатып алам китеп', 'Китеп сатып алам'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Where does the participle go?', ru: 'Куда ставится причастие?' }, options: { en: ['after the noun', 'before the noun', 'at sentence end', 'at sentence start'], ru: ['после существительного', 'перед существительным', 'в конце предложения', 'в начале предложения'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_05',
+    level: 'B1',
+    category: 'morphology',
+    order: 5,
+    title: { en: 'Passive Voice (-ыл/-ил)', ru: 'Страдательный залог (-ыл/-ил)' },
+    description: { en: 'Express actions done to the subject', ru: 'Выражение действий, совершаемых над подлежащим' },
+    theory: {
+      en: `Passive voice uses **-ыл/-ил/-ул/-үл** to show action done to subject.\n\n**Formation:** Verb stem + ыл/ил/ул/үл\n\n**Example:** жаз (write) → жазыл (be written)`,
+      ru: `Страдательный залог использует **-ыл/-ил/-ул/-үл** для действий над подлежащим.\n\n**Образование:** Основа глагола + ыл/ил/ул/үл\n\n**Пример:** жаз (писать) → жазыл (быть написанным)`
+    },
+    examples: [
+      { kyrgyz: 'Китеп жазылды.', translation: { en: 'The book was written.', ru: 'Книга была написана.' } },
+      { kyrgyz: 'Үй курулат.', translation: { en: 'The house is being built.', ru: 'Дом строится.' } }
+    ],
+    vocabulary: ['жазылды', 'курулат', 'ачылды', 'жабылды'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form passive: жаз (write)', ru: 'Образуйте страдательный залог: жаз (писать)' }, options: { en: ['жазыл', 'жазба', 'жазуу', 'жазып'], ru: ['жазыл', 'жазба', 'жазуу', 'жазып'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does passive voice show?', ru: 'Что показывает страдательный залог?' }, options: { en: ['who does action', 'action done to subject', 'future action', 'completed action'], ru: ['кто делает действие', 'действие над подлежащим', 'будущее действие', 'завершённое действие'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_06',
+    level: 'B1',
+    category: 'morphology',
+    order: 6,
+    title: { en: 'Causative Voice (-т/-тыр/-дыр)', ru: 'Побудительный залог (-т/-тыр/-дыр)' },
+    description: { en: 'Express causing someone to do something', ru: 'Выражение побуждения кого-то сделать что-то' },
+    theory: {
+      en: `Causative voice uses suffixes to show making/causing someone to act.\n\n**Suffixes:** -т, -тыр/-тир, -дыр/-дир, -гыз/-гиз\n\n**Example:** жаз (write) → жаздыр (make someone write)`,
+      ru: `Побудительный залог использует суффиксы для побуждения кого-то к действию.\n\n**Суффиксы:** -т, -тыр/-тир, -дыр/-дир, -гыз/-гиз\n\n**Пример:** жаз (писать) → жаздыр (заставить писать)`
+    },
+    examples: [
+      { kyrgyz: 'Мен балага китеп окутам.', translation: { en: 'I make the child read a book.', ru: 'Я заставляю ребёнка читать книгу.' } },
+      { kyrgyz: 'Ал үйдү куруптур.', translation: { en: 'He has the house built.', ru: 'Он строит дом (через других).' } }
+    ],
+    vocabulary: ['окутам', 'жаздырам', 'куруптурам', 'иштетем'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form causative: оку (read)', ru: 'Образуйте побудительный залог: оку (читать)' }, options: { en: ['окут', 'окуп', 'окуу', 'окул'], ru: ['окут', 'окуп', 'окуу', 'окул'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does causative voice mean?', ru: 'Что означает побудительный залог?' }, options: { en: ['I do it myself', 'I make someone do it', 'someone does it to me', 'we do it together'], ru: ['я делаю сам', 'я заставляю кого-то делать', 'кто-то делает мне', 'мы делаем вместе'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_07',
+    level: 'B1',
+    category: 'syntax',
+    order: 7,
+    title: { en: 'Reported Speech (-арын/-ерин айтты)', ru: 'Косвенная речь (-арын/-ерин айтты)' },
+    description: { en: 'Report what someone said', ru: 'Передача чужих слов' },
+    theory: {
+      en: `Reported speech uses **-арын/-ерин/орун/өрүн + деп/айтты**.\n\n**Pattern:** [Subject] [quote] + деп айтты/деди\n\n**Example:** Ал келерин айтты. (He said he would come.)`,
+      ru: `Косвенная речь использует **-арын/-ерин/орун/өрүн + деп/айтты**.\n\n**Схема:** [Подлежащее] [цитата] + деп айтты/деди\n\n**Пример:** Ал келерин айтты. (Он сказал, что придёт.)`
+    },
+    examples: [
+      { kyrgyz: 'Ал окуарын айтты.', translation: { en: 'He said he would study.', ru: 'Он сказал, что будет учиться.' } },
+      { kyrgyz: 'Биз барганыбызды айттык.', translation: { en: 'We said we had gone.', ru: 'Мы сказали, что ходили.' } }
+    ],
+    vocabulary: ['деп', 'айтты', 'сурады', 'жооп берди'],
+    quiz: [
+      { id: 'q1', question: { en: 'Say "He said he would go"', ru: 'Скажите "Он сказал, что пойдёт"' }, options: { en: ['Ал барарын айтты', 'Ал барды деди', 'Ал барат айтты', 'Ал барам деп'], ru: ['Ал барарын айтты', 'Ал барды деди', 'Ал барат айтты', 'Ал барам деп'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Which word introduces reported speech?', ru: 'Какое слово вводит косвенную речь?' }, options: { en: ['жана', 'деп', 'менен', 'үчүн'], ru: ['жана', 'деп', 'менен', 'үчүн'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_08',
+    level: 'B1',
+    category: 'morphology',
+    order: 8,
+    title: { en: 'Reciprocal Voice (-ш/-иш)', ru: 'Взаимный залог (-ш/-иш)' },
+    description: { en: 'Express mutual actions', ru: 'Выражение взаимных действий' },
+    theory: {
+      en: `Reciprocal voice uses **-ш/-иш/-уш/-үш** for mutual actions.\n\n**Example:** көр (see) → көрүш (see each other)`,
+      ru: `Взаимный залог использует **-ш/-иш/-уш/-үш** для взаимных действий.\n\n**Пример:** көр (видеть) → көрүш (видеться)`
+    },
+    examples: [
+      { kyrgyz: 'Биз көрүштүк.', translation: { en: 'We saw each other.', ru: 'Мы виделись.' } },
+      { kyrgyz: 'Алар сүйлөшүшөт.', translation: { en: 'They talk to each other.', ru: 'Они разговаривают друг с другом.' } }
+    ],
+    vocabulary: ['көрүш', 'сүйлөш', 'жардамдаш', 'баарлаш'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form reciprocal: көр (see)', ru: 'Образуйте взаимный залог: көр (видеть)' }, options: { en: ['көрүш', 'көрүл', 'көрсөт', 'көрбө'], ru: ['көрүш', 'көрүл', 'көрсөт', 'көрбө'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does reciprocal voice show?', ru: 'Что показывает взаимный залог?' }, options: { en: ['one-way action', 'mutual action', 'passive action', 'causative action'], ru: ['одностороннее действие', 'взаимное действие', 'страдательное действие', 'побудительное действие'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_09',
+    level: 'B1',
+    category: 'morphology',
+    order: 9,
+    title: { en: 'Reflexive Voice (-н/-ын/-ин)', ru: 'Возвратный залог (-н/-ын/-ин)' },
+    description: { en: 'Express actions done to oneself', ru: 'Выражение действий, направленных на себя' },
+    theory: {
+      en: `Reflexive voice uses **-н/-ын/-ин/-ун/-үн** for self-directed actions.\n\n**Example:** жуу (wash) → жуун (wash oneself)`,
+      ru: `Возвратный залог использует **-н/-ын/-ин/-ун/-үн** для действий, направленных на себя.\n\n**Пример:** жуу (мыть) → жуун (умываться)`
+    },
+    examples: [
+      { kyrgyz: 'Мен жуунам.', translation: { en: 'I wash myself.', ru: 'Я умываюсь.' } },
+      { kyrgyz: 'Ал кийинет.', translation: { en: 'He/she dresses.', ru: 'Он/она одевается.' } }
+    ],
+    vocabulary: ['жуунам', 'кийинем', 'тарамын', 'даярданам'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form reflexive: жуу (wash)', ru: 'Образуйте возвратный залог: жуу (мыть)' }, options: { en: ['жуун', 'жуул', 'жуут', 'жууш'], ru: ['жуун', 'жуул', 'жуут', 'жууш'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does reflexive voice show?', ru: 'Что показывает возвратный залог?' }, options: { en: ['action to others', 'action to oneself', 'mutual action', 'caused action'], ru: ['действие на других', 'действие на себя', 'взаимное действие', 'побуждённое действие'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_10',
+    level: 'B1',
+    category: 'syntax',
+    order: 10,
+    title: { en: 'Concessive Clauses (-са да/се де)', ru: 'Уступительные придаточные (-са да/се де)' },
+    description: { en: 'Express "although/even though"', ru: 'Выражение "хотя/несмотря на"' },
+    theory: {
+      en: `Concessive clauses use **-са/-се + да/де** for "although/even though".\n\n**Pattern:** Verb-са/се да/де, [result]\n\n**Example:** Жаада болсо да, мен барам. (Even though it's raining, I'll go.)`,
+      ru: `Уступительные придаточные используют **-са/-се + да/де** для "хотя/несмотря на".\n\n**Схема:** Глагол-са/се да/де, [результат]\n\n**Пример:** Жаада болсо да, мен барам. (Хотя дождь, я пойду.)`
+    },
+    examples: [
+      { kyrgyz: 'Чарчасам да, иштейм.', translation: { en: 'Although I\'m tired, I work.', ru: 'Хотя я устал, я работаю.' } },
+      { kyrgyz: 'Акчасы жок болсо да, ал сатып алды.', translation: { en: 'Even though he had no money, he bought it.', ru: 'Хотя у него не было денег, он купил.' } }
+    ],
+    vocabulary: ['болсо да', 'барса да', 'келсе де', 'окуса да'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-са да" mean?', ru: 'Что означает "-са да"?' }, options: { en: ['because', 'although', 'therefore', 'when'], ru: ['потому что', 'хотя', 'поэтому', 'когда'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Say "even though it\'s cold"', ru: 'Скажите "хотя холодно"' }, options: { en: ['Суук болсо да', 'Суук болгондо', 'Суук үчүн', 'Суук менен'], ru: ['Суук болсо да', 'Суук болгондо', 'Суук үчүн', 'Суук менен'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'b1_lesson_11',
+    level: 'B1',
+    category: 'morphology',
+    order: 11,
+    title: { en: 'Desiderative Mood (-гым/-гим келет)', ru: 'Желательное наклонение (-гым/-гим келет)' },
+    description: { en: 'Express desires and wishes', ru: 'Выражение желаний и стремлений' },
+    theory: {
+      en: `Desiderative mood uses **-гым/-гим/-кым/-ким + келет** for "want to".\n\n**Pattern:** Verb stem + гым/гим келет\n\n**Example:** Мен баргым келет. (I want to go.)`,
+      ru: `Желательное наклонение использует **-гым/-гим/-кым/-ким + келет** для "хочу".\n\n**Схема:** Основа глагола + гым/гим келет\n\n**Пример:** Мен баргым келет. (Я хочу пойти.)`
+    },
+    examples: [
+      { kyrgyz: 'Мага окугум келет.', translation: { en: 'I want to study.', ru: 'Я хочу учиться.' } },
+      { kyrgyz: 'Сага эмне кылгың келет?', translation: { en: 'What do you want to do?', ru: 'Что ты хочешь делать?' } }
+    ],
+    vocabulary: ['баргым келет', 'окугум келет', 'жегим келет', 'уктагым келет'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form desiderative: бар (go)', ru: 'Образуйте желательное: бар (идти)' }, options: { en: ['баргым келет', 'барамын', 'бардым', 'барууну каалайм'], ru: ['баргым келет', 'барамын', 'бардым', 'барууну каалайм'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "-гым келет" express?', ru: 'Что выражает "-гым келет"?' }, options: { en: ['obligation', 'desire/want', 'ability', 'permission'], ru: ['обязательство', 'желание/хотение', 'способность', 'разрешение'] }, correct: 1 }
+    ]
   }
 
-  // Total: A1 (14 lessons + 1 final test), A2 (11 lessons + 1 final test) ✓
+  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 lessons, test pending) ✓
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
