@@ -24,6 +24,15 @@
 - All UI text, explanations, and feedback respect chosen language
 - Kyrgyz content remains in Kyrgyz (examples, exercises, readings)
 
+**Level Assessment Choice**
+- User chooses how to start their learning journey:
+  1. **Take Placement Test** - Complete 20-question assessment (15-20 minutes)
+  2. **Start from Scratch** - Begin at A1 level with no prior knowledge
+- Clear descriptions of each option
+- "Start from Scratch" option marked as recommended for complete beginners
+- Bilingual interface (Russian/English)
+- Users can retake placement test later from profile settings
+
 **Adaptive Placement Test (20 Questions)**
 - One question at a time with progress indicator
 - 20 questions covering 5 CEFR levels (A1, A2, B1, B2, C1)
