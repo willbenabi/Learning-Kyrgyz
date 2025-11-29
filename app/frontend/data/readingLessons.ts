@@ -491,6 +491,438 @@ options: ['бир', 'эки', 'үч'],
       }
     ]
   },
+  {
+    id: 'a2_read_2',
+    level: 'A2',
+    order: 2,
+    title: {
+      en: 'The Fox and the Grapes',
+      ru: 'Лиса и виноград'
+    },
+    description: {
+      en: 'Classic fable about a fox',
+      ru: 'Классическая басня о лисе'
+    },
+    text: 'Бир күнү ачка түлкү жолдо жүрүп баратып, жогорку агачта жүзүм көрдү. Жүзүм өтө кооз болучу. Түлкү секирип, жүзүмдү алууну аракеттенди. Бирок, ал жете албады. Көп аракеттенгенден кийин, түлкү "Жүзүм дагы да кычык экен" деп кеткен.',
+    textType: {
+      en: 'Fable',
+      ru: 'Басня'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Түлкү эмне көрдү?',
+        type: 'multiple_choice',
+        options: ['алма', 'жүзүм', 'алмурут'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Жүзүм кайда болгон?',
+        type: 'multiple_choice',
+        options: ['жерде', 'агачта', 'үйдө'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Түлкү жүзүмдү ала алдыбы?',
+        type: 'multiple_choice',
+        options: ['ооба', 'жок', 'айтылбайт'],
+        correct: 1
+      },
+      {
+        id: 'q4',
+        question: 'Түлкү эмне деди?',
+        type: 'multiple_choice',
+        options: ['"Жүзүм ширин экен"', '"Жүзүм кычык экен"', '"Жүзүм жок"'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a2_read_3',
+    level: 'A2',
+    order: 3,
+    title: {
+      en: 'A Visit to the Doctor',
+      ru: 'Визит к врачу'
+    },
+    description: {
+      en: 'Simple dialogue at a clinic',
+      ru: 'Простой диалог в поликлинике'
+    },
+    text: 'Азамат ооруп калды. Ал дарыгерге барды. Дарыгер аны карап, "Сизде суук тийген. Үч күн үйдө жатыңыз. Дары ичиңиз. Ысык чай ичиңиз" деди. Азамат дарыканага барып, дары алды. Үч күндөн кийин ал согулду.',
+    textType: {
+      en: 'Health dialogue',
+      ru: 'Диалог о здоровье'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Азамат эмне болду?',
+        type: 'multiple_choice',
+        options: ['ооруп калды', 'күлгөн', 'иштеген'],
+        correct: 0
+      },
+      {
+        id: 'q2',
+        question: 'Дарыгер эмне айтты?',
+        type: 'multiple_choice',
+        options: ['иштегиле', 'үйдө жатыңыз', 'каникулга кетиңиз'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Азамат кайдан дары алды?',
+        type: 'multiple_choice',
+        options: ['дарыканадан', 'базардан', 'мектептен'],
+        correct: 0
+      },
+      {
+        id: 'q4',
+        question: 'Качан согулду?',
+        type: 'multiple_choice',
+        options: ['бир күндөн кийин', 'эки күндөн кийин', 'үч күндөн кийин'],
+        correct: 2
+      }
+    ]
+  },
+  {
+    id: 'a2_read_4',
+    level: 'A2',
+    order: 4,
+    title: {
+      en: 'Seasons in Kyrgyzstan',
+      ru: 'Времена года в Кыргызстане'
+    },
+    description: {
+      en: 'Description of four seasons',
+      ru: 'Описание четырёх сезонов'
+    },
+    text: 'Кыргызстанда төрт мезгил бар. Жазда ысык болот, адамдар көлдөргө барышат. Күздө жапырактар сарыйт, жемиштер бышат. Кышында кар жаат, балдар чаңгы тебишет. Жазда жаңы гүлдөр ачылат, аба жылыйт.',
+    textType: {
+      en: 'Descriptive text',
+      ru: 'Описательный текст'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Кыргызстанда канча мезгил бар?',
+        type: 'multiple_choice',
+        options: ['үч', 'төрт', 'беш'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Жазда эмне болот?',
+        type: 'multiple_choice',
+        options: ['ысык болот', 'суук болот', 'кар жаат'],
+        correct: 0
+      },
+      {
+        id: 'q3',
+        question: 'Кышында балдар эмне кылышат?',
+        type: 'multiple_choice',
+        options: ['сүзүшөт', 'чаңгы тебишет', 'велосипед тебишет'],
+        correct: 1
+      },
+      {
+        id: 'q4',
+        question: 'Күздө эмне бышат?',
+        type: 'multiple_choice',
+        options: ['гүлдөр', 'жемиштер', 'чөптөр'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a2_read_5',
+    level: 'A2',
+    order: 5,
+    title: {
+      en: 'A Trip to Issyk-Kul',
+      ru: 'Поездка на Иссык-Куль'
+    },
+    description: {
+      en: 'Travel narrative',
+      ru: 'Рассказ о путешествии'
+    },
+    text: 'Биздин үй-бүлө өткөн жазда Ысык-Көлгө барган. Биз автобус менен он саат жол жүрдүк. Көл абдан кооз болучу. Суу таза жана көк. Биз үч күн жээкте калдык. Балдар сууда сүзүшкөн, биз эс алдык. Бул өтө жакшы каникул болгон.',
+    textType: {
+      en: 'Travel story',
+      ru: 'Рассказ о путешествии'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Алар качан Ысык-Көлгө барышкан?',
+        type: 'multiple_choice',
+        options: ['өткөн күзүндө', 'өткөн жазда', 'өткөн кышында'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Канча саат жол жүрүшкөн?',
+        type: 'multiple_choice',
+        options: ['беш', 'он', 'он беш'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Алар канча күн калышкан?',
+        type: 'multiple_choice',
+        options: ['бир күн', 'эки күн', 'үч күн'],
+        correct: 2
+      },
+      {
+        id: 'q4',
+        question: 'Балдар эмне кылышкан?',
+        type: 'multiple_choice',
+        options: ['окушкан', 'сууда сүзүшкөн', 'ойношкон'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a2_read_6',
+    level: 'A2',
+    order: 6,
+    title: {
+      en: 'Traditional Kyrgyz Food',
+      ru: 'Традиционная кыргызская еда'
+    },
+    description: {
+      en: 'About national cuisine',
+      ru: 'О национальной кухне'
+    },
+    text: 'Кыргыз тамагы өтө даамдуу. Эң белгилүү тамак - бешбармак. Аны эт жана кеспе менен жасашат. Дагы бир белгилүү тамак - лагман. Бул узун кеспе бар шорпо. Ашлан-фу муздак тамак. Аны жазда жегенди жакшы көрүшөт.',
+    textType: {
+      en: 'Cultural description',
+      ru: 'Культурное описание'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Кыргыз тамагы кандай?',
+        type: 'multiple_choice',
+        options: ['даамдуу', 'жаман', 'даамсыз'],
+        correct: 0
+      },
+      {
+        id: 'q2',
+        question: 'Эң белгилүү тамак кайсы?',
+        type: 'multiple_choice',
+        options: ['плов', 'бешбармак', 'борщ'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Лагман деген эмне?',
+        type: 'multiple_choice',
+        options: ['салат', 'узун кеспе бар шорпо', 'торт'],
+        correct: 1
+      },
+      {
+        id: 'q4',
+        question: 'Качан ашлан-фуну жегенди жакшы көрүшөт?',
+        type: 'multiple_choice',
+        options: ['кышында', 'жазда', 'күздө'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a2_read_7',
+    level: 'A2',
+    order: 7,
+    title: {
+      en: 'The Lazy Boy',
+      ru: 'Ленивый мальчик'
+    },
+    description: {
+      en: 'Moral tale',
+      ru: 'Поучительная сказка'
+    },
+    text: 'Эртеде бир жалкоо бала жашаган. Ал эч нерсе кылгысы келбей турган. Атасы "Бак казып бер" деген. Бала "Чарчадым" деп жаткан. Апасы "Анага жардам бер" деген. Бала "Билбейм" деп жооп берген. Бир күнү үйдө эч нерсе калбаган. Анда бала иштөөнү үйрөнгөн.',
+    textType: {
+      en: 'Moral tale',
+      ru: 'Поучительная сказка'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Бала кандай болгон?',
+        type: 'multiple_choice',
+        options: ['тырыш', 'жалкоо', 'акылдуу'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Атасы эмне деген?',
+        type: 'multiple_choice',
+        options: ['окугула', 'бак казып бер', 'ойногула'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Эмне болгондо бала өзгөрдү?',
+        type: 'multiple_choice',
+        options: ['үйдө эч нерсе калбаганда', 'атасы ургандо', 'мектепке барганда'],
+        correct: 0
+      },
+      {
+        id: 'q4',
+        question: 'Бала эмнени үйрөндү?',
+        type: 'multiple_choice',
+        options: ['окууну', 'иштөөнү', 'ойноону'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a2_read_8',
+    level: 'A2',
+    order: 8,
+    title: {
+      en: 'The New Student',
+      ru: 'Новый ученик'
+    },
+    description: {
+      en: 'School story',
+      ru: 'Школьная история'
+    },
+    text: 'Биздин классга жаңы окуучу келди. Анын аты Нурбек. Ал Ош шаарынан көчүп келген. Биринчи күнү ал коркуп турду. Бирок биз аны жакшы кабыл алдык. Мен ага мектепти көрсөттүм. Азыр Нурбек менин эң жакын досум.',
+    textType: {
+      en: 'School narrative',
+      ru: 'Школьный рассказ'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Жаңы окуучунун аты ким?',
+        type: 'multiple_choice',
+        options: ['Азамат', 'Нурбек', 'Бакыт'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Ал кайдан келген?',
+        type: 'multiple_choice',
+        options: ['Бишкектен', 'Ош шаарынан', 'Жалал-Абаддан'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Биринчи күнү ал кандай болгон?',
+        type: 'multiple_choice',
+        options: ['кубанычтуу', 'коркуп турган', 'ачуулуу'],
+        correct: 1
+      },
+      {
+        id: 'q4',
+        question: 'Азыр Нурбек ким?',
+        type: 'multiple_choice',
+        options: ['мугалим', 'эң жакын дос', 'таанышпаган'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a2_read_9',
+    level: 'A2',
+    order: 9,
+    title: {
+      en: 'At the Post Office',
+      ru: 'На почте'
+    },
+    description: {
+      en: 'Practical dialogue',
+      ru: 'Практический диалог'
+    },
+    text: 'Апам почтага барды. Ал конверт жана марка сатып алды. Атасына кат жазды. Катта "Саламатсызбы, ата! Биз жакшыбыз. Сиз кандайсыз? Жакында келебиз" деп жазган. Кийин ал катты почта кутусуна салды.',
+    textType: {
+      en: 'Practical dialogue',
+      ru: 'Практический диалог'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Апам кайда барды?',
+        type: 'multiple_choice',
+        options: ['дүкөнгө', 'почтага', 'паркка'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Ал эмне сатып алды?',
+        type: 'multiple_choice',
+        options: ['китеп', 'конверт жана марка', 'тамак'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Ал кимге кат жазды?',
+        type: 'multiple_choice',
+        options: ['досуна', 'атасына', 'мугалимге'],
+        correct: 1
+      },
+      {
+        id: 'q4',
+        question: 'Ал катты кайда салды?',
+        type: 'multiple_choice',
+        options: ['столго', 'сумкага', 'почта кутусуна'],
+        correct: 2
+      }
+    ]
+  },
+  {
+    id: 'a2_read_10',
+    level: 'A2',
+    order: 10,
+    title: {
+      en: 'My Hobby',
+      ru: 'Моё хобби'
+    },
+    description: {
+      en: 'Personal interests',
+      ru: 'Личные интересы'
+    },
+    text: 'Менин хоббим - сүрөт тартуу. Мен жети жаштан бери сүрөт тартам. Адегенде түстүү калем менен тарткам. Азыр краска менен иштейм. Мен жаратылыштын кооздугун сүрөткө тартам: тоолорду, дарыяларды, гүлдөрдү. Келечекте сүрөтчү болгум келет.',
+    textType: {
+      en: 'Personal description',
+      ru: 'Личное описание'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Анын хоббиси эмне?',
+        type: 'multiple_choice',
+        options: ['музыка', 'сүрөт тартуу', 'спорт'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Качандан бери сүрөт тартат?',
+        type: 'multiple_choice',
+        options: ['беш жаштан', 'жети жаштан', 'он жаштан'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Азыр эмне менен иштейт?',
+        type: 'multiple_choice',
+        options: ['түстүү калем', 'краска', 'уголь'],
+        correct: 1
+      },
+      {
+        id: 'q4',
+        question: 'Ал эмне болгусу келет?',
+        type: 'multiple_choice',
+        options: ['мугалим', 'дарыгер', 'сүрөтчү'],
+        correct: 2
+      }
+    ]
+  },
 
   // ===== B1 LEVEL =====
   {
