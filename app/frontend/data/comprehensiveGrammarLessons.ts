@@ -3443,9 +3443,73 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
       { id: 'q1', question: { en: 'What does -уу/-үү create?', ru: 'Что создаёт -уу/-үү?' }, options: { en: ['past tense', 'noun from verb', 'question', 'passive voice'], ru: ['прошедшее время', 'существительное из глагола', 'вопрос', 'страдательный залог'] }, correct: 1 },
       { id: 'q2', question: { en: 'Say "I like reading"', ru: 'Скажите "Мне нравится читать"' }, options: { en: ['Окуу мага жагат', 'Окуйм мага жагат', 'Окудум мага жагат', 'Окуган мага жагат'], ru: ['Окуу мага жагат', 'Окуйм мага жагат', 'Окудум мага жагат', 'Окуган мага жагат'] }, correct: 0 }
     ]
+  },
+
+  // ===== B2 LEVEL - FINAL TEST =====
+  {
+    id: 'b2_final_test',
+    level: 'B2',
+    category: 'final_test',
+    order: 9,
+    title: { en: 'B2 Level Final Test', ru: 'Финальный тест уровня B2' },
+    description: { en: 'Comprehensive test covering all B2 grammar topics', ru: 'Комплексный тест по всем темам грамматики уровня B2' },
+    theory: {
+      en: `This final test covers all B2 topics: unreal conditionals, evidentiality, presumptive mood, complex temporal clauses, optative mood, correlative conjunctions, converbs, and nominalization.`,
+      ru: `Этот финальный тест охватывает все темы B2: нереальные условия, пересказывательность, предположительное наклонение, сложные временные придаточные, желательное наклонение, парные союзы, конвербы и субстантивацию.`
+    },
+    examples: [],
+    quiz: [
+      // Unreal Conditionals (4 questions)
+      { id: 'q1', question: { en: 'How to express "would" in Kyrgyz?', ru: 'Как выразить "бы" в кыргызском?' }, options: { en: ['Use -макмын/-мекмин', 'Use -ат/-эт', 'Use -ды/-ди', 'Use -ган/-ген'], ru: ['Используйте -макмын/-мекмин', 'Используйте -ат/-эт', 'Используйте -ды/-ди', 'Используйте -ган/-ген'] }, correct: 0, explanation: { en: '-макмын/-мекмин = would (hypothetical)', ru: '-макмын/-мекмин = бы (гипотетическое)' } },
+      { id: 'q2', question: { en: 'Which tense in unreal condition?', ru: 'Какое время в нереальном условии?' }, options: { en: ['future', 'present', 'past', 'imperative'], ru: ['будущее', 'настоящее', 'прошедшее', 'повелительное'] }, correct: 2, explanation: { en: 'Use past tense for unreal conditions', ru: 'Используйте прошедшее для нереальных условий' } },
+      { id: 'q3', question: { en: 'Say "If I had money, I would buy"', ru: 'Скажите "Если бы у меня были деньги, я бы купил"' }, options: { en: ['Эгер акчам болсо, сатып алмакмын', 'Эгер акчам бар, сатып алам', 'Эгер акчам болот, сатып алам', 'Акчам бар, сатып алдым'], ru: ['Эгер акчам болсо, сатып алмакмын', 'Эгер акчам бар, сатып алам', 'Эгер акчам болот, сатып алам', 'Акчам бар, сатып алдым'] }, correct: 0, explanation: { en: 'Unreal: past + болсо, would', ru: 'Нереальное: прошедшее + болсо, бы' } },
+      { id: 'q4', question: { en: 'Pattern for unreal past condition?', ru: 'Схема для нереального прошедшего условия?' }, options: { en: ['эгер + past + болсо', 'эгер + future + болсо', 'эгер + present + болсо', 'эгер + imperative'], ru: ['эгер + прошедшее + болсо', 'эгер + будущее + болсо', 'эгер + настоящее + болсо', 'эгер + повелительное'] }, correct: 0, explanation: { en: 'Unreal conditions use past tense', ru: 'Нереальные условия используют прошедшее время' } },
+
+      // Evidentiality (3 questions)
+      { id: 'q5', question: { en: 'What does -птыр/-птир mark?', ru: 'Что обозначает -птыр/-птир?' }, options: { en: ['firsthand knowledge', 'secondhand information', 'future action', 'command'], ru: ['личное знание', 'информация из вторых рук', 'будущее действие', 'команда'] }, correct: 1, explanation: { en: '-птыр = hearsay/reported', ru: '-птыр = слухи/пересказ' } },
+      { id: 'q6', question: { en: 'Say "He left, I heard"', ru: 'Скажите "Он ушёл, говорят"' }, options: { en: ['Ал кетти', 'Ал кетиптир', 'Ал кетет', 'Ал кетсин'], ru: ['Ал кетти', 'Ал кетиптир', 'Ал кетет', 'Ал кетсин'] }, correct: 1, explanation: { en: 'кетиптир = left (heard/reported)', ru: 'кетиптир = ушёл (говорят)' } },
+      { id: 'q7', question: { en: 'Difference: кетти vs кетиптир?', ru: 'Разница: кетти vs кетиптир?' }, options: { en: ['witnessed vs heard', 'past vs future', 'singular vs plural', 'formal vs informal'], ru: ['видел сам vs услышал', 'прошедшее vs будущее', 'единственное vs множественное', 'формальное vs неформальное'] }, correct: 0, explanation: { en: 'кетти = I saw, кетиптир = I heard', ru: 'кетти = я видел, кетиптир = я слышал' } },
+
+      // Presumptive Mood (3 questions)
+      { id: 'q8', question: { en: 'What does "экен" express?', ru: 'Что выражает "экен"?' }, options: { en: ['certainty', 'inference/assumption', 'command', 'desire'], ru: ['уверенность', 'вывод/предположение', 'команда', 'желание'] }, correct: 1, explanation: { en: 'экен = seems/appears (inference)', ru: 'экен = похоже/кажется (вывод)' } },
+      { id: 'q9', question: { en: 'Say "It seems he left"', ru: 'Скажите "Похоже, он ушёл"' }, options: { en: ['Ал кетти', 'Ал кеткен экен', 'Ал кетсин', 'Ал кетет'], ru: ['Ал кетти', 'Ал кеткен экен', 'Ал кетсин', 'Ал кетет'] }, correct: 1, explanation: { en: 'кеткен экен = appears to have left', ru: 'кеткен экен = похоже, ушёл' } },
+      { id: 'q10', question: { en: 'When use "экен"?', ru: 'Когда использовать "экен"?' }, options: { en: ['witnessed directly', 'infer from evidence', 'give commands', 'ask questions'], ru: ['видел напрямую', 'делаю вывод из свидетельств', 'даю команды', 'задаю вопросы'] }, correct: 1, explanation: { en: 'экен for inferences from evidence', ru: 'экен для выводов из свидетельств' } },
+
+      // Complex Temporal Clauses (4 questions)
+      { id: 'q11', question: { en: 'What does "-ганда/-генде" mean?', ru: 'Что означает "-ганда/-генде"?' }, options: { en: ['after', 'when/while', 'because', 'if'], ru: ['после', 'когда/пока', 'потому что', 'если'] }, correct: 1, explanation: { en: '-ганда = when/at the moment', ru: '-ганда = когда/в момент' } },
+      { id: 'q12', question: { en: 'Say "while working"', ru: 'Скажите "пока работаю"' }, options: { en: ['иштеп жатканда', 'иштегенден кийин', 'иштөө үчүн', 'иштеген экен'], ru: ['иштеп жатканда', 'иштегенден кийин', 'иштөө үчүн', 'иштеген экен'] }, correct: 0, explanation: { en: 'жатканда = while doing', ru: 'жатканда = пока делаю' } },
+      { id: 'q13', question: { en: 'What does "-ганча/-генче" mean?', ru: 'Что означает "-ганча/-генче"?' }, options: { en: ['after', 'before/until', 'because', 'although'], ru: ['после', 'до/пока не', 'потому что', 'хотя'] }, correct: 1, explanation: { en: '-ганча = while/during/until', ru: '-ганча = пока/до' } },
+      { id: 'q14', question: { en: 'Say "until he comes"', ru: 'Скажите "пока он не придёт"' }, options: { en: ['ал келгенче', 'ал келгенде', 'ал келгенден кийин', 'ал келер экен'], ru: ['ал келгенче', 'ал келгенде', 'ал келгенден кийин', 'ал келер экен'] }, correct: 0, explanation: { en: 'келгенче = until he comes', ru: 'келгенче = пока не придёт' } },
+
+      // Optative Mood (3 questions)
+      { id: 'q15', question: { en: 'What does optative mood express?', ru: 'Что выражает желательное наклонение?' }, options: { en: ['facts', 'wishes/hopes', 'assumptions', 'commands'], ru: ['факты', 'желания/надежды', 'предположения', 'команды'] }, correct: 1, explanation: { en: 'Optative = wishes/blessings', ru: 'Желательное = пожелания/благословения' } },
+      { id: 'q16', question: { en: 'Say "May he succeed"', ru: 'Скажите "Пусть он добьётся успеха"' }, options: { en: ['Ал ийгиликтүү болот', 'Ал ийгиликтүү болгой', 'Ал ийгиликтүү болду', 'Ал ийгиликтүү болсун'], ru: ['Ал ийгиликтүү болот', 'Ал ийгиликтүү болгой', 'Ал ийгиликтүү болду', 'Ал ийгиликтүү болсун'] }, correct: 1, explanation: { en: '-гой = may (wish)', ru: '-гой = пусть (пожелание)' } },
+      { id: 'q17', question: { en: 'Optative suffix variants?', ru: 'Варианты суффикса желательного?' }, options: { en: ['-гай/-гей/-кай/-кей', '-ды/-ди/-ты/-ти', '-ган/-ген/-кан/-кен', '-ат/-эт/-от/-өт'], ru: ['-гай/-гей/-кай/-кей', '-ды/-ди/-ты/-ти', '-ган/-ген/-кан/-кен', '-ат/-эт/-от/-өт'] }, correct: 0, explanation: { en: 'Optative uses -гай/-гей variants', ru: 'Желательное использует варианты -гай/-гей' } },
+
+      // Correlative Conjunctions (3 questions)
+      { id: 'q18', question: { en: 'Which means "both...and"?', ru: 'Что означает "и...и"?' }, options: { en: ['же...же', 'да...да', 'эмес...эмес', 'же...болбосо'], ru: ['же...же', 'да...да', 'эмес...эмес', 'же...болбосо'] }, correct: 1, explanation: { en: 'да...да = both...and', ru: 'да...да = и...и' } },
+      { id: 'q19', question: { en: 'Say "either this or that"', ru: 'Скажите "либо это, либо то"' }, options: { en: ['Бул да, ал да', 'Же бул, же ал', 'Бул жана ал', 'Бул бирок ал'], ru: ['Бул да, ал да', 'Же бул, же ал', 'Бул жана ал', 'Бул бирок ал'] }, correct: 1, explanation: { en: 'же...же = either...or', ru: 'же...же = либо...либо' } },
+      { id: 'q20', question: { en: 'Say "both you and I"', ru: 'Скажите "и ты, и я"' }, options: { en: ['Сен да, мен да', 'Же сен, же мен', 'Сен жана мен', 'Сен бирок мен'], ru: ['Сен да, мен да', 'Же сен, же мен', 'Сен жана мен', 'Сен бирок мен'] }, correct: 0, explanation: { en: 'да...да for "both...and"', ru: 'да...да для "и...и"' } },
+
+      // Converbs (4 questions)
+      { id: 'q21', question: { en: 'What does -п/-ип converb show?', ru: 'Что показывает конверб -п/-ип?' }, options: { en: ['simultaneous action', 'future action', 'passive voice', 'question'], ru: ['одновременное действие', 'будущее действие', 'страдательный залог', 'вопрос'] }, correct: 0, explanation: { en: '-п = and/while (simultaneous)', ru: '-п = и/пока (одновременно)' } },
+      { id: 'q22', question: { en: 'Say "reading, I learned"', ru: 'Скажите "читая, я узнал"' }, options: { en: ['Окуп билдим', 'Окуйм билдим', 'Окуду билдим', 'Окуган билдим'], ru: ['Окуп билдим', 'Окуйм билдим', 'Окуду билдим', 'Окуган билдим'] }, correct: 0, explanation: { en: 'Converb: окуп = reading (manner)', ru: 'Конверб: окуп = читая (способ)' } },
+      { id: 'q23', question: { en: 'Say "came running"', ru: 'Скажите "прибежал"' }, options: { en: ['Жүгүрө келди', 'Жүгүрүп келди', 'Жүгүрдү келди', 'Жүгүрөт келди'], ru: ['Жүгүрө келди', 'Жүгүрүп келди', 'Жүгүрдү келди', 'Жүгүрөт келди'] }, correct: 0, explanation: { en: 'жүгүрө = running (manner)', ru: 'жүгүрө = бегом (способ)' } },
+      { id: 'q24', question: { en: 'Converb connects actions showing?', ru: 'Конверб связывает действия, показывая?' }, options: { en: ['manner/time/cause', 'only future', 'only questions', 'only negation'], ru: ['способ/время/причину', 'только будущее', 'только вопросы', 'только отрицание'] }, correct: 0, explanation: { en: 'Converbs show manner, time, cause', ru: 'Конвербы показывают способ, время, причину' } },
+
+      // Nominalization (3 questions)
+      { id: 'q25', question: { en: 'What does -уу/-үү create?', ru: 'Что создаёт -уу/-үү?' }, options: { en: ['past tense', 'noun from verb', 'question', 'passive voice'], ru: ['прошедшее время', 'существительное из глагола', 'вопрос', 'страдательный залог'] }, correct: 1, explanation: { en: '-уу = infinitive/gerund (noun)', ru: '-уу = инфинитив/герундий (существительное)' } },
+      { id: 'q26', question: { en: 'Say "I like reading"', ru: 'Скажите "Мне нравится читать"' }, options: { en: ['Окуу мага жагат', 'Окуйм мага жагат', 'Окудум мага жагат', 'Окуган мага жагат'], ru: ['Окуу мага жагат', 'Окуйм мага жагат', 'Окудум мага жагат', 'Окуган мага жагат'] }, correct: 0, explanation: { en: 'окуу = reading (nominalized)', ru: 'окуу = чтение (субстантивировано)' } },
+      { id: 'q27', question: { en: 'Say "Walking is useful"', ru: 'Скажите "Ходьба полезна"' }, options: { en: ['Жүрүү пайдалуу', 'Жүрөм пайдалуу', 'Жүрдүм пайдалуу', 'Жүргөн пайдалуу'], ru: ['Жүрүү пайдалуу', 'Жүрөм пайдалуу', 'Жүрдүм пайдалуу', 'Жүргөн пайдалуу'] }, correct: 0, explanation: { en: 'жүрүү = walking (noun)', ru: 'жүрүү = ходьба (существительное)' } },
+
+      // Mixed Review (3 questions)
+      { id: 'q28', question: { en: 'Which is evidential?', ru: 'Какой является пересказывательным?' }, options: { en: ['келди (came)', 'келиптир (came, heard)', 'келет (will come)', 'келсин (let come)'], ru: ['келди (пришёл)', 'келиптир (пришёл, говорят)', 'келет (придёт)', 'келсин (пусть придёт)'] }, correct: 1, explanation: { en: '-птыр = evidential/hearsay', ru: '-птыр = пересказывательный/слухи' } },
+      { id: 'q29', question: { en: 'Which is presumptive?', ru: 'Какой является предположительным?' }, options: { en: ['барды (went)', 'барат (goes)', 'барган экен (seems went)', 'барсын (let go)'], ru: ['барды (пошёл)', 'барат (идёт)', 'барган экен (похоже, пошёл)', 'барсын (пусть идёт)'] }, correct: 2, explanation: { en: 'экен = presumptive/inference', ru: 'экен = предположительный/вывод' } },
+      { id: 'q30', question: { en: 'Complete unreal condition: "If I were rich..."', ru: 'Завершите нереальное условие: "Если бы я был богатым..."' }, options: { en: ['Эгер бай болсом...', 'Эгер бай болом...', 'Эгер бай болдум...', 'Эгер бай болгом...'], ru: ['Эгер бай болсом...', 'Эгер бай болом...', 'Эгер бай болдум...', 'Эгер бай болгом...'] }, correct: 0, explanation: { en: 'Unreal: эгер + past (-сом)', ru: 'Нереальное: эгер + прошедшее (-сом)' } }
+    ]
   }
 
-  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 lessons, test pending)
+  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓, B2 (8 + 1 test) ✓
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
