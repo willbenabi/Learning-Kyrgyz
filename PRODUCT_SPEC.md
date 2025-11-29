@@ -117,19 +117,38 @@
    - Color: Blue
    - Status: ✅ **100% COMPLETE** - All levels A1-C1 fully implemented
 
-2. **Reading & Comprehension Module** ✅ **ACTIVE**
+2. **Reading & Comprehension Module** ✅ **FULLY IMPLEMENTED**
    - Practice reading Kyrgyz texts and improve comprehension
-   - Reading texts for all levels (A1-C1) with comprehension questions
-   - A1: Simple descriptions and personal information
-   - A2: Folk tales and simple narratives
-   - B1: News articles and cultural content
-   - B2: Analytical articles on complex topics
-   - C1: Literary essays and advanced texts
-   - Multiple choice questions (A1-B1) and open-ended questions (B2-C1)
-   - Instant feedback with scoring for multiple choice questions
-   - Bilingual interface (Russian/English)
+   - **50 comprehensive reading texts across all CEFR levels (A1-C1)**
+
+   **A1 Level (10 texts)**: Simple descriptions and personal information
+   - Topics: Objects, people, family, market, weather, room, animals, daily routine, colors, numbers
+   - 2-3 multiple choice questions per text
+
+   **A2 Level (10 texts)**: Folk tales and simple narratives
+   - Topics: Traditional fables, health dialogue, seasons, travel, food, moral tales, school stories, practical situations, hobbies
+   - 4-5 multiple choice questions per text
+
+   **B1 Level (10 texts)**: News articles and cultural content
+   - Topics: Art exhibitions, national games, education reform, epic legends, eco-tourism, youth employment, handicrafts, public transportation, mountain safety, international cuisine
+   - 6 multiple choice questions per text
+
+   **B2 Level (10 texts)**: Analytical articles on complex topics
+   - Topics: Climate change, language preservation, digital economy, youth migration, social media, traditional vs modern medicine, entrepreneurship, gender equality, urban/rural development
+   - 5 open-ended analytical questions per text
+
+   **C1 Level (10 texts)**: Literary essays and advanced academic texts
+   - Topics: Literary legacy, nomadic philosophy, linguistic identity, postcolonial discourse, epistemology, epic narratives, sociolinguistics, cultural memory, political rhetoric, intertextuality
+   - 5 open-ended critical analysis questions per text
+
+   **Module Features:**
+   - Multiple choice questions (A1-B1) with instant feedback and scoring
+   - Open-ended questions (B2-C1) for deep analytical responses
+   - Bilingual titles and descriptions (English/Russian)
+   - All texts in authentic Kyrgyz with appropriate vocabulary for each level
    - Icon: FileText
    - Color: Green
+   - Status: ✅ **100% COMPLETE** - All 50 texts implemented across all levels
 
 3. **Writing Module** ✅ **ACTIVE**
    - Improve Kyrgyz writing skills through structured prompts
