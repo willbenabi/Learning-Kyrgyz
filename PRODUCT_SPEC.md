@@ -68,9 +68,12 @@
 
 **Learning Modules (4 Cards)**
 1. **Grammar Module** ✅ **ACTIVE**
-   - Master Kyrgyz grammar rules through structured lessons
-   - 6 A1-level lessons available (4 Syntax + 2 Morphology)
-   - Each lesson includes theory, examples, and interactive exercises
+   - Master Kyrgyz grammar rules through comprehensive structured lessons
+   - 14 complete A1-level lessons (6 Syntax + 8 Morphology)
+   - **Syntax lessons**: Sentence structure, subjects, predicates, word order (SOV), sentence types, secondary parts
+   - **Morphology lessons**: Parts of speech, plural formation, 5 noun cases (nominative, accusative, dative, locative, ablative), personal pronouns
+   - Each lesson includes detailed bilingual theory, multiple examples with explanations, vocabulary word banks, and 3-5 quiz questions
+   - Quiz questions provide immediate feedback with answer explanations
    - Bilingual content (Russian/English)
    - Icon: BookOpen
    - Color: Blue
