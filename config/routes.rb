@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   # Onboarding routes (public)
   get "/onboarding/language", to: "onboarding#language"
   post "/onboarding/language", to: "onboarding#set_language"
+  get "/onboarding/level-choice", to: "onboarding#level_choice"
   get "/onboarding/placement-test", to: "onboarding#placement_test"
   post "/onboarding/placement-test/results", to: "onboarding#submit_test"
   get "/onboarding/diagnostics", to: "onboarding#diagnostics"

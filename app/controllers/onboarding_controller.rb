@@ -20,6 +20,11 @@ class OnboardingController < ApplicationController
     end
   end
 
+  # GET /onboarding/level-choice
+  def level_choice
+    render inertia: "Onboarding/LevelAssessmentChoice"
+  end
+
   # GET /onboarding/placement-test
   def placement_test
     render inertia: "Onboarding/PlacementTest"

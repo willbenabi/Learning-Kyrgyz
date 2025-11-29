@@ -25,8 +25,8 @@ export default function LanguageSelection() {
         // Store in localStorage for mock implementation
         localStorage.setItem('interface_language', language)
 
-        // Redirect to placement test
-        router.visit('/onboarding/placement-test', { replace: true })
+        // Redirect to level assessment choice
+        router.visit('/onboarding/level-choice', { replace: true })
       }
     } catch (err) {
       console.error('Failed to set language:', err)
