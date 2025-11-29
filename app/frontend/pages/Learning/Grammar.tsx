@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { router } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { BookOpen, FileText, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { BookOpen, FileText, ArrowRight, CheckCircle2, ArrowLeft } from 'lucide-react'
 import { GRAMMAR_LESSONS, getLessonsByLevel, type Level, type GrammarLesson } from '@/data/grammarLessons'
 
 export default function GrammarPage() {
@@ -71,6 +72,11 @@ export default function GrammarPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6">
       <div className="mx-auto max-w-6xl">
+        {/* Back Button */}
+        <Button variant="ghost" onClick={() => router.visit('/learning/dashboard')} className="mb-6">
+          <ArrowLeft className="mr-2 h-4 w-4" /> {language === 'en' ? 'Back to Dashboard' : 'К дашборду'}
+        </Button>
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
