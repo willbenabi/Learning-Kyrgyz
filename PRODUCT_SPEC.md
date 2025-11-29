@@ -74,6 +74,7 @@
    - **Morphology lessons**: Parts of speech, plural formation, 5 noun cases (nominative, accusative, dative, locative, ablative), personal pronouns
    - Each lesson includes detailed bilingual theory, multiple examples with explanations, vocabulary word banks, and 3-5 quiz questions
    - Quiz questions provide immediate feedback with answer explanations
+   - **A1 Final Test**: Comprehensive 35-question test covering all 14 A1 lessons (15 syntax + 20 morphology questions)
    - Bilingual content (Russian/English)
    - Icon: BookOpen
    - Color: Blue
