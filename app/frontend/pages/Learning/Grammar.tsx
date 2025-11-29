@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { BookOpen, FileText, ArrowRight, CheckCircle2, ArrowLeft } from 'lucide-react'
-import { GRAMMAR_LESSONS, getLessonsByLevel, type Level, type GrammarLesson } from '@/data/grammarLessons'
+import { COMPREHENSIVE_GRAMMAR_LESSONS as GRAMMAR_LESSONS, getLessonsByLevel, type Level, type GrammarLesson } from '@/data/comprehensiveGrammarLessons'
 
 export default function GrammarPage() {
   const [userLevel, setUserLevel] = useState<Level>('A1')
@@ -196,7 +196,7 @@ function LessonView({
   const handleCheckAnswer = () => {
     if (selectedAnswer === null) return
 
-    const exercise = lesson.exercises?.[currentExercise]
+    const exercise = lesson.quiz?.[currentExercise]
     if (exercise) {
       const correct = selectedAnswer === exercise.correct
       setIsCorrect(correct)
@@ -205,14 +205,14 @@ function LessonView({
   }
 
   const handleNextExercise = () => {
-    if (lesson.exercises && currentExercise < lesson.exercises.length - 1) {
+    if (lesson.quiz && currentExercise < lesson.quiz.length - 1) {
       setCurrentExercise(currentExercise + 1)
       setSelectedAnswer(null)
       setShowResult(false)
     }
   }
 
-  const currentEx = lesson.exercises?.[currentExercise]
+  const currentEx = lesson.quiz?.[currentExercise]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6">
@@ -234,19 +234,37 @@ function LessonView({
           </CardHeader>
         </Card>
 
-        {/* Lesson Content */}
+        {/* Lesson Theory */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Lesson Content</CardTitle>
+            <CardTitle>{language === 'en' ? 'Theory' : 'Теория'}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="prose max-w-none">
-              {lesson.content[language].split('\n').map((paragraph, idx) => (
+              {lesson.theory[language].split('\n').map((paragraph, idx) => (
                 <p key={idx} className="mb-4 whitespace-pre-wrap">{paragraph}</p>
               ))}
             </div>
           </CardContent>
         </Card>
+
+        {/* Vocabulary (if available) */}
+        {lesson.vocabulary && lesson.vocabulary.length > 0 && (
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>{language === 'en' ? 'Vocabulary' : 'Словарный запас'}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {lesson.vocabulary.map((word, idx) => (
+                  <Badge key={idx} variant="secondary" className="text-base px-3 py-1">
+                    {word}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Examples */}
         <Card className="mb-6">
@@ -272,11 +290,11 @@ function LessonView({
           </CardContent>
         </Card>
 
-        {/* Exercises */}
-        {lesson.exercises && lesson.exercises.length > 0 && (
+        {/* Quiz Exercises */}
+        {lesson.quiz && lesson.quiz.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle>{t.exercises} ({currentExercise + 1}/{lesson.exercises.length})</CardTitle>
+              <CardTitle>{t.exercises} ({currentExercise + 1}/{lesson.quiz.length})</CardTitle>
             </CardHeader>
             <CardContent>
               {currentEx && (
@@ -319,6 +337,11 @@ function LessonView({
                   {showResult && (
                     <div className={`p-4 rounded-lg ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                       {isCorrect ? t.correct : t.incorrect}
+                      {currentEx.explanation && (
+                        <div className="mt-2 text-sm">
+                          {currentEx.explanation[language]}
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -332,12 +355,12 @@ function LessonView({
                         {t.checkAnswer}
                       </Button>
                     )}
-                    {showResult && currentExercise < lesson.exercises.length - 1 && (
+                    {showResult && currentExercise < lesson.quiz.length - 1 && (
                       <Button onClick={handleNextExercise} className="flex-1">
                         {t.nextExercise} <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     )}
-                    {showResult && currentExercise === lesson.exercises.length - 1 && (
+                    {showResult && currentExercise === lesson.quiz.length - 1 && (
                       <Button onClick={onBack} className="flex-1">
                         {t.completed} <CheckCircle2 className="ml-2 h-4 w-4" />
                       </Button>
