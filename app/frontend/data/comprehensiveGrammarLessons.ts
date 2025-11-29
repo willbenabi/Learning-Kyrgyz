@@ -2669,10 +2669,287 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
         }
       }
     ]
+  },
+
+  // A2 - Additional Syntax Lessons
+  {
+    id: 'a2_syntax_02',
+    level: 'A2',
+    category: 'syntax',
+    order: 2,
+    title: { en: 'Subordinate Clauses with -гандан кийин', ru: 'Придаточные предложения с -гандан кийин' },
+    description: { en: 'Express "after" actions using temporal clauses', ru: 'Выражение действий "после" с помощью временных придаточных' },
+    theory: {
+      en: `The construction **-гандан кийин** (after doing) creates temporal subordinate clauses.\n\n**Formation:** Verb stem + ган/ген/кан/кен + дан/ден кийин\n\n**Example:** Мен тамак жегенден кийин эс алам. (After I eat, I rest.)`,
+      ru: `Конструкция **-гандан кийин** (после того как) создаёт временные придаточные предложения.\n\n**Образование:** Основа глагола + ган/ген/кан/кен + дан/ден кийин\n\n**Пример:** Мен тамак жегенден кийин эс алам. (После того как я ем, я отдыхаю.)`
+    },
+    examples: [
+      { kyrgyz: 'Ал иштегенден кийин үйгө барат.', translation: { en: 'After working, he goes home.', ru: 'После работы он идёт домой.' } },
+      { kyrgyz: 'Биз окуганд��н кийин ойнойбуз.', translation: { en: 'After studying, we play.', ru: 'После учёбы мы играем.' } }
+    ],
+    vocabulary: ['кийин', 'жегенден', 'иштегенден', 'окугандан'],
+    quiz: [
+      { id: 'q1', question: { en: 'How do you say "after eating"?', ru: 'Как сказать "после еды"?' }, options: { en: ['жегенден кийин', 'жеп кийин', 'жейм кийин', 'жейт кийин'], ru: ['жегенден кийин', 'жеп кийин', 'жейм кийин', 'жейт кийин'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "иштегенден кийин" mean?', ru: 'Что означает "иштегенден кийин"?' }, options: { en: ['before working', 'after working', 'while working', 'without working'], ru: ['перед работой', 'после работы', 'во время работы', 'без работы'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'a2_syntax_03',
+    level: 'A2',
+    category: 'syntax',
+    order: 3,
+    title: { en: 'Purpose Clauses with -уу үчүн', ru: 'Придаточные цели с -уу үчүн' },
+    description: { en: 'Express purpose using "in order to" constructions', ru: 'Выражение цели с помощью конструкций "для того чтобы"' },
+    theory: {
+      en: `The suffix **-уу үчүн** expresses purpose (in order to).\n\n**Formation:** Verb stem + уу/үү үчүн\n\n**Example:** Мен китеп окуу үчүн китепканага бардым. (I went to the library to read books.)`,
+      ru: `Суффикс **-уу үчүн** выражает цель (для того чтобы).\n\n**Образование:** Основа глагола + уу/үү үчүн\n\n**Пример:** Мен китеп окуу үчүн китепканага бардым. (Я пошёл в библиотеку, чтобы читать книги.)`
+    },
+    examples: [
+      { kyrgyz: 'Ал үйрөнүү үчүн мектепке барат.', translation: { en: 'He goes to school to learn.', ru: 'Он ходит в школу, чтобы учиться.' } },
+      { kyrgyz: 'Биз көрүү үчүн келдик.', translation: { en: 'We came to see.', ru: 'Мы пришли, чтобы увидеть.' } }
+    ],
+    vocabulary: ['үчүн', 'окуу', 'үйрөнүү', 'көрүү'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-уу үчүн" express?', ru: 'Что выражает "-уу үчүн"?' }, options: { en: ['time', 'purpose', 'condition', 'result'], ru: ['время', 'цель', 'условие', 'результат'] }, correct: 1 },
+      { id: 'q2', question: { en: 'Form: "to study" + purpose', ru: 'Образуйте: "учиться" + цель' }, options: { en: ['окуу үчүн', 'окудум үчүн', 'окуйм үчүн', 'окуп үчүн'], ru: ['окуу үчүн', 'окудум үчүн', 'окуйм үчүн', 'окуп үчүн'] }, correct: 0 }
+    ]
+  },
+
+  {
+    id: 'a2_syntax_04',
+    level: 'A2',
+    category: 'syntax',
+    order: 4,
+    title: { en: 'Comparative Sentences', ru: 'Сравнительные предложения' },
+    description: { en: 'Compare objects and actions using comparative constructions', ru: 'Сравнение объектов и действий с помощью сравнительных конструкций' },
+    theory: {
+      en: `Kyrgyz uses the Ablative case + adjective for comparisons.\n\n**Pattern:** X-дан/ден + adjective\n\n**Example:** Бул китеп ал китептен кызыктуу. (This book is more interesting than that book.)`,
+      ru: `Кыргызский использует исходный падеж + прилагательное для сравнений.\n\n**Схема:** X-дан/ден + прилагательное\n\n**Пример:** Бул китеп ал китептен кызыктуу. (Эта книга интереснее той книги.)`
+    },
+    examples: [
+      { kyrgyz: 'Ал мендеп чоң.', translation: { en: 'He is bigger than me.', ru: 'Он больше меня.' } },
+      { kyrgyz: 'Бул үйдөн ал үй жакшы.', translation: { en: 'That house is better than this house.', ru: 'Тот дом лучше этого дома.' } }
+    ],
+    vocabulary: ['кызыктуу', 'чоң', 'жакшы', 'тездеп'],
+    quiz: [
+      { id: 'q1', question: { en: 'Which case is used for comparison?', ru: 'Какой падеж используется для сравнения?' }, options: { en: ['Nominative', 'Accusative', 'Ablative', 'Dative'], ru: ['Именительный', 'Винительный', 'Исходный', 'Дательный'] }, correct: 2 },
+      { id: 'q2', question: { en: 'Say "bigger than this"', ru: 'Скажите "больше этого"' }, options: { en: ['будан чоң', 'булду чоң', 'булга чоң', 'булдо чоң'], ru: ['будан чоң', 'булду чоң', 'булга чоң', 'булдо чоң'] }, correct: 0 }
+    ]
+  },
+
+  // A2 - Morphology Lessons
+  {
+    id: 'a2_morph_01',
+    level: 'A2',
+    category: 'morphology',
+    order: 5,
+    title: { en: 'Past Tense Formation', ru: 'Образование прошедшего времени' },
+    description: { en: 'Form past tense verbs with -ды/-ди/-ты/-ти', ru: 'Образование глаголов прошедшего времени с -ды/-ди/-ты/-ти' },
+    theory: {
+      en: `Past tense is formed by adding **-ды/-ди/-ты/-ти/-дү/-ду/-тү/-ту** + personal endings.\n\n**After voiced consonants:** -ды/-ди/-дү/-ду\n**After voiceless consonants:** -ты/-ти/-тү/-ту\n\n**Example:** бар (go) → бардым (I went)`,
+      ru: `Прошедшее время образуется добавлением **-ды/-ди/-ты/-ти/-дү/-ду/-тү/-ту** + личные окончания.\n\n**После звонких согласных:** -ды/-ди/-дү/-ду\n**После глухих согласных:** -ты/-ти/-тү/-ту\n\n**Пример:** бар (идти) → бардым (я пошёл)`
+    },
+    examples: [
+      { kyrgyz: 'Мен барды��. (бар + дым)', translation: { en: 'I went.', ru: 'Я пошёл.' } },
+      { kyrgyz: 'Сен окудуң. (оку + дуң)', translation: { en: 'You read.', ru: 'Ты прочитал.' } },
+      { kyrgyz: 'Ал келди. (кел + ди)', translation: { en: 'He came.', ru: 'Он пришёл.' } }
+    ],
+    vocabulary: ['бардым', 'окудум', 'келдим', 'жаздым'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form past tense: кел (come) + I', ru: 'Образуйте прошедшее время: кел (приходить) + я' }, options: { en: ['келдим', 'келтим', 'келдым', 'келтым'], ru: ['келдим', 'келтим', 'келдым', 'келтым'] }, correct: 0 },
+      { id: 'q2', question: { en: 'Which suffix after voiced consonants?', ru: 'Какой суффикс после звонких согласных?' }, options: { en: ['-ты', '-ди', '-ти', '-дү'], ru: ['-ты', '-ди', '-ти', '-дү'] }, correct: 1 },
+      { id: 'q3', question: { en: 'What does "бардым" mean?', ru: 'Что означает "бардым"?' }, options: { en: ['I go', 'I went', 'I will go', 'I am going'], ru: ['я иду', 'я пошёл', 'я пойду', 'я иду (сейчас)'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'a2_morph_02',
+    level: 'A2',
+    category: 'morphology',
+    order: 6,
+    title: { en: 'Future Tense Formation', ru: 'Образование будущего времени' },
+    description: { en: 'Express future actions with -ат/-эт/-от/-өт', ru: 'Выражение будущих действий с -ат/-эт/-от/-өт' },
+    theory: {
+      en: `Future tense uses **-ат/-эт/-от/-өт** (back/front vowel harmony) + personal endings.\n\n**Example:** бар (go) → барат (goes, will go)`,
+      ru: `Будущее время использует **-ат/-эт/-от/-өт** (задняя/передняя гармония) + личные окончания.\n\n**Пример:** бар (идти) → барат (идёт, пойдёт)`
+    },
+    examples: [
+      { kyrgyz: 'Мен барамын.', translation: { en: 'I will go.', ru: 'Я пойду.' } },
+      { kyrgyz: 'Сен окуйсуң.', translation: { en: 'You will read.', ru: 'Ты будешь читать.' } },
+      { kyrgyz: 'Ал келет.', translation: { en: 'He will come.', ru: 'Он придёт.' } }
+    ],
+    vocabulary: ['барамын', 'окуйм', 'келем', 'жазам'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form future: бар (go) + he/she', ru: 'Образуйте будущее: бар (идти) + он/она' }, options: { en: ['барат', 'бардым', 'барды', 'барып'], ru: ['барат', 'бардым', 'барды', 'барып'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "келем" mean?', ru: 'Что означает "келем"?' }, options: { en: ['I came', 'I come', 'I will come', 'come!'], ru: ['я пришёл', 'я прихожу', 'я приду', 'приди!'] }, correct: 2 }
+    ]
+  },
+
+  {
+    id: 'a2_morph_03',
+    level: 'A2',
+    category: 'morphology',
+    order: 7,
+    title: { en: 'Possessive Suffixes', ru: 'Притяжательные суффиксы' },
+    description: { en: 'Express possession with personal suffixes', ru: 'Выражение принадлежности с помощью личных суффиксов' },
+    theory: {
+      en: `Possessive suffixes attach to nouns to show ownership.\n\n**Singular:** -м (my), -ң (your), -сы/-си (his/her)\n**Plural:** -быз/-биз (our), -ңар/-ңер (your), -сы/-си (their)\n\n**Example:** китеп (book) → китебим (my book)`,
+      ru: `Притяжательные суффиксы присоединяются к существительным для обозначения принадлежности.\n\n**Единственное:** -м (мой), -ң (твой), -сы/-си (его/её)\n**Множественное:** -быз/-биз (наш), -ңар/-ңер (ваш), -сы/-си (их)\n\n**Пример:** китеп (книга) → китебим (моя книга)`
+    },
+    examples: [
+      { kyrgyz: 'менин китебим', translation: { en: 'my book', ru: 'моя книга' } },
+      { kyrgyz: 'сенин үйүң', translation: { en: 'your house', ru: 'твой дом' } },
+      { kyrgyz: 'анын досу', translation: { en: 'his/her friend', ru: 'его/её друг' } }
+    ],
+    vocabulary: ['китебим', 'үйүң', 'досу', 'атам'],
+    quiz: [
+      { id: 'q1', question: { en: 'Say "my house" (үй)', ru: 'Скажите "мой дом" (үй)' }, options: { en: ['үйүм', 'үйүң', 'үйү', 'үйүбүз'], ru: ['үйүм', 'үйүң', 'үйү', 'үйүбүз'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What suffix means "your" (singular)?', ru: 'Какой суффикс означает "твой"?' }, options: { en: ['-м', '-ң', '-сы', '-быз'], ru: ['-м', '-ң', '-сы', '-быз'] }, correct: 1 }
+    ]
+  },
+
+  {
+    id: 'a2_morph_04',
+    level: 'A2',
+    category: 'morphology',
+    order: 8,
+    title: { en: 'Genitive Case', ru: 'Родительный падеж' },
+    description: { en: 'Express ownership with -нын/-нин/-дын/-дин', ru: 'Выражение принадлежности с -нын/-нин/-дын/-дин' },
+    theory: {
+      en: `Genitive case shows possession (of, 's).\n\n**After vowels:** -нын/-нин/-нун/-нүн\n**After voiced consonants:** -дын/-дин/-дун/-дүн\n**After voiceless consonants:** -тын/-тин/-тун/-түн\n\n**Example:** бала (child) → баланын (of the child)`,
+      ru: `Родительный падеж показывает принадлежность.\n\n**После гласных:** -нын/-нин/-нун/-нүн\n**После звонких согласных:** -дын/-дин/-дун/-дүн\n**После глухих согласных:** -тын/-тин/-тун/-түн\n\n**Пример:** бала (ребёнок) → баланын (ребёнка)`
+    },
+    examples: [
+      { kyrgyz: 'баланын китеби', translation: { en: "child's book", ru: 'книга ребёнка' } },
+      { kyrgyz: 'мектептин окуучусу', translation: { en: "school's student", ru: 'ученик школы' } }
+    ],
+    vocabulary: ['баланын', 'мектептин', 'үйдүн', 'китептин'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form genitive: бала (child)', ru: 'Образуйте родительный падеж: бала (ребёнок)' }, options: { en: ['баланын', 'балага', 'балада', 'баланы'], ru: ['баланын', 'балага', 'балада', 'баланы'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does genitive case express?', ru: 'Что выражает родительный падеж?' }, options: { en: ['direction', 'location', 'possession', 'direct object'], ru: ['направление', 'место', 'принадлежность', 'прямое дополнение'] }, correct: 2 }
+    ]
+  },
+
+  {
+    id: 'a2_morph_05',
+    level: 'A2',
+    category: 'morphology',
+    order: 9,
+    title: { en: 'Instrumental Case', ru: 'Творительный падеж' },
+    description: { en: 'Express means/instrument with -менен/-мен', ru: 'Выражение средства/инструмента с -менен/-мен' },
+    theory: {
+      en: `Instrumental case shows the means or instrument (with, by means of).\n\n**Suffix:** -менен/-мен (with)\n\n**Example:** калем менен жазуу (to write with a pen)`,
+      ru: `Творительный падеж показывает средство или инструмент (с помощью, при помощи).\n\n**Суффикс:** -менен/-мен (с)\n\n**Пример:** калем менен жазуу (писать ручкой)`
+    },
+    examples: [
+      { kyrgyz: 'Мен калем менен жазам.', translation: { en: 'I write with a pen.', ru: 'Я пишу ручкой.' } },
+      { kyrgyz: 'Биз дос менен барабыз.', translation: { en: 'We go with a friend.', ru: 'Мы идём с другом.' } }
+    ],
+    vocabulary: ['менен', 'калем', 'дос менен', 'китеп менен'],
+    quiz: [
+      { id: 'q1', question: { en: 'What does "-менен" mean?', ru: 'Что означает "-менен"?' }, options: { en: ['to', 'from', 'with', 'in'], ru: ['к', 'от', 'с', 'в'] }, correct: 2 },
+      { id: 'q2', question: { en: 'Say "with a pen" (калем)', ru: 'Скажите "ручкой" (калем)' }, options: { en: ['калемге', 'калемди', 'калем менен', 'калемден'], ru: ['калемге', 'калемди', 'калем менен', 'калемден'], }, correct: 2 }
+    ]
+  },
+
+  {
+    id: 'a2_morph_06',
+    level: 'A2',
+    category: 'morphology',
+    order: 10,
+    title: { en: 'Present Continuous Tense', ru: 'Настоящее длительное время' },
+    description: { en: 'Express ongoing actions with -п жатам', ru: 'Выражение текущих действий с -п жатам' },
+    theory: {
+      en: `Present continuous (right now) uses **-п жат- + personal endings**.\n\n**Example:** окуп жатам (I am reading right now)`,
+      ru: `Настоящее длительное (прямо сейчас) использует **-п жат- + личные окончания**.\n\n**Пример:** окуп жатам (я читаю прямо сейчас)`
+    },
+    examples: [
+      { kyrgyz: 'Мен окуп жатам.', translation: { en: 'I am reading.', ru: 'Я читаю (сейчас).' } },
+      { kyrgyz: 'Ал жазып жатат.', translation: { en: 'He is writing.', ru: 'Он пишет (сейчас).' } }
+    ],
+    vocabulary: ['жатам', 'окуп жатам', 'жазып жатам', 'иштеп жатам'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form present continuous: оку (read) + I', ru: 'Образуйте настоящее длительное: оку (читать) + я' }, options: { en: ['окуп жатам', 'окудум', 'окуйм', 'окуам'], ru: ['окуп жатам', 'окудум', 'окуйм', 'окуам'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "жазып жатам" mean?', ru: 'Что означает "жазып жатам"?' }, options: { en: ['I wrote', 'I write', 'I am writing', 'I will write'], ru: ['я написал', 'я пишу (обычно)', 'я пишу (сейчас)', 'я напишу'] }, correct: 2 }
+    ]
+  },
+
+  {
+    id: 'a2_morph_07',
+    level: 'A2',
+    category: 'morphology',
+    order: 11,
+    title: { en: 'Verb Negation', ru: 'Отрицание глаголов' },
+    description: { en: 'Form negative verbs with -ба/-бе/-па/-пе', ru: 'Образование отрицательных глаголов с -ба/-бе/-па/-пе' },
+    theory: {
+      en: `Negative verbs use **-ба/-бе/-па/-пе** (don't) before the verb.\n\n**After voiced:** -ба/-бе\n**After voiceless:** -па/-пе\n\n**Example:** барба (don't go), жазба (don't write)`,
+      ru: `Отрицательные глаголы используют **-ба/-бе/-па/-пе** (не) перед глаголом.\n\n**После звонких:** -ба/-бе\n**После глухих:** -па/-пе\n\n**Пример:** барба (не ходи), жазба (не пиши)`
+    },
+    examples: [
+      { kyrgyz: 'Мен барбаймын.', translation: { en: "I don't go.", ru: 'Я не хожу.' } },
+      { kyrgyz: 'Ал окубайт.', translation: { en: "He doesn't read.", ru: 'Он не читает.' } }
+    ],
+    vocabulary: ['барбаймын', 'окубайм', 'жазбайм', 'келбейм'],
+    quiz: [
+      { id: 'q1', question: { en: 'Form negative: бар (go) + don\'t', ru: 'Образуйте отрицание: бар (ходить) + не' }, options: { en: ['барба', 'барпа', 'барма', 'барна'], ru: ['барба', 'барпа', 'барма', 'барна'] }, correct: 0 },
+      { id: 'q2', question: { en: 'What does "окубайм" mean?', ru: 'Что означает "окубайм"?' }, options: { en: ['I read', "I don't read", 'I will read', 'read!'], ru: ['я читаю', 'я не читаю', 'я прочитаю', 'читай!'] }, correct: 1 }
+    ]
+  },
+
+  // ===== A2 LEVEL - FINAL TEST =====
+  {
+    id: 'a2_final_test',
+    level: 'A2',
+    category: 'final_test',
+    order: 12,
+    title: { en: 'A2 Level Final Test', ru: 'Финальный тест уровня A2' },
+    description: { en: 'Comprehensive test covering all A2 grammar topics', ru: 'Комплексный тест по всем темам грамматики уровня A2' },
+    theory: {
+      en: `This final test covers all A2 topics: complex sentences, temporal/purpose clauses, comparisons, past/future tense, possessive suffixes, genitive/instrumental cases, present continuous, and negation.`,
+      ru: `Этот финальный тест охватывает все темы A2: сложные предложения, временные/целевые придаточные, сравнения, прошедшее/будущее время, притяжательные суффиксы, родительный/творительный падежи, настоящее длительное и отрицание.`
+    },
+    examples: [],
+    quiz: [
+      { id: 'q1', question: { en: 'Which conjunction means "but"?', ru: 'Какой союз означает "но"?' }, options: { en: ['жана', 'бирок', 'же', 'анан'], ru: ['жана', 'бирок', 'же', 'анан'] }, correct: 1, explanation: { en: 'бирок = but', ru: 'бирок = но' } },
+      { id: 'q2', question: { en: 'Say "after eating"', ru: 'Скажите "после еды"' }, options: { en: ['жегенден кийин', 'жеп кийин', 'жейм кийин', 'жеген үчүн'], ru: ['жегенден кийин', 'жеп кийин', 'жейм кийин', 'жеген үчүн'] }, correct: 0, explanation: { en: 'Use -гандан кийин for "after"', ru: 'Используйте -гандан кийин для "после"' } },
+      { id: 'q3', question: { en: 'What does "-уу үчүн" express?', ru: 'Что выражает "-уу үчүн"?' }, options: { en: ['time', 'purpose', 'condition', 'result'], ru: ['время', 'цель', 'условие', 'результат'] }, correct: 1, explanation: { en: '-уу үчүн = in order to', ru: '-уу үчүн = для того чтобы' } },
+      { id: 'q4', question: { en: 'Say "bigger than me"', ru: 'Скажите "больше меня"' }, options: { en: ['мендеп чоң', 'менден чоң', 'менге чоң', 'мени чоң'], ru: ['мендеп чоң', 'менден чоң', 'менге чоң', 'мени чоң'] }, correct: 1, explanation: { en: 'Use Ablative -ден for comparison', ru: 'Используйте исходный падеж -ден для сравнения' } },
+      { id: 'q5', question: { en: 'Form past tense: кел + I', ru: 'Образуйте прошедшее время: кел + я' }, options: { en: ['келдим', 'келтим', 'келем', 'келат'], ru: ['келдим', 'келтим', 'келем', 'келат'] }, correct: 0, explanation: { en: 'Past: кел + дим = келдим', ru: 'Прошедшее: кел + дим = келдим' } },
+      { id: 'q6', question: { en: 'Form future: бар + he/she', ru: 'Образуйте будущее: бар + он/она' }, options: { en: ['барат', 'бардым', 'барды', 'барып'], ru: ['барат', 'бардым', 'барды', 'барып'] }, correct: 0, explanation: { en: 'Future: бар + ат = барат', ru: 'Будущее: бар + ат = барат' } },
+      { id: 'q7', question: { en: 'Say "my book" (китеп)', ru: 'Скажите "моя книга" (китеп)' }, options: { en: ['китебим', 'китебиң', 'китеби', 'китебибиз'], ru: ['китебим', 'китебиң', 'китеби', 'китебибиз'] }, correct: 0, explanation: { en: 'Possessive: китеп + им = китебим', ru: 'Притяжательное: китеп + им = китебим' } },
+      { id: 'q8', question: { en: 'What suffix means "your" (sg)?', ru: 'Какой суффикс означает "твой"?' }, options: { en: ['-м', '-ң', '-сы', '-быз'], ru: ['-м', '-ң', '-сы', '-быз'] }, correct: 1, explanation: { en: '-ң = your (singular)', ru: '-ң = твой' } },
+      { id: 'q9', question: { en: 'Form genitive: бала', ru: 'Образуйте родительный падеж: бала' }, options: { en: ['баланын', 'балага', 'балада', 'баланы'], ru: ['баланын', 'балага', 'балада', 'баланы'] }, correct: 0, explanation: { en: 'Genitive: бала + нын = баланын', ru: 'Родительный: бала + нын = баланын' } },
+      { id: 'q10', question: { en: 'What does genitive express?', ru: 'Что выражает родительный падеж?' }, options: { en: ['direction', 'location', 'possession', 'object'], ru: ['направление', 'место', 'принадлежность', 'объект'] }, correct: 2, explanation: { en: 'Genitive = possession (of)', ru: 'Родительный = принадлежность (чей)' } },
+      { id: 'q11', question: { en: 'Say "with a pen" (калем)', ru: 'Скажите "ручкой" (калем)' }, options: { en: ['калемге', 'калемди', 'калем менен', 'калемден'], ru: ['калемге', 'калемди', 'калем менен', 'калемден'] }, correct: 2, explanation: { en: 'Instrumental: менен = with', ru: 'Творительный: менен = с помощью' } },
+      { id: 'q12', question: { en: 'What does "-менен" mean?', ru: 'Что означает "-менен"?' }, options: { en: ['to', 'from', 'with', 'in'], ru: ['к', 'от', 'с', 'в'] }, correct: 2, explanation: { en: '-менен = with/by means of', ru: '-менен = с/при помощи' } },
+      { id: 'q13', question: { en: 'Form present continuous: оку + I', ru: 'Образуйте настоящее длительное: оку + я' }, options: { en: ['окуп жатам', 'окудум', 'окуйм', 'окуам'], ru: ['окуп жатам', 'окудум', 'окуйм', 'окуам'] }, correct: 0, explanation: { en: 'Present continuous: -п жатам', ru: 'Настоящее длительное: -п жатам' } },
+      { id: 'q14', question: { en: 'What does "жазып жатам" mean?', ru: 'Что означает "жазып жатам"?' }, options: { en: ['I wrote', 'I write (habitual)', 'I am writing (now)', 'I will write'], ru: ['я написал', 'я пишу (обычно)', 'я пишу (сейчас)', 'я напишу'] }, correct: 2, explanation: { en: '-п жатам = doing right now', ru: '-п жатам = делаю прямо сейчас' } },
+      { id: 'q15', question: { en: 'Form negative: бар + don\'t', ru: 'Образуйте отрицание: бар + не' }, options: { en: ['барба', 'барпа', 'барма', 'барна'], ru: ['барба', 'барпа', 'барма', 'барна'] }, correct: 0, explanation: { en: 'Negative: бар + ба = барба', ru: 'Отрицание: бар + ба = барба' } },
+      { id: 'q16', question: { en: 'What does "окубайм" mean?', ru: 'Что означает "окубайм"?' }, options: { en: ['I read', "I don't read", 'I will read', 'read!'], ru: ['я читаю', 'я не читаю', 'я прочитаю', 'читай!'] }, correct: 1, explanation: { en: '-байм = don\'t (1st person)', ru: '-байм = не (1-е лицо)' } },
+      { id: 'q17', question: { en: 'Connect: "I go" + "you stay" (contrast)', ru: 'Соедините: "Я иду" + "ты остаёшься" (противопоставление)' }, options: { en: ['Мен барам жана сен кал', 'Мен барам, бирок сен кал', 'Мен барам же сен кал', 'Мен барам анткени сен кал'], ru: ['Мен барам жана сен кал', 'Мен барам, бирок сен кал', 'Мен барам же сен кал', 'Мен барам анткени сен кал'] }, correct: 1, explanation: { en: 'Use бирок for contrast', ru: 'Используйте бирок для противопоставления' } },
+      { id: 'q18', question: { en: 'What does "анткени" mean?', ru: 'Что означает "анткени"?' }, options: { en: ['and', 'but', 'because', 'or'], ru: ['и', 'но', 'потому что', 'или'] }, correct: 2, explanation: { en: 'анткени = because', ru: 'анткени = потому что' } },
+      { id: 'q19', question: { en: 'Say "to learn" (purpose)', ru: 'Скажите "чтобы учиться"' }, options: { en: ['үйрөнүү үчүн', 'үйрөнгөндөн кийин', 'үйрөнүп', 'үйрөнөм'], ru: ['үйрөнүү үчүн', 'үйрөнгөндөн кийин', 'үйрөнүп', 'үйрөнөм'] }, correct: 0, explanation: { en: '-уу үчүн = in order to', ru: '-уу үчүн = для того чтобы' } },
+      { id: 'q20', question: { en: 'Which case for comparison?', ru: 'Какой падеж для сравнения?' }, options: { en: ['Nominative', 'Accusative', 'Ablative', 'Dative'], ru: ['Именительный', 'Винительный', 'Исходный', 'Дательный'] }, correct: 2, explanation: { en: 'Ablative (-дан/-ден) for comparison', ru: 'Исходный (-дан/-ден) для сравнения' } },
+      { id: 'q21', question: { en: 'Say "after working"', ru: 'Скажите "после работы"' }, options: { en: ['иштегенден кийин', 'иштеп кийин', 'иштейм кийин', 'иштеген үчүн'], ru: ['иштегенден кийин', 'иштеп кийин', 'иштейм кийин', 'иштеген үчүн'] }, correct: 0, explanation: { en: '-ганден кийин = after doing', ru: '-гандан кийин = после того как' } },
+      { id: 'q22', question: { en: 'Form past: оку + you (sg)', ru: 'Образуйте прошедшее: оку + ты' }, options: { en: ['окудум', 'окудуң', 'окуду', 'окудук'], ru: ['окудум', 'окудуң', 'окуду', 'окудук'] }, correct: 1, explanation: { en: 'Past 2nd sg: -дуң', ru: 'Прошедшее 2-е ед.: -дуң' } },
+      { id: 'q23', question: { en: 'Say "I will come"', ru: 'Скажите "я приду"' }, options: { en: ['келем', 'келдим', 'келди', 'келип'], ru: ['келем', 'келдим', 'келди', 'келип'] }, correct: 0, explanation: { en: 'Future 1st sg: келем', ru: 'Будущее 1-е ед.: келем' } },
+      { id: 'q24', question: { en: 'Say "your house" (үй)', ru: 'Скажите "твой дом" (үй)' }, options: { en: ['үйүм', 'үйүң', 'үйү', 'үйүбүз'], ru: ['үйүм', 'үйүң', 'үйү', 'үйүбүз'] }, correct: 1, explanation: { en: 'Possessive 2nd sg: -үң', ru: 'Притяжательное 2-е ед.: -үң' } },
+      { id: 'q25', question: { en: 'Say "of the school" (мектеп)', ru: 'Скажите "школы" (род. падеж, мектеп)' }, options: { en: ['мектептин', 'мектепке', 'мектепте', 'мектепти'], ru: ['мектептин', 'мектепке', 'мектепте', 'мектепти'] }, correct: 0, explanation: { en: 'Genitive: -тин after voiceless', ru: 'Родительный: -тин после глухих' } },
+      { id: 'q26', question: { en: 'Say "with a friend" (дос)', ru: 'Скажите "с другом" (дос)' }, options: { en: ['досго', 'досту', 'дос менен', 'достон'], ru: ['досго', 'досту', 'дос менен', 'достон'] }, correct: 2, explanation: { en: 'Instrumental: менен', ru: 'Творительный: менен' } },
+      { id: 'q27', question: { en: 'Say "I am reading" (now)', ru: 'Скажите "я читаю" (сейчас)' }, options: { en: ['окуп жатам', 'окудум', 'окуйм', 'окуам'], ru: ['окуп жатам', 'окудум', 'окуйм', 'окуам'] }, correct: 0, explanation: { en: 'Present continuous: -п жатам', ru: 'Настоящее длительное: -п жатам' } },
+      { id: 'q28', question: { en: 'Say "I don\'t write"', ru: 'Скажите "я не пишу"' }, options: { en: ['жазбаймын', 'жазамын', 'жаздым', 'жазып'], ru: ['жазбаймын', 'жазамын', 'жаздым', 'жазып'] }, correct: 0, explanation: { en: 'Negative: жаз + ба + ймын', ru: 'Отрицание: жаз + ба + ймын' } },
+      { id: 'q29', question: { en: 'Choose: "I go AND he stays"', ru: 'Выберите: "Я иду И он остаётся"' }, options: { en: ['Мен барам жана ал калат', 'Мен барам бирок ал калат', 'Мен барам же ал калат', 'Мен барам анткени ал калат'], ru: ['Мен барам жана ал калат', 'Мен барам бирок ал калат', 'Мен барам же ал калат', 'Мен барам анткени ал калат'] }, correct: 0, explanation: { en: 'жана = and', ru: 'жана = и' } },
+      { id: 'q30', question: { en: 'Say "better than that"', ru: 'Скажите "лучше того"' }, options: { en: ['андан жакшы', 'анга жакшы', 'анда жакшы', 'аны жакшы'], ru: ['андан жакшы', 'анга жакшы', 'анда жакшы', 'аны жакшы'] }, correct: 0, explanation: { en: 'Ablative -дан for comparison', ru: 'Исходный -дан для сравнения' } },
+      { id: 'q31', question: { en: 'Form: "after coming"', ru: 'Образуйте: "после прихода"' }, options: { en: ['келгенден кийин', 'келип кийин', 'келем кийин', 'келген үчүн'], ru: ['келгенден кийин', 'келип кийин', 'келем кийин', 'келген үчүн'] }, correct: 0, explanation: { en: '-ганден кийин = after', ru: '-гандан кийин = после' } },
+      { id: 'q32', question: { en: 'Say "to see" (purpose)', ru: 'Скажите "чтобы увидеть"' }, options: { en: ['көрүү үчүн', 'көргөндөн кийин', 'көрүп', 'көрөм'], ru: ['көрүү үчүн', 'көргөндөн кийин', 'көрүп', 'көрөм'] }, correct: 0, explanation: { en: '-уу үчүн = to/in order to', ru: '-уу үчүн = чтобы' } },
+      { id: 'q33', question: { en: 'Past tense marker after voiced?', ru: 'Маркер прошедшего времени после звонких?' }, options: { en: ['-ты/-ти', '-ды/-ди', '-т', '-д'], ru: ['-ты/-ти', '-ды/-ди', '-т', '-д'] }, correct: 1, explanation: { en: '-ды/-ди after voiced', ru: '-ды/-ди после звонких' } },
+      { id: 'q34', question: { en: 'Say "our book"', ru: 'Скажите "наша книга"' }, options: { en: ['китебим', 'китебиң', 'китебибиз', 'китебиңер'], ru: ['китебим', 'китебиң', 'китебибиз', 'китебиңер'] }, correct: 2, explanation: { en: 'Possessive 1st pl: -быз/-биз', ru: 'Притяжательное 1-е мн.: -быз/-биз' } },
+      { id: 'q35', question: { en: 'Complete: кел + negative + I', ru: 'Завершите: кел + отрицание + я' }, options: { en: ['келбеймин', 'келемин', 'келдим', 'келип'], ru: ['келбеймин', 'келемин', 'келдим', 'келип'] }, correct: 0, explanation: { en: 'Negative: кел + бе + ймин', ru: 'Отрицание: кел + бе + ймин' } }
+    ]
   }
 
-  // Total: A1 (14 lessons + 1 final test), A2 (in progress)
-  // Note: Due to context limits, additional A2-C1 lessons will be added incrementally
+  // Total: A1 (14 lessons + 1 final test), A2 (11 lessons + 1 final test) ✓
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
