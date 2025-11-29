@@ -106,6 +106,334 @@ export const READING_LESSONS: ReadingLesson[] = [
       }
     ]
   },
+  {
+    id: 'a1_read_3',
+    level: 'A1',
+    order: 3,
+    title: {
+      en: 'My Family',
+      ru: 'Моя семья'
+    },
+    description: {
+      en: 'Simple text about family members',
+      ru: 'Простой текст о членах семьи'
+    },
+    text: 'Менин үй-бүлөм чоң. Менин атам, апам, агам жана эжем бар. Атам иштейт. Апам үйдө. Агам окуйт. Эжем кичинекей.',
+    textType: {
+      en: 'Family description',
+      ru: 'Описание семьи'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Үй-бүлө кандай?',
+        type: 'multiple_choice',
+        options: ['кичине', 'чоң', 'орто'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Кимдер бар?',
+        type: 'multiple_choice',
+        options: ['ата, апа, ага', 'ата, апа, эже, ага', 'ата жана апа гана'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Ким иштейт?',
+        type: 'multiple_choice',
+        options: ['апам', 'атам', 'агам'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a1_read_4',
+    level: 'A1',
+    order: 4,
+    title: {
+      en: 'In the Market',
+      ru: 'На базаре'
+    },
+    description: {
+      en: 'Simple shopping dialogue',
+      ru: 'Простой диалог о покупках'
+    },
+    text: 'Бул базар. Базарда көп нерсе бар. Алма бар. Алма ширин. Нан бар. Нан жаңы. Сүт бар. Сүт таза.',
+    textType: {
+      en: 'Market description',
+      ru: 'Описание базара'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Базарда эмне бар?',
+        type: 'multiple_choice',
+        options: ['кит��п', 'алма, нан, сүт', 'үй'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Алма кандай?',
+        type: 'multiple_choice',
+        options: ['ширин', 'ачуу', 'таттуу'],
+        correct: 0
+      },
+      {
+        id: 'q3',
+        question: 'Нан кандай?',
+        type: 'multiple_choice',
+        options: ['эски', 'жаңы', 'суук'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a1_read_5',
+    level: 'A1',
+    order: 5,
+    title: {
+      en: 'The Weather Today',
+      ru: 'Погода сегодня'
+    },
+    description: {
+      en: 'Simple weather description',
+      ru: 'Простое описание погоды'
+    },
+    text: 'Бүгүн жакшы күн. Асман ачык. Күн жылуу. Жел жок. Биз бакка барабыз.',
+    textType: {
+      en: 'Weather description',
+      ru: 'Описание погоды'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Бүгүн кандай күн?',
+        type: 'multiple_choice',
+        options: ['жаман', 'жакшы', 'суук'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Күн кандай?',
+        type: 'multiple_choice',
+        options: ['суук', 'жылуу', 'ысык'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Биз кайда барабыз?',
+        type: 'multiple_choice',
+        options: ['үйгө', 'мектепке', 'бакка'],
+        correct: 2
+      }
+    ]
+  },
+  {
+    id: 'a1_read_6',
+    level: 'A1',
+    order: 6,
+    title: {
+      en: 'My Room',
+      ru: 'Моя комната'
+    },
+    description: {
+      en: 'Description of a room',
+      ru: 'Описание комнаты'
+    },
+    text: 'Менин бөлмөм чоң. Бөлмөдө төшөк, стол жана орундук бар. Столдо китептер бар. Дубалда сүрөт бар. Бөлмө таза.',
+    textType: {
+      en: 'Room description',
+      ru: 'Описание комнаты'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Бөлмө кандай?',
+        type: 'multiple_choice',
+        options: ['кичине', 'чоң', 'караңгы'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Бөлмөдө эмне бар?',
+        type: 'multiple_choice',
+        options: ['төшөк, стол, орундук', 'телевизор', 'ойноочуктар'],
+        correct: 0
+      },
+      {
+        id: 'q3',
+        question: 'Дубалда эмне бар?',
+        type: 'multiple_choice',
+        options: ['китептер', 'сүрөт', 'саат'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a1_read_7',
+    level: 'A1',
+    order: 7,
+    title: {
+      en: 'Animals',
+      ru: 'Животные'
+    },
+    description: {
+      en: 'Simple text about animals',
+      ru: 'Простой текст о животных'
+    },
+    text: 'Мен жаныбарларды жакшы көрөм. Менин итим бар. Анын аты Акбар. Акбар чоң. Акбар акылдуу. Акбар менен ойнойм.',
+    textType: {
+      en: 'Animal description',
+      ru: 'Описание животного'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Менин эмнем бар?',
+        type: 'multiple_choice',
+        options: ['мышыгым', 'итим', 'куш��м'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Иттин аты эмне?',
+        type: 'multiple_choice',
+        options: ['Боз', 'Акбар', 'Көкжал'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Акбар кандай?',
+        type: 'multiple_choice',
+        options: ['кичине', 'чоң жана акылдуу', 'жаман'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a1_read_8',
+    level: 'A1',
+    order: 8,
+    title: {
+      en: 'My Day',
+      ru: 'Мой день'
+    },
+    description: {
+      en: 'Daily routine description',
+      ru: 'Описание распорядка дня'
+    },
+    text: 'Мен эрте туром. Жууну��м. Тамак жейм. Мектепке барам. Мектепте окуйм. Үйгө келем. Эс алам.',
+    textType: {
+      en: 'Daily routine',
+      ru: 'Распорядок дня'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Мен качан туром?',
+        type: 'multiple_choice',
+        options: ['кечинде', 'эрте', 'түштө'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Мен кайда барам?',
+        type: 'multiple_choice',
+        options: ['дүкөнгө', 'мектепке', 'паркка'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Үйдө эмне кылам?',
+        type: 'multiple_choice',
+        options: ['иштейм', 'окуйм', 'эс алам'],
+        correct: 2
+      }
+    ]
+  },
+  {
+    id: 'a1_read_9',
+    level: 'A1',
+    order: 9,
+    title: {
+      en: 'Colors',
+      ru: 'Цвета'
+    },
+    description: {
+      en: 'Simple text about colors',
+      ru: 'Простой текст о цветах'
+    },
+    text: 'Асман көк. Чөп жашыл. Гүл кызыл. Кар ак. Түн караңгы. Мен түстөрдү жакшы көрөм.',
+    textType: {
+      en: 'Colors description',
+      ru: 'Описание цветов'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Асман кандай?',
+        type: 'multiple_choice',
+        options: ['көк', 'жашыл', 'кара'],
+        correct: 0
+      },
+      {
+        id: 'q2',
+        question: 'Эмне кызыл?',
+        type: 'multiple_choice',
+        options: ['чөп', 'гүл', 'кар'],
+        correct: 1
+      },
+      {
+        id: 'q3',
+        question: 'Кар кандай?',
+        type: 'multiple_choice',
+        options: ['кара', 'ак', 'жашыл'],
+        correct: 1
+      }
+    ]
+  },
+  {
+    id: 'a1_read_10',
+    level: 'A1',
+    order: 10,
+    title: {
+      en: 'Numbers',
+      ru: 'Числа'
+    },
+    description: {
+      en: 'Simple counting text',
+      ru: 'Простой текст о счёте'
+    },
+    text: 'Бир, эки, үч. Мен санай алам. Төрт, беш, алты. Санаган оңой. Жети, сегиз, тогуз, он. Мен он саны билем.',
+    textType: {
+      en: 'Numbers',
+      ru: 'Числа'
+    },
+    questions: [
+      {
+        id: 'q1',
+        question: 'Мен эмне кыла алам?',
+        type: 'multiple_choice',
+        options: ['жаза алам', 'санай алам', 'сүйлөй алам'],
+        correct: 1
+      },
+      {
+        id: 'q2',
+        question: 'Эки саны бардыбы?',
+        type: 'multiple_choice',
+        options: ['ооба', 'жок', 'билбейм'],
+        correct: 0
+      },
+      {
+        id: 'q3',
+        question: 'Мен канча саны билем?',
+        type: 'multiple_choice',
+        options: ['беш', 'он', 'жыйырма'],
+        correct: 1
+      }
+    ]
+  },
 
   // ===== A2 LEVEL =====
   {
