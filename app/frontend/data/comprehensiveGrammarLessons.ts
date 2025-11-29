@@ -3191,9 +3191,84 @@ Subject → Object → Verb + Conjunction + Subject → Object → Verb
       { id: 'q1', question: { en: 'Form desiderative: бар (go)', ru: 'Образуйте желательное: бар (идти)' }, options: { en: ['баргым келет', 'барамын', 'бардым', 'барууну каалайм'], ru: ['баргым келет', 'барамын', 'бардым', 'барууну каалайм'] }, correct: 0 },
       { id: 'q2', question: { en: 'What does "-гым келет" express?', ru: 'Что выражает "-гым келет"?' }, options: { en: ['obligation', 'desire/want', 'ability', 'permission'], ru: ['обязательство', 'желание/хотение', 'способность', 'разрешение'] }, correct: 1 }
     ]
+  },
+
+  // ===== B1 LEVEL - FINAL TEST =====
+  {
+    id: 'b1_final_test',
+    level: 'B1',
+    category: 'final_test',
+    order: 12,
+    title: { en: 'B1 Level Final Test', ru: 'Финальный тест уровня B1' },
+    description: { en: 'Comprehensive test covering all B1 grammar topics', ru: 'Комплексный тест по всем темам грамматики уровня B1' },
+    theory: {
+      en: `This final test covers all B1 topics: conditional sentences, modal verbs, perfect tense, relative clauses, passive/causative/reciprocal/reflexive voices, reported speech, concessive clauses, and desiderative mood.`,
+      ru: `Этот финальный тест охватывает все темы B1: условные предложения, модальные глаголы, перфектное время, относительные придаточные, страдательный/побудительный/взаимный/возвратный залоги, косвенную речь, уступительные придаточные и желательное наклонение.`
+    },
+    examples: [],
+    quiz: [
+      // Conditionals (3 questions)
+      { id: 'q1', question: { en: 'What does "эгер...болсо" mean?', ru: 'Что означает "эгер...болсо"?' }, options: { en: ['because...therefore', 'if...then', 'when...then', 'although...but'], ru: ['потому что...поэтому', 'если...то', 'когда...то', 'хотя...но'] }, correct: 1, explanation: { en: 'эгер...болсо = if...then (real conditions)', ru: 'эгер...болсо = если...то (реальные условия)' } },
+      { id: 'q2', question: { en: 'Complete: "If it rains, I stay home"', ru: 'Завершите: "Если дождь, я дома"' }, options: { en: ['Жамгыр жааса, үйдө калам', 'Эгер жамгыр жааса, үйдө калам', 'Жамгыр жаады, үйдө калдым', 'Жамгыр жап жатса, үйдө калам'], ru: ['Жамгыр жааса, үйдө калам', 'Эгер жамгыр жааса, үйдө калам', 'Жамгыр жаады, үйдө калдым', 'Жамгыр жап жатса, үйдө калам'] }, correct: 1, explanation: { en: 'Use эгер + condition + болсо', ru: 'Используйте эгер + условие + болсо' } },
+      { id: 'q3', question: { en: 'Real condition marker in Kyrgyz?', ru: 'Маркер реального условия в кыргызском?' }, options: { en: ['анткени', 'эгер...болсо', 'менен', '-са да'], ru: ['анткени', 'эгер...болсо', 'менен', '-са да'] }, correct: 1, explanation: { en: 'эгер...болсо = if (real condition)', ru: 'эгер...болсо = если (реальное условие)' } },
+
+      // Modal Verbs (3 questions)
+      { id: 'q4', question: { en: 'Which modal means "must/need to"?', ru: 'Какое модальное слово означает "должен/нужно"?' }, options: { en: ['керек', 'мүмкүн', 'тийиш', 'болот'], ru: ['керек', 'мүмкүн', 'тийиш', 'болот'] }, correct: 0, explanation: { en: 'керек = must/need to', ru: 'керек = должен/нужно' } },
+      { id: 'q5', question: { en: 'Say "I can go"', ru: 'Скажите "я могу пойти"' }, options: { en: ['Мен баруу керек', 'Мен баруу мүмкүн', 'Мен баруу тийиш', 'Мен барам'], ru: ['Мен баруу керек', 'Мен баруу мүмкүн', 'Мен баруу тийиш', 'Мен барам'] }, correct: 1, explanation: { en: 'мүмкүн = possible/can', ru: 'мүмкүн = возможно/можно' } },
+      { id: 'q6', question: { en: 'What does "тийиш" express?', ru: 'Что выражает "тийиш"?' }, options: { en: ['necessity', 'possibility', 'obligation/should', 'desire'], ru: ['необходимость', 'возможность', 'обязательство/следует', 'желание'] }, correct: 2, explanation: { en: 'тийиш = should/ought to', ru: 'тийиш = следует/должен' } },
+
+      // Perfect Tense (3 questions)
+      { id: 'q7', question: { en: 'Form perfect: бар + I', ru: 'Образуйте перфект: бар + я' }, options: { en: ['барганмын', 'бардым', 'барам', 'барат'], ru: ['барганмын', 'бардым', 'барам', 'барат'] }, correct: 0, explanation: { en: 'Perfect: бар + ган + мын', ru: 'Перфект: бар + ган + мын' } },
+      { id: 'q8', question: { en: 'What does "-ган/-ген" express?', ru: 'Что выражает "-ган/-ген"?' }, options: { en: ['future action', 'completed action/experience', 'continuous action', 'habitual action'], ru: ['будущее действие', 'завершённое действие/опыт', 'длительное действие', 'обычное действие'] }, correct: 1, explanation: { en: '-ган/-ген = completed/experienced', ru: '-ган/-ген = завершённое/испытанное' } },
+      { id: 'q9', question: { en: 'Say "Have you been to Bishkek?"', ru: 'Скажите "Ты был в Бишкеке?"' }, options: { en: ['Сен Бишкекте болгонсуңбу?', 'Сен Бишкекте болдуңбу?', 'Сен Бишкекте боласыңбы?', 'Сен Бишкекке барасыңбы?'], ru: ['Сен Бишкекте болгонсуңбу?', 'Сен Бишкекте болдуңбу?', 'Сен Бишкекте боласыңбы?', 'Сен Бишкекке барасыңбы?'] }, correct: 0, explanation: { en: 'Perfect asks about experience', ru: 'Перфект спрашивает об опыте' } },
+
+      // Relative Clauses (3 questions)
+      { id: 'q10', question: { en: 'Say "the book that I bought"', ru: 'Скажите "книга, которую я купил"' }, options: { en: ['Мен сатып алган китеп', 'Китепти сатып алдым', 'Сатып алам китеп', 'Китеп сатып алам'], ru: ['Мен сатып алган китеп', 'Китепти сатып алдым', 'Сатып алам китеп', 'Китеп сатып алам'] }, correct: 0, explanation: { en: 'Participle + noun pattern', ru: 'Схема причастие + существительное' } },
+      { id: 'q11', question: { en: 'Where does the participle go?', ru: 'Куда ставится причастие?' }, options: { en: ['after the noun', 'before the noun', 'at sentence end', 'at sentence start'], ru: ['после существительного', 'перед существительным', 'в конце предложения', 'в начале предложения'] }, correct: 1, explanation: { en: 'Participle modifies noun from left', ru: 'Причастие определяет существительное слева' } },
+      { id: 'q12', question: { en: 'Say "the person whom I saw"', ru: 'Скажите "человек, которого я видел"' }, options: { en: ['Мен көргөн адам', 'Адамды көрдүм', 'Көрөм адам', 'Адам мени көрдү'], ru: ['Мен көргөн адам', 'Адамды көрдүм', 'Көрөм адам', 'Адам мени көрдү'] }, correct: 0, explanation: { en: 'Subject + verb-ган + noun', ru: 'Подлежащее + глагол-ган + существительное' } },
+
+      // Passive Voice (3 questions)
+      { id: 'q13', question: { en: 'Form passive: жаз (write)', ru: 'Образуйте страдательный залог: жаз (писать)' }, options: { en: ['жазыл', 'жазба', 'жазуу', 'жазып'], ru: ['жазыл', 'жазба', 'жазуу', 'жазып'] }, correct: 0, explanation: { en: 'Passive: verb + ыл/ил', ru: 'Страдательный: глагол + ыл/ил' } },
+      { id: 'q14', question: { en: 'What does passive voice show?', ru: 'Что показывает страдательный залог?' }, options: { en: ['who does action', 'action done to subject', 'future action', 'completed action'], ru: ['кто делает действие', 'действие над подлежащим', 'будущее действие', 'завершённое действие'] }, correct: 1, explanation: { en: 'Passive = action done TO subject', ru: 'Страдательный = действие НАД подлежащим' } },
+      { id: 'q15', question: { en: 'Say "The book was written"', ru: 'Скажите "Книга была написана"' }, options: { en: ['Китеп жазылды', 'Китепти жаздым', 'Китеп жазат', 'Китепти жазыл'], ru: ['Китеп жазылды', 'Китепти жаздым', 'Китеп жазат', 'Китепти жазыл'] }, correct: 0, explanation: { en: 'жазыл + past = was written', ru: 'жазыл + прошедшее = была написана' } },
+
+      // Causative Voice (3 questions)
+      { id: 'q16', question: { en: 'Form causative: оку (read)', ru: 'Образуйте побудительный залог: оку (читать)' }, options: { en: ['окут', 'окуп', 'окуу', 'окул'], ru: ['окут', 'окуп', 'окуу', 'окул'] }, correct: 0, explanation: { en: 'Causative: verb + т/тыр/дыр', ru: 'Побудительный: глагол + т/тыр/дыр' } },
+      { id: 'q17', question: { en: 'What does causative voice mean?', ru: 'Что означает побудительный залог?' }, options: { en: ['I do it myself', 'I make someone do it', 'someone does it to me', 'we do it together'], ru: ['я делаю сам', 'я заставляю кого-то делать', 'кто-то делает мне', 'мы делаем вместе'] }, correct: 1, explanation: { en: 'Causative = make/have someone do', ru: 'Побудительный = заставить кого-то делать' } },
+      { id: 'q18', question: { en: 'Say "I make the child read"', ru: 'Скажите "Я заставляю ребёнка читать"' }, options: { en: ['Мен балага китеп окутам', 'Мен балага китеп окуйм', 'Мен бала менен окуйм', 'Мен баланы окуп жатам'], ru: ['Мен балага китеп окутам', 'Мен балага китеп окуйм', 'Мен бала менен окуйм', 'Мен баланы окуп жатам'] }, correct: 0, explanation: { en: 'окут = cause to read', ru: 'окут = заставить читать' } },
+
+      // Reported Speech (3 questions)
+      { id: 'q19', question: { en: 'Say "He said he would go"', ru: 'Скажите "Он сказал, что пойдёт"' }, options: { en: ['Ал барарын айтты', 'Ал барды деди', 'Ал барат айтты', 'Ал барам деп'], ru: ['Ал барарын айтты', 'Ал барды деди', 'Ал барат айтты', 'Ал барам деп'] }, correct: 0, explanation: { en: 'Reported: -арын/-ерин + айтты', ru: 'Косвенная: -арын/-ерин + айтты' } },
+      { id: 'q20', question: { en: 'Which word introduces reported speech?', ru: 'Какое слово вводит косвенную речь?' }, options: { en: ['жана', 'деп', 'менен', 'үчүн'], ru: ['жана', 'деп', 'менен', 'үчүн'] }, correct: 1, explanation: { en: 'деп = said/that (reporting)', ru: 'деп = сказал/что (передача)' } },
+      { id: 'q21', question: { en: 'Say "She said she studied"', ru: 'Скажите "Она сказала, что училась"' }, options: { en: ['Ал окуганын айтты', 'Ал окуду деди', 'Ал окуйт айтты', 'Ал окуп жатат деп'], ru: ['Ал окуганын айтты', 'Ал окуду деди', 'Ал окуйт айтты', 'Ал окуп жатат деп'] }, correct: 0, explanation: { en: 'Perfect in reported: -ганын', ru: 'Перфект в косвенной: -ганын' } },
+
+      // Reciprocal Voice (2 questions)
+      { id: 'q22', question: { en: 'Form reciprocal: көр (see)', ru: 'Образуйте взаимный залог: көр (видеть)' }, options: { en: ['көрүш', 'көрүл', 'көрсөт', 'көрбө'], ru: ['көрүш', 'көрүл', 'көрсөт', 'көрбө'] }, correct: 0, explanation: { en: 'Reciprocal: verb + ш/иш', ru: 'Взаимный: глагол + ш/иш' } },
+      { id: 'q23', question: { en: 'What does reciprocal voice show?', ru: 'Что показывает взаимный залог?' }, options: { en: ['one-way action', 'mutual action', 'passive action', 'causative action'], ru: ['одностороннее действие', 'взаимное действие', 'страдательное действие', 'побудительное действие'] }, correct: 1, explanation: { en: 'Reciprocal = each other', ru: 'Взаимный = друг друга' } },
+
+      // Reflexive Voice (2 questions)
+      { id: 'q24', question: { en: 'Form reflexive: жуу (wash)', ru: 'Образуйте возвратный залог: жуу (мыть)' }, options: { en: ['жуун', 'жуул', 'жуут', 'жууш'], ru: ['жуун', 'жуул', 'жуут', 'жууш'] }, correct: 0, explanation: { en: 'Reflexive: verb + н/ын/ин', ru: 'Возвратный: глагол + н/ын/ин' } },
+      { id: 'q25', question: { en: 'What does reflexive voice show?', ru: 'Что показывает возвратный залог?' }, options: { en: ['action to others', 'action to oneself', 'mutual action', 'caused action'], ru: ['действие на других', 'действие на себя', 'взаимное действие', 'побуждённое действие'] }, correct: 1, explanation: { en: 'Reflexive = to oneself', ru: 'Возвратный = на себя' } },
+
+      // Concessive Clauses (3 questions)
+      { id: 'q26', question: { en: 'What does "-са да" mean?', ru: 'Что означает "-са да"?' }, options: { en: ['because', 'although', 'therefore', 'when'], ru: ['потому что', 'хотя', 'поэтому', 'когда'] }, correct: 1, explanation: { en: '-са да = although/even though', ru: '-са да = хотя/несмотря на' } },
+      { id: 'q27', question: { en: 'Say "even though it\'s cold"', ru: 'Скажите "хотя холодно"' }, options: { en: ['Суук болсо да', 'Суук болгондо', 'Суук үчүн', 'Суук менен'], ru: ['Суук болсо да', 'Суук болгондо', 'Суук үчүн', 'Суук менен'] }, correct: 0, explanation: { en: 'Concessive: -са/-се + да/де', ru: 'Уступительное: -са/-се + да/де' } },
+      { id: 'q28', question: { en: 'Complete: "Although I\'m tired, I work"', ru: 'Завершите: "Хотя я устал, я работаю"' }, options: { en: ['Чарчасам да, иштейм', 'Чарчадым, иштейм', 'Чарчаймын, иштейм', 'Чарчап жатам, иштейм'], ru: ['Чарчасам да, иштейм', 'Чарчадым, иштейм', 'Чарчаймын, иштейм', 'Чарчап жатам, иштейм'] }, correct: 0, explanation: { en: 'Use -сам да for concession', ru: 'Используйте -сам да для уступки' } },
+
+      // Desiderative Mood (3 questions)
+      { id: 'q29', question: { en: 'Form desiderative: бар (go)', ru: 'Образуйте желательное: бар (идти)' }, options: { en: ['баргым келет', 'барамын', 'бардым', 'барууну каалайм'], ru: ['баргым келет', 'барамын', 'бардым', 'барууну каалайм'] }, correct: 0, explanation: { en: 'Desiderative: verb + гым/гим келет', ru: 'Желательное: глагол + гым/гим келет' } },
+      { id: 'q30', question: { en: 'What does "-гым келет" express?', ru: 'Что выражает "-гым келет"?' }, options: { en: ['obligation', 'desire/want', 'ability', 'permission'], ru: ['обязательство', 'желание/хотение', 'способность', 'разрешение'] }, correct: 1, explanation: { en: '-гым келет = want to', ru: '-гым келет = хочу' } },
+      { id: 'q31', question: { en: 'Say "I want to study"', ru: 'Скажите "Я хочу учиться"' }, options: { en: ['Мага окугум келет', 'Мен окуйм', 'Мен окудум', 'Мен окуу керек'], ru: ['Мага окугум келет', 'Мен окуйм', 'Мен окудум', 'Мен окуу керек'] }, correct: 0, explanation: { en: 'Desiderative: мага + verb-гум келет', ru: 'Желательное: мага + глагол-гум келет' } },
+
+      // Mixed Review (4 questions)
+      { id: 'q32', question: { en: 'Which is passive?', ru: 'Какой является страдательным?' }, options: { en: ['жазыл (be written)', 'жаздыр (make write)', 'жазыш (write together)', 'жазуун (write for self)'], ru: ['жазыл (быть написанным)', 'жаздыр (заставить писать)', 'жазыш (писать вместе)', 'жазуун (писать для себя)'] }, correct: 0, explanation: { en: '-ыл/-ил = passive voice', ru: '-ыл/-ил = страдательный залог' } },
+      { id: 'q33', question: { en: 'Choose modal for "should"', ru: 'Выберите модальное для "следует"' }, options: { en: ['керек (must)', 'мүмкүн (can)', 'тийиш (should)', 'каалайм (want)'], ru: ['керек (должен)', 'мүмкүн (можно)', 'тийиш (следует)', 'каалайм (хочу)'] }, correct: 2, explanation: { en: 'тийиш = should/ought to', ru: 'тийиш = следует/должен' } },
+      { id: 'q34', question: { en: 'Perfect tense marker?', ru: 'Маркер перфектного времени?' }, options: { en: ['-ды/-ди (past)', '-ган/-ген (perfect)', '-ат/-эт (future)', '-п жатам (continuous)'], ru: ['-ды/-ди (прошедшее)', '-ган/-ген (перфект)', '-ат/-эт (будущее)', '-п жатам (длительное)'] }, correct: 1, explanation: { en: '-ган/-ген = perfect/experience', ru: '-ган/-ген = перфект/опыт' } },
+      { id: 'q35', question: { en: 'Say "We saw each other"', ru: 'Скажите "Мы виделись"' }, options: { en: ['Биз көрүштүк', 'Биз көрдүк', 'Биз көрбөдүк', 'Биз көрсөттүк'], ru: ['Биз көрүштүк', 'Биз көрдүк', 'Биз көрбөдүк', 'Биз көрсөттүк'] }, correct: 0, explanation: { en: 'Reciprocal: көрүш + past', ru: 'Взаимный: көрүш + прошедшее' } }
+    ]
   }
 
-  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 lessons, test pending) ✓
+  // Total: A1 (14 + 1 test), A2 (11 + 1 test), B1 (11 + 1 test) ✓
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {
