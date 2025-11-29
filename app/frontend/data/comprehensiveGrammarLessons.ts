@@ -1899,10 +1899,635 @@ All other cases add suffixes to this base form.`,
         correct: 1
       }
     ]
+  },
+
+  // ===== A1 LEVEL - FINAL TEST =====
+  {
+    id: 'a1_final_test',
+    level: 'A1',
+    category: 'final_test',
+    order: 15,
+    title: {
+      en: 'A1 Level Final Test',
+      ru: 'Финальный тест уровня A1'
+    },
+    description: {
+      en: 'Comprehensive test covering all A1 grammar topics',
+      ru: 'Комплексный тест по всем темам грамматики уровня A1'
+    },
+    theory: {
+      en: `This final test covers all topics from A1 level:
+
+**Syntax (6 topics):**
+- Sentence and phrase concepts
+- Subjects (Who? What?)
+- Predicates (What does it do?)
+- Word order (SOV pattern)
+- Types of sentences
+- Secondary parts of sentence
+
+**Morphology (8 topics):**
+- Parts of speech
+- Singular and plural formation
+- Nominative case (basic form)
+- Accusative case (direct object)
+- Dative case (to/toward)
+- Locative case (at/in)
+- Ablative case (from)
+- Personal pronouns
+
+Complete all 35 questions to demonstrate your A1 level mastery of Kyrgyz grammar.`,
+      ru: `Этот финальный тест охватывает все темы уровня A1:
+
+**Синтаксис (6 тем):**
+- Понятие о предложении и словосочетании
+- Подлежащее (Кто? Что?)
+- Сказуемое (Что делает?)
+- Порядок слов (модель SOV)
+- Типы предложений
+- Второстепенные члены предложения
+
+**Морфология (8 тем):**
+- Части речи
+- Образование единственного и множественного числа
+- Именительный падеж (основная форма)
+- Винительный падеж (прямое дополнение)
+- Дательный падеж (к/кому)
+- Местный падеж (в/на)
+- Исходный падеж (из/от)
+- Личные местоимения
+
+Ответьте на все 35 вопросов, чтобы продемонстрировать владение кыргызской грамматикой на уровне A1.`
+    },
+    examples: [],
+    quiz: [
+      // Syntax Questions (15 questions)
+      {
+        id: 'q1',
+        question: {
+          en: 'Which of the following is a complete sentence?',
+          ru: 'Какое из следующих является полным предложением?'
+        },
+        options: {
+          en: ['жаңы китеп', 'Бала окуйт', 'чоң үй', 'кызыл алма'],
+          ru: ['жаңы китеп', 'Бала окуйт', 'чоң үй', 'кызыл алма']
+        },
+        correct: 1,
+        explanation: {
+          en: '"Бала окуйт" is a complete sentence with subject and predicate. Others are just phrases.',
+          ru: '"Бала окуйт" - полное предложение с подлежащим и сказуемым. Остальные - словосочетания.'
+        }
+      },
+      {
+        id: 'q2',
+        question: {
+          en: 'What is the subject in: "Китеп столдо жатат"?',
+          ru: 'Что является подлежащим в: "Китеп столдо жатат"?'
+        },
+        options: {
+          en: ['Китеп', 'столдо', 'жатат', 'no subject'],
+          ru: ['Китеп', 'столдо', 'жатат', 'нет подлежащего']
+        },
+        correct: 0,
+        explanation: {
+          en: 'Китеп (book) is the subject - answers "What?"',
+          ru: 'Китеп (книга) - подлежащее, отвечает на "Что?"'
+        }
+      },
+      {
+        id: 'q3',
+        question: {
+          en: 'Identify the predicate in: "Мен мектепте окуйм"',
+          ru: 'Определите сказуемое в: "Мен мектепте окуйм"'
+        },
+        options: {
+          en: ['Мен', 'мектепте', 'окуйм', 'no predicate'],
+          ru: ['Мен', 'мектепте', 'окуйм', 'нет сказуемого']
+        },
+        correct: 2,
+        explanation: {
+          en: 'окуйм (I study) is the predicate - verb at the end',
+          ru: 'окуйм (учусь) - сказуемое, глагол в конце'
+        }
+      },
+      {
+        id: 'q4',
+        question: {
+          en: 'Arrange in correct Kyrgyz word order: келди / досум / кечээ',
+          ru: 'Расположите в правильном порядке слов: келди / досум / кечээ'
+        },
+        options: {
+          en: ['Досум кечээ келди', 'келди досум кечээ', 'кечээ келди досум', 'Досум келди кечээ'],
+          ru: ['Досум кечээ келди', 'келди досум кечээ', 'кечээ келди досум', 'Досум келди кечээ']
+        },
+        correct: 0,
+        explanation: {
+          en: 'Subject (досум) → Time (кечээ) → Verb (келди) follows SOV pattern',
+          ru: 'Подлежащее (досум) → Время (кечээ) → Глагол (келди) следует схеме SOV'
+        }
+      },
+      {
+        id: 'q5',
+        question: {
+          en: 'Where must the verb be in Kyrgyz sentences?',
+          ru: 'Где должен стоять глагол в кыргызских предложениях?'
+        },
+        options: {
+          en: ['At the beginning', 'In the middle', 'At the end', 'Anywhere'],
+          ru: ['В начале', 'В середине', 'В конце', 'Где угодно']
+        },
+        correct: 2,
+        explanation: {
+          en: 'Kyrgyz follows SOV order - verb ALWAYS at the end',
+          ru: 'Кыргызский следует порядку SOV - глагол ВСЕГДА в конце'
+        }
+      },
+      {
+        id: 'q6',
+        question: {
+          en: 'What type of sentence is "Сен кимсиң?"',
+          ru: 'Какой тип предложения "Сен кимсиң?"'
+        },
+        options: {
+          en: ['Declarative', 'Interrogative', 'Exclamatory', 'Imperative'],
+          ru: ['Повествовательное', 'Вопросительное', 'Восклицательное', 'Побудительное']
+        },
+        correct: 1,
+        explanation: {
+          en: 'Interrogative - asks "Who are you?"',
+          ru: 'Вопросительное - спрашивает "Кто ты?"'
+        }
+      },
+      {
+        id: 'q7',
+        question: {
+          en: 'Identify the sentence type: "Кандай сулуу!"',
+          ru: 'Определите тип предложения: "Кандай сулуу!"'
+        },
+        options: {
+          en: ['Declarative', 'Interrogative', 'Exclamatory', 'Imperative'],
+          ru: ['Повествовательное', 'Вопросительное', 'Восклицательное', 'Побудительное']
+        },
+        correct: 2,
+        explanation: {
+          en: 'Exclamatory - expresses emotion "How beautiful!"',
+          ru: 'Восклицательное - выражает эмоцию "Как красиво!"'
+        }
+      },
+      {
+        id: 'q8',
+        question: {
+          en: 'In "Мен жаңы китепти окуйм", what is "жаңы"?',
+          ru: 'В "Мен жаңы китепти окуйм", что такое "жаңы"?'
+        },
+        options: {
+          en: ['Subject', 'Object', 'Attribute', 'Predicate'],
+          ru: ['Подлежащее', 'Дополнение', 'Определение', 'Сказуемое']
+        },
+        correct: 2,
+        explanation: {
+          en: 'жаңы (new) is an attribute - describes the noun китеп',
+          ru: 'жаңы (новый) - определение, описывает существительное китеп'
+        }
+      },
+      {
+        id: 'q9',
+        question: {
+          en: 'Find the object in: "Биз досубузду көрдүк"',
+          ru: 'Найдите дополнение в: "Биз досубузду көрдүк"'
+        },
+        options: {
+          en: ['Биз', 'досубузду', 'көрдүк', 'no object'],
+          ru: ['Биз', 'досубузду', 'көрдүк', 'нет дополнения']
+        },
+        correct: 1,
+        explanation: {
+          en: 'досубузду (our friend-ACC) is the object - answers "Whom?"',
+          ru: 'досубузду (нашего друга) - дополнение, отвечает на "Кого?"'
+        }
+      },
+      {
+        id: 'q10',
+        question: {
+          en: 'In "Ал эртең келет", what is "эртең"?',
+          ru: 'В "Ал эртең келет", что такое "эртең"?'
+        },
+        options: {
+          en: ['Subject', 'Object', 'Adverbial modifier', 'Predicate'],
+          ru: ['Подлежащее', 'Дополнение', 'Обстоятельство', 'Сказуемое']
+        },
+        correct: 2,
+        explanation: {
+          en: 'эртең (tomorrow) is adverbial - answers "When?"',
+          ru: 'эртең (завтра) - обстоятельство, отвечает на "Когда?"'
+        }
+      },
+      {
+        id: 'q11',
+        question: {
+          en: 'What element is missing in "жакшы дос"?',
+          ru: 'Какой элемент отсутствует в "жакшы дос"?'
+        },
+        options: {
+          en: ['Subject', 'Predicate', 'Object', 'Nothing - complete'],
+          ru: ['Подлежащее', 'Сказуемое', 'Дополнение', 'Ничего - полное']
+        },
+        correct: 1,
+        explanation: {
+          en: 'No predicate - this is a phrase, not a sentence',
+          ru: 'Нет сказуемого - это словосочетание, а не предложение'
+        }
+      },
+      {
+        id: 'q12',
+        question: {
+          en: 'Fix word order: окуйм / китептерди / мен',
+          ru: 'Исправьте порядок слов: окуйм / китептерди / мен'
+        },
+        options: {
+          en: ['Мен китептерди окуйм', 'Окуйм мен китептерди', 'Китептерди мен окуйм', 'Мен окуйм китептерди'],
+          ru: ['Мен китептерди окуйм', 'Окуйм мен китептерди', 'Китептерди мен окуйм', 'Мен окуйм китептерди']
+        },
+        correct: 0,
+        explanation: {
+          en: 'Correct SOV: Subject (Мен) → Object (китептерди) → Verb (окуйм)',
+          ru: 'Правильный SOV: Подлежащее (Мен) → Дополнение (китептерди) → Глагол (окуйм)'
+        }
+      },
+      {
+        id: 'q13',
+        question: {
+          en: 'Which shows static location?',
+          ru: 'Что показывает статичное местоположение?'
+        },
+        options: {
+          en: ['Мен үйгө барам', 'Мен үйдөмүн', 'Мен үйдөн чыктым', 'Мен үйдү көрдүм'],
+          ru: ['Мен үйгө барам', 'Мен үйдөмүн', 'Мен үйдөн чыктым', 'Мен үйдү көрдүм']
+        },
+        correct: 1,
+        explanation: {
+          en: 'үйдөмүн (at home) - Locative case shows static location',
+          ru: 'үйдөмүн (дома) - Местный падеж показывает статичное местоположение'
+        }
+      },
+      {
+        id: 'q14',
+        question: {
+          en: 'In "Кел!", what type is this sentence?',
+          ru: 'В "Кел!", какой тип предложения?'
+        },
+        options: {
+          en: ['Declarative', 'Interrogative', 'Exclamatory', 'Imperative'],
+          ru: ['Повествовательное', 'Вопросительное', 'Восклицательное', 'Побудительное']
+        },
+        correct: 3,
+        explanation: {
+          en: 'Imperative - gives command "Come!"',
+          ru: 'Побудительное - даёт команду "Приди!"'
+        }
+      },
+      {
+        id: 'q15',
+        question: {
+          en: 'Find adverbial: "Мен бүгүн мектепте окуйм"',
+          ru: 'Найдите обстоятельство: "Мен бүгүн мектепте окуйм"'
+        },
+        options: {
+          en: ['Only бүгүн', 'Only мектепте', 'Both бүгүн and мектепте', 'None'],
+          ru: ['Только бүгүн', 'Только мектепте', 'И бүгүн и мектепте', 'Нет']
+        },
+        correct: 2,
+        explanation: {
+          en: 'Both бүгүн (when?) and мектепте (where?) are adverbials',
+          ru: 'И бүгүн (когда?) и мектепте (где?) являются обстоятельствами'
+        }
+      },
+
+      // Morphology Questions (20 questions)
+      {
+        id: 'q16',
+        question: {
+          en: 'What part of speech is "окуу"?',
+          ru: 'Какая часть речи "окуу"?'
+        },
+        options: {
+          en: ['Noun', 'Verb', 'Adjective', 'Adverb'],
+          ru: ['Существительное', 'Глагол', 'Прилагательное', 'Наречие']
+        },
+        correct: 1,
+        explanation: {
+          en: 'окуу is a verb - "to read/study"',
+          ru: 'окуу - глагол - "читать/учиться"'
+        }
+      },
+      {
+        id: 'q17',
+        question: {
+          en: 'Form plural: китеп',
+          ru: 'Образуйте множественное число: китеп'
+        },
+        options: {
+          en: ['китептер', 'китеплер', 'китепдер', 'китеплар'],
+          ru: ['китептер', 'китеплер', 'китепдер', 'китеплар']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After voiceless "п": add -тер (front vowel harmony)',
+          ru: 'После глухого "п": добавляем -тер (передняя гармония)'
+        }
+      },
+      {
+        id: 'q18',
+        question: {
+          en: 'Form plural: үй',
+          ru: 'Образуйте множественное число: үй'
+        },
+        options: {
+          en: ['үйлөр', 'үйдөр', 'үйтөр', 'үйлер'],
+          ru: ['үйлөр', 'үйдөр', 'үйтөр', 'үйлер']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After vowel "й": add -лөр (front vowel harmony)',
+          ru: 'После гласного "й": добавляем -лөр (передняя гармония)'
+        }
+      },
+      {
+        id: 'q19',
+        question: {
+          en: 'Which case answers "Ким? Эмне?"?',
+          ru: 'Какой падеж отвечает на "Ким? Эмне?"?'
+        },
+        options: {
+          en: ['Nominative', 'Accusative', 'Dative', 'Locative'],
+          ru: ['Именительный', 'Винительный', 'Дательный', 'Местный']
+        },
+        correct: 0,
+        explanation: {
+          en: 'Nominative case answers "Who? What?"',
+          ru: 'Именительный падеж отвечает на "Кто? Что?"'
+        }
+      },
+      {
+        id: 'q20',
+        question: {
+          en: 'Form Accusative: бала',
+          ru: 'Образуйте винительный падеж: бала'
+        },
+        options: {
+          en: ['баланы', 'балага', 'балада', 'баланан'],
+          ru: ['баланы', 'балага', 'балада', 'баланан']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After vowel "а": add -ны (back vowel harmony)',
+          ru: 'После гласной "а": добавляем -ны (задняя гармония)'
+        }
+      },
+      {
+        id: 'q21',
+        question: {
+          en: 'What does Accusative case mark?',
+          ru: 'Что обозначает винительный падеж?'
+        },
+        options: {
+          en: ['Subject', 'Direct object', 'Location', 'Origin'],
+          ru: ['Подлежащее', 'Прямое дополнение', 'Место', 'Происхождение']
+        },
+        correct: 1,
+        explanation: {
+          en: 'Accusative marks direct objects (Кимди? Эмнени?)',
+          ru: 'Винительный падеж обозначает прямые дополнения (Кого? Что?)'
+        }
+      },
+      {
+        id: 'q22',
+        question: {
+          en: 'Form Dative: мектеп',
+          ru: 'Образуйте дательный падеж: мектеп'
+        },
+        options: {
+          en: ['мектепке', 'мектепте', 'мектепти', 'мектептен'],
+          ru: ['мектепке', 'мектепте', 'мектепти', 'мектептен']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After voiceless "п": add -ке',
+          ru: 'После глухого "п": добавляем -ке'
+        }
+      },
+      {
+        id: 'q23',
+        question: {
+          en: 'What does Dative case express?',
+          ru: 'Что выражает дательный падеж?'
+        },
+        options: {
+          en: ['Static location', 'Direction/To', 'Origin/From', 'Direct object'],
+          ru: ['Статичное место', 'Направление/К', 'Происхождение/От', 'Прямое дополнение']
+        },
+        correct: 1,
+        explanation: {
+          en: 'Dative expresses direction "to/toward" (Кимге? Эмнеге?)',
+          ru: 'Дательный выражает направление "к/кому" (Кому? К чему?)'
+        }
+      },
+      {
+        id: 'q24',
+        question: {
+          en: 'Form Locative: үй',
+          ru: 'Образуйте местный падеж: үй'
+        },
+        options: {
+          en: ['үйдө', 'үйгө', 'үйдү', 'үйдөн'],
+          ru: ['үйдө', 'үйгө', 'үйдү', 'үйдөн']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After voiced "й": add -дө',
+          ru: 'После звонкого "й": добавляем -дө'
+        }
+      },
+      {
+        id: 'q25',
+        question: {
+          en: 'Choose correct: "I am __ school"',
+          ru: 'Выберите правильное: "Я __ школе"'
+        },
+        options: {
+          en: ['мектепке', 'мектепте', 'мектептен', 'мектепти'],
+          ru: ['мектепке', 'мектепте', 'мектептен', 'мектепти']
+        },
+        correct: 1,
+        explanation: {
+          en: 'Locative -те for static location "at school"',
+          ru: 'Местный падеж -те для статичного места "в школе"'
+        }
+      },
+      {
+        id: 'q26',
+        question: {
+          en: 'Form Ablative: үй',
+          ru: 'Образуйте исходный падеж: үй'
+        },
+        options: {
+          en: ['үйдөн', 'үйдө', 'үйгө', 'үйдү'],
+          ru: ['үйдөн', 'үйдө', 'үйгө', 'үйдү']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After voiced "й": add -дөн',
+          ru: 'После звонкого "й": добавляем -дөн'
+        }
+      },
+      {
+        id: 'q27',
+        question: {
+          en: 'What does Ablative express?',
+          ru: 'Что выражает исходный падеж?'
+        },
+        options: {
+          en: ['Direction to', 'Static location', 'Origin/From', 'Direct object'],
+          ru: ['Направление к', 'Статичное место', 'Происхождение/Откуда', 'Прямое дополнение']
+        },
+        correct: 2,
+        explanation: {
+          en: 'Ablative expresses origin "from" (Кайдан? Кимден?)',
+          ru: 'Исходный выражает происхождение "откуда/от" (Откуда? От кого?)'
+        }
+      },
+      {
+        id: 'q28',
+        question: {
+          en: 'What is "we" in Kyrgyz?',
+          ru: 'Как будет "мы" по-кыргызски?'
+        },
+        options: {
+          en: ['мен', 'сен', 'биз', 'силер'],
+          ru: ['мен', 'сен', 'биз', 'силер']
+        },
+        correct: 2,
+        explanation: {
+          en: 'биз = we',
+          ru: 'биз = мы'
+        }
+      },
+      {
+        id: 'q29',
+        question: {
+          en: 'Which is formal "you" (singular)?',
+          ru: 'Какое формальное "Вы" (единственное число)?'
+        },
+        options: {
+          en: ['сен', 'сиз', 'силер', 'сиздер'],
+          ru: ['сен', 'сиз', 'силер', 'сиздер']
+        },
+        correct: 1,
+        explanation: {
+          en: 'сиз = formal you (singular)',
+          ru: 'сиз = формальное Вы (единственное число)'
+        }
+      },
+      {
+        id: 'q30',
+        question: {
+          en: 'Does "ал" specify gender?',
+          ru: 'Указывает ли "ал" на род?'
+        },
+        options: {
+          en: ['Yes, only masculine', 'Yes, only feminine', 'No, gender-neutral', 'Only for animals'],
+          ru: ['Да, только мужской', 'Да, только женский', 'Нет, без рода', 'Только для животных']
+        },
+        correct: 2,
+        explanation: {
+          en: 'ал is gender-neutral - can mean he/she/it',
+          ru: 'ал не имеет рода - может означать он/она/оно'
+        }
+      },
+      {
+        id: 'q31',
+        question: {
+          en: 'Form plural: адам',
+          ru: 'Образуйте множественное число: адам'
+        },
+        options: {
+          en: ['адамлар', 'адамдар', 'адамтар', 'адамлер'],
+          ru: ['адамлар', 'адамдар', 'адамтар', 'адамлер']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After voiced "м": add -лар',
+          ru: 'После звонкого "м": добавляем -лар'
+        }
+      },
+      {
+        id: 'q32',
+        question: {
+          en: 'Choose direction: "I go __ home"',
+          ru: 'Выберите направление: "Я иду __ домой"'
+        },
+        options: {
+          en: ['үйдө', 'үйгө', 'үйдөн', 'үйдү'],
+          ru: ['үйдө', 'үйгө', 'үйдөн', 'үйдү']
+        },
+        correct: 1,
+        explanation: {
+          en: 'Dative -гө for direction "to home"',
+          ru: 'Дательный -гө для направления "домой"'
+        }
+      },
+      {
+        id: 'q33',
+        question: {
+          en: 'What part of speech is "жакшы"?',
+          ru: 'Какая часть речи "жакшы"?'
+        },
+        options: {
+          en: ['Noun', 'Verb', 'Adjective', 'Pronoun'],
+          ru: ['Существительное', 'Глагол', 'Прилагательное', 'Местоимение']
+        },
+        correct: 2,
+        explanation: {
+          en: 'жакшы is an adjective - "good"',
+          ru: 'жакшы - прилагательное - "хороший"'
+        }
+      },
+      {
+        id: 'q34',
+        question: {
+          en: 'Form Ablative: мектеп',
+          ru: 'Образуйте исходный падеж: мектеп'
+        },
+        options: {
+          en: ['мектептен', 'мектепте', 'мектепке', 'мектепти'],
+          ru: ['мектептен', 'мектепте', 'мектепке', 'мектепти']
+        },
+        correct: 0,
+        explanation: {
+          en: 'After voiceless "п": add -тен',
+          ru: 'После глухого "п": добавляем -тен'
+        }
+      },
+      {
+        id: 'q35',
+        question: {
+          en: 'Complete the case series for "дос" (friend): дос → досту → ___',
+          ru: 'Завершите падежный ряд для "дос" (друг): дос → досту → ___'
+        },
+        options: {
+          en: ['досто (Locative)', 'доско (Dative)', 'досдо (Locative)', 'достон (Ablative)'],
+          ru: ['досто (Местный)', 'доско (Дательный)', 'досдо (Местный)', 'достон (Исходный)']
+        },
+        correct: 2,
+        explanation: {
+          en: 'After voiced "с": Locative uses -до → досдо',
+          ru: 'После звонкого "с": Местный падеж использует -до → досдо'
+        }
+      }
+    ]
   }
 
-  // Total A1 lessons: 14 (6 syntax + 8 morphology) ✓
-  // Next: Create A1 Final Test with 30-35 questions
+  // Total A1 content: 14 lessons + 1 final test (35 questions) ✓
 ]
 
 export function getLessonsByLevel(level: Level): GrammarLesson[] {

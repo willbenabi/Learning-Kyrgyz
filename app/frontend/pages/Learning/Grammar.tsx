@@ -62,8 +62,9 @@ export default function GrammarPage() {
   }, [])
 
   const lessons = getLessonsByLevel(userLevel)
-  const syntaxLessons = lessons.filter(l => l.type === 'syntax')
-  const morphologyLessons = lessons.filter(l => l.type === 'morphology')
+  const syntaxLessons = lessons.filter(l => l.category === 'syntax')
+  const morphologyLessons = lessons.filter(l => l.category === 'morphology')
+  const finalTest = lessons.find(l => l.category === 'final_test')
 
   if (selectedLesson) {
     return <LessonView lesson={selectedLesson} language={language} onBack={() => setSelectedLesson(null)} />
@@ -119,7 +120,7 @@ export default function GrammarPage() {
         </div>
 
         {/* Morphology Lessons */}
-        <div>
+        <div className="mb-8">
           <div className="mb-4 flex items-center gap-3">
             <BookOpen className="h-6 w-6 text-purple-600" />
             <h2 className="text-2xl font-bold text-gray-900">{t.morphology}</h2>
@@ -145,6 +146,39 @@ export default function GrammarPage() {
             ))}
           </div>
         </div>
+
+        {/* Final Test */}
+        {finalTest && (
+          <div>
+            <div className="mb-4 flex items-center gap-3">
+              <CheckCircle2 className="h-6 w-6 text-green-600" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                {language === 'en' ? 'Final Test' : 'Финальный тест'}
+              </h2>
+            </div>
+            <Card className="border-2 border-green-200 hover:shadow-lg transition-shadow cursor-pointer bg-gradient-to-br from-green-50 to-white">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-xl">{finalTest.title[language]}</CardTitle>
+                    <CardDescription className="mt-2 text-base">{finalTest.description[language]}</CardDescription>
+                    <div className="mt-3 flex items-center gap-2">
+                      <Badge variant="secondary" className="text-base">
+                        {finalTest.quiz.length} {language === 'en' ? 'questions' : 'вопросов'}
+                      </Badge>
+                      <Badge variant="outline" className="text-base">{finalTest.level}</Badge>
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Button onClick={() => setSelectedLesson(finalTest)} className="w-full bg-green-600 hover:bg-green-700">
+                  {language === 'en' ? 'Take Final Test' : 'Пройти финальный тест'} <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   )
