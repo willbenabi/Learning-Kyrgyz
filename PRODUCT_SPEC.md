@@ -224,6 +224,8 @@ Personalized content recommendations automatically adapt to user's current CEFR 
 
 - **Display Features:**
   - Prominent display on main dashboard
+  - Collapsible view with toggle button (hidden by default)
+  - Button text: "View Recommendations" / "Hide Recommendations"
   - Level description explaining current proficiency
   - Organized by category with bullet points
   - Bilingual content (English/Russian)
@@ -520,6 +522,7 @@ When ready to upgrade to Level 2, implement:
 - **Special Badges**: First lesson, early bird, night owl
 
 **Progress Page (/learning/progress):**
+- Back button to return to main dashboard
 - Overview cards showing all key metrics
 - Module-specific progress bars (Grammar, Reading, Writing, Vocabulary)
 - Statistics breakdown (today/week/month)
