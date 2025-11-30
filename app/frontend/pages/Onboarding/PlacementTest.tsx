@@ -84,6 +84,7 @@ export default function PlacementTest() {
       })
 
       // Store in localStorage for mock implementation
+      localStorage.setItem('user_level', determinedLevel)
       localStorage.setItem('test_results', JSON.stringify({
         level: determinedLevel,
         score: correctCount,

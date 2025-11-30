@@ -159,24 +159,42 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
   const t = translations[language]
 
   useEffect(() => {
-    // Load user progress from test results
+    // Load user level from localStorage (set by manual selection, test, or beginner choice)
+    const userLevel = localStorage.getItem('user_level') as Level | null
     const storedResults = localStorage.getItem('test_results')
-    if (storedResults) {
+
+    if (userLevel) {
+      // User has selected a level (manual, test, or beginner)
+      setProgress({
+        level: userLevel,
+        daysActive: 1,
+        lessonsCompleted: 0,
+        vocabularyCount: 0,
+        currentStreak: 1,
+        longestStreak: 1,
+        badges: 0
+      })
+    } else if (storedResults) {
+      // Fallback to test results (for backward compatibility)
       const results = JSON.parse(storedResults)
       setProgress({
         level: results.level,
         daysActive: 1,
         lessonsCompleted: 0,
         vocabularyCount: 0,
+        currentStreak: 1,
+        longestStreak: 1,
         badges: 1 // Completion badge
       })
     } else {
-      // Default progress if no test taken
+      // Default progress if no level set
       setProgress({
         level: 'A1',
         daysActive: 1,
         lessonsCompleted: 0,
         vocabularyCount: 0,
+        currentStreak: 1,
+        longestStreak: 1,
         badges: 0
       })
     }

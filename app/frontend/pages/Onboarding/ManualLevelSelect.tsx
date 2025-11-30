@@ -93,6 +93,9 @@ export default function ManualLevelSelect() {
   const handleConfirm = () => {
     if (!selectedLevel) return
 
+    // Store selected level in localStorage
+    localStorage.setItem('user_level', selectedLevel)
+
     // Save level choice and go to dashboard
     fetch('/onboarding/set-level', {
       method: 'POST',

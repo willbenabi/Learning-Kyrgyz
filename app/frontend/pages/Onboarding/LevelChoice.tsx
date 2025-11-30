@@ -86,6 +86,9 @@ export default function LevelChoice() {
       detail: t.option3Detail,
       color: 'from-green-500 to-green-600',
       action: () => {
+        // Store A1 level in localStorage
+        localStorage.setItem('user_level', 'A1')
+
         // Save A1 level choice and go to dashboard
         fetch('/onboarding/set-level', {
           method: 'POST',
