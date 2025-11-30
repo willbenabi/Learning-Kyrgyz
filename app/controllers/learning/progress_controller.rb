@@ -1,11 +1,17 @@
 module Learning
   class ProgressController < ApplicationController
-    before_action :authenticate!
+    # Public for Level 1, but supports authenticated users for Level 2
 
     def index
-      progress = current_user.user_progress || current_user.create_user_progress!
-
-      render inertia: 'Learning/Progress', props: progress_props(progress)
+      # Level 1: Use localStorage data (mock)
+      # Level 2: Use real user progress from database
+      if current_user
+        progress = current_user.user_progress || current_user.create_user_progress!
+        render inertia: 'Learning/Progress', props: progress_props(progress)
+      else
+        # Level 1 fallback: Show page with mock data
+        render inertia: 'Learning/Progress', props: mock_progress_props
+      end
     end
 
     def show
@@ -69,6 +75,27 @@ module Learning
     end
 
     private
+
+    def mock_progress_props
+      # Level 1: Return mock data for unauthenticated users
+      {
+        level: 'A1',
+        daysActive: 0,
+        lessonsCompleted: 0,
+        vocabularyCount: 0,
+        currentStreak: 0,
+        longestStreak: 0,
+        lastActivityDate: nil,
+        achievements: [],
+        lessonsByModule: {},
+        recentLessons: [],
+        stats: {
+          today: 0,
+          thisWeek: 0,
+          thisMonth: 0
+        }
+      }
+    end
 
     def progress_props(progress)
       {
