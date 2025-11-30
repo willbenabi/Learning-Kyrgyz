@@ -14,10 +14,8 @@ import {
   Trophy,
   Star,
   TrendingUp,
-  Music,
   Film,
-  Newspaper,
-  Youtube
+  Headphones
 } from 'lucide-react'
 import { getUserProgress } from '@/lib/progressHelper'
 import TechSupportModal from '@/components/TechSupportModal'
@@ -40,67 +38,8 @@ interface DashboardProps {
   userProgress?: UserProgress | null
 }
 
-// Mock content recommendations
-const RECOMMENDATIONS = {
-  en: {
-    A1: [
-      { type: 'book', title: 'Kyrgyz Children\'s Stories', icon: BookOpen, description: 'Simple stories for beginners' },
-      { type: 'music', title: 'Traditional Kyrgyz Folk Songs', icon: Music, description: 'Learn through music' },
-      { type: 'video', title: 'Basic Kyrgyz Lessons on YouTube', icon: Youtube, description: 'Visual learning materials' },
-    ],
-    A2: [
-      { type: 'book', title: 'Short Kyrgyz Tales', icon: BookOpen, description: 'Engaging short stories' },
-      { type: 'news', title: 'Kyrgyz News for Learners', icon: Newspaper, description: 'Simplified news articles' },
-      { type: 'music', title: 'Popular Kyrgyz Songs', icon: Music, description: 'Modern Kyrgyz music' },
-    ],
-    B1: [
-      { type: 'news', title: 'Current Kyrgyz News', icon: Newspaper, description: 'Real news content' },
-      { type: 'film', title: 'Kyrgyz Films with Subtitles', icon: Film, description: 'Cultural immersion' },
-      { type: 'book', title: 'Kyrgyz Short Novels', icon: BookOpen, description: 'Intermediate literature' },
-    ],
-    B2: [
-      { type: 'book', title: 'Contemporary Kyrgyz Literature', icon: BookOpen, description: 'Modern novels and essays' },
-      { type: 'news', title: 'Kyrgyz Opinion Articles', icon: Newspaper, description: 'Complex discussions' },
-      { type: 'film', title: 'Kyrgyz Documentary Series', icon: Film, description: 'In-depth content' },
-    ],
-    C1: [
-      { type: 'book', title: 'Classical Kyrgyz Poetry', icon: BookOpen, description: 'Literary masterpieces' },
-      { type: 'book', title: 'Manas Epic', icon: BookMarked, description: 'The great Kyrgyz epic' },
-      { type: 'news', title: 'Academic Kyrgyz Publications', icon: Newspaper, description: 'Scholarly articles' },
-    ]
-  },
-  ru: {
-    A1: [
-      { type: 'book', title: 'Кыргызские детские рассказы', icon: BookOpen, description: 'Простые истории для начинающих' },
-      { type: 'music', title: 'Традиционные кыргызские песни', icon: Music, description: 'Учитесь через музыку' },
-      { type: 'video', title: 'Базовые уроки кыргызского на YouTube', icon: Youtube, description: 'Визуальные материалы' },
-    ],
-    A2: [
-      { type: 'book', title: 'Короткие кыргызские сказки', icon: BookOpen, description: 'Увлекательные короткие истории' },
-      { type: 'news', title: 'Кыргызские новости для учащихся', icon: Newspaper, description: 'Упрощенные новостные статьи' },
-      { type: 'music', title: 'Популярные кыргызские песни', icon: Music, description: 'Современная кыргызская музыка' },
-    ],
-    B1: [
-      { type: 'news', title: 'Актуальные кыргызские новости', icon: Newspaper, description: 'Реальный новостной контент' },
-      { type: 'film', title: 'Кыргызские фильмы с субтитрами', icon: Film, description: 'Культурное погружение' },
-      { type: 'book', title: 'Кыргызские короткие романы', icon: BookOpen, description: 'Литература среднего уровня' },
-    ],
-    B2: [
-      { type: 'book', title: 'Современная кыргызская литература', icon: BookOpen, description: 'Современные романы и эссе' },
-      { type: 'news', title: 'Кыргызские аналитические статьи', icon: Newspaper, description: 'Сложные дискуссии' },
-      { type: 'film', title: 'Кыргызские документальные сериалы', icon: Film, description: 'Углубленный контент' },
-    ],
-    C1: [
-      { type: 'book', title: 'Классическая кыргызская поэзия', icon: BookOpen, description: 'Литературные шедевры' },
-      { type: 'book', title: 'Эпос Манас', icon: BookMarked, description: 'Великий кыргызский эпос' },
-      { type: 'news', title: 'Академические кыргызские публикации', icon: Newspaper, description: 'Научные статьи' },
-    ]
-  }
-}
-
 export default function LearningDashboard({ userProgress }: DashboardProps) {
   const [progress, setProgress] = useState<UserProgress | null>(userProgress || null)
-  const [currentRecommendation, setCurrentRecommendation] = useState(0)
   const [showTechSupport, setShowTechSupport] = useState(false)
   const [showAIAssistant, setShowAIAssistant] = useState(false)
 
@@ -187,13 +126,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
       longestStreak: userProgress.currentStreak, // For now, same as current
       badges: userProgress.achievements.length
     })
-
-    // Rotate recommendations every 5 seconds
-    const interval = setInterval(() => {
-      setCurrentRecommendation((prev) => (prev + 1) % 3)
-    }, 5000)
-
-    return () => clearInterval(interval)
   }, [])
 
   if (!progress) {
@@ -204,7 +136,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
     )
   }
 
-  const recommendations = RECOMMENDATIONS[language][progress.level]
   const levelRecommendations = getRecommendationsForLevel((progress?.level || 'A1') as any, language)
 
   const modules = [
@@ -249,39 +180,62 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
-        {/* Recommendations Banner */}
+        {/* Level-Based Recommendations */}
         <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <Star className="w-5 h-5" />
               {t.recommendedContent}
             </CardTitle>
+            <p className="text-white/90 text-sm mt-1">{levelRecommendations.description[language]}</p>
           </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-4">
-              {recommendations[currentRecommendation] && (
-                <>
-                  {(() => {
-                    const Icon = recommendations[currentRecommendation].icon
-                    return <Icon className="w-12 h-12" />
-                  })()}
-                  <div>
-                    <h3 className="text-xl font-semibold">{recommendations[currentRecommendation].title}</h3>
-                    <p className="opacity-90">{recommendations[currentRecommendation].description}</p>
-                  </div>
-                </>
-              )}
+          <CardContent className="space-y-4">
+            {/* Listening */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Headphones className="w-5 h-5" />
+                <h3 className="font-semibold text-lg">{language === 'en' ? 'Listening' : 'Слушание'}</h3>
+              </div>
+              <ul className="space-y-1 text-white/90">
+                {levelRecommendations.listening[language].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="mt-1.5">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex gap-2 mt-4">
-              {recommendations.map((_, index) => (
-                <button
-                  key={index}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentRecommendation ? 'w-8 bg-white' : 'w-2 bg-white/50'
-                  }`}
-                  onClick={() => setCurrentRecommendation(index)}
-                />
-              ))}
+
+            {/* Reading */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen className="w-5 h-5" />
+                <h3 className="font-semibold text-lg">{language === 'en' ? 'Reading' : 'Чтение'}</h3>
+              </div>
+              <ul className="space-y-1 text-white/90">
+                {levelRecommendations.reading[language].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="mt-1.5">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Watching */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Film className="w-5 h-5" />
+                <h3 className="font-semibold text-lg">{language === 'en' ? 'Watching' : 'Просмотр'}</h3>
+              </div>
+              <ul className="space-y-1 text-white/90">
+                {levelRecommendations.watching[language].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="mt-1.5">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </CardContent>
         </Card>

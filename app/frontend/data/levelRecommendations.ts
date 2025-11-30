@@ -36,9 +36,7 @@ export const RECOMMENDATIONS: Record<Level, LevelRecommendations> = {
     },
     listening: {
       en: [
-        'Children\'s songs with simple words and repetitive phrases (e.g., songs from "Кереме
-
-т көч" cartoon)',
+        'Children\'s songs with simple words and repetitive phrases (e.g., songs from "Керемет көч" cartoon)',
         'Slow short dialogues: greetings, introductions, simple questions',
         'Audio dictionaries with daily basic vocabulary'
       ],
