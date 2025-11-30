@@ -34,6 +34,9 @@ gem "pundit", "~> 2.4"
 # Pagination
 gem "pagy", "~> 9.3"
 
+# HTTP client for API calls
+gem "faraday", "~> 2.7"
+
 # Search
 gem "ransack"
 

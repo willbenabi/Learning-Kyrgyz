@@ -1,4 +1,4 @@
-module AI
+module Ai
   class OpenaiService
     BASE_URL = "https://api.openai.com/v1"
 

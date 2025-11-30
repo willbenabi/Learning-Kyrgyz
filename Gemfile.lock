@@ -165,6 +165,12 @@ GEM
       railties (>= 6.1.0)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
+    faraday (2.14.0)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     fugit (1.11.2)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -260,6 +266,8 @@ GEM
     minitest (5.26.0)
     msgpack (1.8.0)
     mutex_m (0.3.0)
+    net-http (0.8.0)
+      uri (>= 0.11.1)
     net-imap (0.5.12)
       date
       net-protocol
@@ -525,6 +533,7 @@ DEPENDENCIES
   dotenv-rails (~> 3.1)
   factory_bot_rails (~> 6.4)
   faker (~> 3.5)
+  faraday (~> 2.7)
   inertia_rails (~> 3.10)
   jbuilder
   jwt (~> 2.7)

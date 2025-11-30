@@ -1,4 +1,4 @@
-module AI
+module Ai
   class ChatController < ApplicationController
     # Public endpoint for Level 1 (works without authentication)
     # For Level 2, can add rate limiting per user
@@ -19,7 +19,7 @@ module AI
       # Prepend system message if not already present
       messages_with_system = messages[0]&.dig("role") == "system" ? messages : [system_message] + messages
 
-      result = AI::OpenaiService.chat_completion(
+      result = Ai::OpenaiService.chat_completion(
         messages: messages_with_system,
         model: "gpt-4o-mini",
         temperature: 0.7

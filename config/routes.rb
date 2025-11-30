@@ -57,9 +57,7 @@ Rails.application.routes.draw do
   end
 
   # AI Chat routes (public for Level 1)
-  namespace :ai do
-    post "/chat", to: "chat#create"
-  end
+  post "/ai/chat", to: "ai/chat#create"
 
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
