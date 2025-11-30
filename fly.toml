@@ -10,7 +10,7 @@
 #
 # Leave this empty - app name must be passed via --app flag
 
-app = ''
+app = "falcon-star-8861"
 primary_region = 'iad'
 console_command = '/rails/bin/rails console'
 
@@ -36,8 +36,8 @@ console_command = '/rails/bin/rails console'
 
   [[http_service.checks]]
     interval = '10s'
-    timeout = '2s'
-    grace_period = '5s'
+    timeout = '5s'
+    grace_period = '20s'
     method = 'GET'
     path = '/up'
     protocol = 'http'
