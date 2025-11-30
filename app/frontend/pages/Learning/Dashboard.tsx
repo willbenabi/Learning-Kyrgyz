@@ -20,6 +20,9 @@ import {
   Youtube
 } from 'lucide-react'
 import { getUserProgress } from '@/lib/progressHelper'
+import TechSupportModal from '@/components/TechSupportModal'
+import AIAssistantModal from '@/components/AIAssistantModal'
+import { getRecommendationsForLevel } from '@/data/levelRecommendations'
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
 
@@ -98,6 +101,8 @@ const RECOMMENDATIONS = {
 export default function LearningDashboard({ userProgress }: DashboardProps) {
   const [progress, setProgress] = useState<UserProgress | null>(userProgress || null)
   const [currentRecommendation, setCurrentRecommendation] = useState(0)
+  const [showTechSupport, setShowTechSupport] = useState(false)
+  const [showAIAssistant, setShowAIAssistant] = useState(false)
 
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
 
@@ -200,6 +205,7 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
   }
 
   const recommendations = RECOMMENDATIONS[language][progress.level]
+  const levelRecommendations = getRecommendationsForLevel((progress?.level || 'A1') as any, language)
 
   const modules = [
     {
@@ -371,7 +377,7 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
         <div className="grid md:grid-cols-2 gap-6">
           <Card
             className="hover:shadow-lg transition-all cursor-pointer"
-            onClick={() => console.log('Navigate to AI Chat')}
+            onClick={() => setShowAIAssistant(true)}
             data-testid="ai-assistant-card"
           >
             <CardHeader>
@@ -389,7 +395,7 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
 
           <Card
             className="hover:shadow-lg transition-all cursor-pointer"
-            onClick={() => console.log('Navigate to Support')}
+            onClick={() => setShowTechSupport(true)}
             data-testid="support-card"
           >
             <CardHeader>
@@ -405,6 +411,18 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
             </CardHeader>
           </Card>
         </div>
+
+        {/* Modals */}
+        <TechSupportModal
+          open={showTechSupport}
+          onClose={() => setShowTechSupport(false)}
+          language={language}
+        />
+        <AIAssistantModal
+          open={showAIAssistant}
+          onClose={() => setShowAIAssistant(false)}
+          language={language}
+        />
       </div>
     </div>
   )
