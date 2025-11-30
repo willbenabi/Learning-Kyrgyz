@@ -50,11 +50,22 @@
 - Multiple choice format with 4 options per question
 - Questions in Kyrgyz with bilingual answer options (Russian/English)
 - Optional instruction text for specific questions
-- Smart level determination algorithm:
-  - Threshold: ≥5 correct answers out of 8 to pass a level
-  - Assigns learning level one above highest passed level
-  - Example: Pass A1(7/8), A2(6/8), fail B1(3/8) → Assigned level B1
-- Test duration warning displayed (15-20 minutes)
+
+**Test Flexibility Options:**
+- **Skip Question**: Users can skip questions they don't know without penalty
+- **Finish Early**: Complete test at any time after answering first question
+- Early finish shows detected level and option to continue or accept result
+- Skipped questions don't affect level determination
+
+**Level Determination Algorithm:**
+- Linear progression based on highest correctly answered question
+- Questions 1-8 (correct) → A1 level
+- Questions 9-16 (correct) → A2 level
+- Questions 17-24 (correct) → B1 level
+- Questions 25-32 (correct) → B2 level
+- Questions 33-40 (correct) → C1 level
+- Level assigned based on highest question number answered correctly
+- Test duration: 15-20 minutes (can be shorter with early finish)
 - Results stored for diagnostics
 
 **AI Diagnostics Results**
