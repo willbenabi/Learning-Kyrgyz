@@ -52,11 +52,10 @@ export default function ReadingPage() {
   const t = translations[language]
 
   useEffect(() => {
-    // Load user level from test results
-    const storedResults = localStorage.getItem('test_results')
-    if (storedResults) {
-      const results = JSON.parse(storedResults)
-      setUserLevel(results.level || 'A1')
+    // Load user level from localStorage
+    const level = localStorage.getItem('user_level') as Level | null
+    if (level) {
+      setUserLevel(level)
     }
   }, [])
 

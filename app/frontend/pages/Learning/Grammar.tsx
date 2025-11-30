@@ -3,8 +3,9 @@ import { router } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { BookOpen, FileText, ArrowRight, CheckCircle2, ArrowLeft } from 'lucide-react'
+import { BookOpen, FileText, ArrowRight, CheckCircle2, ArrowLeft, Check } from 'lucide-react'
 import { COMPREHENSIVE_GRAMMAR_LESSONS as GRAMMAR_LESSONS, getLessonsByLevel, type Level, type GrammarLesson } from '@/data/comprehensiveGrammarLessons'
+import { completeLesson, isLessonCompleted, getCompletedLessonsForLevel } from '@/lib/progressHelper'
 
 export default function GrammarPage() {
   const [userLevel, setUserLevel] = useState<Level>('A1')
@@ -53,11 +54,10 @@ export default function GrammarPage() {
   const t = translations[language]
 
   useEffect(() => {
-    // Load user level from test results
-    const storedResults = localStorage.getItem('test_results')
-    if (storedResults) {
-      const results = JSON.parse(storedResults)
-      setUserLevel(results.level || 'A1')
+    // Load user level from localStorage
+    const level = localStorage.getItem('user_level') as Level | null
+    if (level) {
+      setUserLevel(level)
     }
   }, [])
 
@@ -65,6 +65,11 @@ export default function GrammarPage() {
   const syntaxLessons = lessons.filter(l => l.category === 'syntax')
   const morphologyLessons = lessons.filter(l => l.category === 'morphology')
   const finalTest = lessons.find(l => l.category === 'final_test')
+
+  // Check if all regular lessons are completed
+  const regularLessons = [...syntaxLessons, ...morphologyLessons]
+  const allLessonsCompleted = regularLessons.length > 0 && regularLessons.every(l => isLessonCompleted(l.id))
+  const showFinalTest = finalTest && allLessonsCompleted
 
   if (selectedLesson) {
     return <LessonView lesson={selectedLesson} language={language} onBack={() => setSelectedLesson(null)} />
@@ -98,24 +103,38 @@ export default function GrammarPage() {
             <h2 className="text-2xl font-bold text-gray-900">{t.syntax}</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            {syntaxLessons.map((lesson) => (
-              <Card key={lesson.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{lesson.title[language]}</CardTitle>
-                      <CardDescription className="mt-2">{lesson.description[language]}</CardDescription>
+            {syntaxLessons.map((lesson) => {
+              const completed = isLessonCompleted(lesson.id)
+              return (
+                <Card
+                  key={lesson.id}
+                  className={`hover:shadow-lg transition-shadow cursor-pointer ${completed ? 'bg-green-50 border-green-300' : ''}`}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <CardTitle className="text-lg">{lesson.title[language]}</CardTitle>
+                          {completed && <CheckCircle2 className="h-5 w-5 text-green-600" />}
+                        </div>
+                        <CardDescription className="mt-2">{lesson.description[language]}</CardDescription>
+                      </div>
+                      <Badge variant="outline">{lesson.level}</Badge>
                     </div>
-                    <Badge variant="outline">{lesson.level}</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <Button onClick={() => setSelectedLesson(lesson)} className="w-full">
-                    {t.startLesson} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent>
+                    <Button
+                      onClick={() => setSelectedLesson(lesson)}
+                      className="w-full"
+                      variant={completed ? "outline" : "default"}
+                    >
+                      {completed ? (language === 'en' ? 'Review' : 'Повторить') : t.startLesson}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
         </div>
 
@@ -126,29 +145,43 @@ export default function GrammarPage() {
             <h2 className="text-2xl font-bold text-gray-900">{t.morphology}</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            {morphologyLessons.map((lesson) => (
-              <Card key={lesson.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{lesson.title[language]}</CardTitle>
-                      <CardDescription className="mt-2">{lesson.description[language]}</CardDescription>
+            {morphologyLessons.map((lesson) => {
+              const completed = isLessonCompleted(lesson.id)
+              return (
+                <Card
+                  key={lesson.id}
+                  className={`hover:shadow-lg transition-shadow cursor-pointer ${completed ? 'bg-green-50 border-green-300' : ''}`}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <CardTitle className="text-lg">{lesson.title[language]}</CardTitle>
+                          {completed && <CheckCircle2 className="h-5 w-5 text-green-600" />}
+                        </div>
+                        <CardDescription className="mt-2">{lesson.description[language]}</CardDescription>
+                      </div>
+                      <Badge variant="outline">{lesson.level}</Badge>
                     </div>
-                    <Badge variant="outline">{lesson.level}</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <Button onClick={() => setSelectedLesson(lesson)} className="w-full">
-                    {t.startLesson} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent>
+                    <Button
+                      onClick={() => setSelectedLesson(lesson)}
+                      className="w-full"
+                      variant={completed ? "outline" : "default"}
+                    >
+                      {completed ? (language === 'en' ? 'Review' : 'Повторить') : t.startLesson}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
         </div>
 
         {/* Final Test */}
-        {finalTest && (
+        {showFinalTest && (
           <div>
             <div className="mb-4 flex items-center gap-3">
               <CheckCircle2 className="h-6 w-6 text-green-600" />
@@ -395,7 +428,11 @@ function LessonView({
                       </Button>
                     )}
                     {showResult && currentExercise === lesson.quiz.length - 1 && (
-                      <Button onClick={onBack} className="flex-1">
+                      <Button onClick={() => {
+                        // Mark lesson as completed
+                        completeLesson(lesson.id, 'grammar')
+                        onBack()
+                      }} className="flex-1">
                         {t.completed} <CheckCircle2 className="ml-2 h-4 w-4" />
                       </Button>
                     )}

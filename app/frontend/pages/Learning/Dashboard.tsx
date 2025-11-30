@@ -19,6 +19,7 @@ import {
   Newspaper,
   Youtube
 } from 'lucide-react'
+import { getUserProgress } from '@/lib/progressHelper'
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
 
@@ -159,45 +160,28 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
   const t = translations[language]
 
   useEffect(() => {
-    // Load user level from localStorage (set by manual selection, test, or beginner choice)
-    const userLevel = localStorage.getItem('user_level') as Level | null
-    const storedResults = localStorage.getItem('test_results')
+    // Load real user progress from progressHelper
+    const userProgress = getUserProgress()
 
-    if (userLevel) {
-      // User has selected a level (manual, test, or beginner)
-      setProgress({
-        level: userLevel,
-        daysActive: 1,
-        lessonsCompleted: 0,
-        vocabularyCount: 0,
-        currentStreak: 1,
-        longestStreak: 1,
-        badges: 0
-      })
-    } else if (storedResults) {
-      // Fallback to test results (for backward compatibility)
-      const results = JSON.parse(storedResults)
-      setProgress({
-        level: results.level,
-        daysActive: 1,
-        lessonsCompleted: 0,
-        vocabularyCount: 0,
-        currentStreak: 1,
-        longestStreak: 1,
-        badges: 1 // Completion badge
-      })
-    } else {
-      // Default progress if no level set
-      setProgress({
-        level: 'A1',
-        daysActive: 1,
-        lessonsCompleted: 0,
-        vocabularyCount: 0,
-        currentStreak: 1,
-        longestStreak: 1,
-        badges: 0
-      })
+    // Calculate days active
+    let daysActive = 1
+    if (userProgress.lastActivityDate) {
+      const lastDate = new Date(userProgress.lastActivityDate)
+      const firstDate = userProgress.completedLessons.length > 0
+        ? new Date(userProgress.completedLessons[0].completedAt)
+        : lastDate
+      daysActive = Math.max(1, Math.floor((lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)) + 1)
     }
+
+    setProgress({
+      level: userProgress.level,
+      daysActive: daysActive,
+      lessonsCompleted: userProgress.completedLessons.length,
+      vocabularyCount: userProgress.vocabularyCount,
+      currentStreak: userProgress.currentStreak,
+      longestStreak: userProgress.currentStreak, // For now, same as current
+      badges: userProgress.achievements.length
+    })
 
     // Rotate recommendations every 5 seconds
     const interval = setInterval(() => {
