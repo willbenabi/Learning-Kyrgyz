@@ -238,10 +238,24 @@ Personalized content recommendations automatically adapt to user's current CEFR 
   - Collapsible view with toggle button (hidden by default)
   - Button text: "View Recommendations" / "Hide Recommendations"
   - Level description explaining current proficiency
-  - Organized by category with bullet points
+  - Rich resource cards with thumbnails, titles, descriptions, and external links
+  - Responsive 3-column grid layout for each category
+  - Interactive cards with hover effects and transitions
+  - Direct external links to resources (YouTube, news sites, books, podcasts)
+  - Content type badges (Song, Book, Video, Film, Article, Podcast, News)
+  - Thumbnail images with fallback handling
+  - ExternalLink icon for easy identification of clickable resources
   - Bilingual content (English/Russian)
   - Automatic updates when user advances to new level
   - Curated content appropriate for each proficiency stage
+
+- **Specific Resources by Level:**
+  - **A1**: "Керемет көч" cartoon, children's songs, Forvo audio dictionary, fairy tales, cooking videos
+  - **A2**: Азаттык Radio news, Kyrgyz folk tales audiobooks, Kaktus Media culture articles, Kyrgyz vlogs
+  - **B1**: Биринчи радио programs, 24.kg news portal, "Курманжан Датка" film, KTRK national TV
+  - **B2**: Азаттык discussion programs, "Джамиля" by Айтматов, Kloop.kg analytical articles, nature documentaries
+  - **C1**: Academic seminars, Манас epic (full version), "Ак кеме" (1976 film), "Первый учитель", theater recordings
+  - **C2**: Dialect recordings, old Kyrgyz texts (Arabic script), film festival cinema, parliamentary broadcasts
 
 **Interactive Support Features** ✅ **FULLY IMPLEMENTED**
 
