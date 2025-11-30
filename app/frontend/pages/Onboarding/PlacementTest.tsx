@@ -234,7 +234,7 @@ export default function PlacementTest() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4 pb-32 md:pb-4">
       <Card className="w-full max-w-3xl">
         <CardHeader className="space-y-4">
           <div className="flex items-center justify-between">
@@ -256,7 +256,7 @@ export default function PlacementTest() {
           <Progress value={progress} className="w-full" />
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 pb-4">
           <div className="space-y-4">
             <h3 className="text-xl font-semibold">{currentQuestion.question}</h3>
 
@@ -264,7 +264,7 @@ export default function PlacementTest() {
               <p className="text-sm text-muted-foreground italic">
                 {currentQuestion.instruction[language]}
               </p>
-            )}
+)}
 
             <RadioGroup
               value={selectedOption !== null ? selectedOption.toString() : undefined}
@@ -290,6 +290,62 @@ export default function PlacementTest() {
             </RadioGroup>
           </div>
 
+          {selectedOption === null && answers.length === 0 && (
+            <p className="text-sm text-muted-foreground text-center">{t.select}</p>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Fixed bottom buttons on mobile, normal on desktop */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-lg md:hidden z-10">
+        <div className="flex justify-between items-center gap-3 max-w-3xl mx-auto">
+          {/* Left side buttons */}
+          <div className="flex gap-2">
+            <Button
+              onClick={handleSkip}
+              variant="outline"
+              size="default"
+              disabled={isSubmitting}
+            >
+              <SkipForward className="w-4 h-4 md:mr-2" />
+              <span className="hidden sm:inline">{t.skip}</span>
+            </Button>
+
+            {answers.length > 0 && (
+              <Button
+                onClick={handleEarlyFinish}
+                variant="secondary"
+                size="default"
+                disabled={isSubmitting}
+              >
+                <Flag className="w-4 h-4 md:mr-2" />
+                <span className="hidden sm:inline">{t.finishEarly}</span>
+              </Button>
+            )}
+          </div>
+
+          {/* Right side button */}
+          <Button
+            onClick={handleNext}
+            disabled={selectedOption === null || isSubmitting}
+            size="default"
+            data-testid="test-next-button"
+          >
+            {currentQuestionIndex === EXTENDED_PLACEMENT_TEST.length - 1 ? (
+              <>
+                <CheckCircle2 className="w-4 h-4 mr-2" />
+                {t.finish}
+              </>
+            ) : (
+              t.next
+            )}
+          </Button>
+        </div>
+      </div>
+
+      {/* Desktop buttons (hidden on mobile) */}
+      <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4">
+        <div className="bg-white rounded-lg border shadow-sm p-4">
           <div className="flex justify-between items-center gap-3">
             {/* Left side buttons */}
             <div className="flex gap-2">
@@ -333,12 +389,8 @@ export default function PlacementTest() {
               )}
             </Button>
           </div>
-
-          {selectedOption === null && answers.length === 0 && (
-            <p className="text-sm text-muted-foreground text-center">{t.select}</p>
-          )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
