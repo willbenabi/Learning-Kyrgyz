@@ -234,18 +234,21 @@ Personalized content recommendations automatically adapt to user's current CEFR 
 
 **Interactive Support Features** ✅ **FULLY IMPLEMENTED**
 
-1. **AI Assistant Chat Modal**
-   - Real-time chat interface for practicing Kyrgyz
-   - Integration ready for AkylAI (https://www.akylai.com/)
-   - Ask grammar questions in real-time
-   - Practice conversations in Kyrgyz
+1. **AI Assistant Chat Modal** (OpenAI Integration)
+   - Real-time AI-powered chat using OpenAI GPT-4o-mini
+   - Practice conversations in Kyrgyz with instant AI feedback
+   - Ask grammar questions and get detailed explanations
+   - Request translations between Kyrgyz, English, and Russian
+   - Context-aware responses optimized for language learning
    - Message history with user/assistant bubbles
    - Timestamps for each message
    - Auto-scroll to latest message
+   - Loading states with typing animation
    - Bilingual interface (English/Russian)
-   - Link to learn more about AkylAI
+   - Powered by OpenAI (https://openai.com/)
    - Icon: MessageSquare
    - Opens via bottom navigation card
+   - No authentication required (works for all users)
 
 2. **Technical Support Modal**
    - Problem reporting form with text area
