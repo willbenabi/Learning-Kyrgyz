@@ -203,23 +203,36 @@
 - Lessons completed counter
 - Words learned counter
 - Badges earned (with trophy icon)
+- "View Details" button links to comprehensive progress page
+
+**Level-Based Recommendations**
+- Personalized content suggestions based on current CEFR level (A1-C2)
+- Three categories per level:
+  - **Listening**: Songs, podcasts, audiobooks, radio programs
+  - **Reading**: Books, articles, news, literature
+  - **Watching**: Cartoons, movies, documentaries, TV programs
+- Detailed descriptions in both English and Russian
+- Curated content appropriate for each proficiency level
+- Examples: "Керемет көч" cartoon for A1, classic films like "Ак кеме" for C1
 
 **Bottom Navigation**
-1. **AI Assistant Chat**
-   - Ask grammar questions
-   - Practice Kyrgyz conversation
-   - Get instant explanations
-   - Check pronunciation
+1. **AI Assistant Chat** ✅ **ACTIVE**
+   - Real-time chat interface for practicing Kyrgyz
+   - Powered by AkylAI (https://www.akylai.com/)
+   - Ask grammar questions and get instant explanations
+   - Practice Kyrgyz conversations with AI
+   - Bilingual interface (English/Russian)
+   - Message history with timestamps
+   - Link to learn more about AkylAI
    - Icon: MessageSquare
-   - Status: Coming Soon
 
-2. **Technical Support**
-   - Submit bug reports
-   - Suggest improvements
-   - Request feature enhancements
-   - Get help
+2. **Technical Support** ✅ **ACTIVE**
+   - Submit bug reports and issues through modal form
+   - Describe problems with detailed text input
+   - Automatic confirmation: "We'll review your message"
+   - Bilingual support form (English/Russian)
+   - Simple submission process
    - Icon: Wrench
-   - Status: Coming Soon
 
 ### 3. Multi-Language Support
 
