@@ -42,6 +42,7 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
   const [progress, setProgress] = useState<UserProgress | null>(userProgress || null)
   const [showTechSupport, setShowTechSupport] = useState(false)
   const [showAIAssistant, setShowAIAssistant] = useState(false)
+  const [showRecommendations, setShowRecommendations] = useState(false)
 
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
 
@@ -50,6 +51,8 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
       welcome: 'Welcome to Learning Kyrgyz',
       subtitle: 'Start your journey to mastery',
       recommendedContent: 'Recommended for You',
+      viewRecommendations: 'View Recommendations',
+      hideRecommendations: 'Hide Recommendations',
       modules: 'Learning Modules',
       grammar: 'Grammar',
       grammarDesc: 'Master Kyrgyz grammar rules',
@@ -77,6 +80,8 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
       welcome: 'Добро пожаловать в изучение кыргызского',
       subtitle: 'Начните свой путь к мастерству',
       recommendedContent: 'Рекомендовано для вас',
+      viewRecommendations: 'Посмотреть рекомендации',
+      hideRecommendations: 'Скрыть рекомендации',
       modules: 'Модули обучения',
       grammar: 'Грамматика',
       grammarDesc: 'Освойте правила кыргызской грамматики',
@@ -183,61 +188,74 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
         {/* Level-Based Recommendations */}
         <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0">
           <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <Star className="w-5 h-5" />
-              {t.recommendedContent}
-            </CardTitle>
-            <p className="text-white/90 text-sm mt-1">{levelRecommendations.description[language]}</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Star className="w-5 h-5" />
+                  {t.recommendedContent}
+                </CardTitle>
+                <p className="text-white/90 text-sm mt-1">{levelRecommendations.description[language]}</p>
+              </div>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setShowRecommendations(!showRecommendations)}
+              >
+                {showRecommendations ? t.hideRecommendations : t.viewRecommendations}
+              </Button>
+            </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Listening */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Headphones className="w-5 h-5" />
-                <h3 className="font-semibold text-lg">{language === 'en' ? 'Listening' : 'Слушание'}</h3>
+          {showRecommendations && (
+            <CardContent className="space-y-4">
+              {/* Listening */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Headphones className="w-5 h-5" />
+                  <h3 className="font-semibold text-lg">{language === 'en' ? 'Listening' : 'Слушание'}</h3>
+                </div>
+                <ul className="space-y-1 text-white/90">
+                  {levelRecommendations.listening[language].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="mt-1.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-1 text-white/90">
-                {levelRecommendations.listening[language].map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="mt-1.5">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            {/* Reading */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <BookOpen className="w-5 h-5" />
-                <h3 className="font-semibold text-lg">{language === 'en' ? 'Reading' : 'Чтение'}</h3>
+              {/* Reading */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <BookOpen className="w-5 h-5" />
+                  <h3 className="font-semibold text-lg">{language === 'en' ? 'Reading' : 'Чтение'}</h3>
+                </div>
+                <ul className="space-y-1 text-white/90">
+                  {levelRecommendations.reading[language].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="mt-1.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-1 text-white/90">
-                {levelRecommendations.reading[language].map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="mt-1.5">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            {/* Watching */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Film className="w-5 h-5" />
-                <h3 className="font-semibold text-lg">{language === 'en' ? 'Watching' : 'Просмотр'}</h3>
+              {/* Watching */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Film className="w-5 h-5" />
+                  <h3 className="font-semibold text-lg">{language === 'en' ? 'Watching' : 'Просмотр'}</h3>
+                </div>
+                <ul className="space-y-1 text-white/90">
+                  {levelRecommendations.watching[language].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="mt-1.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-1 text-white/90">
-                {levelRecommendations.watching[language].map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="mt-1.5">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CardContent>
+            </CardContent>
+          )}
         </Card>
 
         {/* Progress Stats */}

@@ -1,5 +1,7 @@
+import { router } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import {
   Flame,
@@ -10,7 +12,8 @@ import {
   Award,
   Target,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  ArrowLeft
 } from 'lucide-react'
 
 interface Achievement {
@@ -82,6 +85,7 @@ export default function ProgressPage({
     en: {
       title: 'Your Learning Progress',
       subtitle: 'Track your achievements and stay motivated',
+      backToDashboard: 'Back to Dashboard',
       overview: 'Overview',
       level: 'Current Level',
       streak: 'Current Streak',
@@ -109,6 +113,7 @@ export default function ProgressPage({
     ru: {
       title: 'Ваш прогресс обучения',
       subtitle: 'Отслеживайте свои достижения и оставайтесь мотивированными',
+      backToDashboard: 'Вернуться на главную',
       overview: 'Обзор',
       level: 'Текущий уровень',
       streak: 'Текущая серия',
@@ -158,6 +163,14 @@ export default function ProgressPage({
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
+          <Button
+            variant="ghost"
+            className="text-white hover:text-white hover:bg-white/20 mb-4"
+            onClick={() => router.visit('/learning/dashboard')}
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {t.backToDashboard}
+          </Button>
           <div className="flex items-center gap-3 mb-2">
             <TrendingUp className="w-10 h-10" />
             <h1 className="text-4xl font-bold">{t.title}</h1>
