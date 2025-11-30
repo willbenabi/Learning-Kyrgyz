@@ -15,7 +15,8 @@ import {
   Star,
   TrendingUp,
   Film,
-  Headphones
+  Headphones,
+  ExternalLink
 } from 'lucide-react'
 import { getUserProgress } from '@/lib/progressHelper'
 import TechSupportModal from '@/components/TechSupportModal'
@@ -206,53 +207,131 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
             </div>
           </CardHeader>
           {showRecommendations && (
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               {/* Listening */}
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-3">
                   <Headphones className="w-5 h-5" />
                   <h3 className="font-semibold text-lg">{language === 'en' ? 'Listening' : 'Слушание'}</h3>
                 </div>
-                <ul className="space-y-1 text-white/90">
-                  {levelRecommendations.listening[language].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="mt-1.5">•</span>
-                      <span>{item}</span>
-                    </li>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {levelRecommendations.listening.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all group"
+                    >
+                      {item.imageUrl && (
+                        <div className="w-full h-32 mb-3 rounded-md overflow-hidden bg-white/5">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title[language]}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                        </div>
+                      )}
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h4 className="font-semibold text-white text-sm line-clamp-2">{item.title[language]}</h4>
+                        <ExternalLink className="w-4 h-4 flex-shrink-0 text-white/70 group-hover:text-white" />
+                      </div>
+                      <p className="text-white/80 text-xs line-clamp-2">{item.description[language]}</p>
+                      <Badge variant="secondary" className="mt-2 text-xs">
+                        {item.type === 'song' && (language === 'en' ? 'Song' : 'Песня')}
+                        {item.type === 'podcast' && (language === 'en' ? 'Podcast' : 'Подкаст')}
+                        {item.type === 'news' && (language === 'en' ? 'News' : 'Новости')}
+                      </Badge>
+                    </a>
                   ))}
-                </ul>
+                </div>
               </div>
 
               {/* Reading */}
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-3">
                   <BookOpen className="w-5 h-5" />
                   <h3 className="font-semibold text-lg">{language === 'en' ? 'Reading' : 'Чтение'}</h3>
                 </div>
-                <ul className="space-y-1 text-white/90">
-                  {levelRecommendations.reading[language].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="mt-1.5">•</span>
-                      <span>{item}</span>
-                    </li>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {levelRecommendations.reading.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all group"
+                    >
+                      {item.imageUrl && (
+                        <div className="w-full h-32 mb-3 rounded-md overflow-hidden bg-white/5">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title[language]}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                        </div>
+                      )}
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h4 className="font-semibold text-white text-sm line-clamp-2">{item.title[language]}</h4>
+                        <ExternalLink className="w-4 h-4 flex-shrink-0 text-white/70 group-hover:text-white" />
+                      </div>
+                      <p className="text-white/80 text-xs line-clamp-2">{item.description[language]}</p>
+                      <Badge variant="secondary" className="mt-2 text-xs">
+                        {item.type === 'book' && (language === 'en' ? 'Book' : 'Книга')}
+                        {item.type === 'article' && (language === 'en' ? 'Article' : 'Статья')}
+                        {item.type === 'news' && (language === 'en' ? 'News' : 'Новости')}
+                      </Badge>
+                    </a>
                   ))}
-                </ul>
+                </div>
               </div>
 
               {/* Watching */}
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-3">
                   <Film className="w-5 h-5" />
                   <h3 className="font-semibold text-lg">{language === 'en' ? 'Watching' : 'Просмотр'}</h3>
                 </div>
-                <ul className="space-y-1 text-white/90">
-                  {levelRecommendations.watching[language].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="mt-1.5">•</span>
-                      <span>{item}</span>
-                    </li>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {levelRecommendations.watching.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all group"
+                    >
+                      {item.imageUrl && (
+                        <div className="w-full h-32 mb-3 rounded-md overflow-hidden bg-white/5">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title[language]}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                        </div>
+                      )}
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h4 className="font-semibold text-white text-sm line-clamp-2">{item.title[language]}</h4>
+                        <ExternalLink className="w-4 h-4 flex-shrink-0 text-white/70 group-hover:text-white" />
+                      </div>
+                      <p className="text-white/80 text-xs line-clamp-2">{item.description[language]}</p>
+                      <Badge variant="secondary" className="mt-2 text-xs">
+                        {item.type === 'video' && (language === 'en' ? 'Video' : 'Видео')}
+                        {item.type === 'film' && (language === 'en' ? 'Film' : 'Фильм')}
+                        {item.type === 'news' && (language === 'en' ? 'News' : 'Новости')}
+                      </Badge>
+                    </a>
                   ))}
-                </ul>
+                </div>
               </div>
             </CardContent>
           )}
