@@ -30,8 +30,8 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
       description: 'Practice Kyrgyz with AI - ask questions, have conversations',
       placeholder: 'Type your message in Kyrgyz...',
       send: 'Send',
-      poweredBy: 'Powered by AkylAI',
-      learnMore: 'Learn more about AkylAI',
+      poweredBy: 'Powered by OpenAI',
+      learnMore: 'Learn more',
       welcome: 'Салам! I\'m your AI assistant for learning Kyrgyz. Ask me anything in Kyrgyz or get help with translations!'
     },
     ru: {
@@ -39,8 +39,8 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
       description: 'Практикуйте кыргызский с AI - задавайте вопросы, общайтесь',
       placeholder: 'Напишите сообщение на кыргызском...',
       send: 'Отправить',
-      poweredBy: 'Работает на AkylAI',
-      learnMore: 'Узнать больше о AkylAI',
+      poweredBy: 'Работает на OpenAI',
+      learnMore: 'Узнать больше',
       welcome: 'Салам! Я ваш AI ассистент для изучения кыргызского языка. Задавайте любые вопросы на кыргызском или просите помощь с переводами!'
     }
   }
@@ -82,22 +82,53 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
     setIsLoading(true)
 
     try {
-      // TODO: Integrate with AkylAI API (https://www.akylai.com/)
-      // For now, mock response
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      // Prepare messages for API (only role and content)
+      const apiMessages = [...messages, userMessage].map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }))
+
+      // Get CSRF token
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+
+      const response = await fetch('/ai/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken || ''
+        },
+        body: JSON.stringify({ messages: apiMessages })
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to get AI response')
+      }
+
+      const data = await response.json()
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: language === 'en'
-          ? 'This is a demo response. To enable real AI chat, integrate with AkylAI API at https://www.akylai.com/'
-          : 'Это демо-ответ. Для реального AI чата нужно интегрировать AkylAI API на https://www.akylai.com/',
+        content: data.message || (language === 'en'
+          ? 'Sorry, I could not generate a response.'
+          : 'Извините, я не смог сгенерировать ответ.'),
         timestamp: new Date()
       }
 
       setMessages(prev => [...prev, assistantMessage])
     } catch (error) {
       console.error('AI chat error:', error)
+
+      // Show error message to user
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: language === 'en'
+          ? 'Sorry, there was an error connecting to the AI service. Please try again.'
+          : 'Извините, произошла ошибка при подключении к AI сервису. Пожалуйста, попробуйте еще раз.',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
     } finally {
       setIsLoading(false)
     }
@@ -178,7 +209,7 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
           </form>
           <div className="mt-2 text-center">
             <a
-              href="https://www.akylai.com/"
+              href="https://openai.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-gray-500 hover:text-gray-700"
