@@ -24,25 +24,37 @@
 - All UI text, explanations, and feedback respect chosen language
 - Kyrgyz content remains in Kyrgyz (examples, exercises, readings)
 
-**Level Assessment Choice**
-- User chooses how to start their learning journey:
-  1. **Take Placement Test** - Complete 20-question assessment (15-20 minutes)
-  2. **Start from Scratch** - Begin at A1 level with no prior knowledge
-- Clear descriptions of each option
-- "Start from Scratch" option marked as recommended for complete beginners
+**Level Selection Path**
+- After language selection, users choose how to begin their learning journey
+- Three comprehensive options with clear descriptions:
+  1. **I Know My Level** - Manually select proficiency level (A1-C1)
+  2. **Take Placement Test** - Complete comprehensive 40-question assessment (15-20 minutes)
+  3. **Start from Scratch** - Begin at A1 level (recommended for complete beginners)
 - Bilingual interface (Russian/English)
-- Users can retake placement test later from profile settings
+- Users can retake placement test or change level later from profile settings
 
-**Adaptive Placement Test (20 Questions)**
+**Manual Level Selection**
+- Interactive cards for each CEFR level (A1, A2, B1, B2, C1)
+- Each level displays:
+  - Color-coded badge
+  - Level title and description
+  - Detailed proficiency explanation
+- Visual selection feedback with checkmark
+- Confirmation required before proceeding
+
+**Comprehensive Placement Test (40 Questions)**
 - One question at a time with progress indicator
-- 20 questions covering 5 CEFR levels (A1, A2, B1, B2, C1)
-- Questions randomly selected from pool of 75 comprehensive questions
-- Diverse question types: grammar, vocabulary, comprehension, error identification
+- 40 questions covering all 5 CEFR levels (8 questions per level)
+- Questions organized by level: A1, A2, B1, B2, C1
+- Diverse question types: grammar, vocabulary, comprehension, sentence completion
 - Multiple choice format with 4 options per question
-- Answer options randomized for each question
-- All questions and answers available in both Russian and English
-- Adaptive difficulty (simulated in Level 1)
-- Final score calculation determines user's level
+- Questions in Kyrgyz with bilingual answer options (Russian/English)
+- Optional instruction text for specific questions
+- Smart level determination algorithm:
+  - Threshold: ≥5 correct answers out of 8 to pass a level
+  - Assigns learning level one above highest passed level
+  - Example: Pass A1(7/8), A2(6/8), fail B1(3/8) → Assigned level B1
+- Test duration warning displayed (15-20 minutes)
 - Results stored for diagnostics
 
 **AI Diagnostics Results**
@@ -256,13 +268,13 @@
 3. **Fills registration form** → Name, email, password, country
 4. **Submits form** → Automatic login
 5. **Redirected to language selection** → Chooses Russian or English
-6. **Redirected to placement test** → Takes 20-question adaptive test
-7. **Test completes** → Redirected to diagnostics page
-8. **Views results** → Sees level, strengths, weaknesses, recommendations
-9. **Clicks "Start Learning"** → Arrives at main dashboard
-10. **Explores dashboard** → Sees modules, progress, recommendations
-11. **Clicks any Learning Module** → Views content based on level (Grammar, Reading, Writing, or Vocabulary)
-12. **Selects content** → Studies lessons, reads texts, practices writing, or learns vocabulary
+6. **Redirected to level selection** → Three options:
+   - **Option A: Know My Level** → Manually select from A1-C1 → Dashboard
+   - **Option B: Take Test** → Complete 40-question placement test → Diagnostics → Dashboard
+   - **Option C: Start from Scratch** → Automatically set to A1 → Dashboard
+7. **Arrives at main dashboard** → Sees modules, progress, recommendations
+8. **Clicks any Learning Module** → Views content based on level (Grammar, Reading, Writing, or Vocabulary)
+9. **Selects content** → Studies lessons, reads texts, practices writing, or learns vocabulary
 
 ### Returning User Journey
 
@@ -276,7 +288,9 @@
 
 - `app/frontend/pages/Auth/Register.tsx` - Public registration form
 - `app/frontend/pages/Onboarding/LanguageSelection.tsx` - Language choice
-- `app/frontend/pages/Onboarding/PlacementTest.tsx` - Adaptive 20-question test
+- `app/frontend/pages/Onboarding/LevelChoice.tsx` - Three-option level selection screen
+- `app/frontend/pages/Onboarding/ManualLevelSelect.tsx` - Manual A1-C1 level selection
+- `app/frontend/pages/Onboarding/PlacementTest.tsx` - Comprehensive 40-question test
 - `app/frontend/pages/Onboarding/Diagnostics.tsx` - Results and recommendations
 - `app/frontend/pages/Learning/Dashboard.tsx` - Main learning interface
 - `app/frontend/pages/Learning/Grammar.tsx` - Grammar lessons viewer with exercises
@@ -301,6 +315,9 @@ POST /register
 # Onboarding
 GET  /onboarding/language
 POST /onboarding/language
+GET  /onboarding/level-choice
+GET  /onboarding/manual-level-select
+POST /onboarding/set-level
 GET  /onboarding/placement-test
 POST /onboarding/placement-test/results
 GET  /onboarding/diagnostics
@@ -322,12 +339,12 @@ All data is stored in **localStorage** for this prototype:
 ### Mock Data
 
 **Placement Test Questions:**
-- 75 comprehensive questions total (20 A1, 15 A2, 15 B1, 15 B2, 15 C1)
-- Diverse question types: multiple choice grammar, synonym/antonym, sentence completion, error identification, reading comprehension
+- 40 comprehensive questions total (8 per level: A1, A2, B1, B2, C1)
+- Diverse question types: multiple choice grammar, vocabulary, sentence completion, comprehension
+- Questions in Kyrgyz with bilingual answer options (Russian/English)
 - Questions based on authentic Kyrgyz language patterns and real-world usage
-- Full bilingual support (Russian and English for both questions and answers)
-- Test randomly selects 20 questions from the pool for each user
-- Options randomized on each load
+- Full bilingual support for answer options and optional instructions
+- Level determination based on threshold algorithm (≥5/8 correct to pass)
 
 **Diagnostics:**
 - Level-specific strengths, weaknesses, and recommendations
@@ -354,12 +371,19 @@ All data is stored in **localStorage** for this prototype:
 - Selection stored and respected throughout app
 - Redirect to placement test works
 
+✅ **Level Selection Working:**
+- Three clear options after language selection
+- Manual level selection with 5 interactive cards
+- Each level card shows detailed proficiency description
+- Visual feedback on selection
+
 ✅ **Placement Test Working:**
-- 20 questions display correctly
+- 40 questions display correctly (8 per level)
 - One question at a time with progress indicator
-- Answer selection works
-- Questions and answers randomized
-- Level calculated based on score (A1-C1)
+- Questions in Kyrgyz, answers bilingual
+- Optional instruction text displays when present
+- Smart level determination using threshold algorithm
+- Test duration warning shown (15-20 minutes)
 - Redirect to diagnostics works
 
 ✅ **Diagnostics Working:**

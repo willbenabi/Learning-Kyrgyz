@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { router } from '@inertiajs/react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -6,27 +6,12 @@ import { Progress } from '@/components/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { BookOpen, CheckCircle2 } from 'lucide-react'
-import { PLACEMENT_TEST_QUESTIONS, type Question, type Level } from '@/data/placementTestQuestions'
-
-const LEVEL_ORDER: Level[] = ['A1', 'A2', 'B1', 'B2', 'C1']
-
-interface Answer {
-  questionId: string
-  selectedOption: number
-  correct: boolean
-  level: Level
-}
-
-interface ShuffledQuestion extends Question {
-  shuffledOptions: string[]
-  shuffledCorrect: number
-}
+import { EXTENDED_PLACEMENT_TEST, determineLevel } from '@/data/extendedPlacementTest'
 
 export default function PlacementTest() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
-  const [answers, setAnswers] = useState<Answer[]>([])
-  const [questions, setQuestions] = useState<ShuffledQuestion[]>([])
+  const [answers, setAnswers] = useState<number[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Get interface language
@@ -35,7 +20,7 @@ export default function PlacementTest() {
   const translations = {
     en: {
       title: 'Placement Test',
-      description: 'Answer 20 questions to determine your Kyrgyz level',
+      description: 'Answer 40 questions to accurately determine your Kyrgyz level (15-20 minutes)',
       progress: 'Question',
       of: 'of',
       next: 'Next',
@@ -44,7 +29,7 @@ export default function PlacementTest() {
     },
     ru: {
       title: 'Тест на определение уровня',
-      description: 'Ответьте на 20 вопросов, чтобы определить ваш уровень кыргызского языка',
+      description: 'Ответьте на 40 вопросов для точного определения вашего уровня кыргызского языка (15-20 минут)',
       progress: 'Вопрос',
       of: 'из',
       next: 'Далее',
@@ -54,133 +39,32 @@ export default function PlacementTest() {
   }
   const t = translations[language]
 
-  // Initialize test with adaptive questions
-  useEffect(() => {
-    const shuffleArray = <T,>(array: T[]): T[] => {
-      const shuffled = [...array]
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-      }
-      return shuffled
-    }
-
-    // Shuffle options for each question based on language
-    const shuffleQuestion = (q: Question): ShuffledQuestion => {
-      const indices = [0, 1, 2, 3]
-      const shuffledIndices = shuffleArray(indices)
-      const newCorrect = shuffledIndices.indexOf(q.correct)
-      const optionsInLanguage = q.options[language]
-
-      return {
-        ...q,
-        shuffledOptions: shuffledIndices.map(i => optionsInLanguage[i]),
-        shuffledCorrect: newCorrect
-      }
-    }
-
-    // Group questions by level
-    const questionsByLevel: Record<Level, Question[]> = {
-      A1: [],
-      A2: [],
-      B1: [],
-      B2: [],
-      C1: []
-    }
-
-    PLACEMENT_TEST_QUESTIONS.forEach(q => {
-      questionsByLevel[q.level].push(q)
-    })
-
-    // Shuffle questions within each level
-    const shuffledByLevel: Record<Level, Question[]> = {
-      A1: shuffleArray(questionsByLevel.A1),
-      A2: shuffleArray(questionsByLevel.A2),
-      B1: shuffleArray(questionsByLevel.B1),
-      B2: shuffleArray(questionsByLevel.B2),
-      C1: shuffleArray(questionsByLevel.C1)
-    }
-
-    // Adaptive selection: Start easy (A1), progress based on performance
-    const selectedQuestions: ShuffledQuestion[] = []
-    let currentLevel: Level = 'A1' // Start at A1 (easiest)
-    const levelCounts: Record<Level, number> = { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0 }
-
-    // Select 20 questions with adaptive difficulty simulation
-    for (let i = 0; i < 20; i++) {
-      const availableInLevel = shuffledByLevel[currentLevel][levelCounts[currentLevel]]
-
-      if (availableInLevel) {
-        selectedQuestions.push(shuffleQuestion(availableInLevel))
-        levelCounts[currentLevel]++
-
-        // Simulate adaptive progression
-        // Every 4 questions, increase difficulty if possible
-        if ((i + 1) % 4 === 0) {
-          const currentLevelIndex = LEVEL_ORDER.indexOf(currentLevel)
-          if (currentLevelIndex < LEVEL_ORDER.length - 1) {
-            currentLevel = LEVEL_ORDER[currentLevelIndex + 1]
-          }
-        }
-      }
-    }
-
-    setQuestions(selectedQuestions)
-  }, [language])
-
   const handleNext = () => {
     if (selectedOption === null) return
 
-    const currentQuestion = questions[currentQuestionIndex]
-    const isCorrect = selectedOption === currentQuestion.shuffledCorrect
-
     // Record answer
-    setAnswers([
-      ...answers,
-      {
-        questionId: currentQuestion.id,
-        selectedOption,
-        correct: isCorrect,
-        level: currentQuestion.level
-      }
-    ])
+    const newAnswers = [...answers, selectedOption]
+    setAnswers(newAnswers)
 
     // Move to next question or finish
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < EXTENDED_PLACEMENT_TEST.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
       setSelectedOption(null)
     } else {
-      handleFinishTest()
+      handleFinishTest(newAnswers)
     }
   }
 
-  const handleFinishTest = async () => {
+  const handleFinishTest = async (finalAnswers: number[]) => {
     setIsSubmitting(true)
 
-    // Calculate level based on answers
-    const finalAnswers = [...answers]
-    if (selectedOption !== null) {
-      const currentQuestion = questions[currentQuestionIndex]
-      finalAnswers.push({
-        questionId: currentQuestion.id,
-        selectedOption,
-        correct: selectedOption === currentQuestion.shuffledCorrect,
-        level: currentQuestion.level
-      })
-    }
+    // Determine level using the algorithm from extendedPlacementTest
+    const determinedLevel = determineLevel(finalAnswers)
 
-    const correctCount = finalAnswers.filter(a => a.correct).length
-    const totalCount = finalAnswers.length
-
-    // Calculate level based on score
-    let determinedLevel: Level
-    const percentage = (correctCount / totalCount) * 100
-
-    if (percentage >= 90) determinedLevel = 'C1'
-    else if (percentage >= 75) determinedLevel = 'B2'
-    else if (percentage >= 60) determinedLevel = 'B1'
-    else if (percentage >= 40) determinedLevel = 'A2'
-    else determinedLevel = 'A1'
+    // Calculate correct count
+    const correctCount = finalAnswers.filter((answer, index) =>
+      answer === EXTENDED_PLACEMENT_TEST[index].correctAnswer
+    ).length
 
     // Store results
     try {
@@ -189,12 +73,13 @@ export default function PlacementTest() {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
         },
         body: JSON.stringify({
           answers: finalAnswers,
           level: determinedLevel,
           score: correctCount,
-          total: totalCount
+          total: EXTENDED_PLACEMENT_TEST.length
         }),
       })
 
@@ -202,9 +87,8 @@ export default function PlacementTest() {
       localStorage.setItem('test_results', JSON.stringify({
         level: determinedLevel,
         score: correctCount,
-        total: totalCount,
-        answers: finalAnswers,
-        questions: questions
+        total: EXTENDED_PLACEMENT_TEST.length,
+        answers: finalAnswers
       }))
 
       // Redirect to diagnostics
@@ -215,16 +99,8 @@ export default function PlacementTest() {
     }
   }
 
-  if (questions.length === 0) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
-      </div>
-    )
-  }
-
-  const currentQuestion = questions[currentQuestionIndex]
-  const progress = ((currentQuestionIndex + 1) / questions.length) * 100
+  const currentQuestion = EXTENDED_PLACEMENT_TEST[currentQuestionIndex]
+  const progress = ((currentQuestionIndex + 1) / EXTENDED_PLACEMENT_TEST.length) * 100
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
@@ -242,7 +118,7 @@ export default function PlacementTest() {
             </div>
             <div className="text-right">
               <div className="text-sm font-medium text-muted-foreground">
-                {t.progress} {currentQuestionIndex + 1} {t.of} {questions.length}
+                {t.progress} {currentQuestionIndex + 1} {t.of} {EXTENDED_PLACEMENT_TEST.length}
               </div>
             </div>
           </div>
@@ -251,14 +127,20 @@ export default function PlacementTest() {
 
         <CardContent className="space-y-6">
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">{currentQuestion.question[language]}</h3>
+            <h3 className="text-xl font-semibold">{currentQuestion.question}</h3>
+
+            {currentQuestion.instruction && (
+              <p className="text-sm text-muted-foreground italic">
+                {currentQuestion.instruction[language]}
+              </p>
+            )}
 
             <RadioGroup
               value={selectedOption !== null ? selectedOption.toString() : undefined}
               onValueChange={(value) => setSelectedOption(parseInt(value))}
             >
               <div className="space-y-3">
-                {currentQuestion.shuffledOptions.map((option, index) => (
+                {currentQuestion.options[language].map((option, index) => (
                   <div
                     key={index}
                     className="flex items-center space-x-3 border rounded-lg p-4 hover:bg-muted/50 transition-colors cursor-pointer"
@@ -284,7 +166,7 @@ export default function PlacementTest() {
               size="lg"
               data-testid="test-next-button"
             >
-              {currentQuestionIndex === questions.length - 1 ? (
+              {currentQuestionIndex === EXTENDED_PLACEMENT_TEST.length - 1 ? (
                 <>
                   <CheckCircle2 className="w-4 h-4 mr-2" />
                   {t.finish}

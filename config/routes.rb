@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get "/onboarding/language", to: "onboarding#language"
   post "/onboarding/language", to: "onboarding#set_language"
   get "/onboarding/level-choice", to: "onboarding#level_choice"
+  get "/onboarding/manual-level-select", to: "onboarding#manual_level_select"
+  post "/onboarding/set-level", to: "onboarding#set_level"
   get "/onboarding/placement-test", to: "onboarding#placement_test"
   post "/onboarding/placement-test/results", to: "onboarding#submit_test"
   get "/onboarding/diagnostics", to: "onboarding#diagnostics"

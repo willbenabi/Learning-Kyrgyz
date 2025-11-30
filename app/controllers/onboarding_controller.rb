@@ -22,7 +22,33 @@ class OnboardingController < ApplicationController
 
   # GET /onboarding/level-choice
   def level_choice
-    render inertia: "Onboarding/LevelAssessmentChoice"
+    render inertia: "Onboarding/LevelChoice"
+  end
+
+  # GET /onboarding/manual-level-select
+  def manual_level_select
+    render inertia: "Onboarding/ManualLevelSelect"
+  end
+
+  # POST /onboarding/set-level
+  def set_level
+    # Level 1: Mock level setting
+    # In Level 2, update UserProgress with selected/determined level
+    level = params[:level]
+    source = params[:source] # 'manual', 'test', or 'beginner'
+
+    # Validate level
+    unless %w[A1 A2 B1 B2 C1].include?(level)
+      render json: { error: "Invalid level" }, status: :unprocessable_entity
+      return
+    end
+
+    # Mock response - in Level 2, create/update UserProgress record
+    render json: {
+      success: true,
+      level: level,
+      source: source
+    }
   end
 
   # GET /onboarding/placement-test
