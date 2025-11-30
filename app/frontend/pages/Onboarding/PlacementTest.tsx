@@ -5,14 +5,16 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
-import { BookOpen, CheckCircle2 } from 'lucide-react'
+import { BookOpen, CheckCircle2, SkipForward, Flag, ArrowRight } from 'lucide-react'
 import { EXTENDED_PLACEMENT_TEST, determineLevel } from '@/data/extendedPlacementTest'
 
 export default function PlacementTest() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
-  const [answers, setAnswers] = useState<number[]>([])
+  const [answers, setAnswers] = useState<(number | null)[]>([]) // null for skipped questions
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showEarlyFinishDialog, setShowEarlyFinishDialog] = useState(false)
+  const [earlyFinishResult, setEarlyFinishResult] = useState<{ level: string; questionsAnswered: number } | null>(null)
 
   // Get interface language
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
@@ -24,8 +26,17 @@ export default function PlacementTest() {
       progress: 'Question',
       of: 'of',
       next: 'Next',
+      skip: 'Skip Question',
+      finishEarly: 'Finish Early',
       finish: 'Finish Test',
-      select: 'Please select an answer'
+      select: 'Please select an answer',
+      earlyFinishTitle: 'Early Test Completion',
+      earlyFinishMessage: 'Based on your answers so far:',
+      detectedLevel: 'Detected Level',
+      questionsAnswered: 'Questions Answered',
+      continueTest: 'Continue Test',
+      acceptLevel: 'Accept This Level',
+      skipped: '(skipped)'
     },
     ru: {
       title: 'Тест на определение уровня',
@@ -33,8 +44,17 @@ export default function PlacementTest() {
       progress: 'Вопрос',
       of: 'из',
       next: 'Далее',
+      skip: 'Пропустить вопрос',
+      finishEarly: 'Завершить досрочно',
       finish: 'Завершить тест',
-      select: 'Пожалуйста, выберите ответ'
+      select: 'Пожалуйста, выберите ответ',
+      earlyFinishTitle: 'Досрочное завершение теста',
+      earlyFinishMessage: 'На основе ваших ответов:',
+      detectedLevel: 'Определен уровень',
+      questionsAnswered: 'Отвечено вопросов',
+      continueTest: 'Продолжить тест',
+      acceptLevel: 'Принять этот уровень',
+      skipped: '(пропущен)'
     }
   }
   const t = translations[language]
@@ -55,16 +75,74 @@ export default function PlacementTest() {
     }
   }
 
-  const handleFinishTest = async (finalAnswers: number[]) => {
+  const handleSkip = () => {
+    // Record skipped question as null
+    const newAnswers = [...answers, null]
+    setAnswers(newAnswers)
+
+    // Move to next question or finish
+    if (currentQuestionIndex < EXTENDED_PLACEMENT_TEST.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
+      setSelectedOption(null)
+    } else {
+      handleFinishTest(newAnswers)
+    }
+  }
+
+  const handleEarlyFinish = () => {
+    // Calculate current level based on answers so far
+    const answeredQuestions = answers.filter(a => a !== null)
+
+    if (answeredQuestions.length === 0) {
+      // Can't finish early without any answers
+      return
+    }
+
+    // Determine level from current answers (need to pad with nulls)
+    const paddedAnswers = [...answers]
+    while (paddedAnswers.length < EXTENDED_PLACEMENT_TEST.length) {
+      paddedAnswers.push(null)
+    }
+
+    const level = determineLevel(paddedAnswers as number[])
+
+    setEarlyFinishResult({
+      level,
+      questionsAnswered: answers.length
+    })
+    setShowEarlyFinishDialog(true)
+  }
+
+  const handleAcceptEarlyLevel = () => {
+    if (!earlyFinishResult) return
+
+    // Pad answers array to match test length (with nulls for unanswered)
+    const paddedAnswers = [...answers]
+    while (paddedAnswers.length < EXTENDED_PLACEMENT_TEST.length) {
+      paddedAnswers.push(null)
+    }
+
+    handleFinishTest(paddedAnswers as number[])
+  }
+
+  const handleContinueTest = () => {
+    setShowEarlyFinishDialog(false)
+    setEarlyFinishResult(null)
+  }
+
+  const handleFinishTest = async (finalAnswers: (number | null)[]) => {
     setIsSubmitting(true)
 
-    // Determine level using the algorithm from extendedPlacementTest
-    const determinedLevel = determineLevel(finalAnswers)
+    // Filter out nulls for level determination
+    const validAnswers = finalAnswers.map(a => a === null ? -1 : a) // Use -1 for skipped
+    const determinedLevel = determineLevel(validAnswers)
 
-    // Calculate correct count
+    // Calculate correct count (only for answered questions)
     const correctCount = finalAnswers.filter((answer, index) =>
-      answer === EXTENDED_PLACEMENT_TEST[index].correctAnswer
+      answer !== null && answer === EXTENDED_PLACEMENT_TEST[index].correctAnswer
     ).length
+
+    const answeredCount = finalAnswers.filter(a => a !== null).length
 
     // Store results
     try {
@@ -76,20 +154,22 @@ export default function PlacementTest() {
           'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
         },
         body: JSON.stringify({
-          answers: finalAnswers,
+          answers: validAnswers,
           level: determinedLevel,
           score: correctCount,
-          total: EXTENDED_PLACEMENT_TEST.length
+          total: answeredCount,
+          skipped: EXTENDED_PLACEMENT_TEST.length - answeredCount
         }),
       })
 
-      // Store in localStorage for mock implementation
+      // Store in localStorage
       localStorage.setItem('user_level', determinedLevel)
       localStorage.setItem('test_results', JSON.stringify({
         level: determinedLevel,
         score: correctCount,
-        total: EXTENDED_PLACEMENT_TEST.length,
-        answers: finalAnswers
+        total: answeredCount,
+        skipped: EXTENDED_PLACEMENT_TEST.length - answeredCount,
+        answers: validAnswers
       }))
 
       // Redirect to diagnostics
@@ -102,6 +182,56 @@ export default function PlacementTest() {
 
   const currentQuestion = EXTENDED_PLACEMENT_TEST[currentQuestionIndex]
   const progress = ((currentQuestionIndex + 1) / EXTENDED_PLACEMENT_TEST.length) * 100
+
+  // Early finish dialog
+  if (showEarlyFinishDialog && earlyFinishResult) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-2xl">{t.earlyFinishTitle}</CardTitle>
+            <p className="text-sm text-muted-foreground">{t.earlyFinishMessage}</p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-4">
+              <div className="bg-primary/10 rounded-lg p-4 text-center">
+                <div className="text-sm text-muted-foreground mb-1">{t.detectedLevel}</div>
+                <div className="text-4xl font-bold text-primary">{earlyFinishResult.level}</div>
+              </div>
+
+              <div className="text-center">
+                <div className="text-sm text-muted-foreground">{t.questionsAnswered}</div>
+                <div className="text-2xl font-semibold">
+                  {earlyFinishResult.questionsAnswered} {t.of} {EXTENDED_PLACEMENT_TEST.length}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Button
+                onClick={handleContinueTest}
+                variant="outline"
+                size="lg"
+                className="w-full"
+              >
+                <ArrowRight className="w-4 h-4 mr-2" />
+                {t.continueTest}
+              </Button>
+              <Button
+                onClick={handleAcceptEarlyLevel}
+                size="lg"
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                <CheckCircle2 className="w-4 h-4 mr-2" />
+                {t.acceptLevel}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
@@ -160,7 +290,33 @@ export default function PlacementTest() {
             </RadioGroup>
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-between items-center gap-3">
+            {/* Left side buttons */}
+            <div className="flex gap-2">
+              <Button
+                onClick={handleSkip}
+                variant="outline"
+                size="lg"
+                disabled={isSubmitting}
+              >
+                <SkipForward className="w-4 h-4 mr-2" />
+                {t.skip}
+              </Button>
+
+              {answers.length > 0 && (
+                <Button
+                  onClick={handleEarlyFinish}
+                  variant="secondary"
+                  size="lg"
+                  disabled={isSubmitting}
+                >
+                  <Flag className="w-4 h-4 mr-2" />
+                  {t.finishEarly}
+                </Button>
+              )}
+            </div>
+
+            {/* Right side button */}
             <Button
               onClick={handleNext}
               disabled={selectedOption === null || isSubmitting}
@@ -178,7 +334,7 @@ export default function PlacementTest() {
             </Button>
           </div>
 
-          {selectedOption === null && (
+          {selectedOption === null && answers.length === 0 && (
             <p className="text-sm text-muted-foreground text-center">{t.select}</p>
           )}
         </CardContent>

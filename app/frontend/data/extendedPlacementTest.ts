@@ -443,39 +443,35 @@ export const EXTENDED_PLACEMENT_TEST: ExtendedTestQuestion[] = [
 
 // Determine level based on test results
 export function determineLevel(answers: number[]): 'A1' | 'A2' | 'B1' | 'B2' | 'C1' {
-  // Count correct answers by level
-  const correctByLevel = {
-    A1: 0,
-    A2: 0,
-    B1: 0,
-    B2: 0,
-    C1: 0
-  }
+  // New logic: Determine level based on highest correctly answered question number
+  // Questions 1-8 (index 0-7) → A1
+  // Questions 9-16 (index 8-15) → A2
+  // Questions 17-24 (index 16-23) → B1
+  // Questions 25-32 (index 24-31) → B2
+  // Questions 33-40 (index 32-39) → C1
 
+  let highestCorrectIndex = -1
+
+  // Find the highest question index where user answered correctly
   answers.forEach((answer, index) => {
     const question = EXTENDED_PLACEMENT_TEST[index]
     if (answer === question.correctAnswer) {
-      correctByLevel[question.level]++
+      highestCorrectIndex = index
     }
   })
 
-  // Determine the highest level passed (≥5 correct answers out of 8)
-  const threshold = 5
-  let highestLevel: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' = 'A1'
-
-  if (correctByLevel.C1 >= threshold) {
-    highestLevel = 'C1'
-  } else if (correctByLevel.B2 >= threshold) {
-    highestLevel = 'C1' // Start learning at C1 if passed B2
-  } else if (correctByLevel.B1 >= threshold) {
-    highestLevel = 'B2' // Start learning at B2 if passed B1
-  } else if (correctByLevel.A2 >= threshold) {
-    highestLevel = 'B1' // Start learning at B1 if passed A2
-  } else if (correctByLevel.A1 >= threshold) {
-    highestLevel = 'A2' // Start learning at A2 if passed A1
+  // Determine level based on highest correct question index
+  if (highestCorrectIndex >= 32) { // Questions 33-40
+    return 'C1'
+  } else if (highestCorrectIndex >= 24) { // Questions 25-32
+    return 'B2'
+  } else if (highestCorrectIndex >= 16) { // Questions 17-24
+    return 'B1'
+  } else if (highestCorrectIndex >= 8) { // Questions 9-16
+    return 'A2'
+  } else { // Questions 1-8 or no correct answers
+    return 'A1'
   }
-
-  return highestLevel
 }
 
 // Calculate detailed scores by level
