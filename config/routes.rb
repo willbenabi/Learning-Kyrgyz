@@ -71,12 +71,6 @@ Rails.application.routes.draw do
     end
     resources :audit_logs, only: [ :index ]
     get :console, to: "console#index"
-
-    # Database management
-    get :database, to: "database#index"
-    get "database/:table", to: "database#show"
-    post "database/export", to: "database#export"
-    post "database/query", to: "database#query"
   end
 
   # Dashboard (authenticated users)

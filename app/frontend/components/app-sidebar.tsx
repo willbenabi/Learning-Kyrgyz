@@ -2,7 +2,6 @@ import * as React from "react"
 import {
   LayoutDashboardIcon,
   AppWindowIcon,
-  Database,
   Users,
   ScrollText,
 } from "lucide-react"
@@ -51,12 +50,6 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
         url: "/admin/users",
         icon: Users,
         activePattern: "/admin/users",
-      },
-      {
-        title: "Database",
-        url: "/admin/database",
-        icon: Database,
-        activePattern: "/admin/database",
       },
       {
         title: "Audit Logs",
