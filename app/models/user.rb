@@ -42,6 +42,10 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }
+  validates :username, uniqueness: { case_sensitive: false }, allow_nil: true,
+                       length: { minimum: 3, maximum: 30 },
+                       format: { with: /\A[a-zA-Z0-9_]+\z/, message: "only allows letters, numbers, and underscores" }
+  validates :interface_language, inclusion: { in: %w[en ru], message: "must be 'en' or 'ru'" }, allow_nil: true
   validates :password, presence: true, length: { minimum: 8 }, if: :password_required?
   validates :password, length: { minimum: 8 }, allow_blank: true, if: :password_present?
   validates :avatar, content_type: { in: %w[image/png image/jpg image/jpeg image/gif],
@@ -56,7 +60,7 @@ class User < ApplicationRecord
 
   # Ransack configuration - only allow searching on safe attributes
   def self.ransackable_attributes(auth_object = nil)
-    %w[id name email admin created_at updated_at]
+    %w[id name email username admin interface_language last_sign_in_at created_at updated_at]
   end
 
   # Ransack associations - empty for now, add as needed
@@ -113,6 +117,14 @@ class User < ApplicationRecord
 
   def active?
     password_digest.present?
+  end
+
+  def update_last_sign_in!
+    update_column(:last_sign_in_at, Time.current)
+  end
+
+  def current_level
+    user_progress&.level || 'A1'
   end
 
   private

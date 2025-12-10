@@ -8,45 +8,38 @@ class RegistrationsController < ApplicationController
 
   # POST /register
   def create
-    # Level 1: Mock registration - simulate user creation
-    # In Level 2, this will create actual database records
-
-    # Mock validation
-    if params[:email].blank? || params[:password].blank? || params[:name].blank?
-      render json: { error: "All required fields must be filled" }, status: :unprocessable_entity
-      return
-    end
-
-    if params[:password].length < 8
-      render json: { error: "Password must be at least 8 characters" }, status: :unprocessable_entity
-      return
-    end
-
-    if params[:password] != params[:password_confirmation]
-      render json: { error: "Passwords don't match" }, status: :unprocessable_entity
-      return
-    end
-
-    # Mock user data
-    mock_user = {
-      id: rand(1000..9999),
+    outcome = Auth::Register.run(
       name: params[:name],
       email: params[:email],
-      admin: false,
-      country: params[:country],
-      language_preference: nil, # Will be set in language selection
-      kyrgyz_level: nil, # Will be determined by placement test
-      avatar_url: nil
+      password: params[:password],
+      password_confirmation: params[:password_confirmation],
+      username: params[:username],
+      interface_language: params[:interface_language] || 'en'
+    )
+
+    if outcome.valid?
+      render json: {
+        user: user_json(outcome.result[:user]),
+        jwt_token: outcome.result[:jwt_token],
+        refresh_token: outcome.result[:refresh_token]
+      }, status: :created
+    else
+      render json: { error: outcome.errors.full_messages.join(", ") }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def user_json(user)
+    {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      interface_language: user.interface_language,
+      admin: user.admin?,
+      current_level: user.current_level,
+      created_at: user.created_at
     }
-
-    # Generate mock JWT tokens
-    jwt_token = Auth::JwtService.encode(user_id: mock_user[:id])
-    refresh_token = SecureRandom.urlsafe_base64(32)
-
-    render json: {
-      user: mock_user,
-      jwt_token: jwt_token,
-      refresh_token: refresh_token
-    }, status: :created
   end
 end

@@ -2,6 +2,9 @@ import * as React from "react"
 import {
   LayoutDashboardIcon,
   AppWindowIcon,
+  Database,
+  Users,
+  ScrollText,
 } from "lucide-react"
 import { Link } from "@inertiajs/react"
 
@@ -39,6 +42,30 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
       icon: LayoutDashboardIcon,
     },
   ]
+
+  // Add admin menu items if user is admin
+  if (user.admin) {
+    navMain.push(
+      {
+        title: "Users",
+        url: "/admin/users",
+        icon: Users,
+        activePattern: "/admin/users",
+      },
+      {
+        title: "Database",
+        url: "/admin/database",
+        icon: Database,
+        activePattern: "/admin/database",
+      },
+      {
+        title: "Audit Logs",
+        url: "/admin/audit_logs",
+        icon: ScrollText,
+        activePattern: "/admin/audit_logs",
+      }
+    )
+  }
 
   return (
     <Sidebar collapsible="icon" {...props}>

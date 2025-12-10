@@ -19,8 +19,10 @@ import authService from '@/lib/auth'
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
+  username: z.string().min(3, 'Username must be at least 3 characters').regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores').optional().or(z.literal('')),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   password_confirmation: z.string().min(8, 'Password confirmation is required'),
+  interface_language: z.enum(['en', 'ru']).default('en'),
   country: z.string().optional(),
 }).refine((data) => data.password === data.password_confirmation, {
   message: "Passwords don't match",
@@ -46,9 +48,13 @@ const COUNTRIES = [
 export default function Register() {
   const [error, setError] = useState('')
   const [selectedCountry, setSelectedCountry] = useState<string>('')
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
 
   const { register, handleSubmit, formState: { errors: formErrors, isSubmitting }, setValue } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      interface_language: 'en',
+    },
   })
 
   const onSubmit = async (formData: RegisterFormData) => {
@@ -123,6 +129,20 @@ export default function Register() {
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="username">Username (Optional)</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="unique_username"
+                data-testid="register-username-input"
+                {...register('username')}
+              />
+              {formErrors.username && (
+                <p className="text-sm text-destructive">{formErrors.username.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
@@ -151,10 +171,29 @@ export default function Register() {
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="interface_language">Interface Language</Label>
+              <Select
+                value={selectedLanguage}
+                onValueChange={(value) => {
+                  setSelectedLanguage(value)
+                  setValue('interface_language', value as 'en' | 'ru')
+                }}
+              >
+                <SelectTrigger id="interface_language" data-testid="register-language-select">
+                  <SelectValue placeholder="Select language" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="ru">Русский</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="country">Country (Optional)</Label>
               <Select
                 value={selectedCountry}
-onValueChange={(value) => {
+                onValueChange={(value) => {
                   setSelectedCountry(value)
                   setValue('country', value)
                 }}

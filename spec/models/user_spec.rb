@@ -37,6 +37,20 @@ RSpec.describe User, type: :model do
 
     it { should have_secure_password }
     it { should validate_length_of(:password).is_at_least(8).on(:create) }
+
+    describe 'username' do
+      it { should validate_uniqueness_of(:username).case_insensitive }
+      it { should allow_value('valid_username').for(:username) }
+      it { should allow_value('user123').for(:username) }
+      it { should_not allow_value('invalid@user').for(:username) }
+      it { should validate_length_of(:username).is_at_least(3).is_at_most(30) }
+    end
+
+    describe 'interface_language' do
+      it { should allow_value('en').for(:interface_language) }
+      it { should allow_value('ru').for(:interface_language) }
+      it { should_not allow_value('fr').for(:interface_language) }
+    end
   end
 
   describe 'associations' do
@@ -276,6 +290,28 @@ RSpec.describe User, type: :model do
         invited_user.accept_invitation!('password123')
         expect(invited_user.active?).to be true
       end
+    end
+  end
+
+  describe '#update_last_sign_in!' do
+    it 'updates last_sign_in_at to current time' do
+      user = create(:user)
+      user.update_last_sign_in!
+      expect(user.reload.last_sign_in_at).to be_within(1.second).of(Time.current)
+    end
+  end
+
+  describe '#current_level' do
+    it 'returns user progress level' do
+      user = create(:user)
+      user.user_progress.update!(level: 'B2')
+      expect(user.current_level).to eq('B2')
+    end
+
+    it 'returns A1 when no user_progress exists' do
+      user = create(:user)
+      user.user_progress.destroy
+      expect(user.reload.current_level).to eq('A1')
     end
   end
 end
