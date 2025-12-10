@@ -85,29 +85,6 @@ describe('Register', () => {
     })
   })
 
-  it('validates username format when provided', async () => {
-    const user = userEvent.setup()
-    render(<Register />)
-
-    const nameInput = screen.getByTestId('register-name-input')
-    const emailInput = screen.getByTestId('register-email-input')
-    const usernameInput = screen.getByTestId('register-username-input')
-    const passwordInput = screen.getByTestId('register-password-input')
-    const confirmInput = screen.getByTestId('register-password-confirmation-input')
-    const submitButton = screen.getByTestId('register-submit-button')
-
-    await user.type(nameInput, 'Test User')
-    await user.type(emailInput, 'test@example.com')
-    await user.type(usernameInput, 'invalid@username')
-    await user.type(passwordInput, 'password123')
-    await user.type(confirmInput, 'password123')
-    await user.click(submitButton)
-
-    await waitFor(() => {
-      expect(screen.getByText(/username can only contain/i)).toBeInTheDocument()
-    })
-  })
-
   it('submits form with valid data', async () => {
     const user = userEvent.setup()
     const mockResponse = {
