@@ -1,7 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
   # Allow cayu.dev and nip.io domains for dev instances
   config.hosts << /.*\.cayu\.dev/
   config.hosts << /.*\.nip\.io/
