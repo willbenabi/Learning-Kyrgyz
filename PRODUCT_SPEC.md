@@ -13,16 +13,12 @@
 - Public registration form accessible to anyone
 - Required fields: Name, Email, Password, Password Confirmation
 - Optional fields:
-  - Username (unique identifier, 3-30 characters, alphanumeric with underscores)
-  - Interface Language (English/Russian selection)
   - Country (dropdown selection)
 - Form validation with clear error messages (client and server-side)
 - Password requirements: minimum 8 characters
 - Email uniqueness validation
-- Username uniqueness validation (if provided)
 - Automatic login after successful registration with JWT tokens
 - Redirect to language selection after registration
-- User sessions tracked with last sign-in timestamp
 
 **Language Selection**
 - First-time user experience showing interface language choice
@@ -405,12 +401,12 @@ GET  /learning/vocabulary
 
 ### Data Storage (Level 3 - Production Ready)
 
-User data is persisted in **PostgreSQL database**:
+User data is persisted in **SQLite database** (development) / **PostgreSQL** (production):
 
-- **Users table**: email, encrypted_password, username, interface_language, last_sign_in_at, created_at
-- **User Progress table**: level, days_active, lessons_completed, vocabulary_count, current_streak, longest_streak
-- **Lesson Completions table**: module_type, lesson_id, completed_at, score, time_spent
-- **Achievements table**: achievement_type, title, description, earned_at, metadata
+- **Users table**: email, encrypted_password (bcrypt), name, admin (boolean), created_at, updated_at
+- **User Progress table**: user_id, level, days_active, lessons_completed, vocabulary_count, current_streak, longest_streak
+- **Lesson Completions table**: user_id, module_type, lesson_id, completed_at, score, time_spent
+- **Achievements table**: user_id, achievement_type, title, description, earned_at, metadata
 - **Refresh Tokens table**: token_digest, expires_at, revoked_at (for JWT authentication)
 
 ### Authentication System
@@ -422,37 +418,28 @@ User data is persisted in **PostgreSQL database**:
 - Refresh tokens for session management (30-day expiration)
 - Password encryption using bcrypt
 - Automatic token refresh mechanism
-- Session tracking with last_sign_in_at timestamp
 - Token revocation on password change
+- Tokens stored in localStorage for iframe compatibility
 
 **User Accounts:**
 
 - Unique email addresses (validated format)
-- Optional unique username (3-30 characters, alphanumeric with underscores)
-- Secure password storage (minimum 8 characters)
-- Interface language preference (English/Russian)
+- Secure password storage (minimum 8 characters, bcrypt encryption)
 - Password reset functionality
 - User invitation system for admins
+- Admin flag for privileged access
 
 ### Admin Capabilities
 
-**Database Management (Admin Only):**
+**Admin Account:**
 
+- Single admin account (zamankulovaazar@gmail.com)
+- Admin-only menu items in sidebar (Users, Database, Audit Logs)
+- Database management backend available at `/admin/database`
 - View all database tables and their contents
 - Execute SQL queries (SELECT only for security)
 - Export data to CSV or JSON format
-- View database statistics (total tables, records, size)
-- Paginated table browsing
-- Search and filter capabilities
-
-**User Management:**
-
-- View all registered users
-- Edit user profiles
-- Manage user roles (admin/user)
-- View user activity (last sign-in, registration date)
-- Delete users
-- Resend invitation emails
+- User tracking and activity monitoring via Audited gem
 
 ### Mock Data
 
@@ -481,15 +468,13 @@ User data is persisted in **PostgreSQL database**:
 
 - Users can register with persistent database storage
 - Form validates all fields (client and server-side)
-- Username field optional with uniqueness validation
-- Interface language selection during registration
 - Email uniqueness enforced with clear error messages
 - Password minimum 8 characters requirement
 - JWT token generation on successful registration
 - Refresh token created with 30-day expiration
 - Auto-login after successful registration
 - Redirect to language selection works
-- Last sign-in timestamp tracked on every login
+- Admin account configured with database management access
 
 ✅ **Language Selection Working:**
 - Two clear language options (Russian/English)
