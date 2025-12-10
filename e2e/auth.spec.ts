@@ -10,7 +10,6 @@ test.describe('Authentication Flow', () => {
   test('should successfully register a new user', async ({ page }) => {
     const timestamp = Date.now()
     const testEmail = `test${timestamp}@example.com`
-    const testUsername = `testuser${timestamp}`
 
     // Navigate to registration page
     await page.goto('/register')
@@ -21,7 +20,6 @@ test.describe('Authentication Flow', () => {
     // Fill in registration form
     await page.getByTestId('register-name-input').fill('Test User')
     await page.getByTestId('register-email-input').fill(testEmail)
-    await page.getByTestId('register-username-input').fill(testUsername)
     await page.getByTestId('register-password-input').fill('password123')
     await page.getByTestId('register-password-confirmation-input').fill('password123')
 

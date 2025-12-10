@@ -14,9 +14,7 @@ RSpec.describe 'Registrations', type: :request do
         name: 'Test User',
         email: 'test@example.com',
         password: 'password123',
-        password_confirmation: 'password123',
-        username: 'testuser',
-        interface_language: 'en'
+        password_confirmation: 'password123'
       }
     end
 
@@ -38,8 +36,6 @@ RSpec.describe 'Registrations', type: :request do
 
         expect(json['user']).to be_present
         expect(json['user']['email']).to eq('test@example.com')
-        expect(json['user']['username']).to eq('testuser')
-        expect(json['user']['interface_language']).to eq('en')
         expect(json['jwt_token']).to be_present
         expect(json['refresh_token']).to be_present
       end
@@ -50,17 +46,6 @@ RSpec.describe 'Registrations', type: :request do
 
         expect(json['user']).not_to have_key('password')
         expect(json['user']).not_to have_key('password_digest')
-      end
-    end
-
-    context 'without username' do
-      it 'creates user successfully' do
-        params = valid_params.except(:username)
-        post register_path, params: params, as: :json
-
-        expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
-        expect(json['user']['username']).to be_nil
       end
     end
 
@@ -76,15 +61,6 @@ RSpec.describe 'Registrations', type: :request do
 
       it 'fails when email is already taken' do
         create(:user, email: 'test@example.com')
-        post register_path, params: valid_params, as: :json
-
-        expect(response).to have_http_status(:unprocessable_entity)
-        json = JSON.parse(response.body)
-        expect(json['error']).to include('already taken')
-      end
-
-      it 'fails when username is already taken' do
-        create(:user, username: 'testuser')
         post register_path, params: valid_params, as: :json
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -111,26 +87,6 @@ RSpec.describe 'Registrations', type: :request do
         post register_path, params: params, as: :json
 
         expect(response).to have_http_status(:unprocessable_entity)
-      end
-    end
-
-    context 'interface_language' do
-      it 'defaults to "en" when not provided' do
-        params = valid_params.except(:interface_language)
-        post register_path, params: params, as: :json
-
-        expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
-        expect(json['user']['interface_language']).to eq('en')
-      end
-
-      it 'accepts "ru" as interface language' do
-        params = valid_params.merge(interface_language: 'ru')
-        post register_path, params: params, as: :json
-
-        expect(response).to have_http_status(:created)
-        json = JSON.parse(response.body)
-        expect(json['user']['interface_language']).to eq('ru')
       end
     end
   end

@@ -3,12 +3,9 @@ class Auth::Register < ActiveInteraction::Base
   string :email
   string :password
   string :password_confirmation
-  string :username, default: nil
-  string :interface_language, default: 'en'
 
   validate :passwords_match
   validate :email_not_taken
-  validate :username_not_taken
 
   def execute
     user = User.create!(
@@ -16,8 +13,6 @@ class Auth::Register < ActiveInteraction::Base
       email: email,
       password: password,
       password_confirmation: password_confirmation,
-      username: username,
-      interface_language: interface_language,
       admin: false
     )
 
@@ -48,12 +43,6 @@ class Auth::Register < ActiveInteraction::Base
   def email_not_taken
     if User.exists?(email: email.downcase.strip)
       errors.add(:email, "is already taken")
-    end
-  end
-
-  def username_not_taken
-    if username.present? && User.exists?(username: username.downcase.strip)
-      errors.add(:username, "is already taken")
     end
   end
 end

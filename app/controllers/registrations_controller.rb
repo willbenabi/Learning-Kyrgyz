@@ -12,9 +12,7 @@ class RegistrationsController < ApplicationController
       name: params[:name],
       email: params[:email],
       password: params[:password],
-      password_confirmation: params[:password_confirmation],
-      username: params[:username],
-      interface_language: params[:interface_language] || 'en'
+      password_confirmation: params[:password_confirmation]
     )
 
     if outcome.valid?
@@ -35,10 +33,7 @@ class RegistrationsController < ApplicationController
       id: user.id,
       name: user.name,
       email: user.email,
-      username: user.username,
-      interface_language: user.interface_language,
       admin: user.admin?,
-      current_level: user.current_level,
       created_at: user.created_at
     }
   end

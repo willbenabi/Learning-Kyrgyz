@@ -28,10 +28,8 @@ describe('Register', () => {
     expect(screen.getByText('Create Your Account')).toBeInTheDocument()
     expect(screen.getByTestId('register-name-input')).toBeInTheDocument()
     expect(screen.getByTestId('register-email-input')).toBeInTheDocument()
-    expect(screen.getByTestId('register-username-input')).toBeInTheDocument()
     expect(screen.getByTestId('register-password-input')).toBeInTheDocument()
     expect(screen.getByTestId('register-password-confirmation-input')).toBeInTheDocument()
-    expect(screen.getByTestId('register-language-select')).toBeInTheDocument()
     expect(screen.getByTestId('register-submit-button')).toBeInTheDocument()
   })
 

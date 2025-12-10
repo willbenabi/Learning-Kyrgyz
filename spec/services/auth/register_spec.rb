@@ -7,9 +7,7 @@ RSpec.describe Auth::Register, type: :service do
         name: 'Test User',
         email: 'test@example.com',
         password: 'password123',
-        password_confirmation: 'password123',
-        username: 'testuser',
-        interface_language: 'en'
+        password_confirmation: 'password123'
       }
     end
 
@@ -34,8 +32,6 @@ RSpec.describe Auth::Register, type: :service do
 
         expect(user.name).to eq('Test User')
         expect(user.email).to eq('test@example.com')
-        expect(user.username).to eq('testuser')
-        expect(user.interface_language).to eq('en')
         expect(user.admin).to be false
       end
 
@@ -64,15 +60,6 @@ RSpec.describe Auth::Register, type: :service do
       end
     end
 
-    context 'with optional username' do
-      it 'allows registration without username' do
-        params = valid_params.merge(username: nil)
-        result = Auth::Register.run!(params)
-
-        expect(result[:user].username).to be_nil
-      end
-    end
-
     context 'with invalid parameters' do
       it 'fails when passwords do not match' do
         params = valid_params.merge(password_confirmation: 'different')
@@ -88,14 +75,6 @@ RSpec.describe Auth::Register, type: :service do
 
         expect(outcome).not_to be_valid
         expect(outcome.errors.full_messages).to include('Email is already taken')
-      end
-
-      it 'fails when username is already taken' do
-        create(:user, username: 'testuser')
-        outcome = Auth::Register.run(valid_params)
-
-        expect(outcome).not_to be_valid
-        expect(outcome.errors.full_messages).to include('Username is already taken')
       end
 
       it 'fails when email is invalid' do
@@ -117,22 +96,6 @@ RSpec.describe Auth::Register, type: :service do
         outcome = Auth::Register.run(params)
 
         expect(outcome).not_to be_valid
-      end
-    end
-
-    context 'with interface_language' do
-      it 'defaults to "en" if not provided' do
-        params = valid_params.except(:interface_language)
-        result = Auth::Register.run!(params)
-
-        expect(result[:user].interface_language).to eq('en')
-      end
-
-      it 'accepts "ru" as interface language' do
-        params = valid_params.merge(interface_language: 'ru')
-        result = Auth::Register.run!(params)
-
-        expect(result[:user].interface_language).to eq('ru')
       end
     end
   end
