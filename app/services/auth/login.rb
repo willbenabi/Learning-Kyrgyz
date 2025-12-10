@@ -6,9 +6,6 @@ module Auth
       validate :authenticate_user
 
       def execute
-        # Update last sign in timestamp
-        user.update_last_sign_in!
-
         # Generate JWT token with password_version
         jwt_token = JwtService.encode_for_user(user)
 
