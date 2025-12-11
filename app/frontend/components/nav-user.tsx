@@ -1,5 +1,6 @@
 import { router } from "@inertiajs/react"
 import {
+  HomeIcon,
   LogOutIcon,
   Monitor,
   Moon,
@@ -108,6 +109,10 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <DropdownMenuItem onClick={() => router.visit('/learning/dashboard')}>
+                <HomeIcon />
+                Dashboard
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => router.visit('/profile')}>
                 <UserIcon />
                 Profile
