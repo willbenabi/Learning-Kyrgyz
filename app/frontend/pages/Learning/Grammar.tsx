@@ -10,6 +10,7 @@ import { completeLesson, isLessonCompleted, getCompletedLessonsForLevel } from '
 export default function GrammarPage() {
   const [userLevel, setUserLevel] = useState<Level>('A1')
   const [selectedLesson, setSelectedLesson] = useState<GrammarLesson | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
 
   const translations = {
@@ -71,8 +72,13 @@ export default function GrammarPage() {
   const allLessonsCompleted = regularLessons.length > 0 && regularLessons.every(l => isLessonCompleted(l.id))
   const showFinalTest = finalTest && allLessonsCompleted
 
+  const handleLessonComplete = () => {
+    setSelectedLesson(null)
+    setRefreshKey(prev => prev + 1) // Force re-render to show updated completion status
+  }
+
   if (selectedLesson) {
-    return <LessonView lesson={selectedLesson} language={language} onBack={() => setSelectedLesson(null)} />
+    return <LessonView lesson={selectedLesson} language={language} onBack={() => setSelectedLesson(null)} onComplete={handleLessonComplete} />
   }
 
   return (
@@ -102,7 +108,7 @@ export default function GrammarPage() {
             <FileText className="h-6 w-6 text-blue-600" />
             <h2 className="text-2xl font-bold text-gray-900">{t.syntax}</h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2" key={`syntax-${refreshKey}`}>
             {syntaxLessons.map((lesson) => {
               const completed = isLessonCompleted(lesson.id)
               return (
@@ -144,7 +150,7 @@ export default function GrammarPage() {
             <BookOpen className="h-6 w-6 text-purple-600" />
             <h2 className="text-2xl font-bold text-gray-900">{t.morphology}</h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2" key={`morphology-${refreshKey}`}>
             {morphologyLessons.map((lesson) => {
               const completed = isLessonCompleted(lesson.id)
               return (
@@ -220,11 +226,13 @@ export default function GrammarPage() {
 function LessonView({
   lesson,
   language,
-  onBack
+  onBack,
+  onComplete
 }: {
   lesson: GrammarLesson
   language: 'en' | 'ru'
   onBack: () => void
+  onComplete?: () => void
 }) {
   const [currentExercise, setCurrentExercise] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
@@ -431,7 +439,11 @@ function LessonView({
                       <Button onClick={() => {
                         // Mark lesson as completed
                         completeLesson(lesson.id, 'grammar')
-                        onBack()
+                        if (onComplete) {
+                          onComplete()
+                        } else {
+                          onBack()
+                        }
                       }} className="flex-1">
                         {t.completed} <CheckCircle2 className="ml-2 h-4 w-4" />
                       </Button>
