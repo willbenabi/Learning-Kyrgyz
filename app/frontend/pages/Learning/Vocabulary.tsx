@@ -125,6 +125,7 @@ function TopicView({
   const [quizOptions, setQuizOptions] = useState<string[]>([])
   const [score, setScore] = useState(0)
   const [attempted, setAttempted] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const translations = {
     en: {
@@ -172,6 +173,21 @@ function TopicView({
       generateQuizOptions()
     }
   }, [currentIndex, mode])
+
+  // Load voices for Speech Synthesis
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      // Voices are loaded asynchronously
+      speechSynthesis.getVoices()
+
+      // Some browsers need this event
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => {
+          speechSynthesis.getVoices()
+        }
+      }
+    }
+  }, [])
 
   const generateQuizOptions = () => {
     const correct = currentWord.translation[language]
@@ -232,6 +248,38 @@ function TopicView({
     setQuizAnswer(null)
     if (mode === 'quiz') {
       generateQuizOptions()
+    }
+  }
+
+  const handlePronounce = () => {
+    if (isPlaying) return
+
+    setIsPlaying(true)
+
+    // Try Web Speech API first (built into browsers)
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(currentWord.kyrgyz)
+
+      // Try to find Russian voice (closest to Kyrgyz)
+      const voices = speechSynthesis.getVoices()
+      const russianVoice = voices.find(voice => voice.lang.startsWith('ru'))
+
+      if (russianVoice) {
+        utterance.voice = russianVoice
+      }
+
+      utterance.lang = 'ru-RU' // Use Russian as closest approximation
+      utterance.rate = 0.8 // Slightly slower for clarity
+      utterance.pitch = 1
+
+      utterance.onend = () => setIsPlaying(false)
+      utterance.onerror = () => setIsPlaying(false)
+
+      speechSynthesis.speak(utterance)
+    } else {
+      // Fallback if Speech API not available
+      console.warn('Speech synthesis not supported')
+      setIsPlaying(false)
     }
   }
 
@@ -304,8 +352,14 @@ function TopicView({
                 {/* Kyrgyz Word */}
                 <div className="space-y-2">
                   <h2 className="text-5xl font-bold text-gray-900">{currentWord.kyrgyz}</h2>
-                  <Button variant="ghost" size="sm" className="text-orange-600">
-                    <Volume2 className="h-5 w-5" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-orange-600 hover:text-orange-700"
+                    onClick={handlePronounce}
+                    disabled={isPlaying}
+                  >
+                    <Volume2 className={`h-5 w-5 ${isPlaying ? 'animate-pulse' : ''}`} />
                   </Button>
                 </div>
 
@@ -346,8 +400,14 @@ function TopicView({
                 {/* Question */}
                 <div className="text-center space-y-2">
                   <h2 className="text-4xl font-bold text-gray-900">{currentWord.kyrgyz}</h2>
-                  <Button variant="ghost" size="sm" className="text-orange-600">
-                    <Volume2 className="h-5 w-5" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-orange-600 hover:text-orange-700"
+                    onClick={handlePronounce}
+                    disabled={isPlaying}
+                  >
+                    <Volume2 className={`h-5 w-5 ${isPlaying ? 'animate-pulse' : ''}`} />
                   </Button>
                 </div>
 
