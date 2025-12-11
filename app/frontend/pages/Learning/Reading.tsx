@@ -6,10 +6,12 @@ import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
 import { FileText, BookOpen, ArrowRight, CheckCircle2, ArrowLeft } from 'lucide-react'
 import { READING_LESSONS, getLessonsByLevel, type Level, type ReadingLesson } from '@/data/readingLessons'
+import { completeLesson, isLessonCompleted } from '@/lib/progressHelper'
 
 export default function ReadingPage() {
   const [userLevel, setUserLevel] = useState<Level>('A1')
   const [selectedLesson, setSelectedLesson] = useState<ReadingLesson | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
 
   const translations = {
@@ -61,8 +63,13 @@ export default function ReadingPage() {
 
   const lessons = getLessonsByLevel(userLevel)
 
+  const handleLessonComplete = () => {
+    setSelectedLesson(null)
+    setRefreshKey(prev => prev + 1) // Force re-render to show updated completion status
+  }
+
   if (selectedLesson) {
-    return <ReadingView lesson={selectedLesson} language={language} onBack={() => setSelectedLesson(null)} />
+    return <ReadingView lesson={selectedLesson} language={language} onBack={() => setSelectedLesson(null)} onComplete={handleLessonComplete} />
   }
 
   return (
@@ -87,29 +94,43 @@ export default function ReadingPage() {
         </div>
 
         {/* Reading Texts */}
-        <div className="grid gap-4 md:grid-cols-2">
-          {lessons.map((lesson) => (
-            <Card key={lesson.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-lg">{lesson.title[language]}</CardTitle>
-                    <CardDescription className="mt-2">{lesson.description[language]}</CardDescription>
-                    <div className="mt-3 flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">{lesson.textType[language]}</span>
+        <div className="grid gap-4 md:grid-cols-2" key={`reading-${refreshKey}`}>
+          {lessons.map((lesson) => {
+            const completed = isLessonCompleted(lesson.id)
+            return (
+              <Card
+                key={lesson.id}
+                className={`hover:shadow-lg transition-shadow cursor-pointer ${completed ? 'bg-green-50 border-green-300' : ''}`}
+              >
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <CardTitle className="text-lg">{lesson.title[language]}</CardTitle>
+                        {completed && <CheckCircle2 className="h-5 w-5 text-green-600" />}
+                      </div>
+                      <CardDescription className="mt-2">{lesson.description[language]}</CardDescription>
+                      <div className="mt-3 flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-gray-500" />
+                        <span className="text-sm text-gray-600">{lesson.textType[language]}</span>
+                      </div>
                     </div>
+                    <Badge variant="outline">{lesson.level}</Badge>
                   </div>
-                  <Badge variant="outline">{lesson.level}</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <Button onClick={() => setSelectedLesson(lesson)} className="w-full">
-                  {t.startReading} <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+                <CardContent>
+                  <Button
+                    onClick={() => setSelectedLesson(lesson)}
+                    className="w-full"
+                    variant={completed ? "outline" : "default"}
+                  >
+                    {completed ? (language === 'en' ? 'Review' : 'Повторить') : t.startReading}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
       </div>
     </div>
@@ -119,11 +140,13 @@ export default function ReadingPage() {
 function ReadingView({
   lesson,
   language,
-  onBack
+  onBack,
+  onComplete
 }: {
   lesson: ReadingLesson
   language: 'en' | 'ru'
   onBack: () => void
+  onComplete?: () => void
 }) {
   const [answers, setAnswers] = useState<Record<string, number | string>>({})
   const [showResults, setShowResults] = useState(false)
@@ -318,8 +341,16 @@ openEndedNote: 'Открытые вопросы помогают практик�
                   </Button>
                 )}
                 {showResults && (
-                  <Button onClick={onBack} className="flex-1">
-                    {t.continueReading} <ArrowRight className="ml-2 h-4 w-4" />
+                  <Button onClick={() => {
+                    // Mark lesson as completed
+                    completeLesson(lesson.id, 'reading', score)
+                    if (onComplete) {
+                      onComplete()
+                    } else {
+                      onBack()
+                    }
+                  }} className="flex-1">
+                    {t.completed} <CheckCircle2 className="ml-2 h-4 w-4" />
                   </Button>
                 )}
               </div>
