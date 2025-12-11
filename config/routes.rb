@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   # API routes (public)
   namespace :api do
     get "/daily-recommendations", to: "daily_recommendations#index"
+    get "/ai-recommendations", to: "ai_recommendations#index"
   end
 
   # Profile routes (authenticated users)

@@ -140,15 +140,53 @@
 
 **Status**: ✅ **COMPLETE** - Full end-to-end video recommendation system
 
-**Top Section - Static Content Recommendations**
-- Collapsible recommendations widget with Listening/Reading/Watching categories
-- Recommendations based on user's level:
-  - Books, fairy tales, short stories
-  - Music (traditional and modern Kyrgyz songs)
-  - Films and documentaries
-  - News articles and podcasts
-- Safe, culturally neutral content
-- Manual toggle to show/hide recommendations
+**AI-Powered Daily Recommendations** ✅ **FULLY IMPLEMENTED (Level 2)**
+
+- Personalized content suggestions generated daily by AI (Google Gemini)
+- 5-6 recommendations per CEFR level (A1-C1) updated every 24 hours
+- Three content types: reading, listening, watching
+- Level-appropriate difficulty progression:
+  - A1: Children's fairy tales, simple songs, cartoons (Маша и Медведь)
+  - A2: Folk tales, simplified news, children's shows
+  - B1: News articles, documentaries, short stories
+  - B2: Novels, analytical articles, films, radio programs
+  - C1: Classic literature (Айтматов, Манас epic), academic lectures, theater
+- Each user sees only their level's recommendations
+- Real-time content sourced from Kyrgyz web resources
+
+**Frontend Display:**
+
+- Prominent purple gradient card on main dashboard
+- Icon-based content type indicators (BookOpen, Headphones, Film)
+- External links to recommended resources
+- Category badges for content types
+- Loading states and error handling
+- Bilingual interface (EN/RU)
+- Automatic refresh when user advances to new level
+
+**Admin & Automation:**
+
+- Rake task for daily generation: `bin/rails daily_recommendations:generate`
+- Automatic cleanup of old recommendations (7+ days)
+- AI service with level-specific prompts in Kyrgyz context
+- JSON parsing from AI responses
+- Database storage with date and level indexing
+
+**Public API Endpoint:**
+
+- `GET /api/ai-recommendations?level=A1`
+- Returns JSON with recommendations array
+- No authentication required
+- Filterable by level and date
+
+**Database Structure:**
+
+- `daily_recommendations` table
+- Fields: level, date, content_type, title, description, url, generated_by_ai
+- Indexed on (level, date) for performance
+- Validations: CEFR levels (A1-C1), content types (reading/listening/watching)
+
+**Status**: ✅ **COMPLETE** - AI-powered personalized recommendations with daily generation
 
 **Learning Modules (4 Cards)**
 1. **Grammar Module** ✅ **FULLY IMPLEMENTED**

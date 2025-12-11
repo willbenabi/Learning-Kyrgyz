@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_11_144410) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_11_172145) do
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "achievement_type", null: false
@@ -93,6 +93,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_11_144410) do
     t.datetime "updated_at", null: false
     t.index ["chat_conversation_id", "created_at"], name: "index_chat_messages_on_chat_conversation_id_and_created_at"
     t.index ["chat_conversation_id"], name: "index_chat_messages_on_chat_conversation_id"
+  end
+
+  create_table "daily_recommendations", force: :cascade do |t|
+    t.string "level", null: false
+    t.date "date", null: false
+    t.string "content_type", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "url"
+    t.boolean "generated_by_ai", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_daily_recommendations_on_date"
+    t.index ["level", "date"], name: "index_daily_recommendations_on_level_and_date"
   end
 
   create_table "lesson_completions", force: :cascade do |t|
