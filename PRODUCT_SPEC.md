@@ -279,16 +279,46 @@ Personalized content recommendations automatically adapt to user's current CEFR 
    - Opens via bottom navigation card
    - No authentication required (works for all users)
 
-2. **Technical Support Modal**
-   - Problem reporting form with text area
-   - Submit bug reports and technical issues
-   - Confirmation message: "We will definitely look into this problem"
-   - Success screen with checkmark icon
+2. **Technical Support Messaging System** ✅ **FULLY IMPLEMENTED (Level 2)**
+   - Users can submit support messages with subject and detailed message
+   - Messages saved to database and sent to admin interface
+   - Form validation with error handling
+   - Success confirmation: "We will definitely look into this problem"
    - Bilingual support form (English/Russian)
-   - Simple submission process
-   - Ready for Level 2 backend integration
    - Icon: Wrench
    - Opens via bottom navigation card
+
+   **Admin Management Interface:**
+   - Dedicated Support section in admin sidebar
+   - Real-time unread message count badge on Support menu item
+   - Support messages dashboard with three stat cards:
+     - Total messages received
+     - Unread messages (highlighted in orange)
+     - Read messages
+   - Full message list with:
+     - Status badges (Unread/Read)
+     - User information (name and email)
+     - Message subject and timestamp
+     - Orange highlighting for unread messages
+   - Click to view full message in modal dialog
+   - Auto-mark as read when viewing message
+   - Manual mark as read button
+   - Delete messages functionality
+   - Pagination for large message volumes
+   - Message viewing dialog shows:
+     - Full subject and message content
+     - Sender details
+     - Timestamp
+
+   **Database Structure:**
+   - SupportMessage model with validations and scopes
+   - Fields: subject (max 255 chars), message, status (unread/read), read_at timestamp
+   - Indexed on status and read_at for performance
+   - Associated with User (belongs_to)
+   - Audit trail for all changes
+   - Ransackable for search/filtering
+
+   **Status**: ✅ **COMPLETE** - Full end-to-end support ticket system with admin management
 
 ### 3. Multi-Language Support
 
@@ -434,11 +464,11 @@ User data is persisted in **SQLite database** (development) / **PostgreSQL** (pr
 **Admin Account:**
 
 - Single admin account (zamankulovaazar@gmail.com)
-- Admin-only menu items in sidebar (Users, Database, Audit Logs)
-- Database management backend available at `/admin/database`
-- View all database tables and their contents
-- Execute SQL queries (SELECT only for security)
-- Export data to CSV or JSON format
+- Admin-only menu items in sidebar (Users, Support, Audit Logs)
+- User management interface at `/admin/users`
+- Support message management at `/admin/support_messages`
+- Audit log tracking at `/admin/audit_logs`
+- Real-time unread support message badge in sidebar
 - User tracking and activity monitoring via Audited gem
 
 ### Mock Data
