@@ -1,4 +1,5 @@
 import { router } from '@inertiajs/react'
+import { ArrowLeft } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -31,7 +32,16 @@ export default function ProfileShow({ user }: ProfileShowProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => router.visit('/learning/dashboard')}
+          className="gap-2"
+        >
+          <ArrowLeft className="size-4" />
+          Back to Dashboard
+        </Button>
         <Button size="sm" onClick={() => router.visit('/profile/edit')}>
           Edit Profile
         </Button>

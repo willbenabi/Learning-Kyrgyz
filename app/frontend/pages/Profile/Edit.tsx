@@ -3,7 +3,7 @@ import { router } from '@inertiajs/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { UploadIcon } from 'lucide-react'
+import { UploadIcon, ArrowLeft } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -127,6 +127,17 @@ export default function EditProfile({ user }: EditProfileProps) {
 
   return (
     <div className="space-y-6">
+      <div className="flex items-center gap-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => router.visit('/learning/dashboard')}
+          className="gap-2"
+        >
+          <ArrowLeft className="size-4" />
+          Back to Dashboard
+        </Button>
+      </div>
       <Card>
             <CardHeader>
               <CardTitle>Edit Profile</CardTitle>
