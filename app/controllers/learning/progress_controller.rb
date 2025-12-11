@@ -77,7 +77,7 @@ module Learning
     private
 
     def mock_progress_props
-      # Level 1: Return mock data for unauthenticated users
+      # Level 1: Return placeholder structure - data will be populated from localStorage on frontend
       {
         level: 'A1',
         daysActive: 0,
@@ -87,13 +87,19 @@ module Learning
         longestStreak: 0,
         lastActivityDate: nil,
         achievements: [],
-        lessonsByModule: {},
+        lessonsByModule: {
+          grammar: 0,
+          reading: 0,
+          writing: 0,
+          vocabulary: 0
+        },
         recentLessons: [],
         stats: {
           today: 0,
           thisWeek: 0,
           thisMonth: 0
-        }
+        },
+        useLocalStorage: true # Signal to frontend to use localStorage data
       }
     end
 

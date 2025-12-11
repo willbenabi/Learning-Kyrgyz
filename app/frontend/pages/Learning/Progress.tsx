@@ -15,6 +15,8 @@ import {
   CheckCircle2,
   ArrowLeft
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { getUserProgress, getCompletedLessonsCount, type ModuleType } from '@/lib/progressHelper'
 
 interface Achievement {
   id: number
@@ -50,6 +52,7 @@ interface ProgressProps {
     thisWeek: number
     thisMonth: number
   }
+  useLocalStorage?: boolean
 }
 
 const MODULE_NAMES = {
@@ -67,19 +70,74 @@ const MODULE_TOTALS = {
 }
 
 export default function ProgressPage({
-  level,
-  daysActive,
-  lessonsCompleted,
-  vocabularyCount,
-  currentStreak,
-  longestStreak,
+  level: initialLevel,
+  daysActive: initialDaysActive,
+  lessonsCompleted: initialLessonsCompleted,
+  vocabularyCount: initialVocabularyCount,
+  currentStreak: initialCurrentStreak,
+  longestStreak: initialLongestStreak,
   lastActivityDate,
-  achievements,
-  lessonsByModule,
+  achievements: initialAchievements,
+  lessonsByModule: initialLessonsByModule,
   recentLessons,
-  stats
+  stats,
+  useLocalStorage = false
 }: ProgressProps) {
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
+
+  // State for localStorage-based data (Level 1)
+  const [level, setLevel] = useState(initialLevel)
+  const [daysActive, setDaysActive] = useState(initialDaysActive)
+  const [lessonsCompleted, setLessonsCompleted] = useState(initialLessonsCompleted)
+  const [vocabularyCount, setVocabularyCount] = useState(initialVocabularyCount)
+  const [currentStreak, setCurrentStreak] = useState(initialCurrentStreak)
+  const [longestStreak, setLongestStreak] = useState(initialLongestStreak)
+  const [achievements, setAchievements] = useState(initialAchievements)
+  const [lessonsByModule, setLessonsByModule] = useState(initialLessonsByModule)
+
+  useEffect(() => {
+    if (useLocalStorage) {
+      // Load data from localStorage
+      const progress = getUserProgress()
+
+      setLevel(progress.level)
+      setCurrentStreak(progress.currentStreak)
+      setLessonsCompleted(progress.completedLessons.length)
+      setVocabularyCount(progress.vocabularyCount)
+
+      // Calculate days active
+      let days = 1
+      if (progress.lastActivityDate) {
+        const lastDate = new Date(progress.lastActivityDate)
+        const firstDate = progress.completedLessons.length > 0
+          ? new Date(progress.completedLessons[0].completedAt)
+          : lastDate
+        days = Math.max(1, Math.floor((lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)) + 1)
+      }
+      setDaysActive(days)
+      setLongestStreak(progress.currentStreak) // For now, same as current
+
+      // Calculate lessons by module
+      const moduleStats: Record<string, number> = {
+        grammar: getCompletedLessonsCount('grammar'),
+        reading: getCompletedLessonsCount('reading'),
+        writing: getCompletedLessonsCount('writing'),
+        vocabulary: getCompletedLessonsCount('vocabulary')
+      }
+      setLessonsByModule(moduleStats)
+
+      // Convert localStorage achievements to expected format
+      const achievementsList = progress.achievements.map((a, idx) => ({
+        id: idx,
+        type: a.type,
+        title: a.title[language],
+        description: a.description[language],
+        earnedAt: a.earnedAt,
+        icon: '🏆'
+      }))
+      setAchievements(achievementsList)
+    }
+  }, [useLocalStorage, language])
 
   const translations = {
     en: {
