@@ -4,8 +4,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
-import { PenTool, BookOpen, ArrowRight, ArrowLeft, Save, CheckCircle2, AlertCircle } from 'lucide-react'
+import { PenTool, BookOpen, ArrowRight, ArrowLeft, Save, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react'
 import { WRITING_PROMPTS, getPromptsByLevel, type Level, type WritingPrompt } from '@/data/writingPrompts'
+
+interface AIEvaluation {
+  grammar_score: number
+  topic_relevance_score: number
+  vocabulary_score: number
+  structure_score: number
+  overall_feedback: string
+  grammar_errors: Array<{
+    error: string
+    correction: string
+    explanation: string
+  }>
+  suggestions: string[]
+}
 
 export default function WritingPage() {
   const [userLevel, setUserLevel] = useState<Level>('A1')
@@ -130,6 +144,8 @@ function WritingView({
 }) {
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
+  const [isChecking, setIsChecking] = useState(false)
+  const [evaluation, setEvaluation] = useState<AIEvaluation | null>(null)
 
   const translations = {
     en: {
@@ -147,7 +163,20 @@ function WritingView({
       newPrompt: 'Try Another Prompt',
       helpfulWords: 'Helpful words to use in your writing',
       useTemplate: 'You can use this template to help structure your writing',
-      howEvaluated: 'Your writing will be evaluated based on these criteria'
+      howEvaluated: 'Your writing will be evaluated based on these criteria',
+      checkWithAI: 'Check with AI',
+      checking: 'Checking your text, please wait...',
+      aiEvaluation: 'AI Evaluation Results',
+      grammarScore: 'Grammar',
+      topicRelevance: 'Topic Relevance',
+      vocabularyScore: 'Vocabulary',
+      structureScore: 'Structure',
+      overallFeedback: 'Overall Feedback',
+      grammarErrors: 'Grammar Errors & Corrections',
+      suggestions: 'Suggestions for Improvement',
+      error: 'Error',
+      correction: 'Correction',
+      explanation: 'Explanation'
     },
     ru: {
       backToPrompts: 'К заданиям',
@@ -164,7 +193,20 @@ function WritingView({
       newPrompt: 'Попробовать другое задание',
       helpfulWords: 'Полезные слова для использования в вашем тексте',
       useTemplate: 'Вы можете использовать этот шаблон для структурирования текста',
-      howEvaluated: 'Ваш текст будет оцениваться по этим критериям'
+      howEvaluated: 'Ваш текст будет оцениваться по этим критериям',
+      checkWithAI: 'Проверить с помощью AI',
+      checking: 'Проверяем ваш текст, пожалуйста подождите...',
+      aiEvaluation: 'Результаты AI оценки',
+      grammarScore: 'Грамматика',
+      topicRelevance: 'Соответствие теме',
+      vocabularyScore: 'Словарный запас',
+      structureScore: 'Структура',
+      overallFeedback: 'Общая оценка',
+      grammarErrors: 'Грамматические ошибки и исправления',
+      suggestions: 'Рекомендации по улучшению',
+      error: 'Ошибка',
+      correction: 'Исправление',
+      explanation: 'Объяснение'
     }
   }
 
@@ -185,6 +227,41 @@ function WritingView({
     localStorage.setItem(`writing_${prompt.id}`, text)
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
+  }
+
+  const handleCheckWithAI = async () => {
+    if (text.trim().length === 0) return
+
+    setIsChecking(true)
+    setEvaluation(null)
+
+    try {
+      const response = await fetch('/ai/writing_evaluations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        },
+        body: JSON.stringify({
+          text: text,
+          prompt_title: prompt.title[language],
+          level: prompt.level,
+          language: language
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setEvaluation(data.evaluation)
+      } else {
+        console.error('Evaluation error:', data.error)
+      }
+    } catch (error) {
+      console.error('Failed to get AI evaluation:', error)
+    } finally {
+      setIsChecking(false)
+    }
   }
 
   return (
@@ -320,6 +397,14 @@ function WritingView({
                     <Save className="mr-2 h-4 w-4" />
                     {t.saveWork}
                   </Button>
+                  <Button
+                    onClick={handleCheckWithAI}
+                    className="flex-1 bg-purple-600 hover:bg-purple-700"
+                    disabled={text.trim().length === 0 || isChecking}
+                  >
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    {t.checkWithAI}
+                  </Button>
                   {saved && (
                     <Button onClick={onBack} variant="outline" className="flex-1">
                       {t.newPrompt}
@@ -344,6 +429,106 @@ function WritingView({
                         style={{ width: `${Math.min((wordCount / prompt.minWords) * 100, 100)}%` }}
                       ></div>
                     </div>
+                  </div>
+                )}
+
+                {/* AI Checking Indicator */}
+                {isChecking && (
+                  <div className="mt-4 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="inline-block h-5 w-5 animate-spin rounded-full border-3 border-solid border-purple-600 border-r-transparent"></div>
+                      <span className="text-purple-900 font-medium">{t.checking}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* AI Evaluation Results */}
+                {evaluation && !isChecking && (
+                  <div className="mt-6 space-y-4">
+                    <h3 className="text-xl font-bold text-purple-900 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5" />
+                      {t.aiEvaluation}
+                    </h3>
+
+                    {/* Scores */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-blue-700">{evaluation.grammar_score}</div>
+                        <div className="text-xs text-blue-600 mt-1">{t.grammarScore}</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-green-50 to-green-100 p-3 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-green-700">{evaluation.topic_relevance_score}</div>
+                        <div className="text-xs text-green-600 mt-1">{t.topicRelevance}</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-3 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-orange-700">{evaluation.vocabulary_score}</div>
+                        <div className="text-xs text-orange-600 mt-1">{t.vocabularyScore}</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-purple-700">{evaluation.structure_score}</div>
+                        <div className="text-xs text-purple-600 mt-1">{t.structureScore}</div>
+                      </div>
+                    </div>
+
+                    {/* Overall Feedback */}
+                    <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-200">
+                      <CardHeader>
+                        <CardTitle className="text-base">{t.overallFeedback}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-700">{evaluation.overall_feedback}</p>
+                      </CardContent>
+                    </Card>
+
+                    {/* Grammar Errors */}
+                    {evaluation.grammar_errors && evaluation.grammar_errors.length > 0 && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base text-red-700">{t.grammarErrors}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {evaluation.grammar_errors.map((error, idx) => (
+                              <div key={idx} className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                                <div className="flex items-start gap-2 mb-2">
+                                  <AlertCircle className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                                  <div className="flex-1">
+                                    <div className="text-sm font-medium text-red-900 mb-1">
+                                      {t.error}: <span className="line-through">{error.error}</span>
+                                    </div>
+                                    <div className="text-sm font-medium text-green-900 mb-1">
+                                      {t.correction}: <span className="font-bold">{error.correction}</span>
+                                    </div>
+                                    <div className="text-xs text-gray-600">
+                                      {t.explanation}: {error.explanation}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+
+                    {/* Suggestions */}
+                    {evaluation.suggestions && evaluation.suggestions.length > 0 && (
+                      <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+                        <CardHeader>
+                          <CardTitle className="text-base text-green-700">{t.suggestions}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <ul className="space-y-2">
+                            {evaluation.suggestions.map((suggestion, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <CheckCircle2 className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                                <span className="text-sm text-gray-700">{suggestion}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    )}
                   </div>
                 )}
               </CardContent>

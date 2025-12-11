@@ -66,6 +66,7 @@ Rails.application.routes.draw do
         post :add_message
       end
     end
+    resources :writing_evaluations, only: [:create]
   end
 
   # API routes (public)
