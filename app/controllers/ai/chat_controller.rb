@@ -53,9 +53,9 @@ module Ai
       # Prepend system message if not already present
       messages_with_system = messages[0]&.dig("role") == "system" ? messages : [system_message] + messages
 
-      result = Ai::AkylaiService.chat_completion(
+      result = Ai::GeminiService.chat_completion(
         messages: messages_with_system,
-        model: "gpt-4",
+        model: "gemini-2.0-flash",
         temperature: 0.7
       )
 

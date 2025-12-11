@@ -3,7 +3,7 @@ module Ai
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
 
     class << self
-      def chat_completion(messages:, model: "gemini-1.5-flash-latest", temperature: 0.7)
+      def chat_completion(messages:, model: "gemini-2.0-flash", temperature: 0.7)
         # Convert OpenAI-style messages to Gemini format
         gemini_contents = convert_messages_to_gemini_format(messages)
 
@@ -41,7 +41,7 @@ module Ai
       end
 
       def api_key
-        ENV["GOOGLE_GEMINI_API_KEY"] || ENV["GEMINI_API_KEY"] || "AQ.Ab8RN6L2A0MHJgcD_oA7Vphl6Y2IKNYbceBxuDAuxp1xXo6IBA" || Rails.application.credentials.dig(:gemini, :api_key)
+        ENV["GOOGLE_GEMINI_API_KEY"] || ENV["GEMINI_API_KEY"] || "AIzaSyBpC4bMwnhToCbuGFLVQ7KxpouizujtJT4" || Rails.application.credentials.dig(:gemini, :api_key)
       end
 
       # Convert OpenAI message format to Gemini format
