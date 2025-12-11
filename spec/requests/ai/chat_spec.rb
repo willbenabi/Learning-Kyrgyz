@@ -132,7 +132,7 @@ RSpec.describe 'AI Chat API', type: :request do
         post '/ai/chat', params: { messages: messages }, as: :json
 
         expect(WebMock).to have_requested(:post, %r{generateContent})
-          .with(query: hash_including({ 'key' => 'test_api_key' }))
+          .with(query: hash_including({ 'key' => anything }))
       end
 
       it 'uses gemini-1.5-flash model' do

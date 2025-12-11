@@ -30,7 +30,8 @@ RSpec.describe Ai::GeminiService do
 
     before do
       allow(ENV).to receive(:[]).and_call_original
-      allow(ENV).to receive(:[]).with('GEMINI_API_KEY').and_return('test_api_key')
+      allow(ENV).to receive(:[]).with('GOOGLE_GEMINI_API_KEY').and_return('test_api_key')
+      allow(ENV).to receive(:[]).with('GEMINI_API_KEY').and_return(nil)
     end
 
     context 'when API request is successful' do
@@ -219,12 +220,23 @@ RSpec.describe Ai::GeminiService do
     end
 
     describe '.api_key' do
-      it 'reads from ENV variable' do
+      it 'reads from GOOGLE_GEMINI_API_KEY first' do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('GOOGLE_GEMINI_API_KEY').and_return('google_key')
+        allow(ENV).to receive(:[]).with('GEMINI_API_KEY').and_return('old_key')
+        expect(described_class.send(:api_key)).to eq('google_key')
+      end
+
+      it 'falls back to GEMINI_API_KEY if GOOGLE_GEMINI_API_KEY not set' do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('GOOGLE_GEMINI_API_KEY').and_return(nil)
         allow(ENV).to receive(:[]).with('GEMINI_API_KEY').and_return('env_key')
         expect(described_class.send(:api_key)).to eq('env_key')
       end
 
-      it 'falls back to Rails credentials' do
+      it 'falls back to Rails credentials if neither ENV variable set' do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('GOOGLE_GEMINI_API_KEY').and_return(nil)
         allow(ENV).to receive(:[]).with('GEMINI_API_KEY').and_return(nil)
         allow(Rails.application.credentials).to receive(:dig).with(:gemini, :api_key).and_return('creds_key')
         expect(described_class.send(:api_key)).to eq('creds_key')
