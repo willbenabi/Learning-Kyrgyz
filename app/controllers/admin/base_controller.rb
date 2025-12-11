@@ -3,11 +3,18 @@
 module Admin
   class BaseController < ApplicationController
     before_action :authenticate_user!
+    before_action :require_admin!
 
     # Handle unauthorized access in admin area
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     private
+
+    def require_admin!
+      unless current_user&.admin?
+        user_not_authorized
+      end
+    end
 
     def user_not_authorized
       # Distinguish between initial page loads and Inertia XHR requests

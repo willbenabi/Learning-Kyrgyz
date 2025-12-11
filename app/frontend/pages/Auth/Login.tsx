@@ -46,7 +46,7 @@ export default function Login({ return_to }: LoginProps) {
 
         if (refreshed) {
           // Refresh succeeded, redirect to intended destination
-          const redirectUrl = return_to || '/dashboard'
+          const redirectUrl = return_to || '/learning/dashboard'
           router.visit(redirectUrl, {
             replace: true,
             onError: () => {
@@ -66,7 +66,7 @@ export default function Login({ return_to }: LoginProps) {
 
       // Token exists and is not expired - redirect immediately
       if (!authService.isTokenExpired()) {
-        const redirectUrl = return_to || '/dashboard'
+        const redirectUrl = return_to || '/learning/dashboard'
         router.visit(redirectUrl, {
           replace: true,
           onError: () => {
@@ -102,7 +102,7 @@ export default function Login({ return_to }: LoginProps) {
       if (response.ok) {
         authService.handleLoginResponse(data)
         // Redirect to intended destination
-        const redirectUrl = return_to || '/dashboard'
+        const redirectUrl = return_to || '/learning/dashboard'
         router.visit(redirectUrl, { replace: true })
       } else {
         setError(data.error || 'Login failed')
