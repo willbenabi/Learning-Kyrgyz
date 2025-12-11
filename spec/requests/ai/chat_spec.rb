@@ -41,7 +41,7 @@ RSpec.describe 'AI Chat API', type: :request do
 
     context 'when not authenticated' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 200, body: gemini_response.to_json, headers: { 'Content-Type' => 'application/json' })
       end
 
@@ -65,7 +65,7 @@ RSpec.describe 'AI Chat API', type: :request do
 
     context 'when authenticated' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 200, body: gemini_response.to_json, headers: { 'Content-Type' => 'application/json' })
 
         # Mock authentication
@@ -99,7 +99,7 @@ RSpec.describe 'AI Chat API', type: :request do
 
     context 'with valid request' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 200, body: gemini_response.to_json, headers: { 'Content-Type' => 'application/json' })
       end
 
@@ -135,10 +135,10 @@ RSpec.describe 'AI Chat API', type: :request do
           .with(query: hash_including({ 'key' => anything }))
       end
 
-      it 'uses gemini-1.5-flash model' do
+      it 'uses gemini-1.5-flash-latest model' do
         post '/ai/chat', params: { messages: messages }, as: :json
 
-        expect(WebMock).to have_requested(:post, %r{models/gemini-1.5-flash:generateContent})
+        expect(WebMock).to have_requested(:post, %r{models/gemini-1.5-flash-latest:generateContent})
       end
     end
 
@@ -170,7 +170,7 @@ RSpec.describe 'AI Chat API', type: :request do
 
     context 'when Gemini API fails' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 500, body: { error: 'Internal Server Error' }.to_json)
       end
 
@@ -185,7 +185,7 @@ RSpec.describe 'AI Chat API', type: :request do
 
     context 'when network error occurs' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_raise(Faraday::ConnectionFailed.new('Connection refused'))
       end
 
@@ -208,7 +208,7 @@ RSpec.describe 'AI Chat API', type: :request do
       end
 
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 200, body: gemini_response.to_json, headers: { 'Content-Type' => 'application/json' })
       end
 
@@ -231,7 +231,7 @@ RSpec.describe 'AI Chat API', type: :request do
 
     context 'system prompt security' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 200, body: gemini_response.to_json, headers: { 'Content-Type' => 'application/json' })
       end
 

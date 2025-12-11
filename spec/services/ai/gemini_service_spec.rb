@@ -36,7 +36,7 @@ RSpec.describe Ai::GeminiService do
 
     context 'when API request is successful' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .with(
             query: hash_including({ 'key' => 'test_api_key' }),
             headers: { 'Content-Type' => 'application/json' }
@@ -159,7 +159,7 @@ RSpec.describe Ai::GeminiService do
 
     context 'when API request fails' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(status: 500, body: { error: 'Internal Server Error' }.to_json)
       end
 
@@ -179,7 +179,7 @@ RSpec.describe Ai::GeminiService do
 
     context 'when network error occurs' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_raise(Faraday::ConnectionFailed.new('Connection refused'))
       end
 
@@ -198,7 +198,7 @@ RSpec.describe Ai::GeminiService do
 
     context 'when response parsing fails' do
       before do
-        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent})
+        stub_request(:post, %r{https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent})
           .to_return(
             status: 200,
             body: { invalid: 'response' }.to_json,
