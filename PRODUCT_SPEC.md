@@ -271,6 +271,7 @@ Personalized content recommendations automatically adapt to user's current CEFR 
    - Ask grammar questions and get detailed explanations in Kyrgyz
    - Request word/phrase explanations with examples
    - Context-aware responses optimized for language learning
+   - **Persistent Chat History** - All conversations automatically saved to database
    - Message history with user/assistant bubbles
    - Timestamps for each message
    - Auto-scroll to latest message
@@ -278,7 +279,7 @@ Personalized content recommendations automatically adapt to user's current CEFR 
    - Bilingual interface (English/Russian)
    - Icon: MessageSquare
    - Opens via bottom navigation card
-   - No authentication required (works for all users)
+   - Authentication required for chat history persistence
 
    **AI Behavior Rules:**
    - Always responds in Kyrgyz language only
@@ -305,14 +306,32 @@ Personalized content recommendations automatically adapt to user's current CEFR 
    - Never provides backend/API technical details
    - Never generates unsafe content
 
+   **Chat History Persistence:**
+   - Conversations automatically saved to database with user scoping
+   - New conversation created when modal opens (for authenticated users)
+   - All user and assistant messages saved in real-time
+   - Conversation titles auto-generated from first user message
+   - Messages stored chronologically with timestamps
+   - Users can view and manage their conversation history
+   - Secure API endpoints (authentication required):
+     - GET `/ai/chat_conversations` - List user's conversations
+     - GET `/ai/chat_conversations/:id` - Get conversation with messages
+     - POST `/ai/chat_conversations` - Create new conversation
+     - POST `/ai/chat_conversations/:id/add_message` - Save message
+     - DELETE `/ai/chat_conversations/:id` - Delete conversation
+   - Database schema:
+     - `chat_conversations` table: user_id, title, last_message_at
+     - `chat_messages` table: conversation_id, role, content, created_at
+     - Indexed for performance on user_id and created_at
+
    **Technical Implementation:**
    - Gemini API integration with message format conversion
    - System prompt with comprehensive Kyrgyz language rules
    - User level integration for adaptive responses
-   - Comprehensive test coverage (17 service + 16 request specs)
+   - Comprehensive test coverage (17 service + 16 request + 14 model + 27 API specs = 74 total)
    - Powered by Google Gemini (https://ai.google.dev/)
 
-   **Status**: ✅ **COMPLETE** - Full integration with strict Kyrgyz-only AI assistant
+   **Status**: ✅ **COMPLETE** - Full integration with strict Kyrgyz-only AI assistant and persistent chat history
 
 2. **Technical Support Messaging System** ✅ **FULLY IMPLEMENTED (Level 2)**
    - Users can submit support messages with subject and detailed message
