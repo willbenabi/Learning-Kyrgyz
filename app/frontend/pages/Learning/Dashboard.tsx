@@ -12,16 +12,11 @@ import {
   Wrench,
   Flame,
   Trophy,
-  Star,
-  TrendingUp,
-  Film,
-  Headphones,
-  ExternalLink
+  TrendingUp
 } from 'lucide-react'
 import { getUserProgress } from '@/lib/progressHelper'
 import TechSupportModal from '@/components/TechSupportModal'
 import AIAssistantModal from '@/components/AIAssistantModal'
-import { getRecommendationsForLevel } from '@/data/levelRecommendations'
 import DailyVideoRecommendations from '@/components/DailyVideoRecommendations'
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
@@ -47,7 +42,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
   const [progress, setProgress] = useState<UserProgress | null>(userProgress || null)
   const [showTechSupport, setShowTechSupport] = useState(false)
   const [showAIAssistant, setShowAIAssistant] = useState(false)
-  const [showRecommendations, setShowRecommendations] = useState(false)
 
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
 
@@ -55,9 +49,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
     en: {
       welcome: 'Welcome to Learning Kyrgyz',
       subtitle: 'Start your journey to mastery',
-      recommendedContent: 'Recommended for You',
-      viewRecommendations: 'View Recommendations',
-      hideRecommendations: 'Hide Recommendations',
       modules: 'Learning Modules',
       grammar: 'Grammar',
       grammarDesc: 'Master Kyrgyz grammar rules',
@@ -84,9 +75,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
     ru: {
       welcome: 'Добро пожаловать в изучение кыргызского',
       subtitle: 'Начните свой путь к мастерству',
-      recommendedContent: 'Рекомендовано для вас',
-      viewRecommendations: 'Посмотреть рекомендации',
-      hideRecommendations: 'Скрыть рекомендации',
       modules: 'Модули обучения',
       grammar: 'Грамматика',
       grammarDesc: 'Освойте правила кыргызской грамматики',
@@ -146,8 +134,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
     )
   }
 
-  const levelRecommendations = getRecommendationsForLevel((progress?.level || 'A1') as any, language)
-
   const modules = [
     {
       icon: BookOpen,
@@ -193,156 +179,6 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
         {/* Daily Video Recommendations */}
         <DailyVideoRecommendations level={progress.level} language={language} />
 
-        {/* Level-Based Recommendations */}
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Star className="w-5 h-5" />
-                  {t.recommendedContent}
-                </CardTitle>
-                <p className="text-white/90 text-sm mt-1">{levelRecommendations.description[language]}</p>
-              </div>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => setShowRecommendations(!showRecommendations)}
-              >
-                {showRecommendations ? t.hideRecommendations : t.viewRecommendations}
-              </Button>
-            </div>
-          </CardHeader>
-          {showRecommendations && (
-            <CardContent className="space-y-6">
-              {/* Listening */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Headphones className="w-5 h-5" />
-                  <h3 className="font-semibold text-lg">{language === 'en' ? 'Listening' : 'Слушание'}</h3>
-                </div>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {levelRecommendations.listening.map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all group"
-                    >
-                      {item.imageUrl && (
-                        <div className="w-full h-32 mb-3 rounded-md overflow-hidden bg-white/5">
-                          <img
-                            src={item.imageUrl}
-                            alt={item.title[language]}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none'
-                            }}
-                          />
-                        </div>
-                      )}
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <h4 className="font-semibold text-white text-sm line-clamp-2">{item.title[language]}</h4>
-                        <ExternalLink className="w-4 h-4 flex-shrink-0 text-white/70 group-hover:text-white" />
-                      </div>
-                      <p className="text-white/80 text-xs line-clamp-2">{item.description[language]}</p>
-                      <Badge variant="secondary" className="mt-2 text-xs">
-                        {item.type === 'song' && (language === 'en' ? 'Song' : 'Песня')}
-                        {item.type === 'podcast' && (language === 'en' ? 'Podcast' : 'Подкаст')}
-                        {item.type === 'news' && (language === 'en' ? 'News' : 'Новости')}
-                      </Badge>
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Reading */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="w-5 h-5" />
-                  <h3 className="font-semibold text-lg">{language === 'en' ? 'Reading' : 'Чтение'}</h3>
-                </div>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {levelRecommendations.reading.map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all group"
-                    >
-                      {item.imageUrl && (
-                        <div className="w-full h-32 mb-3 rounded-md overflow-hidden bg-white/5">
-                          <img
-                            src={item.imageUrl}
-                            alt={item.title[language]}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none'
-                            }}
-                          />
-                        </div>
-                      )}
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <h4 className="font-semibold text-white text-sm line-clamp-2">{item.title[language]}</h4>
-                        <ExternalLink className="w-4 h-4 flex-shrink-0 text-white/70 group-hover:text-white" />
-                      </div>
-                      <p className="text-white/80 text-xs line-clamp-2">{item.description[language]}</p>
-                      <Badge variant="secondary" className="mt-2 text-xs">
-                        {item.type === 'book' && (language === 'en' ? 'Book' : 'Книга')}
-                        {item.type === 'article' && (language === 'en' ? 'Article' : 'Статья')}
-                        {item.type === 'news' && (language === 'en' ? 'News' : 'Новости')}
-                      </Badge>
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Watching */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Film className="w-5 h-5" />
-                  <h3 className="font-semibold text-lg">{language === 'en' ? 'Watching' : 'Просмотр'}</h3>
-                </div>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {levelRecommendations.watching.map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all group"
-                    >
-                      {item.imageUrl && (
-                        <div className="w-full h-32 mb-3 rounded-md overflow-hidden bg-white/5">
-                          <img
-                            src={item.imageUrl}
-                            alt={item.title[language]}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none'
-                            }}
-                          />
-                        </div>
-                      )}
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <h4 className="font-semibold text-white text-sm line-clamp-2">{item.title[language]}</h4>
-                        <ExternalLink className="w-4 h-4 flex-shrink-0 text-white/70 group-hover:text-white" />
-                      </div>
-                      <p className="text-white/80 text-xs line-clamp-2">{item.description[language]}</p>
-                      <Badge variant="secondary" className="mt-2 text-xs">
-                        {item.type === 'video' && (language === 'en' ? 'Video' : 'Видео')}
-                        {item.type === 'film' && (language === 'en' ? 'Film' : 'Фильм')}
-                        {item.type === 'news' && (language === 'en' ? 'News' : 'Новости')}
-                      </Badge>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          )}
-        </Card>
 
         {/* Progress Stats */}
         <Card>
