@@ -9,7 +9,7 @@ class Admin::SupportMessagesController < Admin::BaseController
     message = SupportMessage.find(params[:id])
     message.mark_as_read!
 
-    render json: { message: 'Message marked as read', support_message: serialize_message(message) }
+    redirect_to admin_support_messages_path, notice: 'Message marked as read'
   end
 
   # DELETE /admin/support_messages/:id
@@ -17,7 +17,7 @@ class Admin::SupportMessagesController < Admin::BaseController
     message = SupportMessage.find(params[:id])
     message.destroy!
 
-    render json: { message: 'Message deleted successfully' }
+    redirect_to admin_support_messages_path, notice: 'Message deleted successfully'
   end
 
   private

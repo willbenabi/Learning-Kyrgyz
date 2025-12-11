@@ -2,7 +2,6 @@ import { router } from '@inertiajs/react'
 import { useState } from 'react'
 import {
   MessageSquare,
-  Check,
   Trash2Icon,
   Mail,
   MailOpen,
@@ -232,8 +231,10 @@ export default function AdminSupportMessagesIndex({
                                     variant="outline"
                                     size="sm"
                                     onClick={() => handleMarkAsRead(message)}
+                                    className="gap-2"
                                   >
-                                    <Check className="h-4 w-4" />
+                                    <MailOpen className="h-4 w-4" />
+                                    Mark Read
                                   </Button>
                                 )}
                                 <Button
