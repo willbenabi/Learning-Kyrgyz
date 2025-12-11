@@ -2,14 +2,9 @@ import { Link } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import {
   Sparkles,
-  Zap,
   Shield,
-  Database,
-  Code2,
   ArrowRight,
-  UserCog,
-  Plug,
-  Bot
+  UserCog
 } from 'lucide-react'
 
 export default function Landing() {
@@ -38,12 +33,6 @@ export default function Landing() {
       {/* Hero Section */}
       <main className="container mx-auto px-4 pt-32 pb-16">
         <div className="flex flex-col items-center text-center">
-          {/* Animated Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm animate-fade-in">
-            <Zap className="size-4 text-primary" />
-            <span className="text-muted-foreground">Build production-ready apps in minutes</span>
-          </div>
-
           {/* Main Headline */}
           <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
             Master the Kyrgyz Language{' '}
@@ -73,36 +62,8 @@ export default function Landing() {
             </Link>
           </div>
 
-          {/* Tech Stack */}
-          <div className="mt-16 w-full max-w-4xl">
-            <p className="mb-6 text-sm font-medium text-muted-foreground uppercase tracking-wide">
-              Built with modern technology
-            </p>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {[
-                { name: 'Frontend + Backend', icon: Code2 },
-                { name: 'Built-in Database', icon: Database },
-                { name: 'Integrations', icon: Plug },
-                { name: 'AI agents', icon: Bot },
-              ].map((tech) => (
-                <div
-                  key={tech.name}
-                  className="flex flex-col items-center gap-2 rounded-lg border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-md"
-                >
-                  <tech.icon className="size-6 text-primary" />
-                  <span className="text-sm font-medium">{tech.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Features Section */}
           <div className="mt-24 w-full max-w-6xl">
-            <h2 className="mb-4 text-3xl font-bold">Everything you need to build faster</h2>
-            <p className="mb-12 text-lg text-muted-foreground">
-              A complete starter template with all the essentials
-            </p>
-
             <div className="grid gap-8 md:grid-cols-3">
               {[
                 {
