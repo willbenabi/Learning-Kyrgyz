@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { router } from '@inertiajs/react'
 
 import {
+  HomeIcon,
   UserIcon,
   LogOutIcon,
   Monitor,
@@ -75,6 +76,10 @@ const ProfileDropdown = ({ trigger, user, defaultOpen, align = 'end' }: Props) =
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
+          <DropdownMenuItem className='px-4 py-2.5 text-base' onClick={() => router.visit('/learning/dashboard')}>
+            <HomeIcon className='text-foreground size-5' />
+            <span>Dashboard</span>
+          </DropdownMenuItem>
           <DropdownMenuItem className='px-4 py-2.5 text-base' onClick={() => router.visit('/profile')}>
             <UserIcon className='text-foreground size-5' />
             <span>Profile</span>
