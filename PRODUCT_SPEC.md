@@ -157,7 +157,10 @@
 **Frontend Display:**
 
 - Prominent purple gradient card on main dashboard
+- **Collapsible interface** - Expand/collapse toggle to save dashboard space
+- Default state: collapsed (minimized) to reduce visual clutter
 - Icon-based content type indicators (BookOpen, Headphones, Film)
+- **Real working URLs** to Kyrgyz resources (YouTube, okuma.kg, kitep.kg, Azaттык, 24.kg, КТРК)
 - External links to recommended resources
 - Category badges for content types
 - Loading states and error handling
@@ -168,7 +171,8 @@
 
 - Rake task for daily generation: `bin/rails daily_recommendations:generate`
 - Automatic cleanup of old recommendations (7+ days)
-- AI service with level-specific prompts in Kyrgyz context
+- AI service with level-specific prompts requesting real URLs
+- AI explicitly instructed to provide working links from Kyrgyz resources
 - JSON parsing from AI responses
 - Database storage with date and level indexing
 
