@@ -25,8 +25,12 @@ puts "Creating regular users..."
   )
 end
 
+# Load video recommendations
+load Rails.root.join('db', 'seeds', 'video_recommendations.rb')
+
 puts "\n✅ Seed data created successfully!"
 puts "\nLogin credentials:"
 puts "  Admin: admin@example.com / password123"
 puts "  Regular Users: user1@example.com - user5@example.com / password123"
 puts "\nTotal users created: #{User.count}"
+puts "Total video recommendations: #{VideoRecommendation.count}"

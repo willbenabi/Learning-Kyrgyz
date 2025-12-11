@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_11_125649) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_11_144410) do
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "achievement_type", null: false
@@ -295,6 +295,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_11_125649) do
     t.integer "password_version", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+  end
+
+  create_table "video_recommendations", force: :cascade do |t|
+    t.string "level", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "video_url", null: false
+    t.string "thumbnail_url", null: false
+    t.string "category"
+    t.boolean "active", default: true, null: false
+    t.datetime "last_shown_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_video_recommendations_on_active"
+    t.index ["last_shown_at"], name: "index_video_recommendations_on_last_shown_at"
+    t.index ["level"], name: "index_video_recommendations_on_level"
   end
 
   add_foreign_key "achievements", "users"

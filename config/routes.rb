@@ -68,6 +68,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # API routes (public)
+  namespace :api do
+    get "/daily-recommendations", to: "daily_recommendations#index"
+  end
+
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
 
@@ -84,6 +89,11 @@ Rails.application.routes.draw do
     resources :support_messages, only: [ :index, :destroy ] do
       member do
         patch :mark_as_read
+      end
+    end
+    resources :video_recommendations do
+      member do
+        patch :toggle_active
       end
     end
     resources :audit_logs, only: [ :index ]
