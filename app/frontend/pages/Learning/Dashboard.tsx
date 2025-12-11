@@ -185,18 +185,18 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
         </div>
         {/* Profile Button */}
         {currentUser && (
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-6 right-6 z-50">
             <ProfileDropdown
               user={currentUser}
               trigger={
-                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-primary-foreground/10">
+                <button className="flex items-center justify-center h-14 w-14 rounded-full bg-primary-foreground/20 hover:bg-primary-foreground/30 transition-all border-2 border-primary-foreground/40 cursor-pointer">
                   <Avatar className="h-12 w-12">
                     <AvatarImage src={currentUser.avatar_url || undefined} alt={currentUser.name} />
-                    <AvatarFallback className="bg-primary-foreground text-primary text-lg font-semibold">
+                    <AvatarFallback className="bg-primary-foreground text-primary text-lg font-bold">
                       {getUserInitials(currentUser.name)}
                     </AvatarFallback>
                   </Avatar>
-                </Button>
+                </button>
               }
             />
           </div>
