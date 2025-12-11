@@ -3,6 +3,7 @@ import {
   LayoutDashboardIcon,
   Users,
   ScrollText,
+  MessageSquare,
 } from "lucide-react"
 import { Link } from "@inertiajs/react"
 
@@ -21,6 +22,7 @@ interface User {
   name: string
   email: string
   admin: boolean
+  unread_support_messages_count?: number
 }
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
@@ -33,6 +35,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
     url: string
     icon: typeof LayoutDashboardIcon
     activePattern?: string
+    badge?: string | number
   }> = [
     {
       title: "Dashboard",
@@ -49,6 +52,15 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
         url: "/admin/users",
         icon: Users,
         activePattern: "/admin/users",
+      },
+      {
+        title: "Support",
+        url: "/admin/support_messages",
+        icon: MessageSquare,
+        activePattern: "/admin/support_messages",
+        badge: user.unread_support_messages_count && user.unread_support_messages_count > 0
+          ? user.unread_support_messages_count
+          : undefined
       },
       {
         title: "Audit Logs",

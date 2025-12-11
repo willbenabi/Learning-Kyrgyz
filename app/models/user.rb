@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_one :user_progress, dependent: :destroy
   has_many :lesson_completions, dependent: :destroy
   has_many :achievements, dependent: :destroy
+  has_many :support_messages, dependent: :destroy
 
   # Initialize progress after user creation
   after_create :initialize_progress

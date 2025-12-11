@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
           name: current_user.name,
           email: current_user.email,
           admin: current_user.admin?,
-          avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil
+          avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil,
+          unread_support_messages_count: current_user.admin? ? SupportMessage.unread.count : 0
         } : nil
       },
       flash: {

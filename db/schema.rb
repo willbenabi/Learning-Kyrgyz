@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_29_204714) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_11_111550) do
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "achievement_type", null: false
@@ -232,6 +232,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_29_204714) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "support_messages", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "subject", null: false
+    t.text "message", null: false
+    t.string "status", default: "unread", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["read_at"], name: "index_support_messages_on_read_at"
+    t.index ["status"], name: "index_support_messages_on_status"
+    t.index ["user_id"], name: "index_support_messages_on_user_id"
+  end
+
   create_table "user_progresses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "level", default: "A1", null: false
@@ -275,5 +288,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_29_204714) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "support_messages", "users"
   add_foreign_key "user_progresses", "users"
 end

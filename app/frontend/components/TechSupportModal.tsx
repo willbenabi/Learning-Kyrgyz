@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 import { Wrench, Send, CheckCircle2 } from 'lucide-react'
 
 interface TechSupportModalProps {
@@ -12,16 +13,20 @@ interface TechSupportModalProps {
 }
 
 export default function TechSupportModal({ open, onClose, language }: TechSupportModalProps) {
+  const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const translations = {
     en: {
       title: 'Technical Support',
       description: 'Describe your issue and we\'ll help you',
-      label: 'Your Message',
-      placeholder: 'Please describe the problem you\'re experiencing...',
+      subjectLabel: 'Subject',
+      subjectPlaceholder: 'Brief description of the issue',
+      messageLabel: 'Your Message',
+      messagePlaceholder: 'Please describe the problem you\'re experiencing...',
       submit: 'Send',
       success: 'Thank you! We\'ll review your message and get back to you soon.',
       close: 'Close'
@@ -29,8 +34,10 @@ export default function TechSupportModal({ open, onClose, language }: TechSuppor
     ru: {
       title: 'Техническая поддержка',
       description: 'Опишите вашу проблему, и мы обязательно поможем',
-      label: 'Ваше сообщение',
-      placeholder: 'Пожалуйста, опишите проблему, с которой вы столкнулись...',
+      subjectLabel: 'Тема',
+      subjectPlaceholder: 'Краткое описание проблемы',
+      messageLabel: 'Ваше сообщение',
+      messagePlaceholder: 'Пожалуйста, опишите проблему, с которой вы столкнулись...',
       submit: 'Отправить',
       success: 'Спасибо! Мы обязательно разберемся с этой проблемой.',
       close: 'Закрыть'
@@ -40,21 +47,46 @@ export default function TechSupportModal({ open, onClose, language }: TechSuppor
   const t = translations[language]
 
   const handleSubmit = async () => {
-    if (!message.trim()) return
+    if (!subject.trim() || !message.trim()) return
 
     setIsSubmitting(true)
+    setError('')
 
-    // Level 1: Just show success message (mock)
-    // Level 2: Send to backend
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch('/support_messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+        body: JSON.stringify({
+          support_message: {
+            subject: subject.trim(),
+            message: message.trim()
+          }
+        }),
+      })
 
-    setSubmitted(true)
-    setIsSubmitting(false)
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitted(true)
+      } else {
+        setError(data.errors?.join(', ') || 'Failed to send message')
+      }
+    } catch (err) {
+      setError('An error occurred while sending your message')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleClose = () => {
+    setSubject('')
     setMessage('')
     setSubmitted(false)
+    setError('')
     onClose()
   }
 
@@ -75,13 +107,30 @@ export default function TechSupportModal({ open, onClose, language }: TechSuppor
 
         {!submitted ? (
           <div className="space-y-4">
+            {error && (
+              <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                {error}
+              </div>
+            )}
+
             <div className="space-y-2">
-              <Label htmlFor="message">{t.label}</Label>
+              <Label htmlFor="subject">{t.subjectLabel}</Label>
+              <Input
+                id="subject"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                placeholder={t.subjectPlaceholder}
+                maxLength={255}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="message">{t.messageLabel}</Label>
               <Textarea
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder={t.placeholder}
+                placeholder={t.messagePlaceholder}
                 rows={6}
                 className="resize-none"
               />
@@ -91,7 +140,7 @@ export default function TechSupportModal({ open, onClose, language }: TechSuppor
               <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>
                 {t.close}
               </Button>
-              <Button onClick={handleSubmit} disabled={!message.trim() || isSubmitting}>
+              <Button onClick={handleSubmit} disabled={!subject.trim() || !message.trim() || isSubmitting}>
                 <Send className="w-4 h-4 mr-2" />
                 {t.submit}
               </Button>

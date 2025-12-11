@@ -1,6 +1,7 @@
 import * as React from "react"
 import { type LucideIcon } from "lucide-react"
 import { Link, usePage } from "@inertiajs/react"
+import { Badge } from "@/components/ui/badge"
 
 import {
   SidebarGroup,
@@ -20,6 +21,7 @@ export function NavMain({
     url: string
     icon?: LucideIcon
     activePattern?: string  // Optional: custom pattern for matching active state
+    badge?: string | number
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const { url } = usePage()
@@ -40,6 +42,11 @@ export function NavMain({
                   <Link href={item.url}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
+                    {item.badge !== undefined && (
+                      <Badge variant="destructive" className="ml-auto h-5 min-w-5 px-1 text-xs">
+                        {item.badge}
+                      </Badge>
+                    )}
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

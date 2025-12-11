@@ -62,11 +62,19 @@ Rails.application.routes.draw do
   # Profile routes (authenticated users)
   resource :profile, only: [ :show, :edit, :update ]
 
+  # Support messages (authenticated users)
+  resources :support_messages, only: [ :create ]
+
   # Admin routes (super_admin only)
   namespace :admin do
     resources :users do
       member do
         post :resend_invitation
+      end
+    end
+    resources :support_messages, only: [ :index, :destroy ] do
+      member do
+        patch :mark_as_read
       end
     end
     resources :audit_logs, only: [ :index ]
