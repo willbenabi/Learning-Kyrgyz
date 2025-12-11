@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_11_111550) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_11_125649) do
   create_table "achievements", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "achievement_type", null: false
@@ -73,6 +73,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_11_111550) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "chat_conversations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title"
+    t.datetime "last_message_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "last_message_at"], name: "index_chat_conversations_on_user_id_and_last_message_at"
+    t.index ["user_id"], name: "index_chat_conversations_on_user_id"
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.integer "chat_conversation_id", null: false
+    t.string "role", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_conversation_id", "created_at"], name: "index_chat_messages_on_chat_conversation_id_and_created_at"
+    t.index ["chat_conversation_id"], name: "index_chat_messages_on_chat_conversation_id"
   end
 
   create_table "lesson_completions", force: :cascade do |t|
@@ -280,6 +300,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_11_111550) do
   add_foreign_key "achievements", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chat_conversations", "users"
+  add_foreign_key "chat_messages", "chat_conversations"
   add_foreign_key "lesson_completions", "users"
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

@@ -1,7 +1,15 @@
 FactoryBot.define do
   factory :chat_message do
-    chat_conversation { nil }
-    role { "MyString" }
-    content { "MyText" }
+    association :chat_conversation
+    role { "user" }
+    content { "Test message content" }
+
+    trait :assistant do
+      role { "assistant" }
+    end
+
+    trait :system do
+      role { "system" }
+    end
   end
 end

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { router } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -40,6 +40,9 @@ interface DashboardProps {
 }
 
 export default function LearningDashboard({ userProgress }: DashboardProps) {
+  const { props } = usePage()
+  const currentUser = props.auth?.user
+
   const [progress, setProgress] = useState<UserProgress | null>(userProgress || null)
   const [showTechSupport, setShowTechSupport] = useState(false)
   const [showAIAssistant, setShowAIAssistant] = useState(false)
@@ -473,6 +476,7 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
           open={showAIAssistant}
           onClose={() => setShowAIAssistant(false)}
           language={language}
+          userId={currentUser?.id}
         />
       </div>
     </div>

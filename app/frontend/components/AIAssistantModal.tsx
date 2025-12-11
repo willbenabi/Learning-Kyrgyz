@@ -9,6 +9,7 @@ interface AIAssistantModalProps {
   open: boolean
   onClose: () => void
   language: 'en' | 'ru'
+  userId?: number
 }
 
 interface Message {
@@ -18,10 +19,11 @@ interface Message {
   timestamp: Date
 }
 
-export default function AIAssistantModal({ open, onClose, language }: AIAssistantModalProps) {
+export default function AIAssistantModal({ open, onClose, language, userId }: AIAssistantModalProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [conversationId, setConversationId] = useState<number | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const translations = {
@@ -47,9 +49,43 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
 
   const t = translations[language]
 
-  // Initialize with welcome message
+  // Initialize conversation when modal opens
   useEffect(() => {
-    if (open && messages.length === 0) {
+    if (open && !conversationId && userId) {
+      createConversation()
+    }
+  }, [open])
+
+  // Create new conversation
+  const createConversation = async () => {
+    try {
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+      const response = await fetch('/ai/chat_conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken || ''
+        }
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setConversationId(data.conversation.id)
+
+        // Add welcome message
+        setMessages([{
+          id: '1',
+          role: 'assistant',
+          content: t.welcome,
+          timestamp: new Date()
+        }])
+
+        // Save welcome message to database
+        await saveMessage(data.conversation.id, 'assistant', t.welcome)
+      }
+    } catch (error) {
+      console.error('Failed to create conversation:', error)
+      // Still show welcome message even if save fails
       setMessages([{
         id: '1',
         role: 'assistant',
@@ -57,7 +93,24 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
         timestamp: new Date()
       }])
     }
-  }, [open])
+  }
+
+  // Save message to database
+  const saveMessage = async (convId: number, role: string, content: string) => {
+    try {
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+      await fetch(`/ai/chat_conversations/${convId}/add_message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken || ''
+        },
+        body: JSON.stringify({ role, content })
+      })
+    } catch (error) {
+      console.error('Failed to save message:', error)
+    }
+  }
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -80,6 +133,11 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
     setMessages(prev => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
+
+    // Save user message to database
+    if (conversationId) {
+      await saveMessage(conversationId, 'user', userMessage.content)
+    }
 
     try {
       // Prepare messages for API (only role and content)
@@ -116,6 +174,11 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
       }
 
       setMessages(prev => [...prev, assistantMessage])
+
+      // Save assistant message to database
+      if (conversationId) {
+        await saveMessage(conversationId, 'assistant', assistantMessage.content)
+      }
     } catch (error) {
       console.error('AI chat error:', error)
 
