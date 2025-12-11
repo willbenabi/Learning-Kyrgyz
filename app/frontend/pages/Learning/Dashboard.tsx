@@ -22,6 +22,7 @@ import { getUserProgress } from '@/lib/progressHelper'
 import TechSupportModal from '@/components/TechSupportModal'
 import AIAssistantModal from '@/components/AIAssistantModal'
 import { getRecommendationsForLevel } from '@/data/levelRecommendations'
+import DailyVideoRecommendations from '@/components/DailyVideoRecommendations'
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
 
@@ -189,6 +190,9 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        {/* Daily Video Recommendations */}
+        <DailyVideoRecommendations level={progress.level} language={language} />
+
         {/* Level-Based Recommendations */}
         <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0">
           <CardHeader>
