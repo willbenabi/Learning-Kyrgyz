@@ -3,7 +3,7 @@ module Ai
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
 
     class << self
-      def chat_completion(messages:, model: "gemini-1.5-flash", temperature: 0.7)
+      def chat_completion(messages:, model: "gemini-1.5-flash-latest", temperature: 0.7)
         # Convert OpenAI-style messages to Gemini format
         gemini_contents = convert_messages_to_gemini_format(messages)
 

@@ -30,18 +30,18 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
       description: 'Practice Kyrgyz with AI - ask questions, have conversations',
       placeholder: 'Type your message in Kyrgyz...',
       send: 'Send',
-      poweredBy: 'Powered by OpenAI',
+      poweredBy: 'Powered by Gemini',
       learnMore: 'Learn more',
-      welcome: 'Салам! I\'m your AI assistant for learning Kyrgyz. Ask me anything in Kyrgyz or get help with translations!'
+      welcome: 'Саламатсызбы! Мен сиздин кыргыз тилин үйрөнүүгө жардам берүүчү AI ассистентмин. Кыргызча суроолорду бергиле же котормого жардам алгыла!'
     },
     ru: {
       title: 'AI Ассистент по кыргызскому',
       description: 'Практикуйте кыргызский с AI - задавайте вопросы, общайтесь',
       placeholder: 'Напишите сообщение на кыргызском...',
       send: 'Отправить',
-      poweredBy: 'Работает на OpenAI',
+      poweredBy: 'Работает на Gemini',
       learnMore: 'Узнать больше',
-      welcome: 'Салам! Я ваш AI ассистент для изучения кыргызского языка. Задавайте любые вопросы на кыргызском или просите помощь с переводами!'
+      welcome: 'Саламатсызбы! Мен сиздин кыргыз тилин үйрөнүүгө жардам берүүчү AI ассистентмин. Кыргызча суроолорду бергиле же котормого жардам алгыла!'
     }
   }
 
@@ -110,8 +110,8 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.message || (language === 'en'
-          ? 'Sorry, I could not generate a response.'
-          : 'Извините, я не смог сгенерировать ответ.'),
+          ? 'Кечиресиз, жооп түзүүгө болбоду.'
+          : 'Кечиресиз, жооп түзүүгө болбоду.'),
         timestamp: new Date()
       }
 
@@ -124,8 +124,8 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: language === 'en'
-          ? 'Sorry, there was an error connecting to the AI service. Please try again.'
-          : 'Извините, произошла ошибка при подключении к AI сервису. Пожалуйста, попробуйте еще раз.',
+          ? 'Кечиресиз, AI кызматына туташууда ката кетти. Кайра аракет кылгыла.'
+          : 'Кечиресиз, AI кызматына туташууда ката кетти. Кайра аракет кылгыла.',
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])
@@ -209,7 +209,7 @@ export default function AIAssistantModal({ open, onClose, language }: AIAssistan
           </form>
           <div className="mt-2 text-center">
             <a
-              href="https://openai.com/"
+              href="https://gemini.google.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-gray-500 hover:text-gray-700"

@@ -55,7 +55,7 @@ module Ai
 
       result = Ai::GeminiService.chat_completion(
         messages: messages_with_system,
-        model: "gemini-1.5-flash",
+        model: "gemini-1.5-flash-latest",
         temperature: 0.7
       )
 
