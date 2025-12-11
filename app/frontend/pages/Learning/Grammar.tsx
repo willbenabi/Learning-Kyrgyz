@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react'
-import { router } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { BookOpen, FileText, ArrowRight, CheckCircle2, ArrowLeft, Check } from 'lucide-react'
 import { COMPREHENSIVE_GRAMMAR_LESSONS as GRAMMAR_LESSONS, getLessonsByLevel, type Level, type GrammarLesson } from '@/data/comprehensiveGrammarLessons'
-import { completeLesson, isLessonCompleted, getCompletedLessonsForLevel } from '@/lib/progressHelper'
+import { trackLessonCompletion } from '@/lib/progressTracker'
+import authService from '@/lib/auth'
+import * as localProgress from '@/lib/progressHelper'
+import * as dbProgress from '@/lib/progressApi'
 
 export default function GrammarPage() {
+  const { props } = usePage()
+  const currentUser = props.auth?.user
+
   const [userLevel, setUserLevel] = useState<Level>('A1')
   const [selectedLesson, setSelectedLesson] = useState<GrammarLesson | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
+  const [completedLessons, setCompletedLessons] = useState<string[]>([])
+  const [loading, setLoading] = useState(true)
   const language = (localStorage.getItem('interface_language') || 'en') as 'en' | 'ru'
 
   const translations = {
@@ -55,17 +63,45 @@ export default function GrammarPage() {
   const t = translations[language]
 
   useEffect(() => {
-    // Load user level from localStorage
-    const level = localStorage.getItem('user_level') as Level | null
-    if (level) {
-      setUserLevel(level)
+    const loadProgress = async () => {
+      // Load user level from localStorage
+      const level = localStorage.getItem('user_level') as Level | null
+      if (level) {
+        setUserLevel(level)
+      }
+
+      // Load completed lessons based on authentication
+      if (currentUser && authService.getToken() && !authService.isTokenExpired()) {
+        // Authenticated user - load from database
+        try {
+          await dbProgress.refreshProgressCache()
+          const completed = dbProgress.getCompletedLessons('grammar')
+          setCompletedLessons(completed)
+        } catch (error) {
+          console.error('Failed to load progress from database:', error)
+          // Fall back to localStorage
+          const localCompleted = localProgress.getCompletedLessonsForLevel(level || 'A1', 'grammar')
+          setCompletedLessons(localCompleted)
+        }
+      } else {
+        // Guest user - load from localStorage
+        const localCompleted = localProgress.getCompletedLessonsForLevel(level || 'A1', 'grammar')
+        setCompletedLessons(localCompleted)
+      }
+
+      setLoading(false)
     }
-  }, [])
+
+    loadProgress()
+  }, [currentUser, refreshKey])
 
   const lessons = getLessonsByLevel(userLevel)
   const syntaxLessons = lessons.filter(l => l.category === 'syntax')
   const morphologyLessons = lessons.filter(l => l.category === 'morphology')
   const finalTest = lessons.find(l => l.category === 'final_test')
+
+  // Helper function to check if lesson is completed
+  const isLessonCompleted = (lessonId: string) => completedLessons.includes(lessonId)
 
   // Check if all regular lessons are completed
   const regularLessons = [...syntaxLessons, ...morphologyLessons]
@@ -436,9 +472,14 @@ function LessonView({
                       </Button>
                     )}
                     {showResult && currentExercise === lesson.quiz.length - 1 && (
-                      <Button onClick={() => {
+                      <Button onClick={async () => {
                         // Mark lesson as completed
-                        completeLesson(lesson.id, 'grammar')
+                        await trackLessonCompletion({
+                          moduleType: 'grammar',
+                          lessonId: lesson.id,
+                          score: undefined,
+                          timeSpent: undefined
+                        })
                         if (onComplete) {
                           onComplete()
                         } else {
