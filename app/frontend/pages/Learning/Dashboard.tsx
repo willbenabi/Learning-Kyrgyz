@@ -18,6 +18,8 @@ import { getUserProgress } from '@/lib/progressHelper'
 import TechSupportModal from '@/components/TechSupportModal'
 import AIAssistantModal from '@/components/AIAssistantModal'
 import AIRecommendations from '@/components/AIRecommendations'
+import ProfileDropdown from '@/components/shadcn-studio/blocks/dropdown-profile'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1'
 
@@ -165,14 +167,40 @@ export default function LearningDashboard({ userProgress }: DashboardProps) {
     }
   ]
 
+  const getUserInitials = (name: string): string => {
+    const parts = name.trim().split(/\s+/)
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    }
+    return name.substring(0, 2).toUpperCase()
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
-      <div className="bg-primary text-primary-foreground py-8 px-4">
+      <div className="bg-primary text-primary-foreground py-8 px-4 relative">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold mb-2">{t.welcome}</h1>
           <p className="text-lg opacity-90">{t.subtitle}</p>
         </div>
+        {/* Profile Button */}
+        {currentUser && (
+          <div className="absolute top-4 right-4">
+            <ProfileDropdown
+              user={currentUser}
+              trigger={
+                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-primary-foreground/10">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={currentUser.avatar_url || undefined} alt={currentUser.name} />
+                    <AvatarFallback className="bg-primary-foreground text-primary text-lg font-semibold">
+                      {getUserInitials(currentUser.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              }
+            />
+          </div>
+        )}
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
