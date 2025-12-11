@@ -311,8 +311,8 @@ Personalized content recommendations automatically adapt to user's current CEFR 
 
 **Interactive Support Features** ✅ **FULLY IMPLEMENTED**
 
-1. **AI Assistant Chat Modal** ✅ **FULLY IMPLEMENTED (Level 3)** (Google Gemini Integration)
-   - Real-time AI-powered chat using Google Gemini 1.5 Flash
+1. **AI Assistant Chat Modal** ✅ **FULLY IMPLEMENTED (Level 3)** (AkylAI Integration)
+   - Real-time AI-powered chat using AkylAI GPT-4
    - **Strict Kyrgyz-only responses** - AI always responds in Kyrgyz regardless of user's input language
    - Adaptive conversation complexity based on user's CEFR level (A1-C2)
    - Practice conversations in Kyrgyz with instant AI feedback
@@ -373,11 +373,11 @@ Personalized content recommendations automatically adapt to user's current CEFR 
      - Indexed for performance on user_id and created_at
 
    **Technical Implementation:**
-   - Gemini API integration with message format conversion
+   - AkylAI API integration with OpenAI-compatible format
    - System prompt with comprehensive Kyrgyz language rules
    - User level integration for adaptive responses
    - Comprehensive test coverage (17 service + 16 request + 14 model + 27 API specs = 74 total)
-   - Powered by Google Gemini (https://ai.google.dev/)
+   - Powered by AkylAI (https://api.akylai.kg/)
 
    **Status**: ✅ **COMPLETE** - Full integration with strict Kyrgyz-only AI assistant and persistent chat history
 
