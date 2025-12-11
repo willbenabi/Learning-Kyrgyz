@@ -34,7 +34,7 @@ class Admin::SupportMessagesController < Admin::BaseController
 
     {
       support_messages: paginated_messages.map { |msg| serialize_message(msg) },
-      pagination: pagy_metadata(pagy),
+      pagination: pagination_props(pagy),
       unread_count: SupportMessage.unread.count,
       stats: {
         total: SupportMessage.count,
