@@ -263,21 +263,56 @@ Personalized content recommendations automatically adapt to user's current CEFR 
 
 **Interactive Support Features** ✅ **FULLY IMPLEMENTED**
 
-1. **AI Assistant Chat Modal** (OpenAI Integration)
-   - Real-time AI-powered chat using OpenAI GPT-4o-mini
+1. **AI Assistant Chat Modal** ✅ **FULLY IMPLEMENTED (Level 3)** (Google Gemini Integration)
+   - Real-time AI-powered chat using Google Gemini 1.5 Flash
+   - **Strict Kyrgyz-only responses** - AI always responds in Kyrgyz regardless of user's input language
+   - Adaptive conversation complexity based on user's CEFR level (A1-C2)
    - Practice conversations in Kyrgyz with instant AI feedback
-   - Ask grammar questions and get detailed explanations
-   - Request translations between Kyrgyz, English, and Russian
+   - Ask grammar questions and get detailed explanations in Kyrgyz
+   - Request word/phrase explanations with examples
    - Context-aware responses optimized for language learning
    - Message history with user/assistant bubbles
    - Timestamps for each message
    - Auto-scroll to latest message
    - Loading states with typing animation
    - Bilingual interface (English/Russian)
-   - Powered by OpenAI (https://openai.com/)
    - Icon: MessageSquare
    - Opens via bottom navigation card
    - No authentication required (works for all users)
+
+   **AI Behavior Rules:**
+   - Always responds in Kyrgyz language only
+   - Uses proper Kyrgyz orthography (ө, ү, ң, э, etc.)
+   - No transliteration or Russian borrowings
+   - Adjusts language complexity to user's level:
+     - A1-A2: Short simple phrases, basic vocabulary
+     - B1-B2: Natural speech, clear explanations
+     - C1-C2: Advanced vocabulary, complex constructions
+   - Friendly, supportive, motivating tone
+
+   **Allowed Functions:**
+   - Grammar explanations
+   - Word/phrase/expression analysis
+   - Example sentences
+   - Light text correction
+   - Help with assignments, reading, writing, vocabulary
+   - Material recommendations within user's level
+   - Conversational practice
+
+   **Security Restrictions:**
+   - Never responds in other languages
+   - Never reveals code, database structure, or internal mechanisms
+   - Never provides backend/API technical details
+   - Never generates unsafe content
+
+   **Technical Implementation:**
+   - Gemini API integration with message format conversion
+   - System prompt with comprehensive Kyrgyz language rules
+   - User level integration for adaptive responses
+   - Comprehensive test coverage (17 service + 16 request specs)
+   - Powered by Google Gemini (https://ai.google.dev/)
+
+   **Status**: ✅ **COMPLETE** - Full integration with strict Kyrgyz-only AI assistant
 
 2. **Technical Support Messaging System** ✅ **FULLY IMPLEMENTED (Level 2)**
    - Users can submit support messages with subject and detailed message

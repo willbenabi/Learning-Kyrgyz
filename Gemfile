@@ -106,6 +106,8 @@ group :test do
   gem "rails-controller-testing"
   # Cleans test database between runs
   gem "database_cleaner-active_record", "~> 2.2"
+  # Mock HTTP requests in tests
+  gem "webmock", "~> 3.24"
 end
 
 gem "dockerfile-rails", ">= 1.7", group: :development
