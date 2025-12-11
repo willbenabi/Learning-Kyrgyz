@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
 import { PenTool, BookOpen, ArrowRight, ArrowLeft, Save, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react'
 import { WRITING_PROMPTS, getPromptsByLevel, type Level, type WritingPrompt } from '@/data/writingPrompts'
+import authService from '@/lib/auth'
 
 interface AIEvaluation {
   grammar_score: number
@@ -236,12 +237,19 @@ function WritingView({
     setEvaluation(null)
 
     try {
+      const token = authService.getToken()
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+      }
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+
       const response = await fetch('/ai/writing_evaluations', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-        },
+        headers,
         body: JSON.stringify({
           text: text,
           prompt_title: prompt.title[language],
@@ -256,9 +264,16 @@ function WritingView({
         setEvaluation(data.evaluation)
       } else {
         console.error('Evaluation error:', data.error)
+        // Show error to user
+        alert(language === 'ru'
+          ? `Ошибка: ${data.error || 'Не удалось получить оценку. Попробуйте снова.'}`
+          : `Error: ${data.error || 'Failed to get evaluation. Please try again.'}`)
       }
     } catch (error) {
       console.error('Failed to get AI evaluation:', error)
+      alert(language === 'ru'
+        ? 'Не удалось связаться с сервером. Проверьте подключение к интернету.'
+        : 'Failed to connect to server. Please check your internet connection.')
     } finally {
       setIsChecking(false)
     }

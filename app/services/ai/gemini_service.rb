@@ -41,7 +41,7 @@ module Ai
       end
 
       def api_key
-        ENV["GOOGLE_GEMINI_API_KEY"] || ENV["GEMINI_API_KEY"] || "AIzaSyBpC4bMwnhToCbuGFLVQ7KxpouizujtJT4" || Rails.application.credentials.dig(:gemini, :api_key)
+        ENV["GOOGLE_GEMINI_API_KEY"] || ENV["GEMINI_API_KEY"] || "AIzaSyAb8RN6L_Byv3eiA5M42yHTzQotKuatQ7uqW8t5x3Lugf2_08Uw" || Rails.application.credentials.dig(:gemini, :api_key)
       end
 
       # Convert OpenAI message format to Gemini format
