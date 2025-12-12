@@ -86,7 +86,7 @@ group :development, :test do
   gem "annotaterb", "~> 4.14"
 
   # Load environment variables from .env file
-  gem "dotenv-rails", "~> 3.1"
+  gem "dotenv-rails", "~> 3.2"
 end
 
 group :development do
