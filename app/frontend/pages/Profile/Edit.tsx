@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { router } from '@inertiajs/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 interface User {
   id: number
@@ -68,6 +69,20 @@ export default function EditProfile({ user }: EditProfileProps) {
   const [avatar, setAvatar] = useState<File | null>(null)
   const [avatarPreview, setAvatarPreview] = useState<string | null>(user.avatar_url || null)
   const [error, setError] = useState('')
+  const [interfaceLanguage, setInterfaceLanguage] = useState<'en' | 'ru'>('en')
+
+  useEffect(() => {
+    const lang = localStorage.getItem('interface_language') as 'en' | 'ru' | null
+    if (lang) {
+      setInterfaceLanguage(lang)
+    }
+  }, [])
+
+  const handleLanguageChange = (value: 'en' | 'ru') => {
+    setInterfaceLanguage(value)
+    localStorage.setItem('interface_language', value)
+    window.location.reload()
+  }
 
   const getUserInitials = (name: string): string => {
     const parts = name.trim().split(/\s+/)
@@ -224,6 +239,31 @@ export default function EditProfile({ user }: EditProfileProps) {
                   {formErrors.password_confirmation && (
                     <p className="text-sm text-destructive">{formErrors.password_confirmation.message}</p>
                   )}
+                </div>
+
+                <Separator />
+
+                <div className="space-y-4">
+                  <div>
+                    <Label>Interface Language</Label>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Choose your preferred language for the interface
+                    </p>
+                  </div>
+                  <RadioGroup value={interfaceLanguage} onValueChange={handleLanguageChange}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="en" id="lang-en" />
+                      <Label htmlFor="lang-en" className="cursor-pointer font-normal">
+                        English
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="ru" id="lang-ru" />
+                      <Label htmlFor="lang-ru" className="cursor-pointer font-normal">
+                        Русский (Russian)
+                      </Label>
+                    </div>
+                  </RadioGroup>
                 </div>
 
                 <div className="flex gap-4">

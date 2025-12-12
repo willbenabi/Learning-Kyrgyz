@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { router, Link } from '@inertiajs/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,19 +15,68 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import authService from '@/lib/auth'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
-const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  password_confirmation: z.string().min(8, 'Password confirmation is required'),
-  country: z.string().optional(),
-}).refine((data) => data.password === data.password_confirmation, {
-  message: "Passwords don't match",
-  path: ['password_confirmation'],
-})
+const translations = {
+  en: {
+    createAccount: 'Create Your Account',
+    startJourney: 'Start your Kyrgyz language learning journey',
+    name: 'Name',
+    namePlaceholder: 'Your full name',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    password: 'Password',
+    passwordPlaceholder: 'At least 8 characters',
+    confirmPassword: 'Confirm Password',
+    confirmPasswordPlaceholder: 'Repeat your password',
+    country: 'Country (Optional)',
+    countryPlaceholder: 'Select your country',
+    createAccountButton: 'Create Account',
+    creatingAccount: 'Creating account...',
+    alreadyHaveAccount: 'Already have an account? ',
+    signIn: 'Sign in',
+    registrationFailed: 'Registration failed',
+    registrationError: 'An error occurred during registration',
+    nameMin: 'Name must be at least 2 characters',
+    emailInvalid: 'Please enter a valid email address',
+    passwordMin: 'Password must be at least 8 characters',
+    passwordConfirmationRequired: 'Password confirmation is required',
+    passwordsDontMatch: "Passwords don't match"
+  },
+  ru: {
+    createAccount: 'Создайте аккаунт',
+    startJourney: 'Начните свое путешествие в мир кыргызского языка',
+    name: 'Имя',
+    namePlaceholder: 'Ваше полное имя',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    password: 'Пароль',
+    passwordPlaceholder: 'Минимум 8 символов',
+    confirmPassword: 'Подтвердите пароль',
+    confirmPasswordPlaceholder: 'Повторите пароль',
+    country: 'Страна (Необязательно)',
+    countryPlaceholder: 'Выберите страну',
+    createAccountButton: 'Создать аккаунт',
+    creatingAccount: 'Создание аккаунта...',
+    alreadyHaveAccount: 'Уже есть аккаунт? ',
+    signIn: 'Войти',
+    registrationFailed: 'Ошибка регистрации',
+    registrationError: 'Произошла ошибка при регистрации',
+    nameMin: 'Имя должно содержать минимум 2 символа',
+    emailInvalid: 'Введите корректный email',
+    passwordMin: 'Пароль должен содержать минимум 8 символов',
+    passwordConfirmationRequired: 'Требуется подтверждение пароля',
+    passwordsDontMatch: 'Пароли не совпадают'
+  }
+}
 
-type RegisterFormData = z.infer<typeof registerSchema>
+type RegisterFormData = {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
+  country?: string
+}
 
 const COUNTRIES = [
   { value: 'KG', label: 'Kyrgyzstan' },
@@ -46,6 +95,27 @@ const COUNTRIES = [
 export default function Register() {
   const [error, setError] = useState('')
   const [selectedCountry, setSelectedCountry] = useState<string>('')
+  const [language, setLanguage] = useState<'en' | 'ru'>('en')
+
+  useEffect(() => {
+    const lang = localStorage.getItem('interface_language') as 'en' | 'ru' | null
+    if (lang) {
+      setLanguage(lang)
+    }
+  }, [])
+
+  const t = translations[language]
+
+  const registerSchema = z.object({
+    name: z.string().min(2, t.nameMin),
+    email: z.string().email(t.emailInvalid),
+    password: z.string().min(8, t.passwordMin),
+    password_confirmation: z.string().min(8, t.passwordConfirmationRequired),
+    country: z.string().optional(),
+  }).refine((data) => data.password === data.password_confirmation, {
+    message: t.passwordsDontMatch,
+    path: ['password_confirmation'],
+  })
 
   const { register, handleSubmit, formState: { errors: formErrors, isSubmitting }, setValue } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -72,19 +142,22 @@ export default function Register() {
         // Redirect to language selection
         router.visit('/onboarding/language', { replace: true })
       } else {
-        setError(data.error || 'Registration failed')
+        setError(data.error || t.registrationFailed)
       }
     } catch (err) {
-      setError('An error occurred during registration')
+      setError(t.registrationError)
     }
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/50">
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Create Your Account</CardTitle>
-          <CardDescription>Start your Kyrgyz language learning journey</CardDescription>
+          <CardTitle className="text-2xl">{t.createAccount}</CardTitle>
+          <CardDescription>{t.startJourney}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -95,11 +168,11 @@ export default function Register() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">{t.name}</Label>
               <Input
                 id="name"
                 type="text"
-                placeholder="Your full name"
+                placeholder={t.namePlaceholder}
                 data-testid="register-name-input"
                 {...register('name')}
               />
@@ -109,11 +182,11 @@ export default function Register() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t.email}</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t.emailPlaceholder}
                 data-testid="register-email-input"
                 {...register('email')}
               />
@@ -123,11 +196,11 @@ export default function Register() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t.password}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="At least 8 characters"
+                placeholder={t.passwordPlaceholder}
                 data-testid="register-password-input"
                 {...register('password')}
               />
@@ -137,11 +210,11 @@ export default function Register() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password_confirmation">Confirm Password</Label>
+              <Label htmlFor="password_confirmation">{t.confirmPassword}</Label>
               <Input
                 id="password_confirmation"
                 type="password"
-                placeholder="Repeat your password"
+                placeholder={t.confirmPasswordPlaceholder}
                 data-testid="register-password-confirmation-input"
                 {...register('password_confirmation')}
               />
@@ -151,7 +224,7 @@ export default function Register() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="country">Country (Optional)</Label>
+              <Label htmlFor="country">{t.country}</Label>
               <Select
                 value={selectedCountry}
                 onValueChange={(value) => {
@@ -160,7 +233,7 @@ export default function Register() {
                 }}
               >
                 <SelectTrigger id="country" data-testid="register-country-select">
-                  <SelectValue placeholder="Select your country" />
+                  <SelectValue placeholder={t.countryPlaceholder} />
                 </SelectTrigger>
                 <SelectContent>
                   {COUNTRIES.map((country) => (
@@ -178,13 +251,13 @@ export default function Register() {
               disabled={isSubmitting}
               data-testid="register-submit-button"
             >
-              {isSubmitting ? 'Creating account...' : 'Create Account'}
+              {isSubmitting ? t.creatingAccount : t.createAccountButton}
             </Button>
 
             <div className="text-center text-sm">
-              <span className="text-muted-foreground">Already have an account? </span>
+              <span className="text-muted-foreground">{t.alreadyHaveAccount}</span>
               <Link href="/login" className="text-primary hover:underline">
-                Sign in
+                {t.signIn}
               </Link>
             </div>
           </form>

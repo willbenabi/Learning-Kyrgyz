@@ -8,21 +8,76 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import authService from '@/lib/auth'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 interface LoginProps {
   return_to?: string
 }
 
-const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(1, 'Password is required'),
-})
+type LoginFormData = {
+  email: string
+  password: string
+}
 
-type LoginFormData = z.infer<typeof loginSchema>
+const translations = {
+  en: {
+    welcomeBack: 'Welcome Back',
+    signInDescription: 'Sign in to your account to continue',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    password: 'Password',
+    passwordPlaceholder: '••••••••',
+    signIn: 'Sign In',
+    signingIn: 'Signing in...',
+    forgotPassword: 'Forgot your password?',
+    noAccount: "Don't have an account? ",
+    registerHere: 'Register here',
+    loginFailed: 'Login failed',
+    loginError: 'An error occurred during login',
+    emailRequired: 'Email is required',
+    emailInvalid: 'Please enter a valid email',
+    passwordRequired: 'Password is required',
+    passwordMin: 'Password must be at least 6 characters'
+  },
+  ru: {
+    welcomeBack: 'С возвращением',
+    signInDescription: 'Войдите в свой аккаунт, чтобы продолжить',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    password: 'Пароль',
+    passwordPlaceholder: '••••••••',
+    signIn: 'Войти',
+    signingIn: 'Вход...',
+    forgotPassword: 'Забыли пароль?',
+    noAccount: 'Нет аккаунта? ',
+    registerHere: 'Зарегистрируйтесь здесь',
+    loginFailed: 'Ошибка входа',
+    loginError: 'Произошла ошибка при входе',
+    emailRequired: 'Email обязателен',
+    emailInvalid: 'Введите корректный email',
+    passwordRequired: 'Пароль обязателен',
+    passwordMin: 'Пароль должен содержать минимум 6 символов'
+  }
+}
 
 export default function Login({ return_to }: LoginProps) {
   const [error, setError] = useState('')
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+  const [language, setLanguage] = useState<'en' | 'ru'>('en')
+
+  useEffect(() => {
+    const lang = localStorage.getItem('interface_language') as 'en' | 'ru' | null
+    if (lang) {
+      setLanguage(lang)
+    }
+  }, [])
+
+  const t = translations[language]
+
+  const loginSchema = z.object({
+    email: z.string().min(1, t.emailRequired).email(t.emailInvalid),
+    password: z.string().min(6, t.passwordMin),
+  })
 
   const { register, handleSubmit, formState: { errors: formErrors, isSubmitting } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -105,10 +160,10 @@ export default function Login({ return_to }: LoginProps) {
         const redirectUrl = return_to || '/learning/dashboard'
         router.visit(redirectUrl, { replace: true })
       } else {
-        setError(data.error || 'Login failed')
+        setError(data.error || t.loginFailed)
       }
     } catch (err) {
-      setError('An error occurred during login')
+      setError(t.loginError)
     }
   }
 
@@ -123,10 +178,13 @@ export default function Login({ return_to }: LoginProps) {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/50">
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Sign in to your account to continue</CardDescription>
+          <CardTitle className="text-2xl">{t.welcomeBack}</CardTitle>
+          <CardDescription>{t.signInDescription}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -137,11 +195,11 @@ export default function Login({ return_to }: LoginProps) {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t.email}</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t.emailPlaceholder}
                 {...register('email')}
               />
               {formErrors.email && (
@@ -150,11 +208,11 @@ export default function Login({ return_to }: LoginProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t.password}</Label>
               <Input
                 id="password"
-                type="password"
-                placeholder="••••••••"
+type="password"
+                placeholder={t.passwordPlaceholder}
                 {...register('password')}
               />
               {formErrors.password && (
@@ -163,19 +221,19 @@ export default function Login({ return_to }: LoginProps) {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Signing in...' : 'Sign In'}
+              {isSubmitting ? t.signingIn : t.signIn}
             </Button>
 
             <div className="text-center text-sm space-y-2">
               <div>
                 <Link href="/password/forgot" className="text-muted-foreground hover:text-primary">
-                  Forgot your password?
+                  {t.forgotPassword}
                 </Link>
               </div>
               <div>
-                <span className="text-muted-foreground">Don't have an account? </span>
+                <span className="text-muted-foreground">{t.noAccount}</span>
                 <Link href="/register" className="text-primary hover:underline">
-                  Register here
+                  {t.registerHere}
                 </Link>
               </div>
             </div>
