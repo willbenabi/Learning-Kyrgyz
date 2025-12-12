@@ -105,6 +105,9 @@ Rails.application.routes.draw do
   # Dashboard (authenticated users)
   get :dashboard, to: "dashboard#index"
 
+  # Language selection (shown before landing page)
+  get "/home", to: "home#landing"
+
   # Root path - smart redirect based on authentication
   root to: "home#index"
 
