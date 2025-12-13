@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title inertia><%= content_for(:title) || "Starter Base Inertia" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csp_meta_tag %>
+
+    <%#
+      DARK MODE FLASH PREVENTION (FOUC)
+
+      This inline <style> + <script> block prevents the flash of unstyled content (FOUC)
+      when switching between light/dark themes. This is the industry-standard approach
+      used by Next.js (next-themes), Remix, and other modern frameworks.
+
+      WHY IT MUST BE HERE:
+      - Script runs BEFORE page renders (blocking)
+      - Inline styles load BEFORE external CSS
+      - Can't use external files (too slow)
+      - Can't use CSS variables (not defined yet)
+      - MUST hardcode color values to match --sidebar variable
+
+      HOW IT WORKS:
+      1. Inline <style> sets background colors based on .dark class
+      2. Script reads theme from localStorage
+      3. Script adds .dark class to <html> if needed
+      4. Browser paints with correct colors immediately
+      5. React/CSS loads and takes over
+
+      Reference: https://github.com/pacocoursey/next-themes
+    %>
+    <style>
+      /* Prevent white flash - colors match --background variable from application.css (corporate theme) */
+      html, body {
+        background-color: oklch(0.98 0 0); /* Light mode: --background */
+      }
+      html.dark, html.dark body {
+        background-color: oklch(0.26 0.03 262.67); /* Dark mode: --background */
+      }
+    </style>
+
+    <script>
+      // Apply theme class immediately (blocking script)
+      try {
+        const theme = localStorage.getItem('ui-theme') || 'system';
+        const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= vite_react_refresh_tag %>
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag "inertia.tsx" %>
+    <%= inertia_ssr_head %>
+    <!--
+      If using a TypeScript entrypoint file:
+        vite_typescript_tag 'application'
+
+      If using a .jsx or .tsx entrypoint, add the extension:
+        vite_javascript_tag 'application.jsx'
+
+      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
+    -->
+
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

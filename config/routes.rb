@@ -1,0 +1,135 @@
+Rails.application.routes.draw do
+  # Letter Opener Web (development only)
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+  # Health check
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # API routes
+  namespace :api do
+    # Frontend error telemetry
+    resources :frontend_errors, only: [:create]
+  end
+
+  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+
+  # Authentication routes
+  get "/login", to: "sessions#new", as: :login
+  get "/register", to: "registrations#new", as: :register
+  post "/register", to: "registrations#create"
+  resource :session, only: [ :create, :destroy ] do
+    post :refresh, on: :collection
+  end
+
+  # Password reset routes
+  namespace :password do
+    get :forgot, to: "reset#new"
+    post :forgot, to: "reset#forgot"
+    get :reset, to: "reset#show"
+    put :reset, to: "reset#update"
+  end
+
+  # Invitation routes (public)
+  get "/invitations/:token", to: "invitations#show", as: :accept_invitation
+  post "/invitations/:token/accept", to: "invitations#accept"
+
+  # Onboarding routes (public)
+  get "/onboarding/language", to: "onboarding#language"
+  post "/onboarding/language", to: "onboarding#set_language"
+  get "/onboarding/level-choice", to: "onboarding#level_choice"
+  get "/onboarding/manual-level-select", to: "onboarding#manual_level_select"
+  post "/onboarding/set-level", to: "onboarding#set_level"
+  get "/onboarding/placement-test", to: "onboarding#placement_test"
+  post "/onboarding/placement-test/results", to: "onboarding#submit_test"
+  get "/onboarding/diagnostics", to: "onboarding#diagnostics"
+
+  # Learning routes (public for Level 1)
+  get "/learning/dashboard", to: "learning#dashboard"
+  get "/learning/grammar", to: "learning#grammar"
+  get "/learning/reading", to: "learning#reading"
+  get "/learning/writing", to: "learning#writing"
+  get "/learning/vocabulary", to: "learning#vocabulary"
+
+  # Progress tracking routes
+  get "/learning/progress", to: "learning/progress#index"
+  namespace :learning do
+    resource :progress, only: [:show], controller: 'progress' do
+      post :complete_lesson, on: :collection
+      post :add_vocabulary, on: :collection
+      post :update_level, on: :collection
+      get :upgrade_eligibility, on: :collection
+      post :upgrade, on: :collection
+    end
+  end
+
+  # Grammar Exam routes
+  resources :grammar_exams, only: [:new, :create] do
+    collection do
+      post :generate
+      post :submit
+    end
+    member do
+      get :results
+    end
+  end
+
+  # AI Chat routes (public for Level 1)
+  post "/ai/chat", to: "ai/chat#create"
+
+  # AI Chat Conversations (authenticated users)
+  namespace :ai do
+    resources :chat_conversations, only: [:index, :show, :create, :destroy] do
+      member do
+        post :add_message
+      end
+    end
+    resources :writing_evaluations, only: [:create]
+  end
+
+  # API routes (public)
+  namespace :api do
+    get "/daily-recommendations", to: "daily_recommendations#index"
+    get "/ai-recommendations", to: "ai_recommendations#index"
+  end
+
+  # Profile routes (authenticated users)
+  resource :profile, only: [ :show, :edit, :update ]
+
+  # Support messages (authenticated users)
+  resources :support_messages, only: [ :create ]
+
+  # Admin routes (super_admin only)
+  namespace :admin do
+    resources :users do
+      member do
+        post :resend_invitation
+      end
+    end
+    resources :support_messages, only: [ :index, :destroy ] do
+      member do
+        patch :mark_as_read
+      end
+    end
+    resources :video_recommendations do
+      member do
+        patch :toggle_active
+      end
+    end
+    resources :audit_logs, only: [ :index ]
+    get :console, to: "console#index"
+  end
+
+  # Dashboard (authenticated users)
+  get :dashboard, to: "dashboard#index"
+
+  # Language selection (shown before landing page)
+  get "/home", to: "home#landing"
+
+  # Root path - smart redirect based on authentication
+  root to: "home#index"
+
+  # Example Inertia route (can be removed later)
+  get "inertia-example", to: "inertia_example#index"
+end
